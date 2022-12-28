@@ -1,15 +1,28 @@
 {
+  "author": "Evgenii Seleznev",
   "name": "messenger",
   "version": "1.0.0",
-  "description": "",
+  "description": "messenger yandex practicum",
   "main": "index.js",
-  "scripts": {
-    "dev": "parcel index.html",
-    "build": "parcel build index.html"
+
+  "engines": {
+    "node": ">= 18.12.1"
   },
-  "author": "Evgenii Seleznev",
+
+  "scripts": {
+    "clean-dist": "rm -rf dist && mkdir dist",
+    "init": "npm run clean-dist",
+    "dev": "npm run init && parcel ./src/index.hbs",
+    "build": "npm run init && parcel build ./src/index.hbs"
+  },
+
+
   "license": "ISC",
+  "browserslist": "> 0.5%, last 2 versions, not dead",
+
   "devDependencies": {
-    "parcel": "^2.8.2"
+    "@parcel/transformer-sass": "^2.8.2",
+    "parcel": "^2.8.2",
+    "parcel-transformer-handlebars": "^1.0.0"
   }
 }
