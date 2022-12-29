@@ -1,7 +1,7 @@
 {
   "extends": "@parcel/config-default",
   "transformers": {
-    "*.sass": ["@parcel/transformer-sass"],
-    "*.hbs": ["parcel-transformer-handlebars"]
-  }
+    "*.sass": ["@parcel/transformer-sass"]
+  },
+  "namers": ["parcel-namer-rewrite"]
 }

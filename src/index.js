@@ -1,4 +1,15 @@
-import {sum} from './modules/sum';
+import { navigateTo } from "./services/navigator";
+import { initNavigator } from "./services/navigator";
+import { urlSeparator, home } from "./routes";
+import { first } from "./utils";
 
-const root = document.querySelector('#root');
-root.textContent = sum(6, -1).toString(); 
+(function init() {
+  const href = initNavigator();
+  const routs = href.split(urlSeparator);
+
+  const isRoot = first(routs) === home;
+  console.log("isRoot:", isRoot);
+
+  // TODO if have not creds redirect to login;
+  navigateTo("/");
+})();

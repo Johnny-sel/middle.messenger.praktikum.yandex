@@ -1,5 +1,5 @@
-@import "./assets/css/normalize.sass"
-@import "./assets/css/reset.sass"
+@import "./styles/normalize.sass"
+@import "./styles/reset.sass"
 
 $primary: #de48b5
 $secondary: #0097ff
@@ -9,57 +9,52 @@ $title: #4f46a5
 $text: #00000066
 
 @font-face
-  font-family: "Rubik"
+  font-family: Rubik
   font-weight: 400
   font-style: normal
   font-display: swap
   // for support any browser
-  src: url("./assets/fonts/Rubik-Regular.eot?#iefix") format("embedded-opentype")
-  src: url("./assets/fonts/Rubik-Regular.eot") format("eot")
-  src: url("./assets/fonts/Rubik-Regular.otf") format("opentype")
-  src: url("./assets/fonts/Rubik-Regular.svg") format("svg")
-  src: url("./assets/fonts/Rubik-Regular.ttf") format("truetype")
-  src: url("./assets/fonts/Rubik-Regular.woff") format("woff")
-  src: url("./assets/fonts/Rubik-Regular.woff2") format("woff2")
+  src: url("./../static/fonts/regular/Rubik-Regular.eot?#iefix") format("embedded-opentype")
+  src: url("./../static/fonts/regular/Rubik-Regular.eot") format("eot")
+  src: url("./../static/fonts/regular/Rubik-Regular.otf") format("opentype")
+  src: url("./../static/fonts/regular/Rubik-Regular.svg") format("svg")
+  src: url("./../static/fonts/regular/Rubik-Regular.ttf") format("truetype")
+  src: url("./../static/fonts/regular/Rubik-Regular.woff") format("woff")
+  src: url("./../static/fonts/regular/Rubik-Regular.woff2") format("woff2")
 
 @font-face
-  font-family: "Rubik"
+  font-family: Rubik
   font-weight: 400
   font-style: italic
   font-display: swap
-    // for support any browser
-  src: url("./assets/fonts/Rubik-Italic.eot?#iefix") format("embedded-opentype")
-  src: url("./assets/fonts/Rubik-Italic.eot") format("eot")
-  src: url("./assets/fonts/Rubik-Italic.otf") format("opentype")
-  src: url("./assets/fonts/Rubik-Italic.svg") format("svg")
-  src: url("./assets/fonts/Rubik-Italic.ttf") format("truetype")
-  src: url("./assets/fonts/Rubik-Italic.woff") format("woff")
-  src: url("./assets/fonts/Rubik-Italic.woff2") format("woff2")
+  // for support any browser
+  src: url("./../static/fonts/italic/Rubik-Italic.eot?#iefix") format("embedded-opentype")
+  src: url("./../static/fonts/italic/Rubik-Italic.eot") format("eot")
+  src: url("./../static/fonts/italic/Rubik-Italic.otf") format("opentype")
+  src: url("./../static/fonts/italic/Rubik-Italic.svg") format("svg")
+  src: url("./../static/fonts/italic/Rubik-Italic.ttf") format("truetype")
+  src: url("./../static/fonts/italic/Rubik-Italic.woff") format("woff")
+  src: url("./../static/fonts/italic/Rubik-Italic.woff2") format("woff2")
 
 @font-face
-  font-family: "Rubik"
+  font-family: Rubik
   font-weight: 700
   font-style: normal
   font-display: swap
   // for support any browser
-  src: url("./assets/fonts/Rubik-Bold.eot?#iefix") format("embedded-opentype")
-  src: url("./assets/fonts/Rubik-Bold.eot") format("eot")
-  src: url("./assets/fonts/Rubik-Bold.otf") format("opentype")
-  src: url("./assets/fonts/Rubik-Bold.svg") format("svg")
-  src: url("./assets/fonts/Rubik-Bold.ttf") format("truetype")
-  src: url("./assets/fonts/Rubik-Bold.woff") format("woff")
-  src: url("./assets/fonts/Rubik-Bold.woff2") format("woff2")
+  src: url("./../static/fonts/bold/Rubik-Bold.eot?#iefix") format("embedded-opentype")
+  src: url("./../static/fonts/bold/Rubik-Bold.eot") format("eot")
+  src: url("./../static/fonts/bold/Rubik-Bold.otf") format("opentype")
+  src: url("./../static/fonts/bold/Rubik-Bold.svg") format("svg")
+  src: url("./../static/fonts/bold/Rubik-Bold.ttf") format("truetype")
+  src: url("./../static/fonts/bold/Rubik-Bold.woff") format("woff")
+  src: url("./../static/fonts/bold/Rubik-Bold.woff2") format("woff2")
 
 html
   font-size: 10px
-  font-family: "Rubik", sans-serif
+  font-family: Rubik, sans-serif
 
-h1,
-h2,
-h3,
-h4,
-h5,
-h6
+h1, h2, h3, h4, h5, h6
   color: $title
 
 h1
@@ -67,21 +62,18 @@ h1
   font-weight: bold
 
 h2
-  font-size: 2.2rem
-
-h3,
-h4
   font-size: 2.0rem
 
-h5,
-h6
+h3, h4
+  font-size: 2.0rem
+
+h5, h6
   font-size: 1.8rem
 
 a
   color: $link
   font-size: 1.4rem
 
-span,
-p
+p, span
   font-size: 1.4rem
   color: $text
