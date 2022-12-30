@@ -1,15 +1,14 @@
-import { navigateTo } from "./services/navigator";
-import { initNavigator } from "./services/navigator";
-import { urlSeparator, home } from "./routes";
-import { first } from "./utils";
+import { HomePage, LoginPage, LogoutPage } from "./pages";
+import { RouterDOM } from "./services/router";
 
 (function init() {
-  const href = initNavigator();
-  const routs = href.split(urlSeparator);
+  const routes = [
+    { path: "/", component: HomePage },
+    { path: "/login", component: LoginPage },
+    { path: "/logout", component: LogoutPage },
+  ];
 
-  const isRoot = first(routs) === home;
-  console.log("isRoot:", isRoot);
+  const routerDom = new RouterDOM(document.querySelector("#root"), routes);
 
-  // TODO if have not creds redirect to login;
-  navigateTo("/");
+  routerDom.render();
 })();
