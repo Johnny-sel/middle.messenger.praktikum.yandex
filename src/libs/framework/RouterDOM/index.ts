@@ -1,7 +1,12 @@
-import { last, penultimate } from "../utils";
+import { last, penultimate } from "../../utils/";
+import { IComponentConstructable, IRouterDOM } from "../types";
 
-export class RouterDOM {
-  constructor(root, routes) {
+export class RouterDOM implements IRouterDOM {
+  routes: any[];
+  stack: any[];
+  root: HTMLElement;
+
+  constructor(root: HTMLElement, routes: any[]) {
     this.routes = routes;
     this.root = root;
     this.stack = [];
@@ -12,8 +17,7 @@ export class RouterDOM {
     this.navigateTo(window.location.pathname);
   }
 
-  navigateTo(path, { clickFromToolbar } = {}) {
-    path = path.startsWith("/") ? path : "/" + path;
+  navigateTo(path: string, { clickFromToolbar }: any | undefined = {}) {
     const route = this.routes.find(route => route.path === path);
     const isChecked = this._checkRoute(route);
 
@@ -26,11 +30,11 @@ export class RouterDOM {
     console.info("[RouterDOM]: stack ", this.stack);
   }
 
-  _renderPage(Component) {
+  _renderPage(Component: IComponentConstructable) {
     const component = new Component(this); // когда создаем компонету, передаем туда RouterDOM
     const element = document.createElement("div");
 
-    const node = component._reborn(); // сюда приходит отформатированая компонента
+    const node = component.reborn(); // сюда приходит отформатированая компонента
     const rootChild = this.root.firstChild;
 
     element.innerHTML = node.render();
@@ -44,10 +48,14 @@ export class RouterDOM {
 
   _checkRoute(route) {
     const isRouteExist = this.routes.includes(route);
-    const path = route.path.startsWith("/") ? route?.path : "/" + route?.path;
 
     if (!isRouteExist) {
       this._printError("define route in index.js");
+      return false;
+    }
+
+    if (!route.path.startsWith("/")) {
+      this._printError("route shoulde be start with '/'");
       return false;
     }
 
@@ -56,12 +64,12 @@ export class RouterDOM {
       return false;
     }
 
-    if (typeof path !== "string") {
+    if (typeof route.path !== "string") {
       this._printError("route shoulde be string");
       return false;
     }
 
-    if (path == last(this.stack)) {
+    if (route.path == last(this.stack)) {
       this._printError("you are already on this route");
       return false;
     }
@@ -69,7 +77,7 @@ export class RouterDOM {
     return true;
   }
 
-  _changeLocation(route, clickFromToolbar) {
+  _changeLocation(route: any, clickFromToolbar: boolean) {
     if (clickFromToolbar) {
       history.replaceState({}, route.path, route.path);
     } else {
@@ -78,9 +86,8 @@ export class RouterDOM {
   }
 
   _registerRoute(route) {
-    const path = route.path.startsWith("/") ? route.path : "/" + route.path;
-    if (last(this.stack) === path) return;
-    this.stack.push(path);
+    if (last(this.stack) === route.path) return;
+    this.stack.push(route.path);
   }
 
   _subscribeLocation() {
@@ -95,7 +102,7 @@ export class RouterDOM {
     this.navigateTo(path);
   }
 
-  _printError(string) {
+  _printError(string: string) {
     console.error(`[RouterDOM]: ${string}`);
   }
 }

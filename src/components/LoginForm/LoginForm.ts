@@ -1,4 +1,4 @@
-import { Component } from "../../services/component";
+import { Component } from "../../libs/framework";
 
 class LoginForm extends Component {
   render() {

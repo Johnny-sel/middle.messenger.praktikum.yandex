@@ -1,5 +1,5 @@
 import { HomePage, LoginPage, LogoutPage } from "./pages";
-import { RouterDOM } from "./services/router";
+import { RouterDOM } from "./libs/framework";
 
 (function init() {
   const routes = [

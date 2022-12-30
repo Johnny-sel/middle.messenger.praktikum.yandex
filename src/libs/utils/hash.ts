@@ -1,7 +1,7 @@
-export const hashFromString = string => {
-  let hash = 0;
-  let i;
-  let chr;
+export const hashFromString = (string: string) => {
+  let hash: number = 0;
+  let i: number | undefined;
+  let chr: number | undefined;
 
   if (string.length === 0) return hash;
 

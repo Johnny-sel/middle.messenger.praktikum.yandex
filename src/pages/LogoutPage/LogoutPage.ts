@@ -1,4 +1,4 @@
-import { Component } from "../../services/component";
+import { Component } from "../../libs/framework";
 
 class LogoutPage extends Component {
   render() {
@@ -9,4 +9,3 @@ class LogoutPage extends Component {
 }
 
 export default LogoutPage;
-
