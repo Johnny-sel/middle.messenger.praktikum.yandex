@@ -1,5 +1,5 @@
-import { HomePage, LoginPage, LogoutPage } from "./pages";
-import { RouterDOM } from "./libs/framework";
+import { HomePage, LoginPage, LogoutPage } from "@pages";
+import { RouterDom, StoreProvider } from "@framework";
 
 (function init() {
   const routes = [
@@ -8,7 +8,11 @@ import { RouterDOM } from "./libs/framework";
     { path: "/logout", component: LogoutPage },
   ];
 
-  const routerDom = new RouterDOM(document.querySelector("#root"), routes);
+  const initialState = { user: 'test' };
+  const DOMElement = document.querySelector("#root");
+
+  const stateManagment = new StoreProvider(initialState);
+  const routerDom = new RouterDom(DOMElement, routes, stateManagment);
 
   routerDom.render();
 })();

@@ -1,5 +1,6 @@
 // This is custom framework
 export { Component } from "./Component";
-export { RouterDOM } from "./RouterDOM";
+export { RouterDom } from "./RouterDom";
+export { StoreProvider } from "./StoreProvider";
 
 

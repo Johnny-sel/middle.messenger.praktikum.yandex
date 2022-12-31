@@ -4,11 +4,19 @@
       "es2016",
       "dom"
     ],
+    "baseUrl": ".",
+    "paths": {
+      "@framework": ["./src/libs/framework"],
+      "@framework/types": ["./src/libs/framework/types"],
+      "@pages": ["./src/pages"],
+      "@components": ["./src/components"],
+      "@utils": ["./src/libs/utils"],
+    },
     "experimentalDecorators": true,
     "jsxImportSource": "preact",
     "isolatedModules": true,
     "module": "commonjs",
-    "target": "es6"
+    "target": "es6",
   },
   "include": [
     "./src/**/*"

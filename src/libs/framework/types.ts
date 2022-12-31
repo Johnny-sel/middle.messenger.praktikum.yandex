@@ -1,21 +1,21 @@
 
 export interface IComponentConstructable {
-  new(n: IRouterDOM): IComponent;
+  new(n: IRouterDom): IComponent;
 }
 
 export interface IComponent {
-  routerContext: IRouterDOM;
-  state: Object;
-  reborn(): any;
-  render(): string;
+  routerDom: IRouterDom; // для управления навигацией из компоненты
+  state: Object; // локальное состояние компоненты
+  render(): string; // метод который возвращает html разметку
+  _reborn(): any; // 
   _registerHandler(uniq: string, method: string): void;
 }
 
-export interface IRouterDOM {
+export interface IRouterDom {
   routes: any[];
   stack: string[];
-  root: HTMLElement;
-  render(): void;
+  root: Element;
+  render(fromStore?: boolean): void;
   navigateTo(path: string, obj?: Object): void;
   _renderPage(Component: IComponentConstructable): void;
   _changeLocation(route: any, clickFromToolbar: boolean): void;
@@ -24,4 +24,9 @@ export interface IRouterDOM {
   _subscribeLocation(): void;
   _goBack(): void;
   _printError(str: string): void;
+}
+
+export type TActionPayload = {
+  type: string;
+  payload?: any;
 }

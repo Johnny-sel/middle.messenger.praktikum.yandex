@@ -1,15 +1,15 @@
-import { IRouterDOM } from './../../libs/framework/types';
-import { LoginForm } from "../../components";
-import { Component } from "../../libs/framework";
+import { LoginForm } from "@components";
+import { Component } from "@framework";
+import { IRouterDom } from "@framework/types";
 
 class LoginPage extends Component {
-  constructor(routerContext: IRouterDOM) {
-    super(routerContext);
+  constructor(routerDom: IRouterDom) {
+    super(routerDom);
     this.state = { count: 0 };
   }
 
   handler() {
-    this.routerContext.navigateTo("/")
+    this.routerDom.navigateTo("/")
   }
 
   increment() {

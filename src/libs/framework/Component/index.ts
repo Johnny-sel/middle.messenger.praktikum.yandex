@@ -1,24 +1,21 @@
-import { IComponent, IRouterDOM } from '../types';
-import { random } from "../../utils/";
+import { IComponent, IRouterDom } from "@framework/types";
+import { random } from "@utils";
 
-export class Component implements IComponent {
-  routerContext: IRouterDOM;
+export abstract class Component implements IComponent {
+  routerDom: IRouterDom;
   state: {};
 
-  constructor(routerContext?: IRouterDOM) {
-    this.routerContext = routerContext;
+  constructor(routerDom?: IRouterDom) {
+    this.routerDom = routerDom;
     this.state = {};
   }
 
-  reborn() {
-    // делаем все методы компоненты уникальными,
-    // кроме "render", "constructor" (пока что, со временем может еще добавиться)
-    // для того, что бы не было конфликтов, если разработчик объявил метод в разных компонентах
-    // с одним и тем же именем
+  abstract render(): string;
 
-    const methods = Object.getOwnPropertyNames((this as any).__proto__);
+  _reborn() {
+    const methodNames = Object.getOwnPropertyNames((this as any).__proto__);
     const deleted = ["render", "constructor"];
-    const filtered = methods.filter(handler => !deleted.includes(handler));
+    const filtered = methodNames.filter(handler => !deleted.includes(handler));
 
     let html = this.render();
 
@@ -31,7 +28,6 @@ export class Component implements IComponent {
 
       html = html.replace(remove, paste);
 
-      // регистрируем в глобальном объекте метод с уникальным именем
       this._registerHandler(uniqName, methodName);
     });
 
@@ -40,12 +36,19 @@ export class Component implements IComponent {
     return this;
   }
 
-  _registerHandler(uniq: string, method: string) {
-    // window[uniq] = (this as any).__proto__[method].bind(this.routerContext);//TODO
-    window[uniq] = (this as any).__proto__[method].bind(this);
+  _registerHandler(uniq: string, methodName: string) {
+    // window[uniq] = (this as any).__proto__[method].bind(this.routerDom);//TODO
+    window[uniq] = (this as any).__proto__[methodName].bind(this);
   }
 
-  render() {
-    return ''
+  refresh() {
+    const html = this.render();
+    // смотрим какой ключ и находим в дом дереве
+    const element = document.querySelector("#HomePage");
+    // element.remove();  
+
+    // TODO удаляем елемент
+    // смотрим какие переменные в разметке заменить на значение из стейта
+    // вставляем элемент!)
   }
 }

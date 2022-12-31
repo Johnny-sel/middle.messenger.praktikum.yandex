@@ -1,18 +1,23 @@
-import { last, penultimate } from "../../utils/";
-import { IComponentConstructable, IRouterDOM } from "../types";
+import { last, penultimate } from "@utils";
+import { IComponentConstructable, IRouterDom } from "@framework/types";
 
-export class RouterDOM implements IRouterDOM {
+export class RouterDom implements IRouterDom {
   routes: any[];
   stack: any[];
-  root: HTMLElement;
+  root: Element;
 
-  constructor(root: HTMLElement, routes: any[]) {
+  constructor(root: Element, routes: any[], storeProvider: any) {
     this.routes = routes;
     this.root = root;
     this.stack = [];
+
+    // storeProvider.render = this.render.bind(this);
+    // storeProvider.dispatch({ type: 'SET_USERS' });
+
   }
 
-  render() {
+  render(fromStore?: boolean) {
+    
     this._subscribeLocation();
     this.navigateTo(window.location.pathname);
   }
@@ -27,14 +32,14 @@ export class RouterDOM implements IRouterDOM {
     this._changeLocation(route, clickFromToolbar);
     this._registerRoute(route);
 
-    console.info("[RouterDOM]: stack ", this.stack);
+    console.info("[RouterDom]: stack ", this.stack);
   }
 
   _renderPage(Component: IComponentConstructable) {
-    const component = new Component(this); // когда создаем компонету, передаем туда RouterDOM
+    const component = new Component(this); // когда создаем компонету, передаем туда RouterDom
     const element = document.createElement("div");
 
-    const node = component.reborn(); // сюда приходит отформатированая компонента
+    const node = component._reborn(); // сюда приходит отформатированая компонента
     const rootChild = this.root.firstChild;
 
     element.innerHTML = node.render();
@@ -103,6 +108,6 @@ export class RouterDOM implements IRouterDOM {
   }
 
   _printError(string: string) {
-    console.error(`[RouterDOM]: ${string}`);
+    console.error(`[RouterDom]: ${string}`);
   }
 }

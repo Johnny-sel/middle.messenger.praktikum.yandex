@@ -1,4 +1,4 @@
-import { Component } from "../../libs/framework";
+import { Component } from "@framework";
 
 class LogoutPage extends Component {
   render() {
