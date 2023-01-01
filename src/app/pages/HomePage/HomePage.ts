@@ -1,8 +1,7 @@
 
-import { IComponent } from '@framework/types';
 import { Component } from "@framework";
 
-class HomePage extends Component implements IComponent {
+class HomePage extends Component {
   handler() {
     fetch('https://jsonplaceholder.typicode.com/todos/1')
       .then(response => response.json())
@@ -12,14 +11,20 @@ class HomePage extends Component implements IComponent {
       })
 
     this.routerDom.navigateTo("/login");
+  }
 
+
+  componentDidMount(): void {
+    console.log('HomePage init');
   }
 
   render() {
     return `
-      <div id="HomePage">
+      <div>
         <h1>HomePage</h1>
-        <button onclick="handler()" class="login__form__button-submit">GO TO LOGIN </button>
+        <button onclick="handler()" class="login__form__button-submit">
+          GO TO LOGIN 
+        </button>
       </div>
     `;
   }

@@ -5,19 +5,17 @@ export class RouterDom implements IRouterDom {
   routes: any[];
   stack: any[];
   root: Element;
+  components: [];
 
-  constructor(root: Element, routes: any[], storeProvider: any) {
+  constructor(root: Element, routes: any[]) {
     this.routes = routes;
     this.root = root;
     this.stack = [];
-
-    // storeProvider.render = this.render.bind(this);
-    // storeProvider.dispatch({ type: 'SET_USERS' });
-
+    this.components = [];
+    window['RouterDom'] = this;
   }
 
-  render(fromStore?: boolean) {
-    
+  render() {
     this._subscribeLocation();
     this.navigateTo(window.location.pathname);
   }
@@ -38,11 +36,9 @@ export class RouterDom implements IRouterDom {
   _renderPage(Component: IComponentConstructable) {
     const component = new Component(this); // когда создаем компонету, передаем туда RouterDom
     const element = document.createElement("div");
-
-    const node = component._reborn(); // сюда приходит отформатированая компонента
     const rootChild = this.root.firstChild;
 
-    element.innerHTML = node.render();
+    element.innerHTML = `<div>${component.init()}</div>`; // вернет валидную разметкуы html
 
     if (rootChild) {
       this.root.removeChild(rootChild);

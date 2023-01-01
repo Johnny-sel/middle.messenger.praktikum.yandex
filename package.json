@@ -14,8 +14,8 @@
   "scripts": {
     "clean-dist": "rm -rf dist && mkdir dist",
     "init": "npm run clean-dist",
-    "dev": "npm run init && parcel ./src/index.html",
-    "build": "npm run init && parcel build ./src/index.html",
+    "dev": "npm run init && parcel ./src/app/index.html",
+    "build": "npm run init && parcel build ./src/app/index.html",
     "check": "tsc --noEmit"
   },
   "browserslist": "> 0.5%, last 2 versions, not dead",
@@ -37,9 +37,9 @@
     }
   },
   "alias": {
-    "@framework": "./src/libs/framework",
-    "@utils": "./src/libs/utils",
-    "@pages": "./src/pages",
-    "@components": "./src/components"
+    "@framework": "./src/core/framework",
+    "@utils": "./src/core/utils",
+    "@pages": "./src/app/pages",
+    "@components": "./src/app/components"
   }
 }
