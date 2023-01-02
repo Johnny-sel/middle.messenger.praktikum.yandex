@@ -1,12 +1,13 @@
-import { createElement } from './element';
+import { createElement } from './dom';
 
-function render(vdom, root) {
+function render(Instance, root) {
   root.innerHTML = '';
-  if (vdom) {
-    root.appendChild(createElement(vdom));
+  const vNodeInstance = new Instance();
+  const vNode = vNodeInstance.create();
+
+  if (vNode) {
+    root.appendChild(createElement(vNode));
   }
 }
-
-
 
 export { render };

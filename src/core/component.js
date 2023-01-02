@@ -1,69 +1,99 @@
-import { createElement } from './element';
-import { random, isStr, isFunc, isNum, isArr } from './utils';
+import { isStr, isNum, isArr } from './utils';
+import { parseAttrs } from './parse';
 
 export class Component {
-  constructor(props) {
-    this.state = {};
-    this.key = random();
-
-    this.init();
-    this._overriderComponent();
-    this._registerComponent();
+  constructor() {
+    this.state = this.setInitialState(this.initState());
+    this.create = (state) => {
+      this.vNodePrev = this.render(state ?? this.state);
+      this.vNodeNext = {};
+      return this.vNodePrev;
+    };
+    setTimeout(() => this.didMount(),500);
   }
 
-  render() {}
-  init() {}
+  // this is indetical
+  create(state) {} // for developer
+  render(state) {} // for user
 
-  setInitState(initialState) {
+  initState() {}
+  didMount() {}
+
+  setInitialState(initialState) {
     return new Proxy(initialState, {
-      set: (prevState, property, newValue) => {
-        const component = this.render();
-        const components = this._replaceStateValues(component, property, newValue);
-        components.forEach((comp) => {
-          const pasted = createElement(comp);
-          const attr = `[data-state='${property}']`;
-          const deleted = document.querySelector(attr);
-          deleted.replaceWith(pasted);
-        });
-
-        prevState[property] = newValue;
-        return prevState;
-      },
+      set: this._hookStateSetter.bind(this),
     });
   }
 
-  _overriderComponent() {
-    const component = this.render();
-    component.attrs = `data-key=${this.key}; ` + component.attrs;
-    this.render = () => component;
+  _hookStateSetter(prevState, prop, newValue) {
+    prevState[prop] = newValue;
+
+    this.vNodeNext = this.render(prevState);
+    this._injectingNodes();
+    return prevState;
   }
 
-  _registerComponent() {
-    window['components'] = { [this.key]: this };
-  }
-
-  _replaceStateValues(component, property, newValue) {
-    if (isStr(component) || isNum(component)) {
-      return this.render();
+  _injectingNodes(vNodeNext) {
+    if (isStr(vNodeNext) || isNum(vNodeNext)) {
+      return;
     }
 
-    let stack = [component];
-    let list = [];
+    let stackPrev = [this.vNodePrev];
+    let stackNext = [this.vNodeNext];
 
-    while (stack.length > 0) {
-      const comp = stack.pop();
-      if (comp && isArr(comp.children)) {
-        stack.push(...comp.children);
-        const prop = comp.attrs.match(property);
-        if (prop) {
-          comp.children = [newValue];
-          list.push(comp);
+    let lastPrev = this.vNodePrev;
+    let lastNext = this.vNodeNext;
+
+    while (stackPrev.length > 0 || stackNext.length > 0) {
+      const vPrev = stackPrev.pop();
+      const vNext = stackNext.pop();
+
+      if (vPrev !== undefined && vNext !== undefined) {
+        if (isArr(vPrev.children)) {
+          lastPrev = vPrev;
+
+          stackPrev.push(...vPrev.children);
+        }
+
+        if (isArr(vNext.children)) {
+          lastNext = vNext;
+
+          stackNext.push(...vNext.children);
+        }
+
+        const childrenChanged = this._compareChildren(vPrev, vNext);
+
+        if (childrenChanged) {
+          lastPrev.element.innerHTML = vNext;
+          lastPrev.children = [vNext];
+        }
+
+        const attrsChanged = this._compareAttributes(vPrev, vNext);
+
+        if (attrsChanged) {
+          const attributes = Object.entries(parseAttrs(vNext.attrs));
+          attributes.forEach(([key, value]) => {
+            vPrev.element.setAttribute(key, value);
+            vPrev.attrs = vNext.attrs;
+          });
         }
       }
     }
+  }
 
-    this.render = () => component;
+  _compareChildren(prev, next) {
+    if (!(isStr(prev) || isNum(prev))) {
+      return false;
+    }
+    return prev !== next;
+  }
 
-    return list;
+  _compareAttributes(prev, next) {
+    if (isStr(prev) || isNum(prev)) {
+      return false;
+    }
+    const nextAttr = Object.entries(parseAttrs(next.attrs)).join();
+    const prevAttr = Object.entries(parseAttrs(prev.attrs)).join();
+    return prevAttr !== nextAttr;
   }
 }

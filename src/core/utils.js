@@ -18,5 +18,9 @@ function random() {
   return Math.random().toString().slice(2, 11);
 }
 
-export { isArr, isStr, isNum, isFunc };
-export { random };
+const isObject = (item) => {
+  return item && typeof item === 'object' && !Array.isArray(item) && item !== null;
+};
+
+export { isArr, isStr, isNum, isFunc, isObject };
+export { random, mergeDeep };

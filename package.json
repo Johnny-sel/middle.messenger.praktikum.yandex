@@ -34,7 +34,7 @@
     "@core/state": "./src/core/state.js",
     "@core/render": "./src/core/render.js",
     "@core/component": "./src/core/component.js",
-    "@core/tags": "./src/core/tags.js",
+    "@core/vdom": "./src/core/vdom.js",
     "@core/parse": "./src/core/parse.js",
     "@core/utils": "./src/core/utils.js",
     "@pages": "./src/app/pages",

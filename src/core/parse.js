@@ -1,16 +1,14 @@
-function parseAttrs(attrsString) {
+function parseAttrs(attrsStr) {
   let attrs = {};
   
-  attrsString = attrsString.replace('k=', ' key=');
-  attrsString = attrsString.replace('s=', ' style=');
-  attrsString = attrsString.replace('c=', ' class=');
-  attrsString = attrsString.replace('n=', ' name=');
-  attrsString = attrsString.replace('p=', ' placeholder=');
-  attrsString = attrsString.replace('t=', ' type=');
-  attrsString = attrsString.replace('state=', ' data-state=');
-  attrsString = attrsString.replace('d=', ' disabled=');
+  attrsStr = attrsStr.replace('s=', ' style=');
+  attrsStr = attrsStr.replace('c=', ' class=');
+  attrsStr = attrsStr.replace('n=', ' name=');
+  attrsStr = attrsStr.replace('p=', ' placeholder=');
+  attrsStr = attrsStr.replace('t=', ' type=');
+  attrsStr = attrsStr.replace('d=', ' disabled=');
 
-  const attrsList = attrsString.split(';');
+  const attrsList = attrsStr.split(';');
 
   for (let i = 0; i < attrsList.length; i++) {
     const element = attrsList[i];

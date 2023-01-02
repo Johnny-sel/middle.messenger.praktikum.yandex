@@ -1,15 +1,17 @@
 import { parseAttrs } from '@core/parse';
-import { isStr, isFunc, isNum } from '@core/utils';
+import { isStr, isNum } from '@core/utils';
 
-function createElement(component) {
-  if (isStr(component) || isNum(component)) {
-    return document.createTextNode(component.toString());
+function createElement(vNode) {
+  if (isStr(vNode) || isNum(vNode)) {
+    return document.createTextNode(String(vNode));
   }
 
-  const { tag, attrs, children } = isFunc(component) ? component() : component;
+  const { tag, attrs, children } = vNode;
 
   const domElement = document.createElement(tag);
   const attributes = Object.entries(parseAttrs(attrs));
+
+  vNode['element'] = domElement;
 
   attributes.forEach(([key, value]) => {
     domElement.setAttribute(key, value);

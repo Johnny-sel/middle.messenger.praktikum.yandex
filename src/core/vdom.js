@@ -1,9 +1,9 @@
-import { isArr, random } from '@core/utils';
+import { isArr } from '@core/utils';
 
 const list = ['div', 'p', 'span', 'img', 'button', 'h1', 'h2', 'h3', 'h4'];
 const tags = {};
 
-(function createTagsTemplate() {
+(function createVirtualNode() {
   for (let i = 0; i < list.length; i++) {
     const tag = list[i];
 
