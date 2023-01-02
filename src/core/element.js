@@ -16,7 +16,6 @@ function createElement(component) {
   });
 
   // TODO stack algoritm
-
   children.forEach((child) => {
     domElement.appendChild(createElement(child));
   });

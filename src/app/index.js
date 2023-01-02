@@ -5,5 +5,5 @@ import { LoginPage } from '@pages';
 (function initApp() {
   const root = document.getElementById('root');
 
-  render(LoginPage, root);
+  render(new LoginPage().render(), root);
 })();

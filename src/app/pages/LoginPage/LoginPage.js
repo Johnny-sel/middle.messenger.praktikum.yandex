@@ -1,19 +1,32 @@
 import { div, p, span, h1, h2, button } from '@core/tags';
-import { getState } from '@core/state';
+import { Component } from '@core/component';
 
-export default LoginPage = ()=> {
-  const initialState = { count: 0, key: '1234' };
-  const state = getState(initialState);
+export default class LoginPage extends Component {
+  constructor(props){
+    super(props);
+  }
 
-  setInterval(()=>{
-    console.log('state:', state.count)
-    state.count++;
-  }, 1000);
+  init(){
+    this.state = this.setInitState({
+      count: 0,
+      number: 0,
+      active: false,
+    })
 
-  return ( 
-      div(`c=container ${state.active ? 'active' : 'inactive'};`, [
-        h1('k=1234', [state.count]),
+    setInterval(()=>{
+      this.state.count = this.state.count + 1;
+      // this.state.number = this.state.number + 1;
+    },1000)
+  }
+
+  render(){ 
+    const {count, number, active} = this.state;
+    return ( 
+      div(`c=container state-active ${active ? 'active' : 'inactive'};`, [
+        h1('state=count;',[count]),
+        h2('state=number;',[number]),
         button(['INCREMENT']),
       ],)
-  );
+    );
+  }
 }

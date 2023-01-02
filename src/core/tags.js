@@ -8,12 +8,11 @@ const tags = {};
     const tag = list[i];
 
     tags[tag] = (...args) => {
-      let key = '';
       let attrs = '';
       let children = [];
 
-      if (args.length > 3) {
-        throw new Error('You pass many arguments to component, more then 3');
+      if (args.length > 2) {
+        throw new Error('You pass many arguments to component, more then 2');
       }
 
       if (args.length === 1) {
