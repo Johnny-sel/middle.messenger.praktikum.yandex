@@ -13,8 +13,7 @@
     "clean-dist": "rm -rf dist && mkdir dist",
     "init": "npm run clean-dist",
     "dev": "npm run init && parcel ./src/app/index.html",
-    "build": "npm run init && parcel build ./src/app/index.html",
-    "check": "tsc --noEmit"
+    "build": "npm run init && parcel build ./src/app/index.html"
   },
   "browserslist": "> 0.5%, last 2 versions, not dead",
   "devDependencies": {
@@ -32,9 +31,32 @@
     }
   },
   "alias": {
-    "@core": "./src/core/",
-    "@utils": "./src/core/utils",
+    "@core/state": "./src/core/state.js",
+    "@core/render": "./src/core/render.js",
+    "@core/tags": "./src/core/tags.js",
+    "@core/parse": "./src/core/parse.js",
+    "@core/utils": "./src/core/utils.js",
     "@pages": "./src/app/pages",
     "@components": "./src/app/components"
+  },
+  "prettier": {
+    "arrowParens": "always",
+    "bracketSameLine": false,
+    "bracketSpacing": true,
+    "embeddedLanguageFormatting": "auto",
+    "htmlWhitespaceSensitivity": "css",
+    "insertPragma": false,
+    "jsxSingleQuote": true,
+    "printWidth": 100,
+    "proseWrap": "preserve",
+    "quoteProps": "as-needed",
+    "requirePragma": false,
+    "semi": true,
+    "singleAttributePerLine": false,
+    "singleQuote": true,
+    "tabWidth": 2,
+    "trailingComma": "es5",
+    "useTabs": false,
+    "vueIndentScriptAndStyle": false
   }
 }
