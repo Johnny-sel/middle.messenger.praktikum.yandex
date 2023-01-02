@@ -7,10 +7,8 @@
   "engines": {
     "node": ">= 18.12.1"
   },
-  "main": "index.js",
-  "source": "src/index.ts",
-  "module": "dist/index.js",
-  "types": "dist/index.d.ts",
+  "main": "src/index.js",
+  "source": "src/index.js",
   "scripts": {
     "clean-dist": "rm -rf dist && mkdir dist",
     "init": "npm run clean-dist",
@@ -20,13 +18,10 @@
   },
   "browserslist": "> 0.5%, last 2 versions, not dead",
   "devDependencies": {
-    "@babel/core": "^7.20.7",
     "@parcel/transformer-sass": "^2.8.2",
-    "@parcel/transformer-typescript-tsc": "^2.8.2",
     "parcel": "^2.8.2",
     "parcel-namer-rewrite": "^2.0.0-rc.3",
-    "parcel-plugin-at-alias": "^0.15.0",
-    "typescript": "^4.9.4"
+    "parcel-plugin-at-alias": "^0.15.0"
   },
   "parcel-namer-rewrite": {
     "rules": {
@@ -37,7 +32,7 @@
     }
   },
   "alias": {
-    "@framework": "./src/core/framework",
+    "@core": "./src/core/",
     "@utils": "./src/core/utils",
     "@pages": "./src/app/pages",
     "@components": "./src/app/components"
