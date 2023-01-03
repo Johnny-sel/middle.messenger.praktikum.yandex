@@ -1,4 +1,4 @@
-import { div, p, span, h1, h2, button } from '@core/vdom';
+import { div, p, span, h1, h2, button, section, input, form, label } from '@core/vdom';
 import Component from '@core/component';
 import Router from '@core/router';
 
@@ -9,53 +9,40 @@ export default class LoginPage extends Component {
 
   createState() {
     return {
-      count: 0,
-      number: 0,
-      isActive: false,
+      email: '',
+      password: '',
     };
   }
 
-  didMount() {
-    setInterval(() => {
-      this.state.count++;
-      this.state.isActive = !this.state.isActive;
-    }, 1000);
+  onChangeEmail(event) {
+    this.state.email = event.target.value;
   }
 
-  goToLogoutPage() {
-    Router.navigateTo('/logout');
+  onChangePassword(event) {
+    this.state.password = event.target.value;
   }
-  moveHanlder() {
-    Router.navigateTo('/logout');
-  }
-  blurHanlder() {
-    Router.navigateTo('/logout');
+
+  onSumbit() {
+    console.log(this.state.email);
+    console.log(this.state.password);
   }
 
   create(state) {
-    const { count, number, isActive, isFlag } = state;
-
-    const active = isActive ? 'active' : '';
-    const flag = isFlag ? 'active' : '';
+    const { email, password } = state;
 
     // prettier-ignore
     return (
-      div(`c=container ${active};`, [
-          h1(`c=container ${flag};`, [count]),
-          h2(`c=container ${flag};`, [number]),
-          button(`c=container ${active};`, ['INCREMENT']),
-          div([
-              h1(`c=container ${flag};`, [count]),
-              h2(`c=container ${flag};`, [number]),
-              div([
-                  div([
-                      h1(`c=container ${flag};`, [count]),
-                      h2(`c=container ${flag};`, [number]),
-                      button(`c=container ${active}; click=goToLogoutPage(); move=moveHanlder(); t=submit; blur=blurHanlder();`, ['INCREMENT']),
-                  ]),
-              ]),
-          ]),
+      section(`c=login__form;`, [
+        h1(`c=login__form__title title;`, ['Sign in']),
+        span(`c=login__form__desc text;`, ['Welcom to online messeger']),
+        form(`c=login__form__form form; n=login-form;`, [
+          input(`c=login__form__input input; v=${email}; t=email; n=email; p=Email Address; change=onChangeEmail();`, []),
+          input(`c=login__form__input input; v=${password}; t=password; n=password; p=Password; change=onChangePassword();`, []),
+          button(`c=login__form__button button; t=button; click=onSumbit();`, ['Login']),
+        ]),
+        
       ])
+      
     );
   }
 }

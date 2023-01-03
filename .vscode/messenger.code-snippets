@@ -1,0 +1,117 @@
+{
+	"label": {
+		"scope": "javascript,typescript",
+		"prefix": "l",
+		"body": [
+			"label(`c=$1; for=$2;`, [$3]),",
+		],
+	},
+	"form": {
+		"scope": "javascript,typescript",
+		"prefix": "f",
+		"body": [
+			"form(`c=$1; name=$2;`, [$3]),",
+		],
+	},
+	"a": {
+		"scope": "javascript,typescript",
+		"prefix": "a",
+		"body": [
+			"a(`c=$1; h=$2; `, [$3]),",
+		],
+	},
+	"h1": {
+		"scope": "javascript,typescript",
+		"prefix": "h1",
+		"body": [
+			"h1(`c=$1;`, [$2]),",
+		],
+	},
+	"h2": {
+		"scope": "javascript,typescript",
+		"prefix": "h2",
+		"body": [
+			"h2(`c=$1;`, [$2]),",
+		],
+	},
+	"div": {
+		"scope": "javascript,typescript",
+		"prefix": "d",
+		"body": [
+			"div(`c=$1;`, [$2]),",
+		],
+	},
+	"span": {
+		"scope": "javascript,typescript",
+		"prefix": "sp",
+		"body": [
+			"span(`c=$1;`, [$2]),",
+		],
+	},
+	"section": {
+		"scope": "javascript,typescript",
+		"prefix": "s",
+		"body": [
+			"section(`c=$1;`, [$2]),",
+		],
+	},
+	"p": {
+		"scope": "javascript,typescript",
+		"prefix": "p",
+		"body": [
+			"p(`c=$1;`, [$2]),",
+		],
+	},
+	"button": {
+		"scope": "javascript,typescript",
+		"prefix": "b",
+		"body": [
+			"button(`c=$1; click=$2;`, [$3]),",
+		],
+	},
+	"input": {
+		"scope": "javascript,typescript",
+		"prefix": "i",
+		"body": [
+			"input(`id=$1; c=$2; t=$4; n=$4; p=$5; change=$6;`, [$7]),",
+		],
+	},
+	"map": {
+		"scope": "javascript,typescript",
+		"prefix": "map",
+		"body": [
+			"...$1.map((item, index) => $2(`c=$3;`, [$4]),",
+		],
+	},
+	"component": {
+		"scope": "javascript,typescript",
+		"prefix": "c",
+		"body": [
+			"import { div, p, span, h1, h2, button } from '@core/vdom';",
+			"import Component from '@core/component';",
+			"import Router from '@core/router';",
+			
+			"export default class $1 extends Component {",
+			"  constructor() {",
+			"    super();",
+			"  }",
+				"",
+			"  createState() {",
+			"    return {$2};",
+			"  }",
+				"",
+			"  didMount() {$3}",
+
+				"",
+			"  create(state) {",
+			"    const { } = state;",
+		  "    // prettier-ignore",
+			"    return (",
+			"      div$4(`c=$5;`, [$6])",
+		  "    );",
+			"  }",
+			"}"
+			
+		],
+	}
+}

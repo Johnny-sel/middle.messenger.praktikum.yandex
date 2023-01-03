@@ -1,4 +1,4 @@
-const events = ['click', 'move', 'blur']; // TODO single file
+const events = ['click', 'move', 'blur', 'change']; // TODO single file
 
 function parseAttrs(attrsStr) {
   let attrs = {};
@@ -8,7 +8,9 @@ function parseAttrs(attrsStr) {
   attrsStr = attrsStr.replace('n=', ' name=');
   attrsStr = attrsStr.replace('p=', ' placeholder=');
   attrsStr = attrsStr.replace('t=', ' type=');
-  attrsStr = attrsStr.replace('d=', ' disabled=');
+  attrsStr = attrsStr.replace('dis=', ' disabled=');
+  attrsStr = attrsStr.replace('f=', ' for=');
+  attrsStr = attrsStr.replace('v=', ' value=');
 
   const attrsList = attrsStr.split(';');
 

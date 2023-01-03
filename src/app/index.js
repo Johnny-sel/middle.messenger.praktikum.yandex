@@ -7,6 +7,6 @@ import Router from '@core/router';
     { path: '/logout', comp: LogoutPage },
   ];
 
-  Router._init(routes);
+  Router.init(routes);
   Router.render(document.getElementById('root'));
 })();
