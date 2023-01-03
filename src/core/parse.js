@@ -1,4 +1,4 @@
-const handlers = ['onclick', 'onmove', 'onblur']; // TODO single file
+const handlers = ['click', 'move', 'blur']; // TODO single file
 
 function parseAttrs(attrsStr) {
   let attrs = {};
@@ -28,13 +28,15 @@ function parseHandlers(attsStr) {
   let handlerName;
   let cutIndex;
 
-  const handlerNames = [];
+  const handlerNames = {};
 
   handlers.forEach((handler) => {
-    cutIndex = attsStr.indexOf(handler) + (handler.length + 1);
-    attsStr = attsStr.slice(cutIndex);
-    handlerName = attsStr.slice(0, attsStr.indexOf('('));
-    handlerNames.push(handlerName);
+    if (attsStr.includes(handler)) {
+      cutIndex = attsStr.indexOf(handler) + (handler.length + 1);
+      attsStr = attsStr.slice(cutIndex);
+      handlerName = attsStr.slice(0, attsStr.indexOf('('));
+      handlerNames[handler] = handlerName;
+    }
   });
 
   return handlerNames;

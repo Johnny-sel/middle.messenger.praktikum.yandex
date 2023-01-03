@@ -6,7 +6,7 @@ function render(Instance, root) {
   const vNodeInstance = new Instance();
   const vNode = vNodeInstance._init();
 
-  root.appendChild(createElement(vNode));
+  root.appendChild(createElement(vNode, vNodeInstance));
 }
 
 export { render };

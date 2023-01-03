@@ -51,7 +51,7 @@ export default class LoginPage extends Component {
                   div([
                       h1(`c=container ${flag};`, [count]),
                       h2(`c=container ${flag};`, [number]),
-                      button(`c=container ${active}; onclick=goToLogoutPage(); onmove=moveHanlder(); t=submit; onblur=blurHanlder();`, ['INCREMENT']),
+                      button(`c=container ${active}; click=goToLogoutPage(); move=moveHanlder(); t=submit; blur=blurHanlder();`, ['INCREMENT']),
                   ]),
               ]),
           ]),

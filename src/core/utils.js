@@ -61,5 +61,5 @@ function lastIndex(list) {
 }
 
 export { isArr, isStr, isNum, isFunc, isObject };
-export { random };
 export { first, last, penultimate, lastIndex };
+export { random };

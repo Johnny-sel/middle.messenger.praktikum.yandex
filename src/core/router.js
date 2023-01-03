@@ -61,7 +61,7 @@ export default class Router {
     this.root.innerHTML = '';
     const vNodeInstance = new Instance();
     const vNode = vNodeInstance._init();
-    root.appendChild(createElement(vNode));
+    root.appendChild(createElement(vNode, vNodeInstance));
   }
 
   _changeUrl(route, toolbar) {

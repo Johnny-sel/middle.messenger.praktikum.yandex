@@ -9,7 +9,6 @@ export default class Component {
 
     this._init = (state) => {
       this.vNodePrev = this.create(state ?? this.state);
-      this.vNodePrev = this._registHandlers(this.vNodePrev);
       return this.vNodePrev;
     };
 
@@ -76,35 +75,6 @@ export default class Component {
         }
       }
     }
-  }
-
-  _registHandlers(vNode) {
-    let isHasHandler = false;
-    let names = [];
-    let stack = [vNode];
-
-    while (stack.length > 0) {
-      const vNode = stack.pop();
-
-      if (isArr(vNode.children)) {
-        stack.push(...vNode.children);
-      }
-
-      isHasHandler = vNode.attrs?.includes('()');
-
-      if (isHasHandler) {
-        names = parseHandlers(vNode.attrs);
-        names.forEach((handlerName) => {
-          const uniq = handlerName + random();
-          vNode.attrs = vNode.attrs.replace(handlerName, uniq);
-          if (this.__proto__[handlerName]) {
-            window[uniq] = this.__proto__[handlerName].bind(this);
-          }
-        });
-      }
-    }
-
-    return vNode;
   }
 
   _injectChilds(lastPrev, next) {
