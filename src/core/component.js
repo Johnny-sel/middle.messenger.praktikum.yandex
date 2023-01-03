@@ -3,40 +3,39 @@ import { parseAttrs } from './parse';
 
 export class Component {
   constructor() {
-    this.state = this.setInitialState(this.initState());
-    this.create = (state) => {
-      this.vNodePrev = this.render(state ?? this.state);
-      this.vNodeNext = {};
+    this.state = this._setState(this.createState());
+    this.vNodeNext = {};
+
+    this._init = (state) => {
+      this.vNodePrev = this.create(state ?? this.state);
       return this.vNodePrev;
     };
-    setTimeout(() => this.didMount(),500);
+
+    setTimeout(() => this.didMount(), 500);
   }
 
-  // this is indetical
-  create(state) {} // for developer
-  render(state) {} // for user
-
-  initState() {}
+  create(state) {}
+  createState() {}
   didMount() {}
 
-  setInitialState(initialState) {
+  _init(state) {}
+
+  _setState(initialState) {
     return new Proxy(initialState, {
-      set: this._hookStateSetter.bind(this),
+      set: this._interception.bind(this),
     });
   }
 
-  _hookStateSetter(prevState, prop, newValue) {
+  _interception(prevState, prop, newValue) {
     prevState[prop] = newValue;
 
-    this.vNodeNext = this.render(prevState);
-    this._injectingNodes();
+    this.vNodeNext = this.create(prevState);
+    this._injecting();
     return prevState;
   }
 
-  _injectingNodes(vNodeNext) {
-    if (isStr(vNodeNext) || isNum(vNodeNext)) {
-      return;
-    }
+  _injecting() {
+    let isChaned = false;
 
     let stackPrev = [this.vNodePrev];
     let stackNext = [this.vNodeNext];
@@ -51,26 +50,24 @@ export class Component {
       if (vPrev !== undefined && vNext !== undefined) {
         if (isArr(vPrev.children)) {
           lastPrev = vPrev;
-
           stackPrev.push(...vPrev.children);
         }
 
         if (isArr(vNext.children)) {
           lastNext = vNext;
-
           stackNext.push(...vNext.children);
         }
 
-        const childrenChanged = this._compareChildren(vPrev, vNext);
+        isChaned = this._compareChilds(vPrev, vNext);
 
-        if (childrenChanged) {
+        if (isChaned) {
           lastPrev.element.innerHTML = vNext;
           lastPrev.children = [vNext];
         }
 
-        const attrsChanged = this._compareAttributes(vPrev, vNext);
+        isChaned = this._compareAttrs(vPrev, vNext);
 
-        if (attrsChanged) {
+        if (isChaned) {
           const attributes = Object.entries(parseAttrs(vNext.attrs));
           attributes.forEach(([key, value]) => {
             vPrev.element.setAttribute(key, value);
@@ -81,14 +78,14 @@ export class Component {
     }
   }
 
-  _compareChildren(prev, next) {
+  _compareChilds(prev, next) {
     if (!(isStr(prev) || isNum(prev))) {
       return false;
     }
     return prev !== next;
   }
 
-  _compareAttributes(prev, next) {
+  _compareAttrs(prev, next) {
     if (isStr(prev) || isNum(prev)) {
       return false;
     }
