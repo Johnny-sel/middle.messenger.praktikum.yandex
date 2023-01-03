@@ -11,9 +11,9 @@
   "source": "src/index.js",
   "scripts": {
     "clean-dist": "rm -rf dist && mkdir dist",
-    "init": "npm run clean-dist",
-    "dev": "npm run init && parcel ./src/app/index.html",
-    "build": "npm run init && parcel build ./src/app/index.html"
+    "_init": "npm run clean-dist",
+    "dev": "npm run _init && parcel ./src/app/index.html",
+    "build": "npm run _init && parcel build ./src/app/index.html"
   },
   "browserslist": "> 0.5%, last 2 versions, not dead",
   "devDependencies": {

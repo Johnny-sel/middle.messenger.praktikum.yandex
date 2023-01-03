@@ -7,7 +7,7 @@ export default class Router {
     this.stack = [];
   }
 
-  static init(routes) {
+  static _init(routes) {
     if (!this.instance) {
       this.instance = new Router(routes);
     }

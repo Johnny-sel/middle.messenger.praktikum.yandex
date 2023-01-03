@@ -3,26 +3,20 @@ import { parseAttrs, parseHandlers } from './parse';
 
 export default class Component {
   constructor() {
+    this._start();
+  }
+
+  _start() {
     this.vNodeNext = {};
     this.state = this._setState(this.createState());
-    this.prototype = Object.getPrototypeOf(this);
 
     this._init = (state) => {
       this.vNodePrev = this.create(state ?? this.state);
       return this.vNodePrev;
     };
 
-    setTimeout(() => this.didMount(), 500);
+    setTimeout(() => this.didMount(), 0);
   }
-
-  createState(state) {
-    return {};
-  }
-
-  create(state) {}
-  didMount() {}
-
-  _init(state) {}
 
   _setState(initialState) {
     return new Proxy(initialState, {
@@ -105,4 +99,13 @@ export default class Component {
     const prevAttrs = Object.entries(parseAttrs(prev.attrs)).join();
     return prevAttrs !== nextAttrs;
   }
+
+  createState(state) {
+    return {};
+  }
+
+  create(state) {}
+  didMount() {}
+
+  _init(state) {} // dev
 }

@@ -16,10 +16,10 @@ export default class LoginPage extends Component {
   }
 
   didMount() {
-    // setInterval(() => {
-    //   this.state.count++;
-    //   this.state.isActive = !this.state.isActive;
-    // }, 1000);
+    setInterval(() => {
+      this.state.count++;
+      this.state.isActive = !this.state.isActive;
+    }, 1000);
   }
 
   goToLogoutPage() {
