@@ -1,9 +1,12 @@
-
-import { render } from '@core/render';
-import { LoginPage } from '@pages';
+import { LoginPage, LogoutPage } from '@pages';
+import Router from '@core/router';
 
 (function initApp() {
-  const root = document.getElementById('root');
+  const routes = [
+    { path: '/', comp: LoginPage },
+    { path: '/logout', comp: LogoutPage },
+  ];
 
-  render(LoginPage, root);
+  Router.init(routes);
+  Router.render(document.getElementById('root'));
 })();

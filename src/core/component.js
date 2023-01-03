@@ -1,21 +1,26 @@
-import { isStr, isNum, isArr } from './utils';
-import { parseAttrs } from './parse';
+import { isStr, isNum, isArr, random } from './utils';
+import { parseAttrs, parseHandlers } from './parse';
 
-export class Component {
+export default class Component {
   constructor() {
-    this.state = this._setState(this.createState());
     this.vNodeNext = {};
+    this.state = this._setState(this.createState());
+    this.prototype = Object.getPrototypeOf(this);
 
     this._init = (state) => {
       this.vNodePrev = this.create(state ?? this.state);
+      this.vNodePrev = this._registHandlers(this.vNodePrev);
       return this.vNodePrev;
     };
 
     setTimeout(() => this.didMount(), 500);
   }
 
+  createState(state) {
+    return {};
+  }
+
   create(state) {}
-  createState() {}
   didMount() {}
 
   _init(state) {}
@@ -61,21 +66,58 @@ export class Component {
         isChaned = this._compareChilds(vPrev, vNext);
 
         if (isChaned) {
-          lastPrev.element.innerHTML = vNext;
-          lastPrev.children = [vNext];
+          this._injectChilds(lastPrev, vNext);
         }
 
         isChaned = this._compareAttrs(vPrev, vNext);
 
         if (isChaned) {
-          const attributes = Object.entries(parseAttrs(vNext.attrs));
-          attributes.forEach(([key, value]) => {
-            vPrev.element.setAttribute(key, value);
-            vPrev.attrs = vNext.attrs;
-          });
+          this._injectAttr(vPrev, vNext);
         }
       }
     }
+  }
+
+  _registHandlers(vNode) {
+    let isHasHandler = false;
+    let names = [];
+    let stack = [vNode];
+
+    while (stack.length > 0) {
+      const vNode = stack.pop();
+
+      if (isArr(vNode.children)) {
+        stack.push(...vNode.children);
+      }
+
+      isHasHandler = vNode.attrs?.includes('()');
+
+      if (isHasHandler) {
+        names = parseHandlers(vNode.attrs);
+        names.forEach((handlerName) => {
+          const uniq = handlerName + random();
+          vNode.attrs = vNode.attrs.replace(handlerName, uniq);
+          if (this.__proto__[handlerName]) {
+            window[uniq] = this.__proto__[handlerName].bind(this);
+          }
+        });
+      }
+    }
+
+    return vNode;
+  }
+
+  _injectChilds(lastPrev, next) {
+    lastPrev.element.innerHTML = next;
+    lastPrev.children = [next];
+  }
+
+  _injectAttr(prev, next) {
+    const attributes = Object.entries(parseAttrs(next.attrs));
+    attributes.forEach(([key, value]) => {
+      prev.element.setAttribute(key, value);
+      prev.attrs = next.attrs;
+    });
   }
 
   _compareChilds(prev, next) {
@@ -89,8 +131,8 @@ export class Component {
     if (isStr(prev) || isNum(prev)) {
       return false;
     }
-    const nextAttr = Object.entries(parseAttrs(next.attrs)).join();
-    const prevAttr = Object.entries(parseAttrs(prev.attrs)).join();
-    return prevAttr !== nextAttr;
+    const nextAttrs = Object.entries(parseAttrs(next.attrs)).join();
+    const prevAttrs = Object.entries(parseAttrs(prev.attrs)).join();
+    return prevAttrs !== nextAttrs;
   }
 }
