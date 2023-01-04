@@ -39,7 +39,7 @@ function createVirtualNode(tag) {
     let handlers = {};
 
     if (args.length > 3) {
-      throw new Error('You pass many arguments to component, more then 2');
+      throw new Error('You pass more than 3 arguments to the component');
     }
 
     if (args.length === 1) {

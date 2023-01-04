@@ -1,5 +1,5 @@
-import { isStr, isNum, isArr, random } from './utils';
-import { parseAttrs, parseHandlers } from './parse';
+import { isStr, isNum, isArr } from './utils';
+import { parseAttrs } from './parse';
 
 export class Component {
   constructor() {
@@ -104,6 +104,6 @@ export class Component {
     return {};
   }
 
-  create(state) {}
+  create(state, props) {}
   didMount() {}
 }
