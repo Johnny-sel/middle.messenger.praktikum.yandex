@@ -1,4 +1,4 @@
-import { button } from '@core/vdom';
+import { button } from '@core/tags';
 import { Component } from '@core/component';
 
 export default class Button extends Component {

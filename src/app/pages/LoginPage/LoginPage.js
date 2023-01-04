@@ -1,4 +1,4 @@
-import { span, h1, section, input, form, component } from '@core/vdom';
+import { span, h1, section, input, form, component } from '@core/tags';
 import { Component } from '@core/component';
 import { Button } from '@components';
 import './LoginPage.sass';

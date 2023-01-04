@@ -1,4 +1,4 @@
-import { createRootNode } from './dom';
+import { createMainNode } from './dom';
 import { isStr, last, penultimate } from './utils';
 
 export default class Router {
@@ -49,7 +49,7 @@ export default class Router {
     this._changeUrl(route, toolbar);
     this._registRoute(route);
 
-    console.info('[RouterDom]: stack ', this.stack);
+    console.info('[Router]: stack ', this.stack);
   }
 
   _goBack() {
@@ -59,9 +59,9 @@ export default class Router {
 
   _renderPage(Instance) {
     this.root.innerHTML = '';
-    const rootInstance = new Instance();
-    const vRootNode = rootInstance._init();
-    root.appendChild(createRootNode(vRootNode));
+    const mainInstance = new Instance();
+    const vMainNode = mainInstance._init();
+    root.appendChild(createMainNode(vMainNode));
   }
 
   _changeUrl(route, toolbar) {

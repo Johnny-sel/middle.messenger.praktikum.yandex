@@ -1,7 +1,7 @@
 import { parseAttrs } from '@core/parse';
 import { isStr, isNum } from '@core/utils';
 
-function createRootNode(vNode) {
+function createMainNode(vNode) {
   if (isStr(vNode) || isNum(vNode)) {
     return document.createTextNode(String(vNode));
   }
@@ -22,10 +22,10 @@ function createRootNode(vNode) {
   });
 
   children.forEach((child) => {
-    domElement.appendChild(createRootNode(child));
+    domElement.appendChild(createMainNode(child));
   });
 
   return domElement;
 }
 
-export { createRootNode };
+export { createMainNode };
