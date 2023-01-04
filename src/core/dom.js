@@ -1,16 +1,15 @@
-import { parseAttrs, parseHandlers } from '@core/parse';
+import { parseAttrs } from '@core/parse';
 import { isStr, isNum } from '@core/utils';
 
-function createElement(vNode, vNodeInstance) {
+function createRootNode(vNode) {
   if (isStr(vNode) || isNum(vNode)) {
     return document.createTextNode(String(vNode));
   }
 
-  const { tag, attrs, children } = vNode;
+  const { tag, attrs, children, handlers } = vNode;
 
   const domElement = document.createElement(tag);
   const attributes = Object.entries(parseAttrs(attrs));
-  const handlers = Object.entries(parseHandlers(attrs));
 
   vNode['element'] = domElement;
 
@@ -18,18 +17,15 @@ function createElement(vNode, vNodeInstance) {
     domElement.setAttribute(key, value);
   });
 
-  handlers.forEach(([event, handlerName]) => {
-    const handler = vNodeInstance.__proto__[handlerName].bind(vNodeInstance);
-    domElement.addEventListener(event, handler);
-    domElement.removeAttribute(event, handlerName);
+  Object.entries(handlers).forEach(([event, func]) => {
+    domElement.addEventListener(event, func);
   });
 
-  // TODO stack algoritm
   children.forEach((child) => {
-    domElement.appendChild(createElement(child, vNodeInstance));
+    domElement.appendChild(createRootNode(child));
   });
 
   return domElement;
 }
 
-export { createElement };
+export { createRootNode };

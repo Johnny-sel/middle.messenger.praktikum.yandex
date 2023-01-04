@@ -1,6 +1,7 @@
-import { div, p, span, h1, h2, button, section, input, form, label } from '@core/vdom';
-import Component from '@core/component';
-import Router from '@core/router';
+import { span, h1, section, input, form, component } from '@core/vdom';
+import { Component } from '@core/component';
+import { Button } from '@components';
+import './LoginPage.sass';
 
 export default class LoginPage extends Component {
   constructor() {
@@ -11,6 +12,8 @@ export default class LoginPage extends Component {
     return {
       email: '',
       password: '',
+      loading: false,
+      count: 0,
     };
   }
 
@@ -22,13 +25,21 @@ export default class LoginPage extends Component {
     this.state.password = event.target.value;
   }
 
-  onSumbit() {
-    console.log(this.state.email);
-    console.log(this.state.password);
+  onSubmit() {
+    console.log('this:', this.state);
   }
 
+  // didMount() {
+  //   setInterval(() => {
+  //     this.state.count++;
+  //   }, 1000);
+  // }
+
   create(state) {
-    const { email, password } = state;
+    const { email, password, loading, count } = state;
+
+    const changeEmail = this.onChangeEmail.bind(this);
+    const changePassword = this.onChangePassword.bind(this);
 
     // prettier-ignore
     return (
@@ -36,11 +47,11 @@ export default class LoginPage extends Component {
         h1(`c=login__form__title title;`, ['Sign in']),
         span(`c=login__form__desc text;`, ['Welcom to online messeger']),
         form(`c=login__form__form form; n=login-form;`, [
-          input(`c=login__form__input input; v=${email}; t=email; n=email; p=Email Address; change=onChangeEmail();`, []),
-          input(`c=login__form__input input; v=${password}; t=password; n=password; p=Password; change=onChangePassword();`, []),
-          button(`c=login__form__button button; t=button; click=onSumbit();`, ['Login']),
+          input(`c=login__form__input input; v=${email}; t=email; n=email; p=Email Address;`, [], { change: changeEmail }),
+          input(`c=login__form__input input; v=${password}; t=password; n=password; p=Password`, [], { change: changePassword }),
+          component(Button, { text: 'Login', onSubmit: this.onSubmit.bind(this) }),
         ]),
-        
+        span(`c=login__form__desc text;`, [`Count ${count}`]),
       ])
       
     );

@@ -1,47 +1,32 @@
-const events = ['click', 'move', 'blur', 'change']; // TODO single file
-
 function parseAttrs(attrsStr) {
   let attrs = {};
 
-  attrsStr = attrsStr.replace('s=', ' style=');
-  attrsStr = attrsStr.replace('c=', ' class=');
-  attrsStr = attrsStr.replace('n=', ' name=');
-  attrsStr = attrsStr.replace('p=', ' placeholder=');
-  attrsStr = attrsStr.replace('t=', ' type=');
-  attrsStr = attrsStr.replace('dis=', ' disabled=');
-  attrsStr = attrsStr.replace('f=', ' for=');
-  attrsStr = attrsStr.replace('v=', ' value=');
+  replacements = [
+    ['s=', ' style='],
+    ['c=', ' class='],
+    ['n=', ' name='],
+    ['p=', ' placeholder='],
+    ['t=', ' type='],
+    ['di=', ' disabled='],
+    ['f=', ' for='],
+    ['v=', ' value='],
+  ];
+
+  replacements.forEach((item) => {
+    attrsStr = attrsStr.replace(item[0], item[1]);
+  });
 
   const attrsList = attrsStr.split(';');
 
-  for (let i = 0; i < attrsList.length; i++) {
-    const element = attrsList[i];
+  attrsList.forEach((element) => {
     if (element) {
       const key = element.split('=')[0].trim();
       const value = element.split('=')[1].trim();
       attrs[key] = value;
     }
-  }
+  });
 
   return attrs;
 }
 
-function parseHandlers(attsStr) {
-  let handlerName;
-  let cutIndex;
-
-  const handlers = {};
-
-  events.forEach((eventName) => {
-    if (attsStr.includes(eventName)) {
-      cutIndex = attsStr.indexOf(eventName) + (eventName.length + 1);
-      attsStr = attsStr.slice(cutIndex);
-      handlerName = attsStr.slice(0, attsStr.indexOf('('));
-      handlers[eventName] = handlerName;
-    }
-  });
-
-  return handlers;
-}
-
-export { parseAttrs, parseHandlers };
+export { parseAttrs };

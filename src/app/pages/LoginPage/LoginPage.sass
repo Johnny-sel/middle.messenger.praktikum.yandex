@@ -1,7 +1,21 @@
+@import '../../styles/varibales'
+
 .login__form
-  border: solid 1px grey
+  border: $border
+  border-radius: $border-radius
   max-width: 32rem
   padding: 3rem
 
+.login__form__button
+  background: $gradient
+  color: #fff
+  letter-spacing: 1px
+
 .login__form__button,.login__form__input
   width: 20rem
+  border: $border
+  border-radius: $border-radius
+  outline: 0
+
+  &:focus
+    border: 2px solid $title

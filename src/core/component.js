@@ -1,7 +1,7 @@
 import { isStr, isNum, isArr, random } from './utils';
 import { parseAttrs, parseHandlers } from './parse';
 
-export default class Component {
+export class Component {
   constructor() {
     this._start();
   }
@@ -9,13 +9,13 @@ export default class Component {
   _start() {
     this.vNodeNext = {};
     this.state = this._setState(this.createState());
-
-    this._init = (state) => {
-      this.vNodePrev = this.create(state ?? this.state);
-      return this.vNodePrev;
-    };
-
     setTimeout(() => this.didMount(), 0);
+  }
+
+  _init(state, props) {
+    this.props = props;
+    this.vNodeCurrent = this.create(state ?? this.state, props ?? this.props);
+    return this.vNodeCurrent;
   }
 
   _setState(initialState) {
@@ -35,10 +35,10 @@ export default class Component {
   _injecting() {
     let isChaned = false;
 
-    let stackPrev = [this.vNodePrev];
+    let stackPrev = [this.vNodeCurrent];
     let stackNext = [this.vNodeNext];
 
-    let lastPrev = this.vNodePrev;
+    let lastPrev = this.vNodeCurrent;
     let lastNext = this.vNodeNext;
 
     while (stackPrev.length > 0 || stackNext.length > 0) {
@@ -106,6 +106,4 @@ export default class Component {
 
   create(state) {}
   didMount() {}
-
-  _init(state) {} // dev
 }

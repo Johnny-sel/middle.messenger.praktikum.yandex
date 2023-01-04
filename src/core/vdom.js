@@ -1,79 +1,63 @@
 import { isArr } from '@core/utils';
 
-const list = [
-  'div',
-  'p',
-  'a',
-  'span',
-  'img',
-  'h1',
-  'h2',
-  'h3',
-  'h4',
-  'h5',
-  'h6',
-  'main',
-  'header',
-  'footer',
-  'aside',
-  'section',
-  'article',
-  'input',
-  'form',
-  'button',
-  'label',
-];
-const tags = {};
+export const component = function (ComponentInstance, props) {
+  const instance = new ComponentInstance();
+  const vNode = instance._init(undefined, props);
+  return vNode;
+};
 
-(function createVirtualNode() {
-  for (let i = 0; i < list.length; i++) {
-    const tag = list[i];
+export const span = createVirtualNode('span');
+export const p = createVirtualNode('p');
+export const a = createVirtualNode('a');
 
-    tags[tag] = (...args) => {
-      let attrs = '';
-      let children = [];
+export const div = createVirtualNode('div');
+export const img = createVirtualNode('img');
 
-      if (args.length > 2) {
-        throw new Error('You pass many arguments to component, more then 2');
-      }
+export const h1 = createVirtualNode('h1');
+export const h2 = createVirtualNode('img');
+export const h3 = createVirtualNode('h3');
+export const h4 = createVirtualNode('h4');
+export const h5 = createVirtualNode('h5');
+export const h6 = createVirtualNode('h6');
 
-      if (args.length === 1) {
-        attrs = isArr(args[0]) ? '' : args[0];
-        children = isArr(args[0]) ? args[0] : [];
-      }
+export const main = createVirtualNode('main');
+export const header = createVirtualNode('header');
+export const footer = createVirtualNode('footer');
+export const aside = createVirtualNode('aside');
+export const article = createVirtualNode('article');
+export const section = createVirtualNode('section');
 
-      if (args.length === 2) {
-        attrs = args[0];
-        children = args[1];
-      }
+export const button = createVirtualNode('button');
+export const input = createVirtualNode('input');
+export const form = createVirtualNode('form');
+export const label = createVirtualNode('label');
 
-      return { tag, attrs, children };
-    };
-  }
-})();
+function createVirtualNode(tag) {
+  return function (...args) {
+    let attrs = '';
+    let children = [];
+    let handlers = {};
 
-export const span = tags['span'];
-export const p = tags['p'];
-export const a = tags['a'];
+    if (args.length > 3) {
+      throw new Error('You pass many arguments to component, more then 2');
+    }
 
-export const div = tags['div'];
-export const img = tags['img'];
+    if (args.length === 1) {
+      attrs = isArr(args[0]) ? '' : args[0];
+      children = isArr(args[0]) ? args[0] : [];
+    }
 
-export const h1 = tags['h1'];
-export const h2 = tags['h2'];
-export const h3 = tags['h3'];
-export const h4 = tags['h4'];
-export const h5 = tags['h5'];
-export const h6 = tags['h6'];
+    if (args.length === 2) {
+      attrs = args[0];
+      children = args[1];
+    }
 
-export const main = tags['main'];
-export const header = tags['header'];
-export const footer = tags['footer'];
-export const aside = tags['aside'];
-export const article = tags['article'];
-export const section = tags['section'];
+    if (args.length === 3) {
+      attrs = args[0];
+      children = args[1];
+      handlers = args[2];
+    }
 
-export const button = tags['button'];
-export const input = tags['input'];
-export const form = tags['form'];
-export const label = tags['label'];
+    return { tag, attrs, children, handlers };
+  };
+}

@@ -1,4 +1,4 @@
-import { createElement } from './dom';
+import { createRootNode } from './dom';
 import { isStr, last, penultimate } from './utils';
 
 export default class Router {
@@ -59,9 +59,9 @@ export default class Router {
 
   _renderPage(Instance) {
     this.root.innerHTML = '';
-    const vNodeInstance = new Instance();
-    const vNode = vNodeInstance._init();
-    root.appendChild(createElement(vNode, vNodeInstance));
+    const rootInstance = new Instance();
+    const vRootNode = rootInstance._init();
+    root.appendChild(createRootNode(vRootNode));
   }
 
   _changeUrl(route, toolbar) {

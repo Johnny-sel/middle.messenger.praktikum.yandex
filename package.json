@@ -31,7 +31,6 @@
     }
   },
   "alias": {
-    "@core/state": "./src/core/state.js",
     "@core/render": "./src/core/render.js",
     "@core/component": "./src/core/component.js",
     "@core/router": "./src/core/router.js",
