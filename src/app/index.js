@@ -1,10 +1,10 @@
-import { LoginPage, LogoutPage } from '@pages';
+import { LoginPage, RegisterPage } from '@pages';
 import { Router } from '@core/router';
 
 (function initApp() {
   const routes = [
     { path: '/', comp: LoginPage },
-    { path: '/logout', comp: LogoutPage },
+    { path: '/registration', comp: RegisterPage },
   ];
 
   Router.init(routes);

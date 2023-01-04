@@ -39,10 +39,10 @@
     "@core/tags": "./src/core/tags.js",
     "@core/parse": "./src/core/parse.js",
     "@core/utils": "./src/core/utils.js",
-    "@pages": "./src/app/pages",
-    "@components": "./src/app/components",
-    "@modules": "./src/app/modules",
-    "@layouts": "./src/app/layouts"
+    "@pages": "./src/app/pages/_index.js",
+    "@components": "./src/app/components/_index.js",
+    "@modules": "./src/app/modules/_index.js",
+    "@layouts": "./src/app/layouts/_index.js"
   },
   "prettier": {
     "arrowParens": "always",

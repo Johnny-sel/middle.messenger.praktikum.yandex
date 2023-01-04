@@ -13,7 +13,7 @@ export default class Footer extends Component {
     return (
       div('c=footer;', [
         span('c=footer__copyright text;', ["© Copyright"]),
-        span('c=footer__title title;', ["Footer"]),
+        span('c=footer__title title;', [". . ."]),
         img(`c=footer__logo logo; src=img/logo.png; alt=logo;`),
       ])
     );

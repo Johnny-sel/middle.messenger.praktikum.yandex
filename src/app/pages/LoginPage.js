@@ -1,7 +1,7 @@
 import { component } from '@core/tags';
 import { Component } from '@core/component';
 import { LoginForm } from '@modules';
-import { Layout, Header, Footer } from '@layouts';
+import { Layout } from '@layouts';
 
 export default class LoginPage extends Component {
   constructor() {
@@ -10,6 +10,10 @@ export default class LoginPage extends Component {
 
   create() {
     // prettier-ignore
-    return component(Layout, { children: [LoginForm] })
+    return (
+      component(Layout, { children: [
+        LoginForm
+      ] })
+    )
   }
 }
