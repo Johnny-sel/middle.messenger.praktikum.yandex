@@ -1,6 +1,8 @@
 import { button } from '@core/tags';
 import { Component } from '@core/component';
 
+import './Button.sass';
+
 export default class Button extends Component {
   constructor(props) {
     super(props);
@@ -10,7 +12,7 @@ export default class Button extends Component {
     const { onSubmit } = props;
     // prettier-ignore
     return (
-      button(`c=login__form__button button; t=button;`,['Login'], { click: onSubmit })
+      button(`c=login__form__button button; t=button;`, ['Login'], { click: onSubmit })
     );
   }
 }

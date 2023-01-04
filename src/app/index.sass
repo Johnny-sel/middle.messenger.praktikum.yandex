@@ -1,8 +1,5 @@
 // default
-@import "../../static/styles/normalize"
-@import "../../static/styles/reset"
-
-// app
+@import './styles/global'
 @import './styles/varibales'
 
 @font-face
@@ -53,9 +50,12 @@ html
 
 .title
   color: $title
-  font-size: 2.4rem
+  font-size: 2rem
   font-weight: bold
   padding-bottom: 1rem
+
+  @media screen and (min-width: 425px)
+      font-size: 2.4rem
 
 .sub-title
   color: $title
@@ -64,6 +64,7 @@ html
 .link
   color: $link
   font-size: 1.4rem
+  text-decoration-line: underline
 
 .text
   font-size: 1.8rem
@@ -78,3 +79,6 @@ html
 .input, .button
   margin-bottom: 1rem
   padding: 1rem
+
+.logo
+  cursor: pointer

@@ -1,4 +1,4 @@
-import { h1 } from '@core/vdom';
+import { h1 } from '@core/tags';
 import { Component } from '@core/component';
 export default class LogoutPage extends Component {
   constructor() {

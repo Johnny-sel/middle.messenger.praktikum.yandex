@@ -1,5 +1,5 @@
 import { LoginPage, LogoutPage } from '@pages';
-import Router from '@core/router';
+import { Router } from '@core/router';
 
 (function initApp() {
   const routes = [

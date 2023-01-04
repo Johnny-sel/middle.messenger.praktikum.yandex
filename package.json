@@ -20,7 +20,8 @@
     "@parcel/transformer-sass": "^2.8.2",
     "parcel": "^2.8.2",
     "parcel-namer-rewrite": "^2.0.0-rc.3",
-    "parcel-plugin-at-alias": "^0.15.0"
+    "parcel-plugin-at-alias": "^0.15.0",
+    "parcel-reporter-static-files-copy": "^1.5.0"
   },
   "parcel-namer-rewrite": {
     "rules": {
@@ -39,7 +40,9 @@
     "@core/parse": "./src/core/parse.js",
     "@core/utils": "./src/core/utils.js",
     "@pages": "./src/app/pages",
-    "@components": "./src/app/components"
+    "@components": "./src/app/components",
+    "@modules": "./src/app/modules",
+    "@layouts": "./src/app/layouts"
   },
   "prettier": {
     "arrowParens": "always",

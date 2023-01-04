@@ -1,7 +1,7 @@
 import { createMainNode } from './dom';
 import { isStr, last, penultimate } from './utils';
 
-export default class Router {
+export class Router {
   constructor(routes) {
     this.routes = routes;
     this.stack = [];

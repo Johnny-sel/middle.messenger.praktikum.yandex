@@ -3,5 +3,6 @@
   "transformers": {
     "*.sass": ["@parcel/transformer-sass"]
   },
-  "namers": ["parcel-namer-rewrite"]
+  "namers": ["parcel-namer-rewrite"],
+  "reporters":  ["...", "parcel-reporter-static-files-copy"]
 }

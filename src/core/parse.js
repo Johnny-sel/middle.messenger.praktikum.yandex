@@ -10,9 +10,13 @@ function parseAttrs(attrsStr) {
     ['di=', ' disabled='],
     ['f=', ' for='],
     ['v=', ' value='],
+    ['h=', ' href='],
   ];
 
   replacements.forEach((item) => {
+    if (attrsStr.includes('alt') && item[0] === 't=') {
+      return;
+    }
     attrsStr = attrsStr.replace(item[0], item[1]);
   });
 
