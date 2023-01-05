@@ -1,8 +1,8 @@
-import { main, component, span } from '@core/tags';
+import { component, h1 } from '@core/tags';
 import { Component } from '@core/component';
 import { Layout } from '@app/components';
 
-export default class ErrorPage404 extends Component {
+export default class ChatsPage extends Component {
   constructor() {
     super();
   }
@@ -11,10 +11,7 @@ export default class ErrorPage404 extends Component {
     // prettier-ignore
     return (
       component(Layout, { children: [
-        main('c=error_page',[
-          span(['404']),
-          span(['There is no such page']),
-        ])
+        h1(["Chats Page"])
       ] })
     );
   }

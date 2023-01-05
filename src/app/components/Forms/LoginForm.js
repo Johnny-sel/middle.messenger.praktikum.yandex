@@ -27,6 +27,7 @@ export default class LoginForm extends Component {
 
   onSubmit() {
     console.log('state:', this.state.data);
+    Router.to('/chats');
   }
 
   goToRegisterPage() {

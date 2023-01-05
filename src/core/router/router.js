@@ -55,7 +55,7 @@ export class Router {
     const isChecked = this._checkRoute(route);
 
     if (!isChecked) {
-      route = route = this.routes.find((route) => route.path === '/error-404');
+      route = route = this.routes.find((route) => route.path === '/error');
     }
 
     this._renderPage(route.component);

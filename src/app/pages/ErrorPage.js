@@ -2,9 +2,16 @@ import { main, component, span } from '@core/tags';
 import { Component } from '@core/component';
 import { Layout } from '@app/components';
 
-export default class ErrorPage500 extends Component {
+export default class ErrorPage extends Component {
   constructor() {
     super();
+  }
+
+  createState() {
+    return {
+      errorType: '404',
+      errorText: 'There is no such page',
+    };
   }
 
   create(state, props) {
@@ -12,8 +19,8 @@ export default class ErrorPage500 extends Component {
     return (
       component(Layout, { children: [
         main('c=error_page',[
-          span(['500']),
-          span(['We are already fixing']),
+          span([props?.errorType ?? state.errorType]),
+          span([props?.errorText ?? state.errorText]),
         ])
       ] })
     );
