@@ -28,15 +28,20 @@ export default class ProfileInfo extends Component {
     Router.navigateTo('/profile/edit');
   }
 
-  goToChangePassword() {}
-  logout() {}
+  goToChangePassword() {
+    Router.navigateTo('/password/edit');
+  }
+
+  goToLoginPage() {
+    Router.navigateTo('/');
+  }
 
   create(state) {
     const { profileName, items } = state;
 
     const goToChangeData = this.goToChangeData.bind(this);
     const goToChangePassword = this.goToChangePassword.bind(this);
-    const logout = this.logout.bind(this);
+    const goToLoginPage = this.goToLoginPage.bind(this);
 
     // prettier-ignore
     return (
@@ -48,7 +53,7 @@ export default class ProfileInfo extends Component {
         div('c=profile__info__group_link;', [
           a('c=profile__info__group_link__link link;', [ 'Change data' ], { click: goToChangeData}),
           a('c=profile__info__group_link__link link;', [ 'Change password' ], { click: goToChangePassword}),
-          a('c=profile__info__group_link__link link;', [ 'Logout' ], { click: ()=> logout}),
+          a('c=profile__info__group_link__link link;', [ 'Logout' ], { click: goToLoginPage}),
         ]),
       ])
     );

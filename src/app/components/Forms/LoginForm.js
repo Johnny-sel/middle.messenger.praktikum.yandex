@@ -1,6 +1,4 @@
-import './LoginForm.sass';
-
-import { span, h1, main, form, component, a } from '@core/tags';
+import { span, section, form, component, a } from '@core/tags';
 import { Component } from '@core/component';
 import { Router } from '@core/router';
 import { Button, Input } from '@app/components';
@@ -42,14 +40,14 @@ export default class LoginForm extends Component {
 
     // prettier-ignore
     return (
-      main('c=login__form;', [
-        span('c=login__form__desc text;', ['Welcom to online messeger']),
-        form('c=login__form__form form; n=login-form;', [
+      section([
+        span('c=text;', ['Welcom to online messeger']),
+        form('c=form; n=login-form;', [
           component(Input, { name: 'email', placeholder: 'Enter Address' , change: onChange }),
           component(Input, { name: 'password', placeholder: 'Password' , change: onChange }),
           component(Button, { text: 'Login', onSubmit: onSubmit }),
         ]),
-        a('c=login__form__link link;', ['Create account'], { click: goToRegisterPage}),
+        a('c=link;', ['Create account'], { click: goToRegisterPage}),
       ])
     );
   }

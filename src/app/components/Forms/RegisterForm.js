@@ -1,6 +1,4 @@
-import './RegisterForm.sass';
-
-import { span, h1, main, form, component, a } from '@core/tags';
+import { section, form, component, a } from '@core/tags';
 import { Component } from '@core/component';
 import { Router } from '@core/router';
 import { Button, Input } from '@app/components';
@@ -13,6 +11,7 @@ const inputs = [
   { name: 'display_name', placeholder: 'Chat Name' },
   { name: 'phone', placeholder: 'Phone number' },
   { name: 'password', placeholder: 'Password' },
+  { name: 'confirm-password', placeholder: 'Confirm Password' },
 ];
 
 const data = {
@@ -22,6 +21,8 @@ const data = {
   second_name: '',
   display_name: '',
   phone: '',
+  password: '',
+  confirm_password: '',
 };
 
 export default class RegisterForm extends Component {
@@ -55,12 +56,14 @@ export default class RegisterForm extends Component {
 
     // prettier-ignore
     return (
-      main('c=register__form__form;', [
-        form('c=register__form__form__form form; n=edit-profile-form;', [
-          ...inputs.map((inputData, index) => component(Input, {...inputData, change: onChange })),
+      section([
+        form('c=form; n=edit-profile-form;', [
+          ...inputs.map(inputData => {
+            return component(Input, {...inputData, change: onChange })
+          }),
           component(Button, { text: 'Create account', onSubmit: onSubmit }),
         ]),
-        a('c=register__form__form__link link;', ['Go back'], { click: goBack}),
+        a('c=link;', ['Go back'], { click: goBack}),
       ])
       
     );

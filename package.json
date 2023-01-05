@@ -39,9 +39,7 @@
     "@core/parse": "./src/core/parse.js",
     "@core/utils": "./src/core/utils.js",
     "@app/pages": "./src/app/pages/",
-    "@app/components": "./src/app/components/",
-    "@app/modules": "./src/app/modules/",
-    "@app/layouts": "./src/app/layouts/"
+    "@app/components": "./src/app/components/"
   },
   "prettier": {
     "arrowParens": "always",

@@ -1,6 +1,6 @@
 import './Header.sass';
 
-import { div, img, span, button } from '@core/tags';
+import { div, img, span, button, header } from '@core/tags';
 import { Component } from '@core/component';
 import { Router } from '@core/router';
 
@@ -29,6 +29,9 @@ export default class Header extends Component {
       case '/profile/edit':
         this.state.title = 'Change profile';
         break;
+      case '/password/edit':
+        this.state.title = 'Change password';
+        break;
     }
   }
 
@@ -47,7 +50,7 @@ export default class Header extends Component {
 
     // prettier-ignore
     return (
-      div('c=header;', [
+      header('c=header;', [
         div('c=header__logo logo;', [
           img(`c=logo_image; src=/img/logo.png; alt=logo;`, [], {
             click: goToMainPage

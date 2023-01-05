@@ -1,19 +1,18 @@
 import { component } from '@core/tags';
 import { Component } from '@core/component';
-import { LoginForm, Layout } from '@app/components';
+import { EditPasswordForm , Layout} from '@app/components';
 
-
-export default class LoginPage extends Component {
+export default class EditPasswordPage extends Component {
   constructor() {
     super();
   }
 
-  create() {
+  create(state, props) {
     // prettier-ignore
     return (
       component(Layout, { children: [
-        LoginForm
+        EditPasswordForm
       ] })
-    )
+    );
   }
 }

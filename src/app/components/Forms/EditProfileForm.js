@@ -1,6 +1,4 @@
-import './EditProfileForm.sass';
-
-import { span, h1, main, form, component, a } from '@core/tags';
+import { section, form, component, a } from '@core/tags';
 import { Component } from '@core/component';
 import { Router } from '@core/router';
 import { Button, Input } from '@app/components';
@@ -38,7 +36,7 @@ export default class EditProfileForm extends Component {
   }
 
   onSubmit() {
-    console.log('state:', this.state.data);
+    console.log('data:', this.state.data);
   }
 
   goBack() {
@@ -54,14 +52,15 @@ export default class EditProfileForm extends Component {
 
     // prettier-ignore
     return (
-      main('c=edit_profile__form;', [
-        form('c=edit_profile__form__form form; n=edit-profile-form;', [
-          ...inputs.map((inputData, index) => component(Input, {...inputData, change: onChange })),
+      section([
+        form('c=form; n=edit-profile-form;', [
+          ...inputs.map(inputData => {
+            return component(Input, {...inputData, change: onChange })
+          }),
           component(Button, { text: 'Change data', onSubmit: onSubmit }),
         ]),
-        a('c=edit_profile__form__link link;', ['Go back'], { click: goBack}),
+        a('c=link;', ['Go back'], { click: goBack}),
       ])
-      
     );
   }
 }
