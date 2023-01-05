@@ -40,10 +40,12 @@ export class Router {
   }
 
   _navigateTo(path, { toolbar } = {}) {
-    const route = this.routes.find((route) => route.path === path);
+    let route = this.routes.find((route) => route.path === path);
     const isChecked = this._checkRoute(route);
 
-    if (!isChecked) return;
+    if (!isChecked) {
+      route = route = this.routes.find((route) => route.path === '/error-404');
+    }
 
     this._renderPage(route.comp);
     this._changeUrl(route, toolbar);

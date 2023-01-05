@@ -15,9 +15,9 @@ export default class Layout extends Component {
 
     // prettier-ignore
     return (
-      div(`c=layout;`, [
+      div('c=layout;', [
         component(Header),
-        ...children.map((child, index) => isFunc(child) ? component(child) : child),
+        ...children.map(child => isFunc(child) ? component(child) : child),
         component(Footer)
       ])
     );

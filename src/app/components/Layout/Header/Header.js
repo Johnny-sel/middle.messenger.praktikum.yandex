@@ -32,6 +32,12 @@ export default class Header extends Component {
       case '/password/edit':
         this.state.title = 'Change password';
         break;
+      case '/error-404':
+        this.state.title = 'ERROR';
+        break;
+      case '/error-500':
+        this.state.title = 'THE SITE IS TEMPORARILY DOWN';
+        break;
     }
   }
 
