@@ -66,7 +66,7 @@ export default class Header extends Component {
           span('c=header__greet__title title;', [title]),
         ]),
         div('c=header__links;', [
-          button(`c=header__links__profile_button button;`, [], {
+          button(`c=header__links__profile_button; n=profile`, [], {
             click: goToProfilePage
           }),
         ]),

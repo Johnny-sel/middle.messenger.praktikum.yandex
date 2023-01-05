@@ -1,5 +1,4 @@
-import { isStr, isNum, isArr } from './utils';
-import { parseAttrs } from './parse';
+import { isStr, isNum, isArr } from '../utils';
 
 export class Component {
   constructor() {
@@ -77,7 +76,7 @@ export class Component {
   }
 
   _injectAttr(prev, next) {
-    const attributes = Object.entries(parseAttrs(next.attrs));
+    const attributes = Object.entries(next.attrs);
     attributes.forEach(([key, value]) => {
       prev.element.setAttribute(key, value);
       prev.attrs = next.attrs;
@@ -95,8 +94,8 @@ export class Component {
     if (isStr(prev) || isNum(prev)) {
       return false;
     }
-    const nextAttrs = Object.entries(parseAttrs(next.attrs)).join();
-    const prevAttrs = Object.entries(parseAttrs(prev.attrs)).join();
+    const nextAttrs = Object.entries(next.attrs).join();
+    const prevAttrs = Object.entries(prev.attrs).join();
     return prevAttrs !== nextAttrs;
   }
 

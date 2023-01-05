@@ -1,4 +1,6 @@
 function parseAttrs(attrsStr) {
+  if (!attrsStr) return {};
+  
   let attrs = {};
 
   replacements = [

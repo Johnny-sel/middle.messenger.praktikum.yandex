@@ -1,4 +1,5 @@
-import { isArr } from '@core/utils';
+import { isArr } from '../utils';
+import { parseAttrs } from './parse';
 
 function createVirtualComponent(ComponentInstance, props) {
   const instance = new ComponentInstance();
@@ -31,6 +32,8 @@ function createVirtualNode(tag) {
       children = args[1];
       handlers = args[2];
     }
+
+    attrs = parseAttrs(attrs);
 
     return { tag, attrs, children, handlers };
   };

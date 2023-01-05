@@ -32,11 +32,9 @@
     }
   },
   "alias": {
-    "@core/component": "./src/core/component.js",
-    "@core/router": "./src/core/router.js",
-    "@core/vdom": "./src/core/vdom.js",
-    "@core/tags": "./src/core/tags.js",
-    "@core/parse": "./src/core/parse.js",
+    "@core/component": "./src/core/component/component.js",
+    "@core/router": "./src/core/router/router.js",
+    "@core/tags": "./src/core/vdom/tags.js",
     "@core/utils": "./src/core/utils.js",
     "@app/pages": "./src/app/pages/",
     "@app/components": "./src/app/components/",

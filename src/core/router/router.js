@@ -1,5 +1,5 @@
-import { createMainNode } from './dom';
-import { isStr, last, penultimate } from './utils';
+import { createRootNode } from './dom';
+import { isStr, penultimate } from '../utils';
 
 export class Router {
   constructor(routes) {
@@ -70,12 +70,12 @@ export class Router {
     this._navigateTo(path);
   }
 
-  _renderPage(Instance) {
+  _renderPage(ComponentInstance) {
     this.root.innerHTML = '';
-    const mainInstance = new Instance();
-    const vMainNode = mainInstance._init();
-    const mainNode = createMainNode(vMainNode);
-    root.appendChild(mainNode);
+    const componentInstance = new ComponentInstance();
+    const vDom = componentInstance._init();
+    const rootNode = createRootNode(vDom);
+    root.appendChild(rootNode);
   }
 
   _changeUrl(route, clickButton) {

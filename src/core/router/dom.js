@@ -1,7 +1,6 @@
-import { parseAttrs } from '@core/parse';
-import { isStr, isNum } from '@core/utils';
+import { isStr, isNum } from '../utils';
 
-function createMainNode(vNode) {
+function createRootNode(vNode) {
   if (isStr(vNode) || isNum(vNode)) {
     return document.createTextNode(String(vNode));
   }
@@ -9,7 +8,7 @@ function createMainNode(vNode) {
   const { tag, attrs, children, handlers } = vNode;
 
   const domElement = document.createElement(tag);
-  const attributes = Object.entries(parseAttrs(attrs));
+  const attributes = Object.entries(attrs);
 
   vNode['element'] = domElement;
 
@@ -22,10 +21,10 @@ function createMainNode(vNode) {
   });
 
   children.forEach((child) => {
-    domElement.appendChild(createMainNode(child));
+    domElement.appendChild(createRootNode(child));
   });
 
   return domElement;
 }
 
-export { createMainNode };
+export { createRootNode };
