@@ -74,9 +74,7 @@ export class Router {
   }
 
   _registRoute(route) {
-    if (route.path !== last(this.stack)) {
-      this.stack.push(route.path);
-    }
+    this.stack.push(route.path);
   }
 
   _checkRoute(route) {

@@ -26,6 +26,9 @@ export default class Header extends Component {
       case '/profile':
         this.state.title = 'Profile';
         break;
+      case '/profile/edit':
+        this.state.title = 'Change profile';
+        break;
     }
   }
 
@@ -46,7 +49,7 @@ export default class Header extends Component {
     return (
       div('c=header;', [
         div('c=header__logo logo;', [
-          img(`c=logo_image; src=img/logo.png; alt=logo;`, [], {
+          img(`c=logo_image; src=/img/logo.png; alt=logo;`, [], {
             click: goToMainPage
           }),
         ]),

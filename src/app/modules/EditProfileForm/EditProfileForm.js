@@ -1,4 +1,4 @@
-import './RegisterForm.sass';
+import './EditProfileForm.sass';
 
 import { span, h1, main, form, component, a } from '@core/tags';
 import { Component } from '@core/component';
@@ -12,7 +12,6 @@ const inputs = [
   { name: 'second_name', placeholder: 'Surname' },
   { name: 'display_name', placeholder: 'Chat Name' },
   { name: 'phone', placeholder: 'Phone number' },
-  { name: 'password', placeholder: 'Password' },
 ];
 
 const data = {
@@ -24,7 +23,7 @@ const data = {
   phone: '',
 };
 
-export default class RegisterForm extends Component {
+export default class EditProfileForm extends Component {
   constructor() {
     super();
   }
@@ -55,12 +54,12 @@ export default class RegisterForm extends Component {
 
     // prettier-ignore
     return (
-      main('c=register__form__form;', [
-        form('c=register__form__form__form form; n=edit-profile-form;', [
+      main('c=edit_profile__form;', [
+        form('c=edit_profile__form__form form; n=edit-profile-form;', [
           ...inputs.map((inputData, index) => component(Input, {...inputData, change: onChange })),
-          component(Button, { text: 'Create account', onSubmit: onSubmit }),
+          component(Button, { text: 'Change data', onSubmit: onSubmit }),
         ]),
-        a('c=register__form__form__link link;', ['Go back'], { click: goBack}),
+        a('c=edit_profile__form__link link;', ['Go back'], { click: goBack}),
       ])
       
     );

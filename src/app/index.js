@@ -1,4 +1,4 @@
-import { LoginPage, ProfilePage, RegisterPage } from '@app/pages';
+import { LoginPage, ProfilePage, RegisterPage, ProfilePageEdit } from '@app/pages';
 import { Router } from '@core/router';
 
 (function initApp() {
@@ -6,6 +6,7 @@ import { Router } from '@core/router';
     { path: '/', comp: LoginPage },
     { path: '/registration', comp: RegisterPage },
     { path: '/profile', comp: ProfilePage },
+    { path: '/profile/edit', comp: ProfilePageEdit },
   ];
 
   Router.init(routes);

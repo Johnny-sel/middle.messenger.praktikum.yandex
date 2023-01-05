@@ -1,8 +1,9 @@
 import './ProfileInfo.sass';
 
-import { main, div, component, a } from '@core/tags';
+import { section, div, component, a } from '@core/tags';
 import { Component } from '@core/component';
 import { LargeAvatar, InfoLine } from '@app/components';
+import { Router } from '@core/router';
 
 export default class ProfileInfo extends Component {
   constructor() {
@@ -18,12 +19,15 @@ export default class ProfileInfo extends Component {
         { name: 'Name', value: 'Demo name' },
         { name: 'Surname', value: 'Demo surname' },
         { name: 'Chat name', value: 'Demo chat name' },
-        { name: 'Phone number', value: '+111111111111' },
+        { name: 'Phone phone', value: '+111111111111' },
       ],
     };
   }
 
-  goToChangeData() {}
+  goToChangeData() {
+    Router.navigateTo('/profile/edit');
+  }
+
   goToChangePassword() {}
   logout() {}
 
@@ -36,7 +40,7 @@ export default class ProfileInfo extends Component {
 
     // prettier-ignore
     return (
-      main('c=profile__info;', [
+      section('c=profile__info;', [
         component(LargeAvatar, { profileName }),
         ...items.map((item, index) => {
           return component(InfoLine, { name: item.name, value: item.value });

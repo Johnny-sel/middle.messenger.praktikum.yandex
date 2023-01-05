@@ -5,6 +5,11 @@ import { Component } from '@core/component';
 import { Router } from '@core/router';
 import { Button, Input } from '@app/components';
 
+const data = {
+  email: '',
+  password: '',
+};
+
 export default class LoginForm extends Component {
   constructor() {
     super();
@@ -12,49 +17,40 @@ export default class LoginForm extends Component {
 
   createState() {
     return {
-      email: '',
-      password: '',
+      data,
       loading: false,
-      count: 0,
     };
   }
 
-  onChangeEmail(event) {
-    this.state.email = event.target.value;
-  }
-
-  onChangePassword(event) {
-    this.state.password = event.target.value;
+  onChange(event) {
+    const name = event.target.name;
+    this.state.data[name] = event.target.value;
   }
 
   onSubmit() {
-    console.log('state:', this.state);
+    console.log('state:', this.state.data);
   }
 
-  goToLogoutPage(){
-    Router.navigateTo('/registration')
+  goToRegisterPage() {
+    Router.navigateTo('/registration');
   }
 
   create(state) {
-    const { email, password, loading, count } = state;
-
-    const changeEmail = this.onChangeEmail.bind(this);
-    const changePassword = this.onChangePassword.bind(this);
+    const onChange = this.onChange.bind(this);
     const onSubmit = this.onSubmit.bind(this);
-    const goToLogoutPage = this.goToLogoutPage.bind(this)
+    const goToRegisterPage = this.goToRegisterPage.bind(this);
 
     // prettier-ignore
     return (
       main('c=login__form;', [
         span('c=login__form__desc text;', ['Welcom to online messeger']),
         form('c=login__form__form form; n=login-form;', [
-          component(Input, { name: 'email', placeholder: 'Enter Address' , change: changeEmail }),
-          component(Input, { name:'password', placeholder: 'Password' , change: changePassword }),
+          component(Input, { name: 'email', placeholder: 'Enter Address' , change: onChange }),
+          component(Input, { name: 'password', placeholder: 'Password' , change: onChange }),
           component(Button, { text: 'Login', onSubmit: onSubmit }),
         ]),
-        a('c=login__form__link link;', ['Create account'], { click: goToLogoutPage}),
+        a('c=login__form__link link;', ['Create account'], { click: goToRegisterPage}),
       ])
-      
     );
   }
-} 
+}
