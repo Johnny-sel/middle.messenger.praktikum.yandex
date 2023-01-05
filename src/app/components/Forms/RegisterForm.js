@@ -43,27 +43,27 @@ export default class RegisterForm extends Component {
     console.log('state:', this.state.data);
   }
 
-  goBack() {
-    Router.goBack();
+  goToLoginPage() {
+    Router.navigateTo('/');
   }
 
   create(state) {
     const { inputs } = state;
 
     const onSubmit = this.onSubmit.bind(this);
-    const goBack = this.goBack.bind(this);
+    const goToLoginPage = this.goToLoginPage.bind(this);
     const onChange = this.onChange.bind(this);
 
     // prettier-ignore
     return (
       section([
-        form('c=form; n=edit-profile-form;', [
+        form('c=form;', [
           ...inputs.map(inputData => {
             return component(Input, {...inputData, change: onChange })
           }),
           component(Button, { text: 'Create account', onSubmit: onSubmit }),
         ]),
-        a('c=link;', ['Go back'], { click: goBack}),
+        a('c=link;', ['Go to login'], { click: goToLoginPage}),
       ])
       
     );

@@ -5,6 +5,8 @@ export class Router {
   constructor(routes) {
     this.routes = routes;
     this.stack = [];
+    this.index = 0;
+    this.isInit = true;
   }
 
   static init(routes) {
@@ -16,9 +18,11 @@ export class Router {
   }
 
   static render(root) {
+    this.instance.initPath = window.location.pathname;
     this.instance.root = root;
     this.instance._subscribe('popstate', this.instance);
-    this.instance._navigateTo(window.location.pathname);
+    this.instance._navigateTo(this.instance.initPath);
+    this.instance.isInit = false;
   }
 
   static navigateTo(path, { toolbar } = {}) {
@@ -30,16 +34,23 @@ export class Router {
     this.instance._navigateTo(path);
   }
 
-  _subscribe(event, ctx) {
-    return window.addEventListener(event, function () {
+  _subscribe(event, context) {
+    return window.addEventListener(event, function (e) {
       if (event === 'popstate') {
-        const path = penultimate(ctx.stack);
-        ctx._navigateTo(path, { toolbar: true });
+        const path = window.location.pathname;
+
+        if (path === context.stack[context.index - 1]) {
+          context._navigateTo(path, { clickButton: 'prev' });
+        } else {
+          context._navigateTo(path, { clickButton: 'next' });
+        }
+
+        context.prevPath = path;
       }
     });
   }
 
-  _navigateTo(path, { toolbar } = {}) {
+  _navigateTo(path, { clickButton } = {}) {
     let route = this.routes.find((route) => route.path === path);
     const isChecked = this._checkRoute(route);
 
@@ -47,9 +58,9 @@ export class Router {
       route = route = this.routes.find((route) => route.path === '/error-404');
     }
 
-    this._renderPage(route.comp);
-    this._changeUrl(route, toolbar);
-    this._registRoute(route);
+    this._renderPage(route.component);
+    this._changeUrl(route, clickButton);
+    this._registRoute(route, clickButton);
 
     console.info('[Router]: stack ', this.stack);
   }
@@ -67,16 +78,23 @@ export class Router {
     root.appendChild(mainNode);
   }
 
-  _changeUrl(route, toolbar) {
-    if (toolbar) {
+  _changeUrl(route, clickButton) {
+    if (clickButton) {
       history.replaceState({}, route.path, route.path);
     } else {
       history.pushState({}, route.path, route.path);
     }
   }
 
-  _registRoute(route) {
-    this.stack.push(route.path);
+  _registRoute(route, clickButton) {
+    if (clickButton === 'prev') {
+      this.index--;
+    } else if (clickButton === 'next') {
+      this.index++;
+    } else {
+      this.stack.push(route.path);
+      this.index = this.isInit ? 0 : this.index + 1;
+    }
   }
 
   _checkRoute(route) {
@@ -92,18 +110,13 @@ export class Router {
       return false;
     }
 
-    if (route.comp === undefined) {
+    if (route.component === undefined) {
       this._printError('component in route shoudle be define');
       return false;
     }
 
     if (!isStr(route.path)) {
       this._printError('route shoulde be string');
-      return false;
-    }
-
-    if (route.path == last(this.stack)) {
-      this._printInfo('you are already on this route');
       return false;
     }
 

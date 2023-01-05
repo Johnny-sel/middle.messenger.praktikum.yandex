@@ -12,7 +12,7 @@ export default class Button extends Component {
     const { onSubmit , text} = props;
     // prettier-ignore
     return (
-      button(`c=login__form__button button; t=button;`, [text], { click: onSubmit })
+      button(`c=form__button button; t=button;`, [text], { click: onSubmit })
     );
   }
 }

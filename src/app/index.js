@@ -1,3 +1,4 @@
+import { Router } from '@core/router';
 import {
   LoginPage,
   ProfilePage,
@@ -7,17 +8,16 @@ import {
   ErrorPage404,
   ErrorPage500,
 } from '@app/pages';
-import { Router } from '@core/router';
 
 (function initApp() {
   const routes = [
-    { path: '/', comp: LoginPage },
-    { path: '/error-404', comp: ErrorPage404 },
-    { path: '/error-500', comp: ErrorPage500 },
-    { path: '/registration', comp: RegisterPage },
-    { path: '/profile', comp: ProfilePage },
-    { path: '/profile/edit', comp: EditProfilePage },
-    { path: '/password/edit', comp: EditPasswordPage },
+    { path: '/', component: LoginPage },
+    { path: '/error-404', component: ErrorPage404 },
+    { path: '/error-500', component: ErrorPage500 },
+    { path: '/registration', component: RegisterPage },
+    { path: '/profile', component: ProfilePage },
+    { path: '/profile/edit', component: EditProfilePage },
+    { path: '/password/edit', component: EditPasswordPage },
   ];
 
   Router.init(routes);

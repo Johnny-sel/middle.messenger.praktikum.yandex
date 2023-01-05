@@ -29,24 +29,24 @@ export default class EditPasswordForm extends Component {
     console.log('state:', this.state.data);
   }
 
-  goBack() {
-    Router.goBack();
+  goToProfilePage() {
+    Router.navigateTo('/profile');
   }
 
   create(state) {
     const onChange = this.onChange.bind(this);
     const onSubmit = this.onSubmit.bind(this);
-    const goBack = this.goBack.bind(this);
+    const goToProfilePage = this.goToProfilePage.bind(this);
 
     // prettier-ignore
     return (
       section([
-        form('c=form; n=login-form;', [
+        form('c=form;', [
           component(Input, { name: 'password', placeholder: 'New Password' , change: onChange }),
           component(Input, { name: 'confirm-password', placeholder: 'Confirm New Password' , change: onChange }),
           component(Button, { text: 'Change password', onSubmit: onSubmit }),
         ]),
-        a('c=login__form__link link;', ['Go back'], { click: goBack}),
+        a('c=login__form__link link;', ['Go to profile'], { click: goToProfilePage}),
       ])
     );
   }

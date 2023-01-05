@@ -42,7 +42,7 @@ export default class LoginForm extends Component {
     return (
       section([
         span('c=text;', ['Welcom to online messeger']),
-        form('c=form; n=login-form;', [
+        form('c=form;', [
           component(Input, { name: 'email', placeholder: 'Enter Address' , change: onChange }),
           component(Input, { name: 'password', placeholder: 'Password' , change: onChange }),
           component(Button, { text: 'Login', onSubmit: onSubmit }),

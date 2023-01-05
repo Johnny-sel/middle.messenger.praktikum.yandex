@@ -13,7 +13,7 @@ export default class Input extends Component {
     const { name, placeholder, change } = props;
     // prettier-ignore
     return (
-      input(`c=login__form__input input; t=${name}; n=${name}; p=${placeholder?? name};`, [], { change })
+      input(`c=form__input input; t=${name}; n=${name}; p=${placeholder?? name};`, [], { change })
     );
   }
 }

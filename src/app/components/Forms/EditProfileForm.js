@@ -39,27 +39,27 @@ export default class EditProfileForm extends Component {
     console.log('data:', this.state.data);
   }
 
-  goBack() {
-    Router.goBack();
+  goToProfilePage() {
+    Router.navigateTo('/profile');
   }
 
   create(state) {
     const { inputs } = state;
 
     const onSubmit = this.onSubmit.bind(this);
-    const goBack = this.goBack.bind(this);
+    const goToProfilePage = this.goToProfilePage.bind(this);
     const onChange = this.onChange.bind(this);
 
     // prettier-ignore
     return (
       section([
-        form('c=form; n=edit-profile-form;', [
+        form('c=form;', [
           ...inputs.map(inputData => {
             return component(Input, {...inputData, change: onChange })
           }),
           component(Button, { text: 'Change data', onSubmit: onSubmit }),
         ]),
-        a('c=link;', ['Go back'], { click: goBack}),
+        a('c=link;', ['Go to profile'], { click: goToProfilePage}),
       ])
     );
   }
