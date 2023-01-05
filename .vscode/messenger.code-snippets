@@ -1,4 +1,55 @@
 {
+	"map": {
+		"scope": "javascript,typescript",
+		"prefix": "map",
+		"body": [
+			"...$1.map((item, index) => $2('c=$3;', [$4])),",
+		],
+	},
+	"component": {
+		"scope": "javascript,typescript",
+		"prefix": "cc",
+		"body": [
+			"import './$1.sass';",
+			"  ",
+			"import { div } from '@core/tags';",
+			"import { Component } from '@core/component';",
+			"  ",
+			"export default class $1 extends Component {",
+			"  constructor() {",
+			"    super();",
+			"  }",
+			"  ",
+			"  create(state, props) {",
+			"    const { } = state;",
+			"    const { } = props;",
+			"    ",
+			"    // prettier-ignore",
+			"    return (",
+			"      div$3('c=$4;', [$5])",
+			"    );",
+			"  }",
+			"}"
+		]
+	},
+	"createState": {
+		"scope": "javascript,typescript",
+		"prefix": "cs",
+		"body": [
+			"createState() {",
+			"  return {$1};",
+			"}",
+			"",
+		],
+	},
+	"didMount": {
+		"scope": "javascript,typescript",
+		"prefix": "dm",
+		"body": [
+			"didMount() {$1}",
+			"",
+		],
+	},
 	"component-tag": {
 		"scope": "javascript,typescript",
 		"prefix": "c",
@@ -95,58 +146,6 @@
 		"prefix": "i",
 		"body": [
 			"input(`id=$1; c=$2; t=$4; n=$4; p=$5; change=$6;', [$7]),",
-		],
-	},
-	"map": {
-		"scope": "javascript,typescript",
-		"prefix": "map",
-		"body": [
-			"...$1.map((item, index) => $2('c=$3;', [$4])),",
-		],
-	},
-	"component": {
-		"scope": "javascript,typescript",
-		"prefix": "cc",
-		"body": [
-			"import './$1.sass';",
-			"  ",
-			"import { div } from '@core/tags';",
-			"import { Component } from '@core/component';",
-			"  ",
-			"export default class $1 extends Component {",
-			"  constructor() {",
-			"    super();",
-			"  }",
-			"  ",
-			"  create(state, props) {",
-			"    const { } = state;",
-			"    const { } = props;",
-			"    ",
-			"    // prettier-ignore",
-			"    return (",
-			"      div$3('c=$4;', [$5])",
-		  "    );",
-			"  }",
-			"}"
-			
-		]
-	},
-	"createState": {
-		"scope": "javascript,typescript",
-		"prefix": "cs",
-		"body": [
-			"createState() {",
-			"  return {$1};",
-			"}",
-			"",
-		],
-	},
-	"didMount": {
-		"scope": "javascript,typescript",
-		"prefix": "dm",
-		"body": [
-			"didMount() {$1}",
-			"",
 		],
 	}
 }

@@ -40,7 +40,7 @@ export default class EditProfileForm extends Component {
   }
 
   goToProfilePage() {
-    Router.navigateTo('/profile');
+    Router.to('/profile');
   }
 
   create(state) {

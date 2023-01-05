@@ -25,7 +25,7 @@ export class Router {
     this.instance.isInit = false;
   }
 
-  static navigateTo(path, { toolbar } = {}) {
+  static to(path, { toolbar } = {}) {
     this.instance._navigateTo(path, { toolbar });
   }
 

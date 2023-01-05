@@ -30,7 +30,7 @@ export default class LoginForm extends Component {
   }
 
   goToRegisterPage() {
-    Router.navigateTo('/registration');
+    Router.to('/registration');
   }
 
   create(state) {

@@ -14,10 +14,7 @@ export default class EditPasswordForm extends Component {
   }
 
   createState() {
-    return {
-      data,
-      loading: false,
-    };
+    return { data, loading: false };
   }
 
   onChange(event) {
@@ -30,7 +27,7 @@ export default class EditPasswordForm extends Component {
   }
 
   goToProfilePage() {
-    Router.navigateTo('/profile');
+    Router.to('/profile');
   }
 
   create(state) {

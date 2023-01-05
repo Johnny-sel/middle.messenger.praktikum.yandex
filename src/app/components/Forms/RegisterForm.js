@@ -44,7 +44,7 @@ export default class RegisterForm extends Component {
   }
 
   goToLoginPage() {
-    Router.navigateTo('/');
+    Router.to('/');
   }
 
   create(state) {

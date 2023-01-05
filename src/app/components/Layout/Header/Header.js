@@ -42,11 +42,11 @@ export default class Header extends Component {
   }
 
   goToProfilePage() {
-    Router.navigateTo('/profile');
+    Router.to('/profile');
   }
 
   goToMainPage() {
-    Router.navigateTo('/');
+    Router.to('/');
   }
 
   create(state) {

@@ -35,9 +35,9 @@
     "@core/component": "./src/core/component/component.js",
     "@core/router": "./src/core/router/router.js",
     "@core/tags": "./src/core/vdom/tags.js",
-    "@core/utils": "./src/core/utils.js",
-    "@app/pages": "./src/app/pages/",
-    "@app/components": "./src/app/components/",
+    "@core/utils": "./src/core/utils",
+    "@app/pages": "./src/app/pages",
+    "@app/components": "./src/app/components",
     "@app/styles/varibales": "./src/app/styles/varibales.sass"
   },
   "prettier": {

@@ -25,15 +25,15 @@ export default class ProfileInfo extends Component {
   }
 
   goToChangeData() {
-    Router.navigateTo('/profile/edit');
+    Router.to('/profile/edit');
   }
 
   goToChangePassword() {
-    Router.navigateTo('/password/edit');
+    Router.to('/password/edit');
   }
 
   goToLoginPage() {
-    Router.navigateTo('/');
+    Router.to('/');
   }
 
   create(state) {
