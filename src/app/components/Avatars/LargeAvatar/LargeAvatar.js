@@ -19,7 +19,7 @@ export default class LargeAvatar extends Component {
           img('c=large_avatar__preview__img; src=img/avatar-preview.png;', []),
           button('c=large_avatar__preview_button;', ['Change avatar']),
         ]),
-        span('c=large_avatar__profile_name;', [ profileName ])
+        span('c=large_avatar__profile_name text;', [ profileName ])
       ])
     );
   }

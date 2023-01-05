@@ -51,7 +51,7 @@ export default class RegisterForm extends Component {
           component(Input, { name:'login', placeholder: 'Login' , change: changePassword }),
           component(Input, { name:'name', placeholder: 'Name' , change: changePassword }),
           component(Input, { name:'surname', placeholder: 'Surname' , change: changePassword }),
-          component(Input, { name:'number', placeholder: 'Telephone number' , change: changePassword }),
+          component(Input, { name:'number', placeholder: 'Phone number' , change: changePassword }),
           component(Input, { name:'password', placeholder: 'Password' , change: changePassword }),
           component(Input, { name:'confirm-password', placeholder: 'Confirm Password' , change: changePassword }),
           component(Button, { text: 'Create account', onSubmit: onSubmit }),

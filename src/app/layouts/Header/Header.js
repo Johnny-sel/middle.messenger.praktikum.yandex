@@ -33,15 +33,22 @@ export default class Header extends Component {
     Router.navigateTo('/profile');
   }
 
+  goToMainPage() {
+    Router.navigateTo('/');
+  }
+
   create(state) {
     const { title } = state;
     const goToProfilePage = this.goToProfilePage.bind(this);
+    const goToMainPage = this.goToMainPage.bind(this);
 
     // prettier-ignore
     return (
       div('c=header;', [
         div('c=header__logo logo;', [
-          img(`c=logo_image; src=img/logo.png; alt=logo;`),
+          img(`c=logo_image; src=img/logo.png; alt=logo;`, [], {
+            click: goToMainPage
+          }),
         ]),
         div('c=header__greet;', [
           span('c=header__greet__title title;', [title]),

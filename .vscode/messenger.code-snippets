@@ -24,7 +24,7 @@
 		"scope": "javascript,typescript",
 		"prefix": "a",
 		"body": [
-			"a('c=$1; h=$2; `, [$3]),",
+			"a('c=$1;', [ $2 ], { click: $3 } ),",
 		],
 	},
 	"h1": {
