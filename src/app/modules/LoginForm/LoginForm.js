@@ -1,11 +1,11 @@
-import './RegisterForm.sass';
+import './LoginForm.sass';
 
 import { span, h1, main, form, component, a } from '@core/tags';
 import { Component } from '@core/component';
 import { Router } from '@core/router';
-import { Button, Input } from '@components';
+import { Button, Input } from '@app/components';
 
-export default class RegisterForm extends Component {
+export default class LoginForm extends Component {
   constructor() {
     super();
   }
@@ -31,8 +31,8 @@ export default class RegisterForm extends Component {
     console.log('state:', this.state);
   }
 
-  goToLoginPage() {
-    Router.navigateTo('/');
+  goToLogoutPage(){
+    Router.navigateTo('/registration')
   }
 
   create(state) {
@@ -41,24 +41,20 @@ export default class RegisterForm extends Component {
     const changeEmail = this.onChangeEmail.bind(this);
     const changePassword = this.onChangePassword.bind(this);
     const onSubmit = this.onSubmit.bind(this);
-    const goToLoginPage = this.goToLoginPage.bind(this);
+    const goToLogoutPage = this.goToLogoutPage.bind(this)
 
     // prettier-ignore
     return (
-      main('c=register__form;', [
-        form('c=register__form__form form; n=login-form;', [
+      main('c=login__form;', [
+        span('c=login__form__desc text;', ['Welcom to online messeger']),
+        form('c=login__form__form form; n=login-form;', [
           component(Input, { name: 'email', placeholder: 'Enter Address' , change: changeEmail }),
-          component(Input, { name:'login', placeholder: 'Login' , change: changePassword }),
-          component(Input, { name:'name', placeholder: 'Name' , change: changePassword }),
-          component(Input, { name:'surname', placeholder: 'Surname' , change: changePassword }),
-          component(Input, { name:'number', placeholder: 'Telephone number' , change: changePassword }),
           component(Input, { name:'password', placeholder: 'Password' , change: changePassword }),
-          component(Input, { name:'repeat-password', placeholder: 'Repeat Password' , change: changePassword }),
-          component(Button, { text: 'Create account', onSubmit: onSubmit }),
+          component(Button, { text: 'Login', onSubmit: onSubmit }),
         ]),
-        a('c=register__form__link link;', ['Sign in'], { click: goToLoginPage}),
+        a('c=login__form__link link;', ['Create account'], { click: goToLogoutPage}),
       ])
       
     );
   }
-}
+} 

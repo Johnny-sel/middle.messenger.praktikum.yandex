@@ -2,7 +2,7 @@ import './Layout.sass';
 
 import { div, component } from '@core/tags';
 import { Component } from '@core/component';
-import { Header, Footer } from '@layouts';
+import { Header, Footer } from '@app/layouts';
 
 export default class Layout extends Component {
   constructor() {

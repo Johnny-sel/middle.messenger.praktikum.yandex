@@ -2,6 +2,7 @@ import './Header.sass';
 
 import { div, img, span, button } from '@core/tags';
 import { Component } from '@core/component';
+import { Router } from '@core/router';
 
 export default class Header extends Component {
   constructor() {
@@ -17,16 +18,25 @@ export default class Header extends Component {
   didMount() {
     switch (window.location.pathname) {
       case '/':
-        this.state.title = 'Sign in';
+        this.state.title = 'Sign in to chat';
         break;
       case '/registration':
         this.state.title = 'Registration';
         break;
+      case '/profile':
+        this.state.title = 'Profile';
+        break;
     }
+  }
+
+  goToProfilePage() {
+    Router.navigateTo('/profile');
   }
 
   create(state) {
     const { title } = state;
+    const goToProfilePage = this.goToProfilePage.bind(this);
+
     // prettier-ignore
     return (
       div('c=header;', [
@@ -37,7 +47,9 @@ export default class Header extends Component {
           span('c=header__greet__title title;', [title]),
         ]),
         div('c=header__links;', [
-          button(`c=header__links__profile_button button;`),
+          button(`c=header__links__profile_button button;`, [], {
+            click: goToProfilePage
+          }),
         ]),
       ])
     );

@@ -61,7 +61,8 @@ export class Router {
     this.root.innerHTML = '';
     const mainInstance = new Instance();
     const vMainNode = mainInstance._init();
-    root.appendChild(createMainNode(vMainNode));
+    const mainNode = createMainNode(vMainNode);
+    root.appendChild(mainNode);
   }
 
   _changeUrl(route, toolbar) {

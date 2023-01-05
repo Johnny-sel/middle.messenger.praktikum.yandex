@@ -1,6 +1,7 @@
 import { createVirtualComponent, createVirtualNode } from './vdom';
 
 export const component = createVirtualComponent;
+
 export const span = createVirtualNode('span');
 export const p = createVirtualNode('p');
 export const a = createVirtualNode('a');
