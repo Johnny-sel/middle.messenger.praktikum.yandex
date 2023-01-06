@@ -1,6 +1,6 @@
 # Yandex practicum sprint_1
 
-UI Prototype - https://www.figma.com/file/nJe5jORwqJie23I0MasHvb/Yandex-practicum-messenger?node-id=0%3A1&t=LNudhR1BQmAkxQ6N-1
+[UI prototype in figma](https://www.figma.com/file/nJe5jORwqJie23I0MasHvb/Yandex-practicum-messenger?node-id=0%3A1&t=LNudhR1BQmAkxQ6N-1)
 
 ### Running development (localhost:1234)
 
@@ -12,8 +12,6 @@ UI Prototype - https://www.figma.com/file/nJe5jORwqJie23I0MasHvb/Yandex-practicu
     npm install
     npm run start
 
-### Get Started 🔥
-
 ### Structure project
 
     --src
@@ -24,7 +22,7 @@ UI Prototype - https://www.figma.com/file/nJe5jORwqJie23I0MasHvb/Yandex-practicu
             -- vdom         - service that create virtual dom
             -- utils        - utils for core and application
 
-#### Simple example for start
+### Quick Start
 
 ```js
 // index.js
@@ -62,6 +60,66 @@ export default class MainPage extends Component {
 }
 ```
 
+### How it works?
+    1. div - function that return object (virtual node) like:
+        {
+            tag: 'main',
+            chandlers: {},
+            attrs: { class: 'main },
+            children: [
+                {
+                    tag: 'h1',
+                    handlers: {},
+                    attrs: { class: 'main__title title' },
+                    children: ['Main page title'],
+                },
+                {
+                    handlers: {},
+                    tag: 'span',
+                    attrs: { class: 'main__text text' },
+                    children: ['Main page text'],
+                }
+            ]
+        }
+
+    2. When Component will be initialize, it remember current snapshot of object, that method create() return.
+    
+    3. The Router determines the current url path and creates a DOM element based on the object that return method create().
+    
+    4. When Router will be created DOM element, it set DOM element into object (virtual node).
+
+    5. As a result, the object will look like this:
+
+        {
+            tag: 'main',
+            chandlers: {},
+            attrs: { class: 'main },
+            element: refDomElement,
+            children: [
+                {
+                    tag: 'h1',
+                    handlers: {},
+                    attrs: { class: 'main__title title' },
+                    children: ['Main page title'],
+                    element: refDomElement,
+                },
+                {
+                    handlers: {},
+                    tag: 'span',
+                    attrs: { class: 'main__text text' },
+                    children: ['Main page text'],
+                    element: refDomElement,
+                }
+            ]
+        }
+    
+    6. When state will be changed. The div function return new object.
+
+    7. Interception of Component catch this, and compares previos object (prev virtual node) with new object (next virtual node)
+
+    8. Component will determine where the changes occurred and redraw only those elements in which there were changes.
+
+### Examples
 #### Component in component
 
 ```js
@@ -348,7 +406,57 @@ export default class LoginPage extends Component {
 }
 ```
 
+#### Dynamic styles
+
+```js
+// CustomComponent.js
+import { span } from '@core/tags';
+import { Component } from '@core/component';
+
+export default class CustomComponent extends Component {
+  constructor() {
+    super();
+  }
+
+  createState() {
+      return { isActive: false };
+  }
+
+  create(state) {
+      const active = state.isActive ? 'active' : '';
+
+    // prettier-ignore
+    return (
+      span(`c=text ${active};`, ['Simple text'])
+    )
+  }
+}
+```
+
+#### Mapping
+
+```js
+// CustomComponent.js
+import { span } from '@core/tags';
+import { Component } from '@core/component';
+
+export default class CustomComponent extends Component {
+  constructor() {
+    super();
+  }
+
+  create(state) {
+    // prettier-ignore
+    return (
+      div([
+          ...[1, 2, 3, 4, 5].map(item => span([ item ]))
+      ])
+    )
+  }
+}
+```
+
 ### TODO
-    1. Сomparison and replace children in virtual dom when state change
-    2. Life cycle didUnmount()
-    3. Refine attributes parsing
+    1. To do comparison and replace children in virtual dom when state change
+    2. To do Life cycle didUnmount()
+    3. Fix parse attributes 
