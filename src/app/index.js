@@ -8,7 +8,6 @@ import {
   EditPasswordPage,
   ErrorPage,
   ChatsPage,
-  TestPage
 } from '@app/pages';
 
 (function initApp() {
@@ -22,7 +21,6 @@ import {
     { path: profile, component: ProfilePage },
     { path: profileEdit, component: EditProfilePage },
     { path: passwordEdit, component: EditPasswordPage },
-    { path: '/test', component: TestPage },
   ];
 
   Router.init(routes);
