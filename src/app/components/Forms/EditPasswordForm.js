@@ -38,7 +38,7 @@ export default class EditPasswordForm extends Component {
 
     // prettier-ignore
     return (
-      section([
+      section('c=section', [
         form('c=form;', [
           component(Input, { name: 'password', placeholder: 'New Password' , change: onChange }),
           component(Input, { name: 'confirm-password', placeholder: 'Confirm New Password' , change: onChange }),

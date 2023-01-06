@@ -48,7 +48,7 @@ export default class ProfileInfo extends Component {
 
     // prettier-ignore
     return (
-      section('c=profile__info;', [
+      section('c=profile__info section;', [
         component(LargeAvatar, { profileName }),
         ...items.map((item, index) => {
           return component(InfoLine, { name: item.name, value: item.value });

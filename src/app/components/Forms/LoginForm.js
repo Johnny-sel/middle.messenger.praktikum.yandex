@@ -44,7 +44,7 @@ export default class LoginForm extends Component {
 
     // prettier-ignore
     return (
-      section([
+      section('c=section', [
         span('c=text;', ['Welcom to online messeger']),
         form('c=form;', [
           component(Input, { name: 'email', placeholder: 'Enter Address' , change: onChange }),

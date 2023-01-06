@@ -54,7 +54,7 @@ export default class EditProfileForm extends Component {
 
     // prettier-ignore
     return (
-      section([
+      section('c=section', [
         form('c=form;', [
           ...inputs.map(inputData => {
             return component(Input, {...inputData, change: onChange })
