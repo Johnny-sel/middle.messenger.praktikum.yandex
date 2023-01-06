@@ -7,7 +7,7 @@ export default class ChatsPage extends Component {
     super();
   }
 
-  create(state, props) {
+  create() {
     // prettier-ignore
     return (
       component(Layout, { children: [

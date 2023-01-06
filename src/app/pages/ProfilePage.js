@@ -7,12 +7,6 @@ export default class ProfilePage extends Component {
     super();
   }
 
-  createState() {
-    return {};
-  }
-
-  didMount() {}
-
   create() {
     // prettier-ignore
     return (

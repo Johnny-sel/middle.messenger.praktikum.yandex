@@ -1,6 +1,6 @@
 import './Layout.sass';
 
-import { div, component } from '@core/tags';
+import { div, main, component } from '@core/tags';
 import { Component } from '@core/component';
 import { Header, Footer } from '@app/components';
 
@@ -16,7 +16,10 @@ export default class Layout extends Component {
     return (
       div('c=layout;', [
         component(Header),
-        ...children.map(child => child),
+        main('c=main;', [
+          ...children.map(child => child),
+        ]),
+        
         component(Footer)
       ])
     );

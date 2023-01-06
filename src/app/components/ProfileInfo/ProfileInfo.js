@@ -2,7 +2,7 @@ import './ProfileInfo.sass';
 
 import { section, div, component, a } from '@core/tags';
 import { Component } from '@core/component';
-import { LargeAvatar, InfoLine } from '@app/components';
+import { ProfilePhoto, InfoLine } from '@app/components';
 import { Router } from '@core/router';
 import { location } from '@app/const';
 
@@ -49,7 +49,7 @@ export default class ProfileInfo extends Component {
     // prettier-ignore
     return (
       section('c=profile__info section;', [
-        component(LargeAvatar, { profileName }),
+        component(ProfilePhoto, { profileName }),
         ...items.map((item, index) => {
           return component(InfoLine, { name: item.name, value: item.value });
         }),

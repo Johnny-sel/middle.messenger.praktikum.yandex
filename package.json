@@ -7,29 +7,19 @@
   "engines": {
     "node": ">= 18.12.1"
   },
-  "main": "src/index.js",
-  "source": "src/index.js",
+  "source": "src/app/index.html",
   "scripts": {
-    "clean-dist": "rm -rf dist && mkdir dist",
-    "_init": "npm run clean-dist",
-    "dev": "npm run _init && parcel ./src/app/index.html",
-    "build": "npm run _init && parcel build ./src/app/index.html"
+    "clean": "rm -rf dist && mkdir dist",
+    "dev": "npm run clean && parcel",
+    "start": "npm run build && node ./server.js",
+    "build": "npm run clean && parcel build"
   },
-  "browserslist": "> 0.5%, last 2 versions, not dead",
+  "browserslist": "> 0.25%, last 2 versions, not dead",
   "devDependencies": {
     "@parcel/transformer-sass": "^2.8.2",
+    "express": "^4.18.2",
     "parcel": "^2.8.2",
-    "parcel-namer-rewrite": "^2.0.0-rc.3",
-    "parcel-plugin-at-alias": "^0.15.0",
-    "parcel-reporter-static-files-copy": "^1.5.0"
-  },
-  "parcel-namer-rewrite": {
-    "rules": {
-      "(.*)\\.(css)": "css/$1.$2",
-      "(.*)\\.(js)": "js/$1.$2",
-      "(.*)\\.(woff2|woff|ttf|otf|eot)": "fonts/$1.$2",
-      "(.*)\\.(svg|png|gif|jpg)": "img/$1.$2"
-    }
+    "parcel-plugin-at-alias": "^0.15.0"
   },
   "alias": {
     "@core/component": "./src/core/component/component.js",
@@ -39,6 +29,7 @@
     "@app/pages": "./src/app/pages",
     "@app/components": "./src/app/components",
     "@app/const": "./src/app/const",
+    "@app/img": "./src/app/static/img",
     "@app/styles/varibales": "./src/app/styles/varibales.sass"
   },
   "prettier": {

@@ -26,7 +26,7 @@
 
 ```js
 // index.js
-(function initApp() {
+function initApp() {
   const routes = [
       { path: '/', component: MainPage },
       { path: '/login', component: LoginPage },
@@ -35,7 +35,9 @@
 
   Router.init(routes);
   Router.render(document.getElementById('root'));
-})();
+}
+
+initApp();
 ```
 
 ```js
@@ -476,3 +478,5 @@ export default class CustomComponent extends Component {
     2. To do Life cycle didUnmount()
     3. Fix parse attributes 
     4. Add more tags
+    5. Add accessabilty
+    6. Fix router goBack()

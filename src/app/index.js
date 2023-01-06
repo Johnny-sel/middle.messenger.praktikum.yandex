@@ -10,7 +10,7 @@ import {
   ChatsPage,
 } from '@app/pages';
 
-(function initApp() {
+function initApp() {
   const { root, error, chats, registration, profile, profileEdit, passwordEdit } = location;
 
   const routes = [
@@ -25,4 +25,6 @@ import {
 
   Router.init(routes);
   Router.render(document.getElementById('root'));
-})();
+}
+
+initApp();

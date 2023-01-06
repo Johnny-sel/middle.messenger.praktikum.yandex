@@ -7,7 +7,7 @@ export default class EditProfilePage extends Component {
     super();
   }
 
-  create(state, props) {
+  create() {
 
     // prettier-ignore
     return (

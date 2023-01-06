@@ -3,7 +3,7 @@ function parseAttrs(attrsStr) {
   
   let attrs = {};
 
-  replacements = [
+  const replacements = [
     ['s=', ' style='],
     ['c=', ' class='],
     ['n=', ' name='],

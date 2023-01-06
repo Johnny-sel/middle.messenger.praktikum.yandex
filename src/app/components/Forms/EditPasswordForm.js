@@ -5,8 +5,8 @@ import { Button, Input } from '@app/components';
 import { location } from '@app/const';
 
 const data = {
-  email: '',
-  password: '',
+  "password": '',
+  "confirm_password": '',
 };
 
 export default class EditPasswordForm extends Component {
@@ -41,7 +41,7 @@ export default class EditPasswordForm extends Component {
       section('c=section', [
         form('c=form;', [
           component(Input, { name: 'password', placeholder: 'New Password' , change: onChange }),
-          component(Input, { name: 'confirm-password', placeholder: 'Confirm New Password' , change: onChange }),
+          component(Input, { name: 'confirm_password', placeholder: 'Confirm New Password' , change: onChange }),
           component(Button, { text: 'Change password', onSubmit: onSubmit }),
         ]),
         a('c=link;', ['Go to account'], { click: goToProfilePage}),

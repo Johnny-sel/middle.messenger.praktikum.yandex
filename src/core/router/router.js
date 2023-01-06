@@ -62,7 +62,7 @@ export class Router {
     this._changeUrl(route, clickButton);
     this._registRoute(route, clickButton);
 
-    console.info('[Router]: stack ', this.stack);
+    // console.info('[Router]: stack ', this.stack);
   }
 
   _goBack() {

@@ -1,9 +1,11 @@
 import './Header.sass';
+import headerLogo from '@app/img/header-logo.png'
 
-import { div, img, span, button, header, nav } from '@core/tags';
+import { div, img, h1, button, header, nav } from '@core/tags';
 import { Component } from '@core/component';
 import { Router } from '@core/router';
 import { location } from '@app/const';
+
 
 const { root, error, chats, registration, profile, profileEdit, passwordEdit } = location;
 
@@ -47,12 +49,12 @@ export default class Header extends Component {
     return (
       header('c=header;', [
         div('c=header__logo logo;', [
-          img(`c=logo_image; src=/img/logo.png; alt=logo;`, [], {
+          img(`c=logo_image; src=${headerLogo}; alt=logo;`, [], {
             click: goToMainPage
           }),
         ]),
         div('c=header__greet;', [
-          span('c=header__greet__title title;', [state.title]),
+          h1('c=header__greet__title title;', [state.title]),
         ]),
         nav('c=header__links;', [
           button(`c=header__links__profile_button; n=profile`, [], {

@@ -34,9 +34,7 @@ export class Component {
   _injecting() {
     let isChaned = false;
 
-    console.log('this.vNodeCurrent:', this.vNodeCurrent)
     let stackPrev = [this.vNodeCurrent];
-    console.log('this.vNodeNext:', this.vNodeNext)
     let stackNext = [this.vNodeNext];
 
     let lastPrev = this.vNodeCurrent;
@@ -95,9 +93,7 @@ export class Component {
   _compareAttrs(prev, next) {
     if (isStr(prev) || isNum(prev)) {
       return false;
-    }    console.log('next.attrs:', next.attrs)
-    console.log('next:', next)
-
+    }  
     const nextAttrs = Object.entries(next.attrs).join();
     const prevAttrs = Object.entries(prev.attrs).join();
     return prevAttrs !== nextAttrs;
