@@ -1,29 +1,25 @@
-
-### TODO
-    1. Сomparison and replace children in virtual dom when state change
-    2. Life cycle didUnmount()
-    3. Refine attributes parsing
-
 # Yandex practicum sprint_1
 
-## UI Prototype 
-  https://www.figma.com/file/nJe5jORwqJie23I0MasHvb/Yandex-practicum-messenger?node-id=0%3A1&t=LNudhR1BQmAkxQ6N-1
-  
-## Running project 🚀  
+## UI Prototype
+
+https://www.figma.com/file/nJe5jORwqJie23I0MasHvb/Yandex-practicum-messenger?node-id=0%3A1&t=LNudhR1BQmAkxQ6N-1
+
+## Running project 🚀
 
 ### Development (localhost:1234)
+
     npm install
     npm run dev
 
 ### Production (localhost:3000)
-    npm install
-    npm run start 
 
+    npm install
+    npm run start
 
 ### Get Started 🔥
 
 ### Structure project
-    
+
     --src
         --app               - application source
         --core              - custom framework
@@ -33,62 +29,66 @@
             -- utils        - utils for core and application
 
 #### Simple example for start
- ```js
+
+```js
 // index.js
 (function initApp() {
-    const routes = [
-        { path: '/', component: MainPage },
-        { path: '/login', component: LoginPage },
-        { path: '/account, component: AccountPage },
-    ];
+  const routes = [
+      { path: '/', component: MainPage },
+      { path: '/login', component: LoginPage },
+      { path: '/account, component: AccountPage },
+   ];
 
-    Router.init(routes);
-    Router.render(document.getElementById('root'));
+  Router.init(routes);
+  Router.render(document.getElementById('root'));
 })();
 ```
+
 ```js
 // MainPage.js
 import { div, h1, span } from '@core/tags';
 import { Component } from '@core/component';
 
 export default class MainPage extends Component {
-    constructor() {
-        super();
-    }
+  constructor() {
+    super();
+  }
 
-    create() {
-        // prettier-ignore
-        return (
-            div('c=main;', [
-                h1('c=main__title title;', [ 'Main page title' ]),
-                span('c=main__text text;', [ 'Main page text' ])
-            ])
-        )
-    }
-}       
+  create() {
+    // prettier-ignore
+    return (
+      div('c=main;', [
+        h1('c=main__title title;', [ 'Main page title' ]),
+        span('c=main__text text;', [ 'Main page text' ])
+      ])
+    )
+  }
+}
 ```
 
 #### Component in component
+
 ```js
 // Header.js
 import { header } from '@core/tags';
 import { Component } from '@core/component';
 
 export default class Header extends Component {
-    constructor() {
-        super();
-    }
+  constructor() {
+    super();
+  }
 
-    create() {
-        // prettier-ignore
-        return (
-            header('c=main;', [
-                h1('c=main__title title;', [ 'Header title' ])
-            ])
-        )
-    }
+  create() {
+    // prettier-ignore
+    return (
+      header('c=main;', [
+        h1('c=main__title title;', [ 'Header title' ])
+      ])
+    )
+  }
 }
 ```
+
 ```js
 // MainPage.js
 import { component } from '@core/tags';
@@ -96,44 +96,46 @@ import { Component } from '@core/component';
 import { Header } from '@app/components';
 
 export default class Header extends Component {
-    constructor() {
-        super();
-    }
+  constructor() {
+    super();
+  }
 
-    create() {
-        // prettier-ignore
-        return (
-            div('c=main;', [
-                component(Header),
-                span('c=main__text text;', [ 'Main page text' ])
-            ])
-        )
-    }
+  create() {
+    // prettier-ignore
+    return (
+      div('c=main;', [
+        component(Header),
+        span('c=main__text text;', [ 'Main page text' ])
+      ])
+    )
+  }
 }
 ```
 
 #### Pass props to component
+
 ```js
 // Header.js
 import { header } from '@core/tags';
 import { Component } from '@core/component';
 
 export default class Header extends Component {
-    constructor() {
-        super();
-    }
+  constructor() {
+    super();
+  }
 
-    create(state, props) {
-        const { title } = props;
-        // prettier-ignore
-        return (
-            header('c=main;', [
-                h1('c=main__title title;', [ title ])
-            ])
-        )
-    }
+  create(state, props) {
+    const { title } = props;
+    // prettier-ignore
+    return (
+      header('c=main;', [
+        h1('c=main__title title;', [ title ])
+      ])
+    )
+  }
 }
 ```
+
 ```js
 // MainPage.js
 import { component } from '@core/tags';
@@ -141,160 +143,165 @@ import { Component } from '@core/component';
 import { Header } from '@app/components';
 
 export default class MainPage extends Component {
-    constructor() {
-        super();
-    }
+  constructor() {
+    super();
+  }
 
-    create() {
-        // prettier-ignore
-        return (
-            div('c=main;', [
-                component(Header, { title: 'Header title' }),
-                span('c=main__text text;', [ 'Main page text' ])
-            ])
-        )
-    }
+  create() {
+    // prettier-ignore
+    return (
+      div('c=main;', [
+        component(Header, { title: 'Header title' }),
+        span('c=main__text text;', [ 'Main page text' ])
+      ])
+    )
+  }
 }
 ```
 
-#### Use handlers 
+#### Use handlers
+
 ```js
 // Button.js
 import { button } from '@core/tags';
 import { Component } from '@core/component';
 
 export default class Button extends Component {
-    constructor() {
-        super();
-    }
+  constructor() {
+    super();
+  }
 
-    onClick(event) {
-        console.log('onClick');
-    }
+  onClick(event) {
+    console.log('onClick');
+  }
 
-    create() {
-        const onClick = this.onClick.bind(this);
+  create() {
+    const onClick = this.onClick.bind(this);
 
-        // prettier-ignore
-        return (
-            button('c=button;', ['Button name'], {click: onClick})
-        )
-    }
+    // prettier-ignore
+    return (
+      button('c=button;', ['Button name'], {click: onClick})
+    )
+  }
 }
 ```
+
 ```js
 // Input.js
 import { input } from '@core/tags';
 import { Component } from '@core/component';
 
 export default class Input extends Component {
-    constructor() {
-        super();
-    }
+  constructor() {
+    super();
+  }
 
-    onChange(event) {
-        console.log('onChange');
-    }
+  onChange(event) {
+    console.log('onChange');
+  }
 
-    create() {
-        const onChange = this.onChange.bind(this);
+  create() {
+    const onChange = this.onChange.bind(this);
 
-        // prettier-ignore
-        return (
-            input('c=input;', ['Button name'], {change: onChange})
-        )
-    }
+    // prettier-ignore
+    return (
+      input('c=input;', ['Button name'], {change: onChange})
+    )
+  }
 }
 ```
 
-#### Create and change state 
+#### Create and change state
+
 ```js
 // CustomComponent.js
-import { button, span, div} from '@core/tags';
+import { button, span, div } from '@core/tags';
 import { Component } from '@core/component';
 
 export default class CustomComponent extends Component {
-    constructor() {
-        super();
-    }
+  constructor() {
+    super();
+  }
 
-    createState() {
-        return { text: '' };
-    }
+  createState() {
+    return { text: '' };
+  }
 
-    onClick() {
-        this.state.text = 'New text';
-    }
+  onClick() {
+    this.state.text = 'New text';
+  }
 
-    create(state) {
-        const onClick = this.onClick.bind(this);
+  create(state) {
+    const onClick = this.onClick.bind(this);
 
-        // prettier-ignore
-        return (
-            div([
-                span([ state.text ]),
-                button('c=button;', ['Button name'], {click: onClick})
-            ])
-        )
-    }
+    // prettier-ignore
+    return (
+      div([
+        span([ state.text ]),
+        button('c=button;', ['Button name'], {click: onClick})
+      ])
+    )
+  }
 }
 ```
 
+#### Navigation
 
-#### Navigation 
 ```js
 // CustomComponent.js
-import { button, span, div} from '@core/tags';
+import { button, span, div } from '@core/tags';
 import { Component } from '@core/component';
 import { Router } from '@core/router';
 
 export default class CustomComponent extends Component {
-    constructor() {
-        super();
-    }
+  constructor() {
+    super();
+  }
 
-    goToLoginPage() {
-        Router.to('/login');
-    }
+  goToLoginPage() {
+    Router.to('/login');
+  }
 
-    create(state) {
-        const goToLoginPage = this.goToLoginPage.bind(this);
+  create(state) {
+    const goToLoginPage = this.goToLoginPage.bind(this);
 
-        // prettier-ignore
-        return (
-            button('c=button;', ['Button name'], {click: goToLoginPage})
-        )
-    }
+    // prettier-ignore
+    return (
+      button('c=button;', ['Button name'], {click: goToLoginPage})
+    )
+  }
 }
 ```
 
 #### Life cycle component: didMount()
+
 ```js
 // CustomComponent.js
 import { span } from '@core/tags';
 import { Component } from '@core/component';
 
 export default class CustomComponent extends Component {
-    constructor() {
-        super();
-    }
+  constructor() {
+    super();
+  }
 
-    didMount() {
-        fetch('https://jsonplaceholder.typicode.com/todos/1')
-            .then(response => response.json())
-            .then(json => console.log(json))
-    }
+  didMount() {
+    fetch('https://jsonplaceholder.typicode.com/todos/1')
+      .then((response) => response.json())
+      .then((json) => console.log(json));
+  }
 
-    create(state) {
-        // prettier-ignore
-        return (
-           span(['Simple text'])
-        )
-    }
+  create(state) {
+    // prettier-ignore
+    return (
+      span(['Simple text'])
+    )
+  }
 }
 ```
 
 #### Layout
+
 ```js
 // Layout.js
 import { div, component } from '@core/tags';
@@ -320,6 +327,7 @@ export default class Layout extends Component {
   }
 }
 ```
+
 ```js
 // LoginPage.js
 import { component } from '@core/tags';
@@ -342,7 +350,6 @@ export default class LoginPage extends Component {
     )
   }
 }
-
 ```
 
 ### TODO
