@@ -2,6 +2,8 @@
 
 [UI prototype in figma](https://www.figma.com/file/nJe5jORwqJie23I0MasHvb/Yandex-practicum-messenger?node-id=0%3A1&t=LNudhR1BQmAkxQ6N-1)
 
+[Netlify deploy](https://sprint-1--visionary-taiyaki-b68147.netlify.app/)
+
 ### Running development (localhost:1234)
 
     npm install
