@@ -88,7 +88,7 @@ export default class MainPage extends Component {
     
     4. When Router will be created DOM element, it set DOM element into object (virtual node).
 
-    5. As a result, the object will look like this:
+    5. As a result, the object will look like this (add property "element"):
 
         {
             tag: 'main',
@@ -119,7 +119,22 @@ export default class MainPage extends Component {
 
     8. Component will determine where the changes occurred and redraw only those elements in which there were changes.
 
+### Note
+
+🔔 Use my custom snippets for fast developing
+```
+    cc - create component
+    d - div
+    s - span
+    c - component
+    ... and more
+    more information in  ./vscode/messenger.code-snippets
+
+```
+
 ### Examples
+
+    
 #### Component in component
 
 ```js
@@ -460,3 +475,4 @@ export default class CustomComponent extends Component {
     1. To do comparison and replace children in virtual dom when state change
     2. To do Life cycle didUnmount()
     3. Fix parse attributes 
+    4. Add more tags
