@@ -134,6 +134,13 @@
 			"main('c=$1;', [$2]),",
 		],
 	},
+	"nav": {
+		"scope": "javascript,typescript",
+		"prefix": "n",
+		"body": [
+			"nav('c=$1;', [$2]),",
+		],
+	},
 	"button": {
 		"scope": "javascript,typescript",
 		"prefix": "b",

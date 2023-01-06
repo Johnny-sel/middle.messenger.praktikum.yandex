@@ -2,6 +2,8 @@ import { section, form, component, a } from '@core/tags';
 import { Component } from '@core/component';
 import { Router } from '@core/router';
 import { Button, Input } from '@app/components';
+import { location } from '@app/const';
+
 
 const inputs = [
   { name: 'email', placeholder: 'Email Address' },
@@ -40,7 +42,7 @@ export default class EditProfileForm extends Component {
   }
 
   goToProfilePage() {
-    Router.to('/profile');
+    Router.to(location.profile);
   }
 
   create(state) {
@@ -57,9 +59,9 @@ export default class EditProfileForm extends Component {
           ...inputs.map(inputData => {
             return component(Input, {...inputData, change: onChange })
           }),
-          component(Button, { text: 'Change data', onSubmit: onSubmit }),
+          component(Button, { text: 'Change account', onSubmit: onSubmit }),
         ]),
-        a('c=link;', ['Go to profile'], { click: goToProfilePage}),
+        a('c=link;', ['Go to account'], { click: goToProfilePage}),
       ])
     );
   }

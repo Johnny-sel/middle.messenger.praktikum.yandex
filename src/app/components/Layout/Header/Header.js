@@ -1,8 +1,21 @@
 import './Header.sass';
 
-import { div, img, span, button, header } from '@core/tags';
+import { div, img, span, button, header, nav } from '@core/tags';
 import { Component } from '@core/component';
 import { Router } from '@core/router';
+import { location } from '@app/const';
+
+const { root, error, chats, registration, profile, profileEdit, passwordEdit } = location;
+
+const titles = {
+  [root]: 'Sign in chats',
+  [error]: 'ERROR',
+  [chats]: 'Chats',
+  [registration]: 'Registration',
+  [profile]: 'Account',
+  [profileEdit]: 'Change account',
+  [passwordEdit]: 'Change password',
+};
 
 export default class Header extends Component {
   constructor() {
@@ -10,47 +23,23 @@ export default class Header extends Component {
   }
 
   createState() {
-    return {
-      title: 'Welcome',
-    };
+    return { title: 'Welcome' };
   }
 
   didMount() {
-    switch (window.location.pathname) {
-      case '/':
-        this.state.title = 'Sign in to chat';
-        break;
-      case '/registration':
-        this.state.title = 'Registration';
-        break;
-      case '/profile':
-        this.state.title = 'Profile';
-        break;
-      case '/profile/edit':
-        this.state.title = 'Change profile';
-        break;
-      case '/password/edit':
-        this.state.title = 'Change password';
-        break;
-      case '/chats':
-        this.state.title = 'Chats';
-        break;
-      case '/error':
-        this.state.title = 'ERROR';
-        break;
-    }
+    const path = window.location.pathname;
+    this.state.title = titles[path];
   }
 
   goToProfilePage() {
-    Router.to('/profile');
+    Router.to(profile);
   }
 
   goToMainPage() {
-    Router.to('/');
+    Router.to(root);
   }
 
   create(state) {
-    const { title } = state;
     const goToProfilePage = this.goToProfilePage.bind(this);
     const goToMainPage = this.goToMainPage.bind(this);
 
@@ -63,9 +52,9 @@ export default class Header extends Component {
           }),
         ]),
         div('c=header__greet;', [
-          span('c=header__greet__title title;', [title]),
+          span('c=header__greet__title title;', [state.title]),
         ]),
-        div('c=header__links;', [
+        nav('c=header__links;', [
           button(`c=header__links__profile_button; n=profile`, [], {
             click: goToProfilePage
           }),

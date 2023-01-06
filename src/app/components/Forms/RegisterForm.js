@@ -2,6 +2,7 @@ import { section, form, component, a } from '@core/tags';
 import { Component } from '@core/component';
 import { Router } from '@core/router';
 import { Button, Input } from '@app/components';
+import { location } from '@app/const';
 
 const inputs = [
   { name: 'email', placeholder: 'Email Address' },
@@ -44,7 +45,7 @@ export default class RegisterForm extends Component {
   }
 
   goToLoginPage() {
-    Router.to('/');
+    Router.to(location.root);
   }
 
   create(state) {

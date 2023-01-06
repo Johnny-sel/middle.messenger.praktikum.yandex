@@ -2,6 +2,9 @@ import { span, section, form, component, a } from '@core/tags';
 import { Component } from '@core/component';
 import { Router } from '@core/router';
 import { Button, Input } from '@app/components';
+import { location } from '@app/const';
+
+
 
 const data = {
   email: '',
@@ -27,11 +30,11 @@ export default class LoginForm extends Component {
 
   onSubmit() {
     console.log('state:', this.state.data);
-    Router.to('/chats');
+    Router.to(location.chats);
   }
 
   goToRegisterPage() {
-    Router.to('/registration');
+    Router.to(location.registration);
   }
 
   create(state) {

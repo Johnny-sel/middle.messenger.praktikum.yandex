@@ -1,4 +1,5 @@
 import { Router } from '@core/router';
+import { location } from '@app/const';
 import {
   LoginPage,
   ProfilePage,
@@ -10,14 +11,16 @@ import {
 } from '@app/pages';
 
 (function initApp() {
+  const { root, error, chats, registration, profile, profileEdit, passwordEdit } = location;
+
   const routes = [
-    { path: '/', component: LoginPage },
-    { path: '/error', component: ErrorPage },
-    { path: '/registration', component: RegisterPage },
-    { path: '/profile', component: ProfilePage },
-    { path: '/profile/edit', component: EditProfilePage },
-    { path: '/password/edit', component: EditPasswordPage },
-    { path: '/chats', component: ChatsPage },
+    { path: root, component: LoginPage },
+    { path: error, component: ErrorPage },
+    { path: chats, component: ChatsPage },
+    { path: registration, component: RegisterPage },
+    { path: profile, component: ProfilePage },
+    { path: profileEdit, component: EditProfilePage },
+    { path: passwordEdit, component: EditPasswordPage },
   ];
 
   Router.init(routes);

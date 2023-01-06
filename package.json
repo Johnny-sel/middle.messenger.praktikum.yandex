@@ -38,6 +38,7 @@
     "@core/utils": "./src/core/utils",
     "@app/pages": "./src/app/pages",
     "@app/components": "./src/app/components",
+    "@app/const": "./src/app/const",
     "@app/styles/varibales": "./src/app/styles/varibales.sass"
   },
   "prettier": {

@@ -20,6 +20,7 @@ export const main = createVirtualNode('main');
 export const header = createVirtualNode('header');
 export const footer = createVirtualNode('footer');
 export const aside = createVirtualNode('aside');
+export const nav = createVirtualNode('nav');
 export const article = createVirtualNode('article');
 export const section = createVirtualNode('section');
 

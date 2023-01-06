@@ -4,6 +4,9 @@ import { section, div, component, a } from '@core/tags';
 import { Component } from '@core/component';
 import { LargeAvatar, InfoLine } from '@app/components';
 import { Router } from '@core/router';
+import { location } from '@app/const';
+
+const { root, profileEdit, passwordEdit } = location;
 
 export default class ProfileInfo extends Component {
   constructor() {
@@ -25,15 +28,15 @@ export default class ProfileInfo extends Component {
   }
 
   goToChangeData() {
-    Router.to('/profile/edit');
+    Router.to(profileEdit);
   }
 
   goToChangePassword() {
-    Router.to('/password/edit');
+    Router.to(passwordEdit);
   }
 
   goToLoginPage() {
-    Router.to('/');
+    Router.to(root);
   }
 
   create(state) {
@@ -51,7 +54,7 @@ export default class ProfileInfo extends Component {
           return component(InfoLine, { name: item.name, value: item.value });
         }),
         div('c=profile__info__group_link;', [
-          a('c=profile__info__group_link__link link;', [ 'Change data' ], { click: goToChangeData}),
+          a('c=profile__info__group_link__link link;', [ 'Change account' ], { click: goToChangeData}),
           a('c=profile__info__group_link__link link;', [ 'Change password' ], { click: goToChangePassword}),
           a('c=profile__info__group_link__link link;', [ 'Logout' ], { click: goToLoginPage}),
         ]),
