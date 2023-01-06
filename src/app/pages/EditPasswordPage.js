@@ -11,7 +11,7 @@ export default class EditPasswordPage extends Component {
     // prettier-ignore
     return (
       component(Layout, { children: [
-        EditPasswordForm
+        component(EditPasswordForm)
       ] })
     );
   }

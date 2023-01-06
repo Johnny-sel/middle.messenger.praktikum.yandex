@@ -17,7 +17,7 @@ export default class ProfilePage extends Component {
     // prettier-ignore
     return (
       component(Layout, { children: [
-        ProfileInfo
+        component(ProfileInfo) 
       ] })
     )
   }

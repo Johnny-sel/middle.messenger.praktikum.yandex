@@ -5,3 +5,4 @@ export { default as EditProfilePage } from './EditProfilePage';
 export { default as EditPasswordPage } from './EditPasswordPage';
 export { default as ErrorPage } from './ErrorPage';
 export { default as ChatsPage } from './ChatsPage';
+export { default as TestPage } from './TestPage';

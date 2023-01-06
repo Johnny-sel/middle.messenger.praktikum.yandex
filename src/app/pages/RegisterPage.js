@@ -17,7 +17,7 @@ export default class RegisterPage extends Component {
     // prettier-ignore
     return (
       component(Layout, { children: [
-        RegisterForm
+        component(RegisterForm) 
       ] })
     )
   }

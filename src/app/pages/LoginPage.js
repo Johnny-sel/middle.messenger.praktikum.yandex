@@ -12,7 +12,7 @@ export default class LoginPage extends Component {
     // prettier-ignore
     return (
       component(Layout, { children: [
-        LoginForm
+        component(LoginForm) 
       ] })
     )
   }

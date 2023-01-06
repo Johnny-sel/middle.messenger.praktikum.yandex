@@ -12,7 +12,7 @@ export default class EditProfilePage extends Component {
     // prettier-ignore
     return (
       component(Layout,  { children: [
-        EditProfileForm
+        component(EditProfileForm)
       ]
       } )
     );
