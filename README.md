@@ -1,17 +1,13 @@
 # Yandex practicum sprint_1
 
-## UI Prototype
+UI Prototype - https://www.figma.com/file/nJe5jORwqJie23I0MasHvb/Yandex-practicum-messenger?node-id=0%3A1&t=LNudhR1BQmAkxQ6N-1
 
-https://www.figma.com/file/nJe5jORwqJie23I0MasHvb/Yandex-practicum-messenger?node-id=0%3A1&t=LNudhR1BQmAkxQ6N-1
-
-## Running project 🚀
-
-### Development (localhost:1234)
+### Running development (localhost:1234)
 
     npm install
     npm run dev
 
-### Production (localhost:3000)
+### Running production (localhost:3000)
 
     npm install
     npm run start
