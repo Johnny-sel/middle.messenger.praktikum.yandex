@@ -1,9 +1,24 @@
+*,
+*:after,
+*:before
+  box-sizing: border-box
+  margin: 0
+  padding: 0
+  line-height: 100%
+  vertical-align: middle
+  text-rendering: optimizeLegibility
+  font-family: Rubik, sans-serif
+  transition: all 0.3s ease-in-out
+
 html
+  font-size: 10px
   line-height: 1.15
+  scroll-behavior: smooth
   -webkit-text-size-adjust: 100%
 
 body
   margin: 0
+  font-size: 10px
 
 main
   display: block
@@ -13,12 +28,32 @@ hr
   height: 0
   overflow: visible
 
+ol,
+ul
+  list-style: none
+
+li
+  list-style: none
+  cursor: pointer
+
+img,
+svg
+  width: 100%
+  border: 0
+  border-style: none
+
+table
+  border-collapse: collapse
+  border-spacing: 0
+
 pre
   font-family: monospace, monospace
   font-size: 1em
 
 a
   background-color: transparent
+  text-decoration: underline
+  cursor: pointer
 
 abbr[title]
   border-bottom: none
@@ -51,9 +86,6 @@ sub
 sup
   top: -0.5em
 
-img
-  border-style: none
-
 button,
 input,
 optgroup,
@@ -78,6 +110,8 @@ button,
 [type="submit"]
   -webkit-appearance: button
   appearance: button
+  cursor: pointer
+  border: none
 
 button::-moz-focus-inner,
 [type="button"]::-moz-focus-inner,
@@ -141,50 +175,3 @@ template
 
 [hidden]
   display: none
-
-// reset
-*,
-*:after,
-*:before
-  box-sizing: border-box
-  margin: 0
-  padding: 0
-  line-height: 100%
-  vertical-align: middle
-  text-rendering: optimizeLegibility
-
-a
-  text-decoration: none
-  cursor: pointer
-
-ol,
-ul
-  list-style: none
-
-li
-  list-style: none
-  cursor: pointer
-
-button
-  cursor: pointer
-  border: none
-
-img,
-svg
-  width: 100%
-  display: block
-  border: 0
-
-strong
-  font-weight: bold
-
-table
-  border-collapse: collapse
-  border-spacing: 0
-
-html
-  font-size: 10px
-  scroll-behavior: smooth
-
-body
-  font-size: 10px

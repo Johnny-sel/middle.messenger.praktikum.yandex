@@ -18,7 +18,7 @@ export default class ErrorPage extends Component {
     // prettier-ignore
     return (
       component(Layout, { children: [
-        main('c=error_page',[
+        main('c=error-page',[
           span([props?.errorType ?? state.errorType]),
           span([props?.errorText ?? state.errorText]),
         ])

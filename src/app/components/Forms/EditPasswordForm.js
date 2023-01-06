@@ -44,7 +44,7 @@ export default class EditPasswordForm extends Component {
           component(Input, { name: 'confirm-password', placeholder: 'Confirm New Password' , change: onChange }),
           component(Button, { text: 'Change password', onSubmit: onSubmit }),
         ]),
-        a('c=login__form__link link;', ['Go to account'], { click: goToProfilePage}),
+        a('c=link;', ['Go to account'], { click: goToProfilePage}),
       ])
     );
   }
