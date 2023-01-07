@@ -37,8 +37,9 @@ export default class EditProfileForm extends Component {
     this.state.data[name] = event.target.value;
   }
 
-  onSubmit() {
-    console.log('data:', this.state.data);
+  onSubmit(event) {
+    event.preventDefault();
+    Router.to(location.profile);
   }
 
   goToProfilePage() {
@@ -59,7 +60,7 @@ export default class EditProfileForm extends Component {
           ...inputs.map(inputData => {
             return component(Input, {...inputData, change: onChange })
           }),
-          component(Button, { text: 'Change account', onSubmit: onSubmit }),
+          component(Button, { text: 'Change account', onSubmit: onSubmit, type: 'submit'}),
         ]),
         a('c=link;', ['Go to account'], { click: goToProfilePage}),
       ])

@@ -28,8 +28,8 @@ export default class LoginForm extends Component {
     this.state.data[name] = event.target.value;
   }
 
-  onSubmit() {
-    console.log('state:', this.state.data);
+  onSubmit(event) {
+    event.preventDefault();
     Router.to(location.chats);
   }
 
@@ -46,10 +46,10 @@ export default class LoginForm extends Component {
     return (
       section('c=section', [
         span('c=text;', ['Welcom to online messeger']),
-        form('c=form;', [
+        form('c=form; a=s;', [
           component(Input, { name: 'email', placeholder: 'Enter Address' , change: onChange }),
           component(Input, { name: 'password', placeholder: 'Password' , change: onChange }),
-          component(Button, { text: 'Login', onSubmit: onSubmit }),
+          component(Button, { text: 'Login', onSubmit: onSubmit, type: 'submit' }),
         ]),
         a('c=link;', ['Create account'], { click: goToRegisterPage}),
       ])

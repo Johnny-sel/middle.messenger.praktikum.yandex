@@ -40,8 +40,9 @@ export default class RegisterForm extends Component {
     this.state.data[name] = event.target.value;
   }
 
-  onSubmit() {
-    console.log('state:', this.state.data);
+  onSubmit(event) {
+    event.preventDefault();
+    Router.to(location.chats);
   }
 
   goToLoginPage() {
@@ -62,7 +63,7 @@ export default class RegisterForm extends Component {
           ...inputs.map(inputData => {
             return component(Input, {...inputData, change: onChange })
           }),
-          component(Button, { text: 'Create account', onSubmit: onSubmit }),
+          component(Button, { text: 'Create account', onSubmit: onSubmit, type: 'submit' }),
         ]),
         a('c=link;', ['Go to login'], { click: goToLoginPage}),
       ])

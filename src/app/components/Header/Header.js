@@ -57,7 +57,7 @@ export default class Header extends Component {
           h1('c=header__greet__title title;', [state.title]),
         ]),
         nav('c=header__links;', [
-          button(`c=header__links__profile_button; n=profile`, [], {
+          button(`c=header__links__profile_button; n=profile; t=button`, [], {
             click: goToProfilePage
           }),
         ]),

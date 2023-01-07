@@ -23,8 +23,9 @@ export default class EditPasswordForm extends Component {
     this.state.data[name] = event.target.value;
   }
 
-  onSubmit() {
-    console.log('state:', this.state.data);
+  onSubmit(event) {
+    Router.to(location.profile);
+    event.preventDefault();
   }
 
   goToProfilePage() {
@@ -42,7 +43,7 @@ export default class EditPasswordForm extends Component {
         form('c=form;', [
           component(Input, { name: 'password', placeholder: 'New Password' , change: onChange }),
           component(Input, { name: 'confirm_password', placeholder: 'Confirm New Password' , change: onChange }),
-          component(Button, { text: 'Change password', onSubmit: onSubmit }),
+          component(Button, { text: 'Change password', onSubmit: onSubmit, type: 'submit' }),
         ]),
         a('c=link;', ['Go to account'], { click: goToProfilePage}),
       ])

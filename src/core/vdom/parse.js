@@ -13,6 +13,7 @@ function parseAttrs(attrsStr) {
     ['f=', ' for='],
     ['v=', ' value='],
     ['h=', ' href='],
+    ['a=', ' action='],
   ];
 
   replacements.forEach((item) => {

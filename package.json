@@ -9,17 +9,18 @@
   },
   "source": "src/app/index.html",
   "scripts": {
-    "clean": "rm -rf dist && mkdir dist",
+    "clean": "rimraf dist",
     "dev": "npm run clean && parcel",
     "start": "npm run build && node ./server.js",
     "build": "npm run clean && parcel build"
   },
   "browserslist": "> 0.25%, last 2 versions, not dead",
   "devDependencies": {
-    "@parcel/transformer-sass": "^2.8.2",
-    "express": "^4.18.2",
-    "parcel": "^2.8.2",
-    "parcel-plugin-at-alias": "^0.15.0"
+    "@parcel/transformer-sass": "2.8.2",
+    "express": "4.18.2",
+    "parcel": "2.8.2",
+    "parcel-plugin-at-alias": "0.15.0",
+    "rimraf": "3.0.2"
   },
   "alias": {
     "@core/component": "./src/core/component/component.js",

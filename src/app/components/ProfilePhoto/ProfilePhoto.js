@@ -16,8 +16,8 @@ export default class ProfilePhoto extends Component {
     return (
       div('c=large_avatar;', [
         div('c=large_avatar__preview;', [
-          img(`c=large_avatar__preview__img; src=${avatar};`, []),
-          button('c=large_avatar__preview_button;', ['Change avatar']),
+          img(`c=large_avatar__preview__img; src=${avatar}; alt=insert profile photo;`, []),
+          button('c=large_avatar__preview_button; t=button;', ['Change avatar']),
         ]),
         span('c=large_avatar__profile_name text;', [ profileName ])
       ])
