@@ -1,0 +1,58 @@
+import { span, section, form, component, a } from '@core/tags';
+import { Component } from '@core/component';
+import { Router } from '@core/router';
+import { Button, Input } from '@app/components';
+import { location } from '@app/const';
+
+
+
+const data = {
+  email: '',
+  password: '',
+};
+
+export default class LoginForm extends Component {
+  constructor() {
+    super();
+  }
+
+  createState() {
+    return {
+      data,
+      loading: false,
+    };
+  }
+
+  onChange(event) {
+    const name = event.target.name;
+    this.state.data[name] = event.target.value;
+  }
+
+  onSubmit(event) {
+    event.preventDefault();
+    Router.to(location.chats);
+  }
+
+  goToRegisterPage() {
+    Router.to(location.registration);
+  }
+
+  create(state) {
+    const onChange = this.onChange.bind(this);
+    const onSubmit = this.onSubmit.bind(this);
+    const goToRegisterPage = this.goToRegisterPage.bind(this);
+
+    // prettier-ignore
+    return (
+      section('c=section', [
+        span('c=text;', ['Welcom to online messeger']),
+        form('c=form; a=s;', [
+          component(Input, { name: 'email', placeholder: 'Enter Address' , change: onChange }),
+          component(Input, { name: 'password', placeholder: 'Password' , change: onChange }),
+          component(Button, { text: 'Login', onSubmit: onSubmit, type: 'submit' }),
+        ]),
+        a('c=link;', ['Create account'], { click: goToRegisterPage}),
+      ])
+    );
+  }
+}

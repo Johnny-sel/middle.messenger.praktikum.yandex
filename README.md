@@ -1,83 +1,486 @@
-### Ветка, в которой делаете задания спринта, должна называться sprint_i, где i - номер спринта. Не переименовывайте её.
+![NodeVerstion](https://badgen.net/badge/node/>=18.12.1/green?icon)![NpmVersion](https://badgen.net/badge/npm/8.19.2/red)
 
-### Откройте pull request в ветку main из ветки, где вы разрабатывали проект, и добавьте ссылку на этот pr в README.md в ветке main. 
-### ВАЖНО: pull request должен называться “Sprint i” (i — номер спринта).
+# Yandex practicum sprint_1
 
-### Например, задания для проектной работы во втором спринте вы делаете в ветке sprint_2. Открываете из неё pull request в ветку main. Ссылку на этот pr добавляете в README.md в ветке main. После этого на платформе Практикума нажимаете «Проверить задание».
+[UI prototype in figma](https://www.figma.com/file/nJe5jORwqJie23I0MasHvb/Yandex-practicum-messenger?node-id=0%3A1&t=LNudhR1BQmAkxQ6N-1)
 
-### Также не забудьте проверить, что репозиторий публичный.
----
+[Netlify deploy](https://sprint-1--visionary-taiyaki-b68147.netlify.app/)
 
+### Running development (localhost:1234)
 
-Даже законченный проект остаётся только заготовкой, пока им не начнут пользоваться. Но сначала пользователь должен понять, зачем ему пользоваться вашим кодом. В этом помогает файл README.
+    npm install
+    npm run dev
 
-README — первое, что прочитает пользователь, когда попадёт в репозиторий на «Гитхабе». Хороший REAMDE отвечает на четыре вопроса:
+### Running production (localhost:3000)
 
-- Готов ли проект к использованию?
-- В чём его польза?
-- Как установить?
-- Как применять?
+    npm install
+    npm run start
 
-## Бейджи
+### Structure project
 
-Быстро понять статус проекта помогают бейджи на «Гитхабе». Иногда разработчики ограничиваются парой бейджев, которые сообщат о статусе тестов кода:
+    --src
+        --app               - application source
+        --core              - custom framework
+            -- component    - service of create component and manage state
+            -- router       - service of manage navigation
+            -- vdom         - service that create virtual dom
+            -- utils        - utils for core and application
 
-![Бэйджи](https://github.com/yandex-praktikum/mf.messenger.praktikum.yandex.images/blob/master/mf/b.png)
+### Quick Start
 
-Если пользователь увидит ошибку в работе тестов, то поймёт: использовать текущую версию в важном проекте — не лучшая идея.
+```js
+// index.js
+function initApp() {
+  const routes = [
+      { path: '/', component: MainPage },
+      { path: '/login', component: LoginPage },
+      { path: '/account, component: AccountPage },
+   ];
 
-Бейджи помогают похвастаться достижениями: насколько популярен проект, как много разработчиков создавало этот код. Через бейджи можно даже пригласить пользователя в чат:
+  Router.init(routes);
+  Router.render(document.getElementById('root'));
+}
 
-![Версии](https://github.com/yandex-praktikum/mf.messenger.praktikum.yandex.images/blob/master/mf/vers.png)
+initApp();
+```
 
-В README **Webpack** строка бейджев подробно рассказывает о покрытии кода тестами. Когда проект протестирован, это вызывает доверие пользователя. Последний бейдж приглашает присоединиться к разработке. 
+```js
+// MainPage.js
+import { div, h1, span } from '@core/tags';
+import { Component } from '@core/component';
 
-Другая строка убедит пользователя в стабильности инфраструктуры и популярности проекта. Последний бейдж зовёт в чат проекта.
+export default class MainPage extends Component {
+  constructor() {
+    super();
+  }
 
-## Описание
+  create() {
+    // prettier-ignore
+    return (
+      div('c=main;', [
+        h1('c=main__title title;', [ 'Main page title' ]),
+        span('c=main__text text;', [ 'Main page text' ])
+      ])
+    )
+  }
+}
+```
 
-Краткое опишите, какую задачу решает проект. Пользователь не верит обещаниям и не готов читать «полотна» текста. Поэтому в описании достаточно нескольких строк:
+### How it works?
+    1. div - function that return object (virtual node) like:
+        {
+            tag: 'main',
+            chandlers: {},
+            attrs: { class: 'main },
+            children: [
+                {
+                    tag: 'h1',
+                    handlers: {},
+                    attrs: { class: 'main__title title' },
+                    children: ['Main page title'],
+                },
+                {
+                    handlers: {},
+                    tag: 'span',
+                    attrs: { class: 'main__text text' },
+                    children: ['Main page text'],
+                }
+            ]
+        }
 
-![Описание](https://github.com/yandex-praktikum/mf.messenger.praktikum.yandex.images/blob/master/mf/desc.png)
+    2. When Component will be initialize, it remember current snapshot of object, that method create() return.
+    
+    3. The Router determines the current url path and creates a DOM element based on the object that return method create().
+    
+    4. When Router will be created DOM element, it set DOM element into object (virtual node).
 
-Авторы **React** дробят описание на абзацы и списки — так проще пробежаться глазами по тексту и найти ключевую информацию.
+    5. As a result, the object will look like this (add property "element"):
 
-Если у проекта есть сайт, добавьте ссылку в заголовок.
+        {
+            tag: 'main',
+            chandlers: {},
+            attrs: { class: 'main },
+            element: refDomElement,
+            children: [
+                {
+                    tag: 'h1',
+                    handlers: {},
+                    attrs: { class: 'main__title title' },
+                    children: ['Main page title'],
+                    element: refDomElement,
+                },
+                {
+                    handlers: {},
+                    tag: 'span',
+                    attrs: { class: 'main__text text' },
+                    children: ['Main page text'],
+                    element: refDomElement,
+                }
+            ]
+        }
+    
+    6. When state will be changed. The div function return new object.
 
-## Установка
+    7. Interception of Component catch this, and compares previos object (prev virtual node) with new object (next virtual node)
 
-Лучше всего пользователя убеждает собственный опыт. Чем быстрее он начнёт пользоваться проектом, тем раньше почувствует пользу. Для этого помогите ему установить приложение: напишите краткую пошаговую инструкцию.
+    8. Component will determine where the changes occurred and redraw only those elements in which there were changes.
 
-Если проект предназначен для разработчиков, добавьте информацию об установке тестовых версий. Например:
+### Note
 
-- `npm install` — установка стабильной версии,
-- `npm start` — запуск версии для разработчика,
-- `npm run build:prod` — сборка стабильной версии.
+🔔 Use my custom snippets for fast developing
+```
+    cc - create component
+    d - div
+    s - span
+    c - component
+    ... and more
+    more information in  ./vscode/messenger.code-snippets
 
-## **Примеры использования**
+```
 
-Хорошо, если сразу после установки пользователь сможет решить свои задачи без изучения проекта. Это особенно верно, если ваш пользователь — не профессиональный разработчик. Но даже профессионал поймёт вас лучше, если показать примеры использования:
+### Examples
 
-![Ссылки](https://github.com/yandex-praktikum/mf.messenger.praktikum.yandex.images/blob/master/mf/link.png)
+    
+#### Component in component
 
-Для более подробных инструкции добавьте новые разделы или ссылки:
+```js
+// Header.js
+import { header } from '@core/tags';
+import { Component } from '@core/component';
 
-- на документацию,
-- вики проекта,
-- описание API.
+export default class Header extends Component {
+  constructor() {
+    super();
+  }
 
-В учебном проекте будут полезен раздел с описанием стиля кода и правилами разработки: как работать с ветками, пул-реквестами и релизами.
+  create() {
+    // prettier-ignore
+    return (
+      header('c=main;', [
+        h1('c=main__title title;', [ 'Header title' ])
+      ])
+    )
+  }
+}
+```
 
-### **Команда**
+```js
+// MainPage.js
+import { component } from '@core/tags';
+import { Component } from '@core/component';
+import { Header } from '@app/components';
 
-Если вы работаете в команде, укажите основных участников: им будет приятно, а новые разработчики охотнее присоединятся к проекту. «Гитхаб» — не просто инструмент, это социальная сеть разработчиков.
+export default class Header extends Component {
+  constructor() {
+    super();
+  }
 
-![Команда](https://github.com/yandex-praktikum/mf.messenger.praktikum.yandex.images/blob/master/mf/team.png)
+  create() {
+    // prettier-ignore
+    return (
+      div('c=main;', [
+        component(Header),
+        span('c=main__text text;', [ 'Main page text' ])
+      ])
+    )
+  }
+}
+```
 
-### **Примеры README**
+#### Pass props to component
 
-- «[Реакт](https://github.com/facebook/react)»,
-- «[Эхо](https://github.com/labstack/echo)»,
-- «[Вебпак](https://github.com/webpack/webpack)»,
-- «[ТДенгине](https://github.com/taosdata/TDengine)»,
-- «[Соул-хантинг](https://github.com/vladpereskokov/soul-hunting/)».
+```js
+// Header.js
+import { header } from '@core/tags';
+import { Component } from '@core/component';
+
+export default class Header extends Component {
+  constructor() {
+    super();
+  }
+
+  create(state, props) {
+    const { title } = props;
+    // prettier-ignore
+    return (
+      header('c=main;', [
+        h1('c=main__title title;', [ title ])
+      ])
+    )
+  }
+}
+```
+
+```js
+// MainPage.js
+import { component } from '@core/tags';
+import { Component } from '@core/component';
+import { Header } from '@app/components';
+
+export default class MainPage extends Component {
+  constructor() {
+    super();
+  }
+
+  create() {
+    // prettier-ignore
+    return (
+      div('c=main;', [
+        component(Header, { title: 'Header title' }),
+        span('c=main__text text;', [ 'Main page text' ])
+      ])
+    )
+  }
+}
+```
+
+#### Use handlers
+
+```js
+// Button.js
+import { button } from '@core/tags';
+import { Component } from '@core/component';
+
+export default class Button extends Component {
+  constructor() {
+    super();
+  }
+
+  onClick(event) {
+    console.log('onClick');
+  }
+
+  create() {
+    const onClick = this.onClick.bind(this);
+
+    // prettier-ignore
+    return (
+      button('c=button;', ['Button name'], {click: onClick})
+    )
+  }
+}
+```
+
+```js
+// Input.js
+import { input } from '@core/tags';
+import { Component } from '@core/component';
+
+export default class Input extends Component {
+  constructor() {
+    super();
+  }
+
+  onChange(event) {
+    console.log('onChange');
+  }
+
+  create() {
+    const onChange = this.onChange.bind(this);
+
+    // prettier-ignore
+    return (
+      input('c=input;', ['Button name'], {change: onChange})
+    )
+  }
+}
+```
+
+#### Create and change state
+
+```js
+// CustomComponent.js
+import { button, span, div } from '@core/tags';
+import { Component } from '@core/component';
+
+export default class CustomComponent extends Component {
+  constructor() {
+    super();
+  }
+
+  createState() {
+    return { text: '' };
+  }
+
+  onClick() {
+    this.state.text = 'New text';
+  }
+
+  create(state) {
+    const onClick = this.onClick.bind(this);
+
+    // prettier-ignore
+    return (
+      div([
+        span([ state.text ]),
+        button('c=button;', ['Button name'], {click: onClick})
+      ])
+    )
+  }
+}
+```
+
+#### Navigation
+
+```js
+// CustomComponent.js
+import { button, span, div } from '@core/tags';
+import { Component } from '@core/component';
+import { Router } from '@core/router';
+
+export default class CustomComponent extends Component {
+  constructor() {
+    super();
+  }
+
+  goToLoginPage() {
+    Router.to('/login');
+  }
+
+  create(state) {
+    const goToLoginPage = this.goToLoginPage.bind(this);
+
+    // prettier-ignore
+    return (
+      button('c=button;', ['Button name'], {click: goToLoginPage})
+    )
+  }
+}
+```
+
+#### Life cycle component: didMount()
+
+```js
+// CustomComponent.js
+import { span } from '@core/tags';
+import { Component } from '@core/component';
+
+export default class CustomComponent extends Component {
+  constructor() {
+    super();
+  }
+
+  didMount() {
+    fetch('https://jsonplaceholder.typicode.com/todos/1')
+      .then((response) => response.json())
+      .then((json) => console.log(json));
+  }
+
+  create(state) {
+    // prettier-ignore
+    return (
+      span(['Simple text'])
+    )
+  }
+}
+```
+
+#### Layout
+
+```js
+// Layout.js
+import { div, component } from '@core/tags';
+import { Component } from '@core/component';
+import { Header, Footer } from '@app/components';
+
+export default class Layout extends Component {
+  constructor() {
+    super();
+  }
+
+  create(state, props) {
+    const { children } = props;
+
+    // prettier-ignore
+    return (
+      div('c=layout;', [
+        component(Header),
+        ...children.map(child => child),
+        component(Footer)
+      ])
+    );
+  }
+}
+```
+
+```js
+// LoginPage.js
+import { component } from '@core/tags';
+import { Component } from '@core/component';
+import { LoginForm, Layout } from '@app/components';
+
+export default class LoginPage extends Component {
+  constructor() {
+    super();
+  }
+
+  create() {
+    // prettier-ignore
+    return (
+      component(Layout, { children: [
+        div('c=main;', [
+            component(LoginForm)
+        ])
+      ]})
+    )
+  }
+}
+```
+
+#### Dynamic styles
+
+```js
+// CustomComponent.js
+import { span } from '@core/tags';
+import { Component } from '@core/component';
+
+export default class CustomComponent extends Component {
+  constructor() {
+    super();
+  }
+
+  createState() {
+      return { isActive: false };
+  }
+
+  create(state) {
+      const active = state.isActive ? 'active' : '';
+
+    // prettier-ignore
+    return (
+      span(`c=text ${active};`, ['Simple text'])
+    )
+  }
+}
+```
+
+#### Mapping
+
+```js
+// CustomComponent.js
+import { span } from '@core/tags';
+import { Component } from '@core/component';
+
+export default class CustomComponent extends Component {
+  constructor() {
+    super();
+  }
+
+  create(state) {
+    // prettier-ignore
+    return (
+      div([
+          ...[1, 2, 3, 4, 5].map(item => span([ item ]))
+      ])
+    )
+  }
+}
+```
+
+### TODO
+    1. To do comparison and replace children in virtual dom when state change
+    2. To do Life cycle didUnmount()
+    3. Fix parse attributes 
+    4. Add more tags
+    5. Add accessabilty
+    6. Fix router goBack()

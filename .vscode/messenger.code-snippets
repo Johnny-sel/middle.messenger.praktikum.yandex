@@ -1,0 +1,158 @@
+{
+	"map": {
+		"scope": "javascript,typescript",
+		"prefix": "map",
+		"body": [
+			"...$1.map((item, index) => $2('c=$3;', [$4])),",
+		],
+	},
+	"component": {
+		"scope": "javascript,typescript",
+		"prefix": "cc",
+		"body": [
+			"import './$1.sass';",
+			"  ",
+			"import { div } from '@core/tags';",
+			"import { Component } from '@core/component';",
+			"  ",
+			"export default class $1 extends Component {",
+			"  constructor() {",
+			"    super();",
+			"  }",
+			"  ",
+			"  create(state, props) {",
+			"    const { } = state;",
+			"    const { } = props;",
+			"    ",
+			"    // prettier-ignore",
+			"    return (",
+			"      div$3('c=$4;', [$5])",
+			"    );",
+			"  }",
+			"}"
+		]
+	},
+	"createState": {
+		"scope": "javascript,typescript",
+		"prefix": "cs",
+		"body": [
+			"createState() {",
+			"  return {$1};",
+			"}",
+			"",
+		],
+	},
+	"didMount": {
+		"scope": "javascript,typescript",
+		"prefix": "dm",
+		"body": [
+			"didMount() {$1}",
+			"",
+		],
+	},
+	"component-tag": {
+		"scope": "javascript,typescript",
+		"prefix": "c",
+		"body": [
+			"component($1, { $2 }),",
+		],
+	},
+	"label": {
+		"scope": "javascript,typescript",
+		"prefix": "l",
+		"body": [
+			"label('c=$1; for=$2;', [$3]),",
+		],
+	},
+	"form": {
+		"scope": "javascript,typescript",
+		"prefix": "f",
+		"body": [
+			"form('c=$1; name=$2;', [$3]),",
+		],
+	},
+	"a": {
+		"scope": "javascript,typescript",
+		"prefix": "a",
+		"body": [
+			"a('c=$1;', [ $2 ], { click: $3 } ),",
+		],
+	},
+	"h1": {
+		"scope": "javascript,typescript",
+		"prefix": "h1",
+		"body": [
+			"h1('c=$1;', [$2]),",
+		],
+	},
+	"h2": {
+		"scope": "javascript,typescript",
+		"prefix": "h2",
+		"body": [
+			"h2('c=$1;', [$2]),",
+		],
+	},
+	"div": {
+		"scope": "javascript,typescript",
+		"prefix": "d",
+		"body": [
+			"div('c=$1;', [$2]),",
+		],
+	},
+	"img": {
+		"scope": "javascript,typescript",
+		"prefix": "im",
+		"body": [
+			"img('c=$1; src=$2; alt=$3;'),",
+		],
+	},
+	"span": {
+		"scope": "javascript,typescript",
+		"prefix": "sp",
+		"body": [
+			"span('c=$1;', [$2]),",
+		],
+	},
+	"section": {
+		"scope": "javascript,typescript",
+		"prefix": "s",
+		"body": [
+			"section('c=$1;', [$2]),",
+		],
+	},
+	"p": {
+		"scope": "javascript,typescript",
+		"prefix": "p",
+		"body": [
+			"p('c=$1;', [$2]),",
+		],
+	},
+	"main": {
+		"scope": "javascript,typescript",
+		"prefix": "m",
+		"body": [
+			"main('c=$1;', [$2]),",
+		],
+	},
+	"nav": {
+		"scope": "javascript,typescript",
+		"prefix": "n",
+		"body": [
+			"nav('c=$1;', [$2]),",
+		],
+	},
+	"button": {
+		"scope": "javascript,typescript",
+		"prefix": "b",
+		"body": [
+			"button('c=$1; click=$2;', [$3]),",
+		],
+	},
+	"input": {
+		"scope": "javascript,typescript",
+		"prefix": "i",
+		"body": [
+			"input(`id=$1; c=$2; t=$4; n=$4; p=$5; change=$6;', [$7]),",
+		],
+	}
+}

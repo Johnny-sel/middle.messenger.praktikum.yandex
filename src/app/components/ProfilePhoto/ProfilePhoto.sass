@@ -1,0 +1,46 @@
+@import '@app/styles/varibales'
+
+.large_avatar
+  display: flex
+  flex-direction: column
+  justify-content: center
+  align-items: center
+  margin-bottom: 3rem
+
+.large_avatar__preview
+  border-radius: 50%
+  background-color: #EFEFEF
+  width: 13rem
+  height: 13rem
+  margin-bottom: 2rem
+  display: flex
+  justify-content: center
+  align-items: center
+
+.large_avatar__preview_button
+  position: absolute
+  border-radius: 50%
+  background-color: #0000007a
+  opacity: 0
+  width: 13rem
+  height: 13rem
+  display: flex
+  justify-content: center
+  align-items: center
+  cursor: pointer
+  color: #fff
+
+.large_avatar__preview__img
+  width: 4.5rem
+  height: 4.5rem
+
+.large_avatar .large_avatar__preview_button
+  &:hover
+    opacity: 1
+
+.large_avatar .large_avatar__preview__img
+  &:hover
+    opacity: 1
+
+.large_avatar__profile_name
+  color: $title
