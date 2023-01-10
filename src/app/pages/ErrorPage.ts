@@ -1,6 +1,7 @@
 import { main, component, span } from '@core/tags';
 import { Component } from '@core/component';
 import { Layout } from '@app/components';
+import { Props, State } from '@core/types';
 
 export default class ErrorPage extends Component {
   constructor() {
@@ -14,15 +15,17 @@ export default class ErrorPage extends Component {
     };
   }
 
-  create(state, props) {
+  create(state: State, props:Props) {
     // prettier-ignore
     return (
-      component(Layout, { children: [
-        main('c=error-page',[
-          span([props?.errorType ?? state.errorType]),
-          span([props?.errorText ?? state.errorText]),
-        ])
-      ] })
+      component(Layout, {
+        children: [
+          main('c=error-page', [
+            span([props?.errorType ?? state.errorType]),
+            span([props?.errorText ?? state.errorText]),
+          ])
+        ]
+      })
     );
   }
 }

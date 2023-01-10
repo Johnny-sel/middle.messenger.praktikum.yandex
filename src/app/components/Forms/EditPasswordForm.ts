@@ -18,12 +18,13 @@ export default class EditPasswordForm extends Component {
     return { data, loading: false };
   }
 
-  onChange(event) {
-    const name = event.target.name;
-    this.state.data[name] = event.target.value;
+  onChange(event: InputEvent) {
+    const name = (event.target as any).name;
+    this.state.data[name] = (event.target as any).value;
+
   }
 
-  onSubmit(event) {
+  onSubmit(event: SubmitEvent) {
     Router.to(location.profile);
     event.preventDefault();
   }
@@ -32,7 +33,7 @@ export default class EditPasswordForm extends Component {
     Router.to(location.profile);
   }
 
-  create(state) {
+  create() {
     const onChange = this.onChange.bind(this);
     const onSubmit = this.onSubmit.bind(this);
     const goToProfilePage = this.goToProfilePage.bind(this);
@@ -41,11 +42,11 @@ export default class EditPasswordForm extends Component {
     return (
       section('c=section', [
         form('c=form;', [
-          component(Input, { name: 'password', placeholder: 'New Password' , change: onChange }),
-          component(Input, { name: 'confirm_password', placeholder: 'Confirm New Password' , change: onChange }),
+          component(Input, { name: 'password', placeholder: 'New Password', change: onChange }),
+          component(Input, { name: 'confirm_password', placeholder: 'Confirm New Password', change: onChange }),
           component(Button, { text: 'Change password', onSubmit: onSubmit, type: 'submit' }),
         ]),
-        a('c=link;', ['Go to account'], { click: goToProfilePage}),
+        a('c=link;', ['Go to account'], { click: goToProfilePage }),
       ])
     );
   }

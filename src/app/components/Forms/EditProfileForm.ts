@@ -3,9 +3,10 @@ import { Component } from '@core/component';
 import { Router } from '@core/router';
 import { Button, Input } from '@app/components';
 import { location } from '@app/const';
+import { State } from '@core/types';
+import { TInput } from './types';
 
-
-const inputs = [
+const inputs: TInput[] = [
   { name: 'email', placeholder: 'Email Address' },
   { name: 'login', placeholder: 'Login' },
   { name: 'first_name', placeholder: 'Name' },
@@ -32,12 +33,12 @@ export default class EditProfileForm extends Component {
     return { data, inputs };
   }
 
-  onChange(event) {
-    const name = event.target.name;
-    this.state.data[name] = event.target.value;
+  onChange(event: InputEvent) {
+    const name = (event.target as any).name;
+    this.state.data[name] = (event.target as any).value;
   }
 
-  onSubmit(event) {
+  onSubmit(event: SubmitEvent) {
     event.preventDefault();
     Router.to(location.profile);
   }
@@ -46,7 +47,7 @@ export default class EditProfileForm extends Component {
     Router.to(location.profile);
   }
 
-  create(state) {
+  create(state: State) {
     const { inputs } = state;
 
     const onSubmit = this.onSubmit.bind(this);
@@ -57,12 +58,12 @@ export default class EditProfileForm extends Component {
     return (
       section('c=section', [
         form('c=form;', [
-          ...inputs.map(inputData => {
-            return component(Input, {...inputData, change: onChange })
+          ...inputs.map((inputData: TInput) => {
+            return component(Input, { ...inputData, change: onChange })
           }),
-          component(Button, { text: 'Change account', onSubmit: onSubmit, type: 'submit'}),
+          component(Button, { text: 'Change account', onSubmit: onSubmit, type: 'submit' }),
         ]),
-        a('c=link;', ['Go to account'], { click: goToProfilePage}),
+        a('c=link;', ['Go to account'], { click: goToProfilePage }),
       ])
     );
   }

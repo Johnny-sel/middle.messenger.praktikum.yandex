@@ -4,13 +4,12 @@ import footerlogo from '@app/img/footer-logo.png';
 import { footer, img, span } from '@core/tags';
 import { Component } from '@core/component';
 
-
 export default class Footer extends Component {
   constructor() {
     super();
   }
 
-  create(state) {
+  create() {
     // prettier-ignore
     return (
       footer('c=footer;', [

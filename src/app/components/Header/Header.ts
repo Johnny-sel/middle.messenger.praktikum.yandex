@@ -5,6 +5,7 @@ import { div, img, h1, button, header, nav } from '@core/tags';
 import { Component } from '@core/component';
 import { Router } from '@core/router';
 import { location } from '@app/const';
+import { State } from '@core/types';
 
 
 const { root, error, chats, registration, profile, profileEdit, passwordEdit } = location;
@@ -41,7 +42,7 @@ export default class Header extends Component {
     Router.to(root);
   }
 
-  create(state) {
+  create(state: State) {
     const goToProfilePage = this.goToProfilePage.bind(this);
     const goToMainPage = this.goToMainPage.bind(this);
 

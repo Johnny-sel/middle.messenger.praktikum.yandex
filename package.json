@@ -11,21 +11,25 @@
   "scripts": {
     "clean": "rimraf dist",
     "dev": "npm run clean && parcel",
-    "start": "npm run build && node ./server.js",
-    "build": "npm run clean && parcel build"
+    "start": "npm run build && node ./server.ts",
+    "build": "npm run clean && parcel build",
+    "check": "tsc --noEmit"
   },
   "browserslist": "> 0.25%, last 2 versions, not dead",
   "devDependencies": {
     "@parcel/transformer-sass": "2.8.2",
+    "@parcel/transformer-typescript-tsc": "^2.8.2",
     "express": "4.18.2",
     "parcel": "2.8.2",
     "parcel-plugin-at-alias": "0.15.0",
-    "rimraf": "3.0.2"
+    "rimraf": "3.0.2",
+    "typescript": "^4.9.4"
   },
   "alias": {
-    "@core/component": "./src/core/component/component.js",
-    "@core/router": "./src/core/router/router.js",
-    "@core/tags": "./src/core/vdom/tags.js",
+    "@core/component": "./src/core/component/component.ts",
+    "@core/router": "./src/core/router/router.ts",
+    "@core/tags": "./src/core/vdom/tags.ts",
+    "@core/types": "./src/core/types.ts",
     "@core/utils": "./src/core/utils",
     "@app/pages": "./src/app/pages",
     "@app/components": "./src/app/components",
@@ -51,6 +55,7 @@
     "tabWidth": 2,
     "trailingComma": "es5",
     "useTabs": false,
-    "vueIndentScriptAndStyle": false
+    "vueIndentScriptAndStyle": false,
+    "arrayExpand": true
   }
 }

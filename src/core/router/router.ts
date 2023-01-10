@@ -1,15 +1,24 @@
-import { createRootNode } from './dom';
+import { createHTMLElement } from '../vdom/dom';
 import { isStr, penultimate } from '../utils';
+import { IRouter, NavOptions, Route } from './../types';
 
-export class Router {
-  constructor(routes) {
+export class Router implements IRouter {
+  static instance: IRouter;
+
+  routes: Route[];
+  stack: string[];
+  index: number;
+  isInit: boolean;
+  root: HTMLElement;
+
+  constructor(routes: Route[]) {
     this.routes = routes;
     this.stack = [];
     this.index = 0;
     this.isInit = true;
   }
 
-  static init(routes) {
+  static init(routes: Route[]): IRouter {
     if (!this.instance) {
       this.instance = new Router(routes);
     }
@@ -17,25 +26,23 @@ export class Router {
     return this.instance;
   }
 
-  static render(root) {
-    this.instance.initPath = window.location.pathname;
+  static render(root: HTMLElement): void {
     this.instance.root = root;
     this.instance._subscribe('popstate', this.instance);
-    this.instance._navigateTo(this.instance.initPath);
+    this.instance._navigateTo(window.location.pathname);
     this.instance.isInit = false;
   }
 
-  static to(path, { toolbar } = {}) {
-    this.instance._navigateTo(path, { toolbar });
-  }
-
-  static goBack() {
-    const path = penultimate(this.instance.stack);
+  static to(path: string): void {
     this.instance._navigateTo(path);
   }
 
-  _subscribe(event, context) {
-    return window.addEventListener(event, function (e) {
+  static goBack(): void {
+    this.instance._goBack();
+  }
+
+  _subscribe(event: string, context: IRouter): void {
+    return window.addEventListener(event, function () {
       if (event === 'popstate') {
         const path = window.location.pathname;
 
@@ -44,41 +51,43 @@ export class Router {
         } else {
           context._navigateTo(path, { clickButton: 'next' });
         }
-
-        context.prevPath = path;
       }
     });
   }
 
-  _navigateTo(path, { clickButton } = {}) {
+  _navigateTo(path: string, { clickButton }: NavOptions = {}): void {
     let route = this.routes.find((route) => route.path === path);
     const isChecked = this._checkRoute(route);
 
     if (!isChecked) {
-      route = route = this.routes.find((route) => route.path === '/error');
+      route = this.routes.find((route) => route.path === '/error');
+    }
+
+    if (route === undefined) {
+      throw new Error('[Roter]: router is undefined');
     }
 
     this._renderPage(route.component);
     this._changeUrl(route, clickButton);
     this._registRoute(route, clickButton);
-
-    // console.info('[Router]: stack ', this.stack);
   }
 
-  _goBack() {
+  _goBack(): void {
     const path = penultimate(this.stack);
-    this._navigateTo(path);
+    if (path) {
+      this._navigateTo(path);
+    };
   }
 
-  _renderPage(ComponentInstance) {
+  _renderPage(ComponentInstance: any): void {
     this.root.innerHTML = '';
     const componentInstance = new ComponentInstance();
     const vDom = componentInstance._init();
-    const rootNode = createRootNode(vDom);
-    root.appendChild(rootNode);
+    const rootNode = createHTMLElement(vDom);
+    this.root.appendChild(rootNode);
   }
 
-  _changeUrl(route, clickButton) {
+  _changeUrl(route: Route, clickButton: NavOptions['clickButton']): void {
     if (clickButton) {
       history.replaceState({}, route.path, route.path);
     } else {
@@ -86,7 +95,7 @@ export class Router {
     }
   }
 
-  _registRoute(route, clickButton) {
+  _registRoute(route: Route, clickButton: NavOptions['clickButton']): void {
     if (clickButton === 'prev') {
       this.index--;
     } else if (clickButton === 'next') {
@@ -97,10 +106,8 @@ export class Router {
     }
   }
 
-  _checkRoute(route) {
-    const isRouteExist = this.routes.includes(route);
-
-    if (!isRouteExist) {
+  _checkRoute(route: Route | undefined): boolean {
+    if (!route) {
       this._printError('define route in index.js');
       return false;
     }
@@ -123,11 +130,11 @@ export class Router {
     return true;
   }
 
-  _printError(string) {
+  _printError(string: string): void {
     console.error(`[Router]: ${string}`);
   }
 
-  _printInfo(string) {
+  _printInfo(string: string): void {
     console.info(`[Router]: ${string}`);
   }
 }

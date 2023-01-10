@@ -12,7 +12,7 @@ export default class EditPasswordPage extends Component {
     return (
       component(Layout, { children: [
         component(EditPasswordForm)
-      ] })
+      ]})
     );
   }
 }

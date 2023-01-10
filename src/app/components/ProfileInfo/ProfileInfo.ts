@@ -5,6 +5,9 @@ import { Component } from '@core/component';
 import { ProfilePhoto, InfoLine } from '@app/components';
 import { Router } from '@core/router';
 import { location } from '@app/const';
+import { State } from '@core/types';
+
+type Item = { name: string, value: string };
 
 const { root, profileEdit, passwordEdit } = location;
 
@@ -39,7 +42,7 @@ export default class ProfileInfo extends Component {
     Router.to(root);
   }
 
-  create(state) {
+  create(state: State) {
     const { profileName, items } = state;
 
     const goToChangeData = this.goToChangeData.bind(this);
@@ -50,13 +53,13 @@ export default class ProfileInfo extends Component {
     return (
       section('c=profile__info section;', [
         component(ProfilePhoto, { profileName }),
-        ...items.map((item, index) => {
+        ...items.map((item: Item) => {
           return component(InfoLine, { name: item.name, value: item.value });
         }),
         div('c=profile__info__group_link;', [
-          a('c=profile__info__group_link__link link;', [ 'Change account' ], { click: goToChangeData}),
-          a('c=profile__info__group_link__link link;', [ 'Change password' ], { click: goToChangePassword}),
-          a('c=profile__info__group_link__link link;', [ 'Logout' ], { click: goToLoginPage}),
+          a('c=profile__info__group_link__link link;', ['Change account'], { click: goToChangeData }),
+          a('c=profile__info__group_link__link link;', ['Change password'], { click: goToChangePassword }),
+          a('c=profile__info__group_link__link link;', ['Logout'], { click: goToLoginPage }),
         ]),
       ])
     );

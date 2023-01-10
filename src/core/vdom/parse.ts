@@ -1,9 +1,11 @@
-function parseAttrs(attrsStr) {
-  if (!attrsStr) return {};
-  
-  let attrs = {};
+import { Attrs } from "../types";
 
-  const replacements = [
+function parseAttrs(attrsStr: string): Attrs {
+  if (!attrsStr) return {};
+
+  let attrs: Attrs = {};
+
+  const replacements: string[][] = [
     ['s=', ' style='],
     ['c=', ' class='],
     ['n=', ' name='],
@@ -17,15 +19,15 @@ function parseAttrs(attrsStr) {
   ];
 
   replacements.forEach((item) => {
-    if (attrsStr.includes('alt') && item[0] === 't=') {
-      return;
+    if (attrsStr.includes('alt')) {
+      if (item[0] === 't=') return;
     }
     attrsStr = attrsStr.replace(item[0], item[1]);
   });
 
-  const attrsList = attrsStr.split(';');
+  const attrsList: string[] = attrsStr.split(';');
 
-  attrsList.forEach((element) => {
+  attrsList.forEach((element: string) => {
     if (element) {
       const key = element.split('=')[0].trim();
       const value = element.split('=')[1].trim();

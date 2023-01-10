@@ -1,0 +1,28 @@
+{
+  "compilerOptions": {
+    "isolatedModules": true,
+    "module": "commonjs",
+    "target": "es6",
+    "noImplicitAny": true,
+    "noUnusedLocals": true,
+    "noUnusedParameters": true,
+    "sourceMap": true,
+    "strictNullChecks": true,
+    "esModuleInterop": true,
+    "lib": ["dom", "es2018"],
+    "baseUrl": ".",
+    "paths": {
+      "@core/types": ["./src/core/types.ts"],
+      "@core/component": ["./src/core/component/component.ts"],
+      "@core/router": ["./src/core/router/router.ts"],
+      "@core/tags": ["./src/core/vdom/tags.ts"],
+      "@core/utils": ["./src/core/utils"],
+      "@app/pages": ["./src/app/pages"],
+      "@app/components": ["./src/app/components"],
+      "@app/const": ["./src/app/const"],
+      "@app/img": ["./src/app/static/img"],
+      "@app/styles/varibales": ["./src/app/styles/varibales.sass"]
+    }
+  },
+  "include": ["./src/**/*", "image-import.d.ts"]
+}

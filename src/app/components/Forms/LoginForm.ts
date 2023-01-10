@@ -23,12 +23,12 @@ export default class LoginForm extends Component {
     };
   }
 
-  onChange(event) {
-    const name = event.target.name;
-    this.state.data[name] = event.target.value;
+  onChange(event: InputEvent) {
+    const name = (event.target as any).name;
+    this.state.data[name] = (event.target as any).value;
   }
 
-  onSubmit(event) {
+  onSubmit(event: SubmitEvent) {
     event.preventDefault();
     Router.to(location.chats);
   }
@@ -37,7 +37,7 @@ export default class LoginForm extends Component {
     Router.to(location.registration);
   }
 
-  create(state) {
+  create() {
     const onChange = this.onChange.bind(this);
     const onSubmit = this.onSubmit.bind(this);
     const goToRegisterPage = this.goToRegisterPage.bind(this);
@@ -47,11 +47,11 @@ export default class LoginForm extends Component {
       section('c=section', [
         span('c=text;', ['Welcom to online messeger']),
         form('c=form; a=s;', [
-          component(Input, { name: 'email', placeholder: 'Enter Address' , change: onChange }),
-          component(Input, { name: 'password', placeholder: 'Password' , change: onChange }),
+          component(Input, { name: 'email', placeholder: 'Enter Address', change: onChange }),
+          component(Input, { name: 'password', placeholder: 'Password', change: onChange }),
           component(Button, { text: 'Login', onSubmit: onSubmit, type: 'submit' }),
         ]),
-        a('c=link;', ['Create account'], { click: goToRegisterPage}),
+        a('c=link;', ['Create account'], { click: goToRegisterPage }),
       ])
     );
   }

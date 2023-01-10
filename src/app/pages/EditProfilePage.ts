@@ -8,13 +8,11 @@ export default class EditProfilePage extends Component {
   }
 
   create() {
-
     // prettier-ignore
     return (
       component(Layout,  { children: [
         component(EditProfileForm)
-      ]
-      } )
+      ]})
     );
   }
 }
