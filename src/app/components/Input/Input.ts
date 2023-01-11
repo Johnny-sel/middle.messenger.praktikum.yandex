@@ -9,9 +9,9 @@ export default class Input extends Component {
     super();
   }
 
-  create(state: State, props: Props) {
-    const { } = state;
+  create(_: State, props: Props) {
     const { name, placeholder, change } = props;
+    
     // prettier-ignore
     return (
       input(`c=form__input input; t=${name}; n=${name}; p=${placeholder ?? name};`, [], { change })

@@ -47,8 +47,8 @@ export interface IComponent {
   _init(props: Props): VirtualNode;
   _setState(state: State): void;
   _interception(state: State, prop: string, newValue: any): boolean;
-  _injecting(): void;
-  _injectInnerText(vNodePrevLast: VirtualNode, textNode: VirtualNode): void;
+  _injectHTML(): void;
+  _injectTextNode(vNodePrevLast: VirtualNode, textNode: VirtualNode): void;
   _injectChilds(vNode: VirtualNode): void;
   _injectAttr(vNodePrev: VirtualNode, vNodeNext: VirtualNode): void;
   _compareInnerText(vNodePrev: VirtualNode, vNodeNext: VirtualNode): void;

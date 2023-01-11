@@ -29,12 +29,11 @@ export abstract class Component implements IComponent {
     state[prop] = newValue;
 
     this.vNodeNext = this.create(state);
-    this._injecting();
+    this._injectHTML();
     return true;
   }
 
-  _injecting() {
-
+  _injectHTML() {
     let isDiff = false;
 
     let stackPrev = [this.vNodeCurrent];
@@ -66,7 +65,7 @@ export abstract class Component implements IComponent {
       isDiff = this._compareInnerText(vNodePrev, vNodeNext);
 
       if (isDiff) {
-        this._injectInnerText(vNodePrevLast, vNodeNext);
+        this._injectTextNode(vNodePrevLast, vNodeNext);
       }
 
       isDiff = this._compareAttrs(vNodePrev, vNodeNext);
@@ -77,10 +76,10 @@ export abstract class Component implements IComponent {
     }
   }
 
-  _injectInnerText(vPrevLast: VirtualNode, textNode: VirtualNode | string) {
-    if (vPrevLast.HTMLElement instanceof HTMLElement) {
-      vPrevLast.HTMLElement.innerHTML = textNode as string;
-      vPrevLast.children = [textNode as string];
+  _injectTextNode(vNode: VirtualNode, textNode: VirtualNode | string) {
+    if (vNode.HTMLElement instanceof HTMLElement) {
+      vNode.HTMLElement.innerHTML = textNode as string;
+      vNode.children = [textNode as string];
     }
   }
 
@@ -129,7 +128,7 @@ export abstract class Component implements IComponent {
     return {};
   }
 
-  didMount() { 
+  didMount() {
     console.log("Did Mount")
   }
 

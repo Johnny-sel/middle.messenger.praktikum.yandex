@@ -1,7 +1,7 @@
+import './Button.sass';
+
 import { button } from '@core/tags';
 import { Component } from '@core/component';
-
-import './Button.sass';
 import { Props, State } from '@core/types';
 
 export default class Button extends Component {
