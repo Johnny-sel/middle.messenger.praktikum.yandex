@@ -15,8 +15,11 @@
 .chats__list
   display: flex
   flex-direction: column
-  flex-basis: 20%
+  flex-basis: 100%
   border-right: $border
+
+  @media screen and (min-width: 850px)
+    flex-basis: 20%
 
 .chats__list__header
   display: flex
@@ -41,12 +44,15 @@
       transform: scale(1.2)
 
 .chats__messages
-  display: flex
+  display: none
   flex-direction: column
   justify-content: space-between
   flex-basis: 80%
 
-.chats__messages__message_list
+  @media screen and (min-width: 850px)
+    display: flex
+
+.chats__messages__message_items
   height: 100%
 
 .chats__messages__header

@@ -1,0 +1,33 @@
+@import '@app/styles/varibales'
+
+.chat__list__items__item
+  display: flex
+  flex-wrap: nowrap
+  padding: 1rem
+  border-bottom: $border
+  transition: all 0.3s ease-out
+
+  &:hover
+    background-color: #ddd
+
+.chat__list__items__item__avatar
+  background-color: $secondary
+  border-radius: 50%
+  min-width: 3.5rem
+  height: 3.5rem
+  display: flex
+  align-items: center
+  justify-content: center
+  color: #fff
+
+.chat__list__items__item__body
+  display: flex
+  flex-direction: column
+  width: 100%
+  padding-left: 1rem
+
+.chat__list__items__item__body__top
+  display: flex
+  flex-wrap: nowrap
+  justify-content: space-between
+  margin-bottom: 0.5rem

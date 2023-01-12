@@ -5,6 +5,8 @@ export const component = createVirtualComponent;
 export const span = createVirtualNode('span');
 export const p = createVirtualNode('p');
 export const a = createVirtualNode('a');
+export const li = createVirtualNode('li');
+export const ul = createVirtualNode('ul');
 
 export const div = createVirtualNode('div');
 export const img = createVirtualNode('img');

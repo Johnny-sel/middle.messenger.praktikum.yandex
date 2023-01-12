@@ -19,6 +19,7 @@
       "@core/utils": ["./src/core/utils"],
       "@app/pages": ["./src/app/pages"],
       "@app/components": ["./src/app/components"],
+      "@app/modules": ["./src/app/modules"],
       "@app/const": ["./src/app/const"],
       "@app/img": ["./src/app/static/img"],
       "@app/styles/varibales": ["./src/app/styles/varibales.sass"]

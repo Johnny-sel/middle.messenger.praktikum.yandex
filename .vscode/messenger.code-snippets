@@ -78,6 +78,20 @@
 			"a('c=$1;', [ $2 ], { click: $3 } ),",
 		],
 	},
+	"ul": {
+		"scope": "javascript,typescript",
+		"prefix": "ul",
+		"body": [
+			"ul('c=$1;', [ $2 ]),",
+		],
+	},
+	"li": {
+		"scope": "javascript,typescript",
+		"prefix": "li",
+		"body": [
+			"li('c=$1;', [ $2 ]),",
+		],
+	},
 	"h1": {
 		"scope": "javascript,typescript",
 		"prefix": "h1",
