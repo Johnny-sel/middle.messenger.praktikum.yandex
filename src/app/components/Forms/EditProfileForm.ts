@@ -5,15 +5,7 @@ import { Button, Input } from '@app/components';
 import { location } from '@app/const';
 import { State } from '@core/types';
 import { TInput } from './types';
-
-const inputs: TInput[] = [
-  { name: 'email', placeholder: 'Email Address' },
-  { name: 'login', placeholder: 'Login' },
-  { name: 'first_name', placeholder: 'Name' },
-  { name: 'second_name', placeholder: 'Surname' },
-  { name: 'display_name', placeholder: 'Chat Name' },
-  { name: 'phone', placeholder: 'Phone number' },
-];
+import { editProfileInputs as inputs } from './resources';
 
 const data = {
   email: '',
@@ -35,12 +27,15 @@ export default class EditProfileForm extends Component {
 
   onChange(event: InputEvent) {
     const name = (event.target as any).name;
-    this.state.data[name] = (event.target as any).value;
+    const value = (event.target as any).value;
+
+    this.state.data = { ...this.state.data, [name]: value };
   }
 
   onSubmit(event: SubmitEvent) {
     event.preventDefault();
     Router.to(location.profile);
+    console.log(this.state.data);
   }
 
   goToProfilePage() {
@@ -48,7 +43,7 @@ export default class EditProfileForm extends Component {
   }
 
   create(state: State) {
-    const { inputs } = state;
+    const { inputs, data } = state;
 
     const onSubmit = this.onSubmit.bind(this);
     const goToProfilePage = this.goToProfilePage.bind(this);
@@ -58,8 +53,8 @@ export default class EditProfileForm extends Component {
     return (
       section('c=section', [
         form('c=form;', [
-          ...inputs.map((inputData: TInput) => {
-            return component(Input, { ...inputData, change: onChange })
+          ...inputs.map((input: TInput) => {
+            return component(Input, { ...input, change: onChange, value: data[input.name] })
           }),
           component(Button, { text: 'Change account', onSubmit: onSubmit, type: 'submit' }),
         ]),

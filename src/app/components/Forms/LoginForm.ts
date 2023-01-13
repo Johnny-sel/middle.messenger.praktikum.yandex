@@ -3,8 +3,9 @@ import { Component } from '@core/component';
 import { Router } from '@core/router';
 import { Button, Input } from '@app/components';
 import { location } from '@app/const';
-
-
+import { loginInputs as inputs } from './resources';
+import { TInput } from './types';
+import { State } from '@core/types';
 
 const data = {
   email: '',
@@ -17,27 +18,28 @@ export default class LoginForm extends Component {
   }
 
   createState() {
-    return {
-      data,
-      loading: false,
-    };
+    return { data, inputs, loading: false };
   }
 
   onChange(event: InputEvent) {
     const name = (event.target as any).name;
-    this.state.data[name] = (event.target as any).value;
+    const value = (event.target as any).value;
+
+    this.state.data = { ...this.state.data, [name]: value };
   }
 
   onSubmit(event: SubmitEvent) {
     event.preventDefault();
     Router.to(location.chats);
+    console.log(this.state.data)
   }
 
   goToRegisterPage() {
     Router.to(location.registration);
   }
 
-  create() {
+  create(state: State) {
+    const { data } = state;
     const onChange = this.onChange.bind(this);
     const onSubmit = this.onSubmit.bind(this);
     const goToRegisterPage = this.goToRegisterPage.bind(this);
@@ -47,8 +49,9 @@ export default class LoginForm extends Component {
       section('c=section', [
         span('c=text;', ['Welcom to online messeger']),
         form('c=form; a=s;', [
-          component(Input, { name: 'email', placeholder: 'Enter Address', change: onChange }),
-          component(Input, { name: 'password', placeholder: 'Password', change: onChange }),
+          ...inputs.map((input: TInput) => {
+            return component(Input, { ...input, change: onChange, value: data[input.name] })
+          }),
           component(Button, { text: 'Login', onSubmit: onSubmit, type: 'submit' }),
         ]),
         a('c=link;', ['Create account'], { click: goToRegisterPage }),

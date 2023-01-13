@@ -129,7 +129,7 @@ export abstract class Component implements IComponent {
   }
 
   didMount() {
-    console.log("Did Mount")
+
   }
 
   abstract create(state: State, props?: Props): VirtualNode;

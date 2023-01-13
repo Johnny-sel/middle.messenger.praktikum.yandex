@@ -36,7 +36,7 @@ export default class RegisterForm extends Component {
 
   onSubmit(event: SubmitEvent) {
     event.preventDefault();
-    // Router.to(location.chats);
+    Router.to(location.chats);
     console.log(this.state.data)
   }
 
