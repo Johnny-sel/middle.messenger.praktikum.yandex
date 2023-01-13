@@ -1,7 +1,7 @@
-import { input } from '@core/tags';
-import { Component } from '@core/component';
-
 import './Input.sass';
+
+import { div, input, span } from '@core/tags';
+import { Component } from '@core/component';
 import { Props, State } from '@core/types';
 
 export default class Input extends Component {
@@ -10,11 +10,16 @@ export default class Input extends Component {
   }
 
   create(_: State, props: Props) {
-    const { name, placeholder, change } = props;
-    
+    const { value, name, placeholder, change: onChange, pattern, error } = props;
     // prettier-ignore
     return (
-      input(`c=form__input input; t=${name}; n=${name}; p=${placeholder ?? name};`, [], { change })
+      div('c=;', [
+        input(`c=form__input input; v=${value}; t=${name}; n=${name}; p=${placeholder}; req; pt=${pattern};`, [],
+          { input: onChange }
+        ),
+        span('c=input__error;', [error]),
+      ])
+
     );
   }
 }

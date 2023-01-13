@@ -20,14 +20,14 @@ export abstract class Component implements IComponent {
   }
 
   _setState(initialState: State) {
+    const self = this;
     return new Proxy(initialState, {
-      set: this._interception.bind(this),
+      set: self._interception.bind(self),
     });
   }
 
   _interception(state: State, prop: string, newValue: any) {
     state[prop] = newValue;
-
     this.vNodeNext = this.create(state);
     this._injectHTML();
     return true;

@@ -16,12 +16,15 @@ function parseAttrs(attrsStr: string): Attrs {
     ['v=', ' value='],
     ['h=', ' href='],
     ['a=', ' action='],
+    ['pt=', ' pattern='],
+    ['req', ' requried='],
   ];
 
   replacements.forEach((item) => {
     if (attrsStr.includes('alt')) {
       if (item[0] === 't=') return;
     }
+
     attrsStr = attrsStr.replace(item[0], item[1]);
   });
 
@@ -29,9 +32,12 @@ function parseAttrs(attrsStr: string): Attrs {
 
   attrsList.forEach((element: string) => {
     if (element) {
-      const key = element.split('=')[0].trim();
-      const value = element.split('=')[1].trim();
-      attrs[key] = value;
+      const match = element.match('=');
+      if (match?.index) {
+        const key = element.slice(0, match.index).trim();
+        const value = element.slice(match.index + 1).trim();
+        attrs[key] = value;
+      }
     }
   });
 
