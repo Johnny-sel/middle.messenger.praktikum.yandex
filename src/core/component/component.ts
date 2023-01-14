@@ -10,7 +10,7 @@ export abstract class Component implements IComponent {
 
   constructor() {
     this.state = this._setState(this.createState());
-    setTimeout(() => this.didMount(), 0);
+    setTimeout(() => this.didMount(this.state, this.props), 0);
   }
 
   _init(props: Props) {
@@ -128,7 +128,7 @@ export abstract class Component implements IComponent {
     return {};
   }
 
-  didMount() {
+  didMount(_: State, __: Props) {
 
   }
 

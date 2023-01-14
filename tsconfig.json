@@ -19,6 +19,8 @@
       "@core/utils": ["./src/core/utils"],
       "@app/pages": ["./src/app/pages"],
       "@app/components": ["./src/app/components"],
+      "@app/types": ["src/app/types"],
+      "@app/resources": ["src/app/resources"],
       "@app/modules": ["./src/app/modules"],
       "@app/const": ["./src/app/const"],
       "@app/img": ["./src/app/static/img"],

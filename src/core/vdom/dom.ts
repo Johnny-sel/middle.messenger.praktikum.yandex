@@ -8,7 +8,7 @@ function createHTMLElement(vNode: VirtualNode | string | number): HTMLElement | 
 
   const { tag, attrs, children, handlers } = vNode as VirtualNode;
 
-  const domElement: HTMLElement = document.createElement(tag);
+  const domElement: HTMLElement = document.createElement(tag, {});
   const attributes = Object.entries(attrs);
 
   attributes.forEach(([key, value]) => {

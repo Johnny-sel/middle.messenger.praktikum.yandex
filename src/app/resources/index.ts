@@ -1,46 +1,5 @@
 import { name, pattern, placeholder, error } from '@app/const';
-import { TInput } from './types';
-
-const {
-  confirmPassword,
-  displayName,
-  email,
-  firstName,
-  login,
-  password,
-  phone,
-  secondName
-} = name;
-
-const registration = [
-  email,
-  login,
-  firstName,
-  secondName,
-  displayName,
-  phone,
-  password,
-  confirmPassword
-];
-
-const editProfile = [
-  email,
-  login,
-  firstName,
-  secondName,
-  displayName,
-  phone
-];
-
-const editPassowrd = [
-  password,
-  confirmPassword
-];
-
-const signin = [
-  email,
-  password,
-];
+import { TInput } from '../types';
 
 const inputs: TInput[] = [
   {
@@ -98,13 +57,27 @@ const inputs: TInput[] = [
     pattern: pattern.password,
     error: error.password
   },
+
+  {
+    name: name.searchChat,
+    placeholder: placeholder.searchChat,
+    pattern: pattern.searchChat,
+    error: error.searchChat
+  },
+
+  {
+    name: name.searchMessage,
+    placeholder: placeholder.searchMessage,
+    pattern: pattern.searchMessage,
+    error: error.searchMessage
+  },
+
+  {
+    name: name.sendMessage,
+    placeholder: placeholder.sendMessage,
+    pattern: pattern.sendMessage,
+    error: error.sendMessage
+  },
 ]
 
-const regInputs = inputs.filter(input => registration.includes(input.name));
-const loginInputs = inputs.filter(input => signin.includes(input.name));
-const editProfileInputs = inputs.filter(input => editProfile.includes(input.name));
-const editPassowrdInputs = inputs.filter(input => editPassowrd.includes(input.name));
-
-
-
-export { regInputs, editProfileInputs, loginInputs, editPassowrdInputs }
+export { inputs }

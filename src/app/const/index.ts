@@ -16,7 +16,9 @@ const pattern = {
   displayName: '^[^\\d][^\\s][a-zA-Z\\d_-]{1,18}$',
   phone: '^[\\+]?[0-9]{10,15}$', //
   password: '^(?=^.{8,40}$)((?=.*\\d)|(?=.*\\W+))(?![.\\n])(?=.*[A-Z])(?=.*[a-z]).*$',
-  message: '.*',
+  searchChat: '^[^\\d][^\\s][a-zA-Z\\d_-]{1,18}$',
+  searchMessage: '.*',
+  sendMessage: '.*',
 }
 
 const name = {
@@ -28,6 +30,9 @@ const name = {
   phone: 'phone',
   password: 'password',
   confirmPassword: 'confirm_password',
+  searchChat: 'search_chat',
+  searchMessage: 'search_message',
+  sendMessage: 'message',
 }
 
 const placeholder = {
@@ -39,6 +44,9 @@ const placeholder = {
   phone: 'Phone number',
   password: 'Password',
   confirmPassword: 'Confirm Password',
+  searchChat: 'Search chat',
+  searchMessage: 'Search Message',
+  sendMessage: 'Send Message',
 }
 
 const error = {
@@ -50,6 +58,9 @@ const error = {
   phone: 'Invalid number',
   password: 'Invalid password',
   confirmPassword: 'Invalid password',
+  searchChat: 'Invalid search string',
+  searchMessage: 'Invalid search string',
+  sendMessage: 'Invalid string',
 }
 
 export { location, pattern, name, placeholder, error };

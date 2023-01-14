@@ -42,7 +42,7 @@ export interface IComponent {
 
   createState(): State;
   create(state: State, props?: Props): VirtualNode;
-  didMount(): void;
+  didMount(state: State, props: Props): void;
 
   _init(props: Props): VirtualNode;
   _setState(state: State): void;

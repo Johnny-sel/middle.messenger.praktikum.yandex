@@ -17,7 +17,7 @@ function parseAttrs(attrsStr: string): Attrs {
     ['h=', ' href='],
     ['a=', ' action='],
     ['pt=', ' pattern='],
-    ['req', ' requried='],
+    ['req', ' required='],
   ];
 
   replacements.forEach((item) => {
