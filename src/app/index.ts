@@ -1,6 +1,7 @@
 import { Router } from '@core/router';
 import { location } from '@app/const';
 import { LoginPage, ProfilePage, RegisterPage, EditProfilePage, EditPasswordPage, ErrorPage, ChatsPage } from '@app/pages';
+import { testApi } from '@api';
 
 function initApp() {
   const routes = [
@@ -24,3 +25,4 @@ function initApp() {
 }
 
 initApp();
+testApi();

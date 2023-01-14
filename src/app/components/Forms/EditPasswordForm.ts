@@ -8,7 +8,7 @@ import { location } from '@app/const';
 import { TInput } from '@app/types';
 import { inputs } from '@app/resources';
 import { name } from '@app/const';
-import { validateForm } from './validateForm';
+import { validateForm } from './utils/validateForm';
 
 const names = [name.password, name.confirmPassword];
 const editPasswordInputs = inputs.filter(input => names.includes(input.name));
@@ -27,8 +27,10 @@ export default class EditPasswordForm extends Component {
   }
 
   onChange(event: InputEvent) {
-    const name = (event.target as any).name;
-    const value = (event.target as any).value;
+    const element = event.target as any;
+    element.setCustomValidity("");
+    const name = element.name;
+    const value = element.value;
     this.state.data = { ...this.state.data, [name]: value };
   }
 
