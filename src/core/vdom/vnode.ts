@@ -1,8 +1,9 @@
 import {isArr} from '../utils';
 import {parseAttrs} from './parse';
-import {FunctionVirtualNode, Props, VirtualNode} from '../types';
+import {FunctionVirtualNode, IComponentConstructable, Props, VirtualNode} from '../types';
 
-function createVirtualComponent(ComponentInstance: any, props?: Props): VirtualNode {
+function createVirtualComponent(ComponentInstance: IComponentConstructable, props?: Props)
+  : VirtualNode {
   const instance = new ComponentInstance();
   const vNode = instance._init(props);
   return vNode;
@@ -35,7 +36,6 @@ function createVirtualNode(tag: string): FunctionVirtualNode {
     }
 
     const attrs = parseAttrs(attrsStr);
-
 
     return {tag, attrs, children, handlers};
   };

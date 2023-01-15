@@ -34,6 +34,11 @@ export interface IRouter {
 }
 
 // COMPONENT -----------------
+
+export interface IComponentConstructable {
+  new(): IComponent;
+}
+
 export interface IComponent {
   vNodeNext: VirtualNode;
   vNodeCurrent: VirtualNode;
@@ -44,7 +49,7 @@ export interface IComponent {
   create(state: State, props?: Props): VirtualNode;
   didMount(state: State, props: Props): void;
 
-  _init(props: Props): VirtualNode;
+  _init(props?: Props): VirtualNode;
   _setState(state: State): void;
   _interception(state: State, prop: string, newValue: any): boolean;
   _injectHTML(): void;

@@ -1,6 +1,6 @@
 import {createHTMLElement} from '../vdom/dom';
 import {isStr, penultimate} from '../utils';
-import {IRouter, NavOptions, Route} from './../types';
+import {IComponentConstructable, IRouter, NavOptions, Route} from './../types';
 
 export class Router implements IRouter {
   static instance: IRouter;
@@ -79,7 +79,7 @@ export class Router implements IRouter {
     }
   }
 
-  _renderPage(ComponentInstance: any): void {
+  _renderPage(ComponentInstance: IComponentConstructable): void {
     this.root.innerHTML = '';
     const componentInstance = new ComponentInstance();
     const vDom = componentInstance._init();
