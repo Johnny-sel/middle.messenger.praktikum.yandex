@@ -8,7 +8,8 @@ import {State} from '@core/types';
 
 import {ChatListItem, Input} from '@app/components';
 import {inputs} from '@app/resources';
-import {name} from '@app/const';
+import {location, name} from '@app/const';
+import {Router} from '@core/router';
 
 const searchChatInput = inputs.find((e) => e.name === name.searchChat);
 const searchMessageInput = inputs.find((e) => e.name === name.searchMessage);
@@ -47,7 +48,9 @@ export default class ChatsPage extends Component {
           // top
           header('c=chats__list__header;', [
             nav('c=chats__list__header__nav;', [
-              button('c=chats__list__header__nav__menu button; t=button; n=menu', []),
+              button('c=chats__list__header__nav__menu button; t=button; n=menu', [],
+                  {click: () => Router.to(location.root)},
+              ),
             ]),
             component(Input, {
               ...searchChatInput,
@@ -73,7 +76,9 @@ export default class ChatsPage extends Component {
               value: state.data[searchMessageInput!.name],
               className: 'chats__messages__header__search',
             }),
-            button('c=chats__messages__header__account button; t=button; n=account', []),
+            button('c=chats__messages__header__account button; t=button; n=account', [],
+                {click: () => Router.to(location.profile)},
+            ),
           ]),
           // middle
           main('c=chats__messages__message_items;', [

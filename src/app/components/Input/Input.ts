@@ -1,9 +1,9 @@
 import './Input.sass';
 
-import { div, input, span } from '@core/tags';
-import { Component } from '@core/component';
-import { Props, State } from '@core/types';
-import { name as names } from '@app/const';
+import {div, input, span} from '@core/tags';
+import {Component} from '@core/component';
+import {Props, State} from '@core/types';
+import {name as names} from '@app/const';
 
 export default class Input extends Component {
   constructor() {
@@ -11,7 +11,7 @@ export default class Input extends Component {
   }
 
   create(_: State, props: Props) {
-    const { value, name, placeholder, change: onChange, pattern, error, className } = props;
+    const {value, name, placeholder, change: onChange, pattern, error, className} = props;
     const type = name === names.confirmPassword ? names.password : name;
     // prettier-ignore
     return (
@@ -25,7 +25,7 @@ export default class Input extends Component {
           p=${placeholder};
           pt=${pattern};
         `, [],
-          { input: onChange },
+        {input: onChange},
         ),
         span('c=input_group__error;', [error]),
       ])
