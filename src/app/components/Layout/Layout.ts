@@ -1,9 +1,9 @@
 import './Layout.sass';
 
-import { div, main, component } from '@core/tags';
-import { Component } from '@core/component';
-import { Header, Footer } from '@app/components';
-import { Props, State } from '@core/types';
+import {div, main, component} from '@core/tags';
+import {Component} from '@core/component';
+import {Header, Footer} from '@app/components';
+import {Props, State} from '@core/types';
 
 export default class Layout extends Component {
   constructor() {
@@ -11,7 +11,7 @@ export default class Layout extends Component {
   }
 
   create(_: State, props: Props) {
-    const { children } = props as { children: unknown[] };
+    const {children} = props as { children: unknown[] };
 
     // prettier-ignore
     return (
@@ -21,7 +21,7 @@ export default class Layout extends Component {
           ...children.map((child: unknown) => child),
         ]),
 
-        component(Footer)
+        component(Footer),
       ])
     );
   }

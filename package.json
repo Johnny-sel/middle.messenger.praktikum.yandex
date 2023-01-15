@@ -11,19 +11,26 @@
   "scripts": {
     "clean": "rimraf dist",
     "dev": "npm run clean && parcel",
-    "start": "npm run build && node ./server.ts",
+    "start": "npm run build && node ./server.js",
     "build": "npm run clean && parcel build",
-    "check": "tsc --noEmit"
+    "check": "tsc --noEmit",
+    "lint": "eslint . --fix",
+    "lint:style": "stylelint **/*.sass --fix"
   },
   "browserslist": "> 0.25%, last 2 versions, not dead",
   "devDependencies": {
     "@parcel/transformer-sass": "2.8.2",
     "@parcel/transformer-typescript-tsc": "2.8.2",
-    "@types/jest": "29.2.5",
+    "@typescript-eslint/eslint-plugin": "5.48.1",
+    "@typescript-eslint/parser": "5.48.1",
+    "eslint": "8.31.0",
+    "eslint-config-google": "0.14.0",
     "express": "4.18.2",
     "parcel": "2.8.2",
     "parcel-plugin-at-alias": "0.15.0",
     "rimraf": "3.0.2",
+    "stylelint": "14.16.1",
+    "stylelint-config-sass-guidelines": "9.0.1",
     "typescript": "4.9.4"
   },
   "alias": {
@@ -45,7 +52,7 @@
   "prettier": {
     "arrowParens": "always",
     "bracketSameLine": false,
-    "bracketSpacing": true,
+    "bracketSpacing": false,
     "embeddedLanguageFormatting": "auto",
     "htmlWhitespaceSensitivity": "css",
     "insertPragma": false,

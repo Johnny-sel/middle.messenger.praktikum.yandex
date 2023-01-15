@@ -1,14 +1,14 @@
 import './Header.sass';
-import headerLogo from '@app/img/header-logo.png'
+import headerLogo from '@app/img/header-logo.svg';
 
-import { div, img, h1, button, header, nav } from '@core/tags';
-import { Component } from '@core/component';
-import { Router } from '@core/router';
-import { location } from '@app/const';
-import { State } from '@core/types';
+import {div, img, h1, button, header, nav} from '@core/tags';
+import {Component} from '@core/component';
+import {Router} from '@core/router';
+import {location} from '@app/const';
+import {State} from '@core/types';
 
 
-const { root, error, chats, registration, profile, profileEdit, passwordEdit } = location;
+const {root, error, chats, registration, profile, profileEdit, passwordEdit} = location;
 
 const titles = {
   [root]: 'Sign in chats',
@@ -26,7 +26,7 @@ export default class Header extends Component {
   }
 
   createState() {
-    return { title: 'Welcome' };
+    return {title: 'Welcome'};
   }
 
   didMount() {
@@ -51,7 +51,7 @@ export default class Header extends Component {
       header('c=header;', [
         div('c=header__logo logo;', [
           img(`c=logo_image; src=${headerLogo}; alt=logo;`, [], {
-            click: goToMainPage
+            click: goToMainPage,
           }),
         ]),
         div('c=header__greet;', [
@@ -59,7 +59,7 @@ export default class Header extends Component {
         ]),
         nav('c=header__links;', [
           button(`c=header__links__profile_button; n=profile; t=button`, [], {
-            click: goToProfilePage
+            click: goToProfilePage,
           }),
         ]),
       ])

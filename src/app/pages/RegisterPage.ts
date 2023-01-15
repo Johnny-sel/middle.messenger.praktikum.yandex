@@ -1,6 +1,6 @@
-import { component } from '@core/tags';
-import { Component } from '@core/component';
-import { RegisterForm, Layout } from '@app/components';
+import {component} from '@core/tags';
+import {Component} from '@core/component';
+import {RegisterForm, Layout} from '@app/components';
 
 export default class RegisterPage extends Component {
   constructor() {
@@ -10,9 +10,9 @@ export default class RegisterPage extends Component {
   create() {
     // prettier-ignore
     return (
-      component(Layout, { children: [
-        component(RegisterForm) 
-      ] })
-    )
+      component(Layout, {children: [
+        component(RegisterForm),
+      ]})
+    );
   }
 }

@@ -1,12 +1,12 @@
-import { isStr, isNum } from '../utils';
-import { VirtualNode } from '../types';
+import {isStr, isNum} from '../utils';
+import {VirtualNode} from '../types';
 
 function createHTMLElement(vNode: VirtualNode | string | number): HTMLElement | Text {
   if (isStr(vNode) || isNum(vNode)) {
     return document.createTextNode(String(vNode));
   }
 
-  const { tag, attrs, children, handlers } = vNode as VirtualNode;
+  const {tag, attrs, children, handlers} = vNode as VirtualNode;
 
   const domElement: HTMLElement = document.createElement(tag, {});
   const attributes = Object.entries(attrs);
@@ -28,4 +28,4 @@ function createHTMLElement(vNode: VirtualNode | string | number): HTMLElement | 
   return domElement;
 }
 
-export { createHTMLElement };
+export {createHTMLElement};

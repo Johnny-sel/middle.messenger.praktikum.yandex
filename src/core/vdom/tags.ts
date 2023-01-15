@@ -1,4 +1,4 @@
-import { createVirtualComponent, createVirtualNode } from './vnode';
+import {createVirtualComponent, createVirtualNode} from './vnode';
 
 export const component = createVirtualComponent;
 

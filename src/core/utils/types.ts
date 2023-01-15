@@ -26,4 +26,4 @@ function isObject(item: any): boolean {
 }
 
 
-export { isArr, isStr, isNum, isFunc, isObject };
+export {isArr, isStr, isNum, isFunc, isObject};

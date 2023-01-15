@@ -1,9 +1,9 @@
-import { Attrs } from "../types";
+import {Attrs} from '../types';
 
 function parseAttrs(attrsStr: string): Attrs {
   if (!attrsStr) return {};
 
-  let attrs: Attrs = {};
+  const attrs: Attrs = {};
 
   const replacements: string[][] = [
     ['s=', ' style='],
@@ -34,7 +34,6 @@ function parseAttrs(attrsStr: string): Attrs {
     if (element) {
       const match = element.match('=');
       if (match?.index) {
-
         const key = element.slice(0, match.index).trim();
         const value = element.slice(match.index + 1).trim();
         attrs[key] = value;
@@ -49,4 +48,4 @@ function parseAttrs(attrsStr: string): Attrs {
   return attrs;
 }
 
-export { parseAttrs };
+export {parseAttrs};

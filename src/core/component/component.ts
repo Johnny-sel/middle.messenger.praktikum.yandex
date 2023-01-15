@@ -1,6 +1,6 @@
-import { isStr, isNum, isArr, isDiffLength } from '../utils';
-import { createHTMLElement } from '../vdom/dom';
-import { Props, IComponent, VirtualNode, State } from '../types';
+import {isStr, isNum, isArr, isDiffLength} from '../utils';
+import {createHTMLElement} from '../vdom/dom';
+import {Props, IComponent, VirtualNode, State} from '../types';
 
 export abstract class Component implements IComponent {
   vNodeNext: VirtualNode;
@@ -20,9 +20,8 @@ export abstract class Component implements IComponent {
   }
 
   _setState(initialState: State) {
-    const self = this;
     return new Proxy(initialState, {
-      set: self._interception.bind(self),
+      set: this._interception.bind(this),
     });
   }
 
@@ -36,15 +35,15 @@ export abstract class Component implements IComponent {
   _injectHTML() {
     let isDiff = false;
 
-    let stackPrev = [this.vNodeCurrent];
-    let stackNext = [this.vNodeNext];
+    const stackPrev = [this.vNodeCurrent];
+    const stackNext = [this.vNodeNext];
 
     let vNodePrevLast = this.vNodeCurrent;
     let vNodeNextLast = this.vNodeNext;
 
     while (stackPrev.length > 0 || stackNext.length > 0) {
-      let vNodePrev: VirtualNode | string = stackPrev.pop()!;
-      let vNodeNext: VirtualNode | string = stackNext.pop()!;
+      const vNodePrev: VirtualNode | string = stackPrev.pop()!;
+      const vNodeNext: VirtualNode | string = stackNext.pop()!;
 
       if (isDiffLength(stackPrev, stackNext)) {
         vNodePrevLast.children = vNodeNextLast.children;
@@ -128,6 +127,7 @@ export abstract class Component implements IComponent {
     return {};
   }
 
+  /* eslint-disable */
   didMount(_: State, __: Props) {
 
   }

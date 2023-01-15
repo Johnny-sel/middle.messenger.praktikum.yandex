@@ -1,9 +1,9 @@
 import './ProfilePhoto.sass';
 import avatar from '@app/img/avatar-preview.png';
 
-import { div, span, img, button } from '@core/tags';
-import { Component } from '@core/component';
-import { Props, State } from '@core/types';
+import {div, span, img, button} from '@core/tags';
+import {Component} from '@core/component';
+import {Props, State} from '@core/types';
 
 export default class ProfilePhoto extends Component {
   constructor() {
@@ -11,7 +11,7 @@ export default class ProfilePhoto extends Component {
   }
 
   create(_: State, props: Props) {
-    const { profileName } = props;
+    const {profileName} = props;
 
     // prettier-ignore
     return (
@@ -20,7 +20,7 @@ export default class ProfilePhoto extends Component {
           img(`c=large_avatar__preview__img; src=${avatar}; alt=insert profile photo;`, []),
           button('c=large_avatar__preview_button; t=button;', ['Change avatar']),
         ]),
-        span('c=large_avatar__profile_name text;', [profileName])
+        span('c=large_avatar__profile_name text;', [profileName]),
       ])
     );
   }

@@ -6,14 +6,14 @@ function validateForm(form: HTMLElement): boolean {
 
   Array.from(inputs).forEach((input: any) => {
     if (!input.value || !input.checkValidity()) {
-      input.setCustomValidity("Invalid field.");
+      input.setCustomValidity('Invalid field.');
       results.push(false);
     }
   });
 
-  isValid = !(results.some(value => value === false));
+  isValid = !(results.some((value) => value === false));
 
   return isValid;
 }
 
-export { validateForm };
+export {validateForm};

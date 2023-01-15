@@ -18,4 +18,4 @@ function isEmpty(v: any): boolean {
   return true;
 }
 
-export { isEmpty }
+export {isEmpty};

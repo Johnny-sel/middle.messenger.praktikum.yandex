@@ -1,17 +1,17 @@
-import { span, section, form, component, a } from '@core/tags';
-import { Component } from '@core/component';
-import { Router } from '@core/router';
-import { State } from '@core/types';
+import {span, section, form, component, a} from '@core/tags';
+import {Component} from '@core/component';
+import {Router} from '@core/router';
+import {State} from '@core/types';
 
-import { Button, Input } from '@app/components';
-import { location } from '@app/const';
-import { inputs } from '@app/resources';
-import { TInput } from '@app/types';
-import { name } from '@app/const';
-import { validateForm } from './utils/validateForm';
+import {Button, Input} from '@app/components';
+import {location} from '@app/const';
+import {inputs} from '@app/resources';
+import {TInput} from '@app/types';
+import {name} from '@app/const';
+import {validateForm} from './utils/validateForm';
 
 const names = [name.email, name.password];
-const loginInputs = inputs.filter(input => names.includes(input.name));
+const loginInputs = inputs.filter((input) => names.includes(input.name));
 export default class LoginForm extends Component {
   constructor() {
     super();
@@ -22,16 +22,16 @@ export default class LoginForm extends Component {
       data: {
         [name.email]: '',
         [name.password]: '',
-      }
+      },
     };
   }
 
   onChange(event: InputEvent) {
     const element = event.target as any;
-    element.setCustomValidity("");
+    element.setCustomValidity('');
     const name = element.name;
     const value = element.value;
-    this.state.data = { ...this.state.data, [name]: value };
+    this.state.data = {...this.state.data, [name]: value};
   }
 
   onSubmit(event: SubmitEvent) {
@@ -42,7 +42,7 @@ export default class LoginForm extends Component {
       Router.to(location.chats);
     }
 
-    console.log('form data', this.state.data)
+    console.log('form data', this.state.data);
   }
 
   create(state: State) {
@@ -55,11 +55,11 @@ export default class LoginForm extends Component {
         span('c=text;', ['Welcom to online messeger']),
         form('c=form; a=s;', [
           ...loginInputs.map((input: TInput) => {
-            return component(Input, { ...input, change: onChange, value: state.data[input.name] })
+            return component(Input, {...input, change: onChange, value: state.data[input.name]});
           }),
-          component(Button, { text: 'Login', onSubmit: onSubmit, type: 'submit' }),
+          component(Button, {text: 'Login', onSubmit: onSubmit, type: 'submit'}),
         ]),
-        a('c=link;', ['Create account'], { click: () => Router.to(location.registration) }),
+        a('c=link;', ['Create account'], {click: () => Router.to(location.registration)}),
       ])
     );
   }

@@ -10,7 +10,7 @@ const location = {
 
 const pattern = {
   email: '[a-zA-Z\\d-]+@+[a-zA-Z\\d-]+\\.+[a-zA-Z\\d-]*',
-  login: '^[^\\d][^\\s][a-zA-Z\\d_-]{1,18}$',//
+  login: '^[^\\d][^\\s][a-zA-Z\\d_-]{1,18}$', //
   firstName: '^[A-ZА-ЯЁ][^\\d^\\s][a-zа-яё-]*',
   secondName: '^[A-ZА-ЯЁ][^\\d^\\s][a-zа-яё-]*',
   displayName: '^[^\\d][^\\s][a-zA-Z\\d_-]{1,18}$',
@@ -19,7 +19,7 @@ const pattern = {
   searchChat: '^[^\\d][^\\s][a-zA-Z\\d_-]{1,18}$',
   searchMessage: '.*',
   sendMessage: '.*',
-}
+};
 
 const name = {
   email: 'email',
@@ -33,7 +33,7 @@ const name = {
   searchChat: 'search_chat',
   searchMessage: 'search_message',
   sendMessage: 'message',
-}
+};
 
 const placeholder = {
   email: 'Email Address',
@@ -47,7 +47,7 @@ const placeholder = {
   searchChat: 'Search chat',
   searchMessage: 'Search Message',
   sendMessage: 'Send Message',
-}
+};
 
 const error = {
   email: 'Invalid Email',
@@ -61,6 +61,6 @@ const error = {
   searchChat: 'Invalid search string',
   searchMessage: 'Invalid search string',
   sendMessage: 'Invalid string',
-}
+};
 
-export { location, pattern, name, placeholder, error };
+export {location, pattern, name, placeholder, error};

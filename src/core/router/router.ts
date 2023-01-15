@@ -1,6 +1,6 @@
-import { createHTMLElement } from '../vdom/dom';
-import { isStr, penultimate } from '../utils';
-import { IRouter, NavOptions, Route } from './../types';
+import {createHTMLElement} from '../vdom/dom';
+import {isStr, penultimate} from '../utils';
+import {IRouter, NavOptions, Route} from './../types';
 
 export class Router implements IRouter {
   static instance: IRouter;
@@ -42,20 +42,20 @@ export class Router implements IRouter {
   }
 
   _subscribe(event: string, context: IRouter): void {
-    return window.addEventListener(event, function () {
+    return window.addEventListener(event, function() {
       if (event === 'popstate') {
         const path = window.location.pathname;
 
         if (path === context.stack[context.index - 1]) {
-          context._navigateTo(path, { clickButton: 'prev' });
+          context._navigateTo(path, {clickButton: 'prev'});
         } else {
-          context._navigateTo(path, { clickButton: 'next' });
+          context._navigateTo(path, {clickButton: 'next'});
         }
       }
     });
   }
 
-  _navigateTo(path: string, { clickButton }: NavOptions = {}): void {
+  _navigateTo(path: string, {clickButton}: NavOptions = {}): void {
     let route = this.routes.find((route) => route.path === path);
     const isChecked = this._checkRoute(route);
 
@@ -76,7 +76,7 @@ export class Router implements IRouter {
     const path = penultimate(this.stack);
     if (path) {
       this._navigateTo(path);
-    };
+    }
   }
 
   _renderPage(ComponentInstance: any): void {
@@ -113,7 +113,7 @@ export class Router implements IRouter {
     }
 
     if (!route.path.startsWith('/')) {
-      this._printError("route shoulde be start with '/'");
+      this._printError('route shoulde be start with \'/\'');
       return false;
     }
 

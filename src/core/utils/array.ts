@@ -30,4 +30,4 @@ function isDiffLength<T>(arr1: T[], arr2: T[]): boolean {
   return arr1.length !== arr2.length;
 }
 
-export { first, last, penultimate, lastIndex, isDiffLength };
+export {first, last, penultimate, lastIndex, isDiffLength};

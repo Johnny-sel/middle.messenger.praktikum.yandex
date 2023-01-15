@@ -1,15 +1,15 @@
-import { isArr } from '../utils';
-import { parseAttrs } from './parse';
-import { FunctionVirtualNode, Props, VirtualNode } from '../types';
+import {isArr} from '../utils';
+import {parseAttrs} from './parse';
+import {FunctionVirtualNode, Props, VirtualNode} from '../types';
 
 function createVirtualComponent(ComponentInstance: any, props?: Props): VirtualNode {
   const instance = new ComponentInstance();
   const vNode = instance._init(props);
   return vNode;
-};
+}
 
 function createVirtualNode(tag: string): FunctionVirtualNode {
-  return function (...args: any[]) {
+  return function(...args: any[]) {
     let attrsStr = '';
     let children = [];
     let handlers = {};
@@ -37,8 +37,8 @@ function createVirtualNode(tag: string): FunctionVirtualNode {
     const attrs = parseAttrs(attrsStr);
 
 
-    return { tag, attrs, children, handlers };
+    return {tag, attrs, children, handlers};
   };
 }
 
-export { createVirtualNode, createVirtualComponent };
+export {createVirtualNode, createVirtualComponent};

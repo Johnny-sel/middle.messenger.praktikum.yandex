@@ -1,7 +1,7 @@
-import { main, component, span } from '@core/tags';
-import { Component } from '@core/component';
-import { Layout } from '@app/components';
-import { Props, State } from '@core/types';
+import {main, component, span} from '@core/tags';
+import {Component} from '@core/component';
+import {Layout} from '@app/components';
+import {Props, State} from '@core/types';
 
 export default class ErrorPage extends Component {
   constructor() {
@@ -23,8 +23,8 @@ export default class ErrorPage extends Component {
           main('c=error-page', [
             span([props?.errorType ?? state.errorType]),
             span([props?.errorText ?? state.errorText]),
-          ])
-        ]
+          ]),
+        ],
       })
     );
   }

@@ -1,17 +1,17 @@
-import { section, form, component, a } from '@core/tags';
-import { Component } from '@core/component';
-import { Router } from '@core/router';
-import { State } from '@core/types';
+import {section, form, component, a} from '@core/tags';
+import {Component} from '@core/component';
+import {Router} from '@core/router';
+import {State} from '@core/types';
 
-import { Button, Input } from '@app/components';
-import { location } from '@app/const';
-import { TInput } from '@app/types';
-import { inputs } from '@app/resources';
-import { name } from '@app/const';
-import { validateForm } from './utils/validateForm';
+import {Button, Input} from '@app/components';
+import {location} from '@app/const';
+import {TInput} from '@app/types';
+import {inputs} from '@app/resources';
+import {name} from '@app/const';
+import {validateForm} from './utils/validateForm';
 
 const names = [name.password, name.confirmPassword];
-const editPasswordInputs = inputs.filter(input => names.includes(input.name));
+const editPasswordInputs = inputs.filter((input) => names.includes(input.name));
 export default class EditPasswordForm extends Component {
   constructor() {
     super();
@@ -28,10 +28,10 @@ export default class EditPasswordForm extends Component {
 
   onChange(event: InputEvent) {
     const element = event.target as any;
-    element.setCustomValidity("");
+    element.setCustomValidity('');
     const name = element.name;
     const value = element.value;
-    this.state.data = { ...this.state.data, [name]: value };
+    this.state.data = {...this.state.data, [name]: value};
   }
 
   onSubmit(event: SubmitEvent) {
@@ -42,7 +42,7 @@ export default class EditPasswordForm extends Component {
       Router.to(location.profile);
     }
 
-    console.log('form data', this.state.data)
+    console.log('form data', this.state.data);
   }
 
   create(state: State) {
@@ -54,11 +54,11 @@ export default class EditPasswordForm extends Component {
       section('c=section', [
         form('c=form;', [
           ...editPasswordInputs.map((input: TInput) => {
-            return component(Input, { ...input, change: onChange, value: state.data[input.name] })
+            return component(Input, {...input, change: onChange, value: state.data[input.name]});
           }),
-          component(Button, { text: 'Change password', onSubmit: onSubmit, type: 'submit' }),
+          component(Button, {text: 'Change password', onSubmit: onSubmit, type: 'submit'}),
         ]),
-        a('c=link;', ['Go to account'], { click: () => Router.to(location.profile) }),
+        a('c=link;', ['Go to account'], {click: () => Router.to(location.profile)}),
       ])
     );
   }

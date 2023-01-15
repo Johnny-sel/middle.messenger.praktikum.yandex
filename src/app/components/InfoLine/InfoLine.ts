@@ -1,8 +1,8 @@
 import './InfoLine.sass';
 
-import { div, span } from '@core/tags';
-import { Component } from '@core/component';
-import { Props, State } from '@core/types';
+import {div, span} from '@core/tags';
+import {Component} from '@core/component';
+import {Props, State} from '@core/types';
 
 export default class InfoLine extends Component {
   constructor() {
@@ -10,7 +10,7 @@ export default class InfoLine extends Component {
   }
 
   create(_: State, props: Props) {
-    const { name, value } = props;
+    const {name, value} = props;
 
     // prettier-ignore
     return (

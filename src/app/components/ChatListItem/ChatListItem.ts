@@ -1,7 +1,7 @@
 import './ChatListItem.sass';
 
-import { div, li, span } from '@core/tags';
-import { Component } from '@core/component';
+import {div, li, span} from '@core/tags';
+import {Component} from '@core/component';
 
 export default class ChatListItem extends Component {
   constructor() {

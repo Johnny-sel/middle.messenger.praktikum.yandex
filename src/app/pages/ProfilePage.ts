@@ -1,6 +1,6 @@
-import { component } from '@core/tags';
-import { Component } from '@core/component';
-import { ProfileInfo, Layout } from '@app/components';
+import {component} from '@core/tags';
+import {Component} from '@core/component';
+import {ProfileInfo, Layout} from '@app/components';
 
 export default class ProfilePage extends Component {
   constructor() {
@@ -10,9 +10,9 @@ export default class ProfilePage extends Component {
   create() {
     // prettier-ignore
     return (
-      component(Layout, { children: [
-        component(ProfileInfo) 
-      ] })
-    )
+      component(Layout, {children: [
+        component(ProfileInfo),
+      ]})
+    );
   }
 }

@@ -2,17 +2,17 @@
 
 import './ChatsPage.sass';
 
-import { div, aside, section, footer, header, main, nav, button, ul, component } from '@core/tags';
-import { Component } from '@core/component';
-import { State } from '@core/types';
+import {div, aside, section, footer, header, main, nav, button, ul, component} from '@core/tags';
+import {Component} from '@core/component';
+import {State} from '@core/types';
 
-import { ChatListItem, Input } from '@app/components';
-import { inputs } from '@app/resources';
-import { name } from '@app/const';
+import {ChatListItem, Input} from '@app/components';
+import {inputs} from '@app/resources';
+import {name} from '@app/const';
 
-const searchChatInput = inputs.find(e => e.name === name.searchChat);
-const searchMessageInput = inputs.find(e => e.name === name.searchMessage);
-const sendMessageInput = inputs.find(e => e.name === name.sendMessage);
+const searchChatInput = inputs.find((e) => e.name === name.searchChat);
+const searchMessageInput = inputs.find((e) => e.name === name.searchMessage);
+const sendMessageInput = inputs.find((e) => e.name === name.sendMessage);
 
 export default class ChatsPage extends Component {
   constructor() {
@@ -25,18 +25,18 @@ export default class ChatsPage extends Component {
         [name.searchChat]: '',
         [name.searchMessage]: '',
         [name.sendMessage]: '',
-      }
+      },
     };
   }
 
   onChange(event: InputEvent) {
     const name = (event.target as any).name;
     const value = (event.target as any).value;
-    this.state.data = { ...this.state.data, [name]: value };
+    this.state.data = {...this.state.data, [name]: value};
   }
 
   create(state: State) {
-    console.log('form data:', state.data)
+    console.log('form data:', state.data);
     const onChange = this.onChange.bind(this);
 
     // prettier-ignore
@@ -53,14 +53,14 @@ export default class ChatsPage extends Component {
               ...searchChatInput,
               change: onChange,
               value: state.data[searchChatInput!.name],
-              className: 'chats__list__header_search'
-            })
+              className: 'chats__list__header_search',
+            }),
           ]),
           // chats items
           ul('c=chats__list__items;', [
             ...[1, 2, 3, 4, 5, 6].map(() => {
-              return component(ChatListItem)
-            })
+              return component(ChatListItem);
+            }),
           ]),
         ]),
         // Messages
