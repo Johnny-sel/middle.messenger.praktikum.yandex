@@ -1,3 +1,5 @@
+import {lastIndex} from '@core/utils';
+
 const METHODS = {GET: 'GET', POST: 'POST', PUT: 'PUT', DELETE: 'DELETE'};
 
 function queryStringify(data: object) {
@@ -11,14 +13,14 @@ function queryStringify(data: object) {
 
   arr.forEach(([key, value], index) => {
     str = str + `${key}=${value}`;
-    if (index !== arr.length - 1) {
+    if (index !== lastIndex(arr)) {
       str = str + '&';
     }
   });
 }
 
-function fetch(url: string, options?: any) {
-  const {method = METHODS.GET, timeout = 10000, headers = {}, data} = options || {};
+function fetch(url: string, options?: any): Promise<any> {
+  const {method = METHODS.GET, timeout = 10000, headers = {}, data, json} = options || {};
 
   const isGet = method === METHODS.GET;
   const isData = !!data;
@@ -33,8 +35,8 @@ function fetch(url: string, options?: any) {
       xhr.setRequestHeader(key, headers[key]);
     });
 
-    xhr.onload = function() {
-      resolve(xhr.responseText);
+    xhr.onload = function () {
+      resolve(json ? JSON.parse(xhr.responseText) : xhr.responseText);
       xhr.abort();
     };
 
@@ -47,7 +49,7 @@ function fetch(url: string, options?: any) {
     if (isGet || !data) {
       xhr.send();
     } else {
-      xhr.send(data);
+      xhr.send(JSON.stringify(data));
     }
   });
 
@@ -56,19 +58,18 @@ function fetch(url: string, options?: any) {
 
 function testApi() {
   fetch('https://jsonplaceholder.typicode.com/users')
-      .then((v) => console.log('[GET] test api value: ', JSON.parse(v as any)))
-      .catch((e) => console.log('[GET] test api error', e))
-      .finally(() => console.log('[GET] test api finally'));
+    .then((v) => console.log('[GET] test api value: ', v))
+    .catch((e) => console.log('[GET] test api error', e))
+    .finally(() => console.log('[GET] test api finally'));
 
   fetch('https://jsonplaceholder.typicode.com/posts', {
     method: 'POST',
-    data: JSON.stringify({title: 'foo', body: 'bar', userId: 1}),
+    data: {title: 'foo', body: 'bar', userId: 1},
     headers: {'Content-type': 'application/json; charset=UTF-8'},
   })
-      .then((v) => console.log('[POST] test api value: ', JSON.parse(v as any)))
-      .catch((e) => console.log('[POST] test api error', e))
-      .finally(() => console.log('[POST] test api finally'));
+    .then((v) => console.log('[POST] test api value: ', v))
+    .catch((e) => console.log('[POST] test api error', e))
+    .finally(() => console.log('[POST] test api finally'));
 }
-
 
 export {fetch, testApi};

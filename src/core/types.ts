@@ -5,20 +5,20 @@ export type VirtualNode = {
   handlers: object;
   tag: string;
   HTMLElement?: HTMLElement | Text;
-}
+};
 
 export type FunctionVirtualNode = (...args: any[]) => VirtualNode;
-export type Attrs = { [key: string]: unknown };
-export type Route = { path: string; component: any; };
-export type NavOptions = { clickButton?: 'prev' | 'next'; };
-export type Props = { [key: string]: unknown };
-export type State = { [key: string]: any };
+export type Attrs = {[key: string]: unknown};
+export type Route = {path: string; component: any};
+export type NavOptions = {clickButton?: 'prev' | 'next'};
+export type Props = {[key: string]: unknown};
+export type State = {[key: string]: any};
 
 // ROUTER ------------------
 export interface IRouter {
   root: HTMLElement;
-  routes: Route[],
-  stack: string[],
+  routes: Route[];
+  stack: string[];
   index: number;
   isInit: boolean;
 
@@ -35,14 +35,14 @@ export interface IRouter {
 
 // COMPONENT -----------------
 
-export interface IComponentConstructable {
-  new(): IComponent;
+export interface IComponentConstructable<State> {
+  new (): IComponent<State>;
 }
 
-export interface IComponent {
+export interface IComponent<State> {
   vNodeNext: VirtualNode;
   vNodeCurrent: VirtualNode;
-  state: object;
+  state: State;
   props: Props;
 
   createState(): State;
@@ -50,7 +50,7 @@ export interface IComponent {
   didMount(state: State, props: Props): void;
 
   _init(props?: Props): VirtualNode;
-  _setState(state: State): void;
+  _setState(state: State): State;
   _interception(state: State, prop: string, newValue: any): boolean;
   _injectHTML(): void;
   _injectTextNode(vNodePrevLast: VirtualNode, textNode: VirtualNode): void;
@@ -59,4 +59,3 @@ export interface IComponent {
   _compareInnerText(vNodePrev: VirtualNode, vNodeNext: VirtualNode): void;
   _compareAttrs(vNodePrev: VirtualNode, vNodeNext: VirtualNode): void;
 }
-

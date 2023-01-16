@@ -5,13 +5,13 @@ import {Component} from '@core/component';
 import {Props, State} from '@core/types';
 import {name as names} from '@app/const';
 
-export default class Input extends Component {
+export default class Input extends Component<any> {
   constructor() {
     super();
   }
 
   create(_: State, props: Props) {
-    const {value, name, placeholder, change: onChange, pattern, error, className} = props;
+    const {value, name, placeholder, change: onChange, pattern, error, className, load} = props;
     const type = name === names.confirmPassword ? names.password : name;
     // prettier-ignore
     return (
@@ -24,6 +24,7 @@ export default class Input extends Component {
           n=${name};
           p=${placeholder};
           pt=${pattern};
+          ${load ? "di=" :''};
         `, [],
         {input: onChange},
         ),

@@ -25,7 +25,9 @@
       "@app/modules": ["./src/app/modules"],
       "@app/const": ["./src/app/const"],
       "@app/img": ["./src/app/static/img"],
-      "@app/styles/varibales": ["./src/app/styles/varibales.sass"]
+      "@app/styles/varibales": ["./src/app/styles/varibales.sass"],
+      "@api/repositories": ["./src/api/repositories"],
+      "@api/types": ["./src/api/types"]
     }
   },
   "include": ["./src/**/*", "image-import.d.ts"]

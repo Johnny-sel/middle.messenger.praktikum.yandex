@@ -1,15 +1,15 @@
 import {isStr, isNum, isArr, isDiffLength} from '../utils';
 import {createHTMLElement} from '../vdom/dom';
-import {Props, IComponent, VirtualNode, State} from '../types';
+import {Props, IComponent, VirtualNode} from '../types';
 
-export abstract class Component implements IComponent {
+export abstract class Component<State> implements IComponent<State> {
   vNodeNext: VirtualNode;
   vNodeCurrent: VirtualNode;
   state: State;
   props: Props;
 
   constructor() {
-    this.state = this._setState(this.createState());
+    this.state = this._setState(this.createState()) as State;
     setTimeout(() => this.didMount(this.state, this.props), 0);
   }
 
@@ -20,12 +20,12 @@ export abstract class Component implements IComponent {
   }
 
   _setState(initialState: State) {
-    return new Proxy(initialState, {
+    return new Proxy(initialState as object, {
       set: this._interception.bind(this),
-    });
+    }) as State;
   }
 
-  _interception(state: State, prop: string, newValue: any) {
+  _interception(state: any, prop: string, newValue: any) {
     state[prop] = newValue;
     this.vNodeNext = this.create(state);
     this._injectHTML();
@@ -53,12 +53,12 @@ export abstract class Component implements IComponent {
 
       if (isArr<unknown>(vNodePrev.children)) {
         vNodePrevLast = vNodePrev;
-        stackPrev.push(...vNodePrev.children as []);
+        stackPrev.push(...(vNodePrev.children as []));
       }
 
       if (isArr<unknown>(vNodeNext.children)) {
         vNodeNextLast = vNodeNext;
-        stackNext.push(...vNodeNext.children as []);
+        stackNext.push(...(vNodeNext.children as []));
       }
 
       isDiff = this._compareInnerText(vNodePrev, vNodeNext);
@@ -97,14 +97,33 @@ export abstract class Component implements IComponent {
   }
 
   _injectAttr(vPrev: VirtualNode, vNext: VirtualNode) {
-    const attributes = Object.entries(vNext.attrs);
+    if (!(vPrev.HTMLElement instanceof HTMLElement)) return;
 
-    attributes.forEach(([key, value]) => {
-      if (vPrev.HTMLElement instanceof HTMLElement) {
-        vPrev.HTMLElement.setAttribute(key, value);
-        vPrev.attrs = vNext.attrs;
-      }
+    const attrsNext = Object.entries(vNext.attrs);
+    const attrsPrev = Object.entries(vPrev.attrs);
+
+    let isDisabled = false;
+
+    attrsNext.forEach(([nextKey, nextValue]) => {
+      attrsPrev.forEach(([prevKey, prevValue]) => {
+        if (!(vPrev.HTMLElement instanceof HTMLElement)) return;
+
+        if (nextKey === 'disabled') isDisabled = true;
+        if (nextKey !== prevKey) return;
+        if (prevValue === nextValue) return;
+
+        vPrev.HTMLElement.removeAttribute(prevKey);
+        vPrev.HTMLElement.setAttribute(nextKey, nextValue);
+      });
     });
+
+    if (isDisabled) {
+      vPrev.HTMLElement.setAttribute('disabled', '');
+    } else {
+      vPrev.HTMLElement.removeAttribute('disabled');
+    }
+
+    vPrev.attrs = vNext.attrs;
   }
 
   _compareInnerText(vPrev: VirtualNode, vNext: VirtualNode) {
@@ -123,14 +142,12 @@ export abstract class Component implements IComponent {
     return prevAttrs !== nextAttrs;
   }
 
-  createState() {
-    return {};
+  createState(): State {
+    return {} as State;
   }
 
   /* eslint-disable */
-  didMount(_: State, __: Props) {
-
-  }
+  didMount(_: State, __: Props) {}
 
   abstract create(state: State, props?: Props): VirtualNode;
 }

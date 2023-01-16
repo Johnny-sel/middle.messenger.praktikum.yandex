@@ -79,10 +79,11 @@ export class Router implements IRouter {
     }
   }
 
-  _renderPage(ComponentInstance: IComponentConstructable): void {
+  _renderPage(ComponentInstance: IComponentConstructable<unknown>): void {
     this.root.innerHTML = '';
     const componentInstance = new ComponentInstance();
     const vDom = componentInstance._init();
+    console.log('vDom:', vDom)
     const rootNode = createHTMLElement(vDom);
     this.root.appendChild(rootNode);
   }

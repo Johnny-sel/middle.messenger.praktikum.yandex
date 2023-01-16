@@ -1,8 +1,11 @@
 import {name} from '@app/const';
+import {Singup} from '@api/types';
 
 const {email, login, displayName, firstName, phone, secondName, password, confirmPassword} = name;
 
 const initialState = {
+  error: undefined,
+  load: false,
   data: {
     [email]: '',
     [login]: '',
@@ -12,7 +15,7 @@ const initialState = {
     [phone]: '',
     [password]: '',
     [confirmPassword]: '',
-  },
+  } as Singup,
 };
 
 export {initialState};

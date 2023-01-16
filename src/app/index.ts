@@ -1,6 +1,5 @@
 import {Router} from '@core/router';
 import {location} from '@app/const';
-import {testApi} from '@api';
 
 import {
   LoginPage,
@@ -34,4 +33,4 @@ function initApp() {
 }
 
 initApp();
-testApi();
+// testApi();
