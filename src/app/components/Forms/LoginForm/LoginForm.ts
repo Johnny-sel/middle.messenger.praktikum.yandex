@@ -1,37 +1,25 @@
+// core
 import {span, section, form, component, a} from '@core/tags';
 import {Component} from '@core/component';
 import {Router} from '@core/router';
 import {State} from '@core/types';
-
+// app
 import {Button, Input} from '@app/components';
 import {location} from '@app/const';
-import {inputs} from '@app/resources';
 import {TInput} from '@app/types';
-import {name} from '@app/const';
-import {validateForm} from './utils/validateForm';
+// local
+import {validateForm} from '../utils/validateForm';
+import {loginInputs} from '../utils/getInputs';
+import {onChange} from '../utils/onChange';
+import {initialState} from './initialState';
 
-const names = [name.email, name.password];
-const loginInputs = inputs.filter((input) => names.includes(input.name));
 export default class LoginForm extends Component {
   constructor() {
     super();
   }
 
   createState() {
-    return {
-      data: {
-        [name.email]: '',
-        [name.password]: '',
-      },
-    };
-  }
-
-  onChange(event: InputEvent) {
-    const element = event.target as any;
-    element.setCustomValidity('');
-    const name = element.name;
-    const value = element.value;
-    this.state.data = {...this.state.data, [name]: value};
+    return initialState;
   }
 
   onSubmit(event: SubmitEvent) {
@@ -46,7 +34,7 @@ export default class LoginForm extends Component {
   }
 
   create(state: State) {
-    const onChange = this.onChange.bind(this);
+    const change = onChange.bind(this);
     const onSubmit = this.onSubmit.bind(this);
 
     // prettier-ignore
@@ -55,7 +43,7 @@ export default class LoginForm extends Component {
         span('c=text;', ['Welcom to online messeger']),
         form('c=form; a=s;', [
           ...loginInputs.map((input: TInput) => {
-            return component(Input, {...input, change: onChange, value: state.data[input.name]});
+            return component(Input, {...input, change, value: state.data[input.name]});
           }),
           component(Button, {text: 'Login', onSubmit: onSubmit, type: 'submit'}),
         ]),

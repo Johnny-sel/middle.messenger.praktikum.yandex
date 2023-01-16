@@ -1,5 +1,3 @@
-
-
 import './ChatsPage.sass';
 
 import {div, aside, section, footer, header, main, nav, button, ul, component} from '@core/tags';
@@ -11,9 +9,11 @@ import {inputs} from '@app/resources';
 import {location, name} from '@app/const';
 import {Router} from '@core/router';
 
-const searchChatInput = inputs.find((e) => e.name === name.searchChat);
-const searchMessageInput = inputs.find((e) => e.name === name.searchMessage);
-const sendMessageInput = inputs.find((e) => e.name === name.sendMessage);
+const {searchChat, searchMessage, sendMessage} = name;
+
+const searchChatInput = inputs.find((e) => e.name === searchChat);
+const searchMessageInput = inputs.find((e) => e.name === searchMessage);
+const sendMessageInput = inputs.find((e) => e.name === sendMessage);
 
 export default class ChatsPage extends Component {
   constructor() {
@@ -22,11 +22,7 @@ export default class ChatsPage extends Component {
 
   createState() {
     return {
-      data: {
-        [name.searchChat]: '',
-        [name.searchMessage]: '',
-        [name.sendMessage]: '',
-      },
+      data: {[searchChat]: '', [searchMessage]: '', [sendMessage]: ''},
     };
   }
 

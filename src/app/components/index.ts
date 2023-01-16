@@ -5,10 +5,10 @@ export {default as InfoLine} from './InfoLine/InfoLine';
 export {default as ProfilePhoto} from './ProfilePhoto/ProfilePhoto';
 export {default as ProfileInfo} from './ProfileInfo/ProfileInfo';
 
-export {default as LoginForm} from './Forms/LoginForm';
-export {default as RegisterForm} from './Forms/RegisterForm';
-export {default as EditProfileForm} from './Forms/EditProfileForm';
-export {default as EditPasswordForm} from './Forms/EditPasswordForm';
+export {default as LoginForm} from './Forms/LoginForm/LoginForm';
+export {default as RegisterForm} from './Forms/RegisterForm/RegisterForm';
+export {default as EditProfileForm} from './Forms/EditProfileForm/EditProfileForm';
+export {default as EditPasswordForm} from './Forms/EditPasswordForm/EditPasswordForm';
 
 export {default as Layout} from './Layout/Layout';
 export {default as Header} from './Header/Header';
