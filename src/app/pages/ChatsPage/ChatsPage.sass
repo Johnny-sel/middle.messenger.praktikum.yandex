@@ -1,0 +1,115 @@
+@import '@app/styles/varibales'
+
+.chats .button,
+.chats .input
+  margin: 0
+  height: 3.5rem
+
+.chats
+  display: flex
+  flex-wrap: nowrap
+  width: 100%
+  height: 100vh
+  justify-content: center
+
+.chats__list
+  display: flex
+  flex-direction: column
+  flex-basis: 100%
+  border-right: $border
+
+  @media screen and (min-width: 850px)
+    flex-basis: 20%
+
+.chats__list__header
+  display: flex
+  flex-wrap: nowrap
+  padding: 1.5rem
+  border-bottom: $border
+
+.chats__list__header__nav
+  display: flex
+  align-items: center
+  margin-right: 2rem
+
+  .chats__list__header__nav__menu
+    background: transparent
+    background-size: cover
+    background-image: url('./../../static/img/menu.svg')
+    height: 2rem
+    width: 2.5rem
+    transition: all 0.3s ease-out
+
+    &:hover
+      transform: scale(1.2)
+
+.chats__messages
+  display: none
+  flex-direction: column
+  justify-content: space-between
+  flex-basis: 80%
+
+  @media screen and (min-width: 850px)
+    display: flex
+
+.chats__messages__message_items
+  height: 100%
+
+.chats__messages__header
+  display: flex
+  justify-content: end
+  padding: 1.5rem
+  border-bottom: $border
+
+  .chats__messages__header__account
+    margin-left: 1.5rem
+    background: transparent
+    background-size: cover
+    background-image: url('./../../static/img/profile-button.svg')
+    height: 3.4rem
+    width: 3.4rem
+    border-radius: 50%
+    transition: all 0.3s ease-out
+
+    &:hover
+      transform: scale(1.2)
+
+.chats__messages__footer
+  display: flex
+  justify-content: space-between
+  align-items: center
+  border-top: $border
+  padding: 1.5rem
+
+  .chats__messages__footer__message
+    display: flex
+    flex-basis: 95%
+    margin: 0 1.2rem
+
+    .input_group__input
+      width: 100%
+
+  .chats__messages__footer__attach
+    background: transparent
+    background-size: cover
+    background-image: url('./../../static/img/attach-button.svg')
+    height: 3rem
+    width: 3rem
+    border-radius: 20%
+    transition: all 0.3s ease-out
+
+    &:hover
+      transform: scale(1.1)
+
+  .chats__messages__footer__send
+    background: transparent
+    background-size: cover
+    background-image: url('./../../static/img/send-button.svg')
+    height: 3rem
+    width: 3rem
+    transition: all 0.3s ease-out
+    border-radius: 20%
+
+    &:hover
+      display: block
+      transform: rotate(-25deg) scale(1.1) translateY(-0.5rem) translateX(0.5rem)

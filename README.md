@@ -1,10 +1,11 @@
-![NodeVerstion](https://badgen.net/badge/node/>=18.12.1/green?icon)![NpmVersion](https://badgen.net/badge/npm/8.19.2/red)
+![NodeVerstion](https://badgen.net/badge/node/>=18.12.1/green?icon)![NpmVersion](https://badgen.net/badge/npm/8.19.2/red)[![Netlify Status](https://api.netlify.com/api/v1/badges/5aa48dac-27dc-4e3d-8033-46921a2eeff3/deploy-status)](https://app.netlify.com/sites/visionary-taiyaki-b68147/deploys)
 
-# Yandex practicum sprint_1
+# Yandex practicum sprint_2
+[Pull request #1](https://github.com/Johnny-sel/middle.messenger.praktikum.yandex/pull/2)
 
 [UI prototype in figma](https://www.figma.com/file/nJe5jORwqJie23I0MasHvb/Yandex-practicum-messenger?node-id=0%3A1&t=LNudhR1BQmAkxQ6N-1)
 
-[Netlify deploy](https://sprint-1--visionary-taiyaki-b68147.netlify.app/)
+[Netlify deploy](https://visionary-taiyaki-b68147.netlify.app/)
 
 ### Running development (localhost:1234)
 
@@ -19,6 +20,7 @@
 ### Structure project
 
     --src
+        --api               - http and repositories
         --app               - application source
         --core              - custom framework
             -- component    - service of create component and manage state

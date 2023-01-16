@@ -1,6 +1,6 @@
 @import '@app/styles/varibales'
 
-.form__input
+.input_group__input
   width: 30rem
   border: $border
   border-radius: $border-radius
@@ -8,3 +8,11 @@
 
   &:focus
     border: 1px solid $title
+
+.input_group__error
+  display: none
+  margin-bottom: 1rem
+
+.input:invalid.input:not(:focus) + .input_group__error
+  display: block
+  color: $warning

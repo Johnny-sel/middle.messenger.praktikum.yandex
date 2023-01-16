@@ -78,6 +78,20 @@
 			"a('c=$1;', [ $2 ], { click: $3 } ),",
 		],
 	},
+	"ul": {
+		"scope": "javascript,typescript",
+		"prefix": "ul",
+		"body": [
+			"ul('c=$1;', [ $2 ]),",
+		],
+	},
+	"li": {
+		"scope": "javascript,typescript",
+		"prefix": "li",
+		"body": [
+			"li('c=$1;', [ $2 ]),",
+		],
+	},
 	"h1": {
 		"scope": "javascript,typescript",
 		"prefix": "h1",
@@ -127,6 +141,13 @@
 			"p('c=$1;', [$2]),",
 		],
 	},
+	"aside": {
+		"scope": "javascript,typescript",
+		"prefix": "as",
+		"body": [
+			"aside('c=$1;', [$2]),",
+		],
+	},
 	"main": {
 		"scope": "javascript,typescript",
 		"prefix": "m",
@@ -141,11 +162,25 @@
 			"nav('c=$1;', [$2]),",
 		],
 	},
+	"footer": {
+		"scope": "javascript,typescript",
+		"prefix": "foo",
+		"body": [
+			"footer('c=$1;', [$2]),",
+		],
+	},
+	"header": {
+		"scope": "javascript,typescript",
+		"prefix": "he",
+		"body": [
+			"header('c=$1;', [$2]),",
+		],
+	},
 	"button": {
 		"scope": "javascript,typescript",
 		"prefix": "b",
 		"body": [
-			"button('c=$1; click=$2;', [$3]),",
+			"button('c=$1;', [$2]),",
 		],
 	},
 	"input": {

@@ -1,0 +1,19 @@
+{
+  "extends": [
+    "stylelint-config-sass-guidelines"
+  ],
+
+  "rules": {
+    "color-hex-case": "lower",
+    "string-quotes": "single",
+    "import-notation": null,
+    "indentation": null
+  },
+  "ignoreFiles": [
+    "dist/*",
+    "node_modules/*",
+    ".parcel-cache/*",
+    "src/app/styles/global.sass",
+    "src/app/styles/varibales.sass"
+  ]
+}
