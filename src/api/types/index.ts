@@ -31,3 +31,23 @@ export type UserId = {
 export type Reason = {
   reason: string;
 };
+
+export type GetChats = {
+  offset?: number;
+  limit?: number;
+  title?: string;
+};
+
+export type Chats = {
+  id: number;
+  title: string;
+  avatar: string;
+  unread_count: number;
+  last_message: LastMessage;
+};
+
+export type LastMessage = {
+  user: User;
+  time: string;
+  content: string;
+};

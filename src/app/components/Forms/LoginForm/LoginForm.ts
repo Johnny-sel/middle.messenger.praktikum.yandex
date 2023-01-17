@@ -2,18 +2,14 @@
 import {span, section, form, component, a} from '@core/tags';
 import {Component} from '@core/component';
 import {Router} from '@core/router';
-import {State} from '@core/types';
 // app
 import {Button, Input} from '@app/components';
 import {location} from '@app/const';
 import {TInput} from '@app/types';
-// local
-import {validateForm} from '../utils/validateForm';
 import {loginInputs} from '../utils/getInputs';
-import {onChange} from '../utils/onChange';
-import {initialState} from './initialState';
+import {initialState, dispatch} from './reducer';
 
-export default class LoginForm extends Component {
+export default class LoginForm extends Component<typeof initialState> {
   constructor() {
     super();
   }
@@ -24,17 +20,23 @@ export default class LoginForm extends Component {
 
   onSubmit(event: SubmitEvent) {
     event.preventDefault();
-    const isValid = validateForm((event.target as any).form);
-
-    if (isValid) {
-      Router.to(location.chats);
-    }
-
-    console.log('form data', this.state.data);
+    this.state.target = event.target as any;
+    dispatch.call(this, 'LOGIN_USER');
   }
 
-  create(state: State) {
-    const change = onChange.bind(this);
+  didMount(): void {
+    dispatch.call(this, 'GET_USER');
+  }
+
+  onChange(event: InputEvent): void {
+    this.state.event = event;
+    dispatch.call(this, 'CHANGE_INPUT');
+  }
+
+  create() {
+    const {error, load, data} = this.state;
+
+    const change = this.onChange.bind(this);
     const onSubmit = this.onSubmit.bind(this);
 
     // prettier-ignore
@@ -43,10 +45,12 @@ export default class LoginForm extends Component {
         span('c=text;', ['Welcom to online messeger']),
         form('c=form; a=s;', [
           ...loginInputs.map((input: TInput) => {
-            return component(Input, {...input, change, value: state.data[input.name]});
+            const value = (data as any)[input.name];
+            return component(Input, {...input, change, load, value});
           }),
-          component(Button, {text: 'Login', onSubmit: onSubmit, type: 'submit'}),
+          component(Button, {text: 'Login', onSubmit, load, type: 'submit'}),
         ]),
+        span(`c=${error? 'error':'hidden'};`, [error ?? '']),
         a('c=link;', ['Create account'], {click: () => Router.to(location.registration)}),
       ])
     );

@@ -13,7 +13,7 @@ import {onChange} from '../utils/onChange';
 import {editProfileInputs} from '../utils/getInputs';
 import {initialState} from './initialState';
 
-export default class EditProfileForm extends Component {
+export default class EditProfileForm extends Component<typeof initialState> {
   constructor() {
     super();
   }
@@ -30,7 +30,6 @@ export default class EditProfileForm extends Component {
       Router.to(location.profile);
     }
 
-    console.log('form data', this.state.data);
   }
 
   create(state: State) {

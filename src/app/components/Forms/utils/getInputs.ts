@@ -4,7 +4,7 @@ import {inputs} from '@app/resources';
 const {email, login, confirmPassword, displayName, firstName, password, phone, secondName} = name;
 
 // login
-const loginNames = [email, password];
+const loginNames = [login, password];
 const loginInputs = inputs.filter((input) => loginNames.includes(input.name));
 
 // edit password

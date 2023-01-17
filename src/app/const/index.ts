@@ -61,6 +61,8 @@ const error = {
   searchChat: 'Invalid search string',
   searchMessage: 'Invalid search string',
   sendMessage: 'Invalid string',
+  auth: 'Auth error',
+  cookie: 'Cookie is not valid',
 };
 
 export {location, pattern, name, placeholder, error};

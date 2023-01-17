@@ -1,3 +1,4 @@
+import { Singup } from '@api/types';
 import {name} from '@app/const';
 
 const {email, login, displayName, firstName, phone, secondName} = name;
@@ -10,7 +11,7 @@ const initialState = {
     [secondName]: '',
     [displayName]: '',
     [phone]: '',
-  },
+  } as Singup
 };
 
 export {initialState};

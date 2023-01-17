@@ -7,13 +7,14 @@ import {State} from '@core/types';
 import {Button, Input} from '@app/components';
 import {location} from '@app/const';
 import {TInput} from '@app/types';
+// api
+import {Auth} from '@api/repositories';
+import {Reason} from '@api/types';
 // local
 import {validateForm} from '../utils/validateForm';
 import {regInputs} from '../utils/getInputs';
 import {onChange} from '../utils/onChange';
 import {initialState} from './initialState';
-import {Auth} from '@api/repositories';
-import {Reason} from '@api/types';
 import {comparePasswords} from '../utils/comparePasswords';
 
 export default class RegisterForm extends Component<typeof initialState> {
@@ -39,10 +40,10 @@ export default class RegisterForm extends Component<typeof initialState> {
         let res: unknown;
 
         res = await Auth.signup(this.state.data);
-        if ((res as Reason).reason) throw (res as Reason).reason;
+        if ((res as Reason)?.reason) throw (res as Reason).reason;
 
         res = await Auth.signin(this.state.data);
-        if ((res as Reason).reason) throw (res as Reason).reason;
+        if ((res as Reason)?.reason) throw (res as Reason).reason;
 
         Router.to(location.chats);
       }

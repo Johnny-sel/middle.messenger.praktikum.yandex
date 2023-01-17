@@ -3,14 +3,14 @@ import avatar from '@app/img/avatar-preview.png';
 
 import {div, span, img, button} from '@core/tags';
 import {Component} from '@core/component';
-import {Props, State} from '@core/types';
+import {Props} from '@core/types';
 
-export default class ProfilePhoto extends Component {
+export default class ProfilePhoto extends Component<void> {
   constructor() {
     super();
   }
 
-  create(_: State, props: Props) {
+  create(_: void, props: Props) {
     const {profileName} = props;
 
     // prettier-ignore

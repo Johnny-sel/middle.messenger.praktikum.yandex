@@ -1,33 +1,27 @@
 import './ProfileInfo.sass';
-
-import {section, div, component, a} from '@core/tags';
+// core
+import {section, div, component, a, span} from '@core/tags';
 import {Component} from '@core/component';
-import {ProfilePhoto, InfoLine} from '@app/components';
 import {Router} from '@core/router';
+// app
+import {ProfilePhoto, InfoLine} from '@app/components';
 import {location} from '@app/const';
-import {State} from '@core/types';
+import {initialState} from './initialState';
+// api
+import {Auth} from '@api/repositories';
+import {Reason} from '@api/types';
 
-type Item = { name: string, value: string };
+type Item = {name: string; value: string};
 
 const {root, profileEdit, passwordEdit} = location;
 
-export default class ProfileInfo extends Component {
+export default class ProfileInfo extends Component<typeof initialState> {
   constructor() {
     super();
   }
 
   createState() {
-    return {
-      profileName: 'Evgenii Seleznev',
-      items: [
-        {name: 'Email', value: 'demo@demo.com'},
-        {name: 'Login', value: 'Demo login'},
-        {name: 'Name', value: 'Demo name'},
-        {name: 'Surname', value: 'Demo surname'},
-        {name: 'Chat name', value: 'Demo chat name'},
-        {name: 'Phone phone', value: '+111111111111'},
-      ],
-    };
+    return initialState;
   }
 
   goToChangeData() {
@@ -38,16 +32,28 @@ export default class ProfileInfo extends Component {
     Router.to(passwordEdit);
   }
 
-  goToLoginPage() {
-    Router.to(root);
+  async onLogout() {
+    this.state.load = true;
+    this.state.error = undefined;
+
+    try {
+      const res = await Auth.logout();
+      if ((res as Reason)?.reason) throw (res as Reason).reason;
+
+      Router.to(root);
+    } catch (error) {
+      this.state.error = error;
+    } finally {
+      this.state.load = false;
+    }
   }
 
-  create(state: State) {
-    const {profileName, items} = state;
+  create(state: typeof initialState) {
+    const {profileName, items, error, load} = state;
 
     const goToChangeData = this.goToChangeData.bind(this);
     const goToChangePassword = this.goToChangePassword.bind(this);
-    const goToLoginPage = this.goToLoginPage.bind(this);
+    const onLogout = this.onLogout.bind(this);
 
     // prettier-ignore
     return (
@@ -64,8 +70,9 @@ export default class ProfileInfo extends Component {
               ['Change password'], {click: goToChangePassword},
           ),
           a('c=profile__info__group_link__link link;',
-              ['Logout'], {click: goToLoginPage},
+              [load? 'Wait...' : 'Logout'], {click: onLogout},
           ),
+          span(`c=${error? 'error':'hidden'};`, [error ?? '']),
         ]),
       ])
     );
