@@ -42,6 +42,9 @@
   },
   "alias": {
     "@api": "./src/api",
+    "@app/actions": "./src/app/actions",
+    "@app/utils": "./src/app/utils",
+    "@app/functions": "./src/app/functions",
     "@core/http": "./src/core/http",
     "@core/component": "./src/core/component/component.ts",
     "@core/router": "./src/core/router/router.ts",

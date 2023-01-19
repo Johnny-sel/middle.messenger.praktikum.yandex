@@ -1,4 +1,5 @@
 function validateForm(form: HTMLElement): boolean {
+  console.log('form:', form)
   const inputs = form.querySelectorAll('input');
   const results: boolean[] = [];
 

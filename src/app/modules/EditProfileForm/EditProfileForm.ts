@@ -8,9 +8,9 @@ import {Button, Input} from '@app/components';
 import {location} from '@app/const';
 import {TInput} from '@app/types';
 // local
-import {validateForm} from '../utils/validateForm';
-import {onChange} from '../utils/onChange';
-import {editProfileInputs} from '../utils/getInputs';
+import {validateForm} from '../../utils/validateForm';
+import {onChange} from '../../functions/onChange';
+import {editProfileInputs} from '../../resources/getInputs';
 import {initialState} from './initialState';
 
 export default class EditProfileForm extends Component<typeof initialState> {

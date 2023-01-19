@@ -8,9 +8,9 @@ import {Button, Input} from '@app/components';
 import {location} from '@app/const';
 import {TInput} from '@app/types';
 // local
-import {validateForm} from '../utils/validateForm';
-import {editPasswordInputs} from '../utils/getInputs';
-import {onChange} from '../utils/onChange';
+import {validateForm} from '../../utils/validateForm';
+import {editPasswordInputs} from '../../resources/getInputs';
+import {onChange} from '../../functions/onChange';
 import {initialState} from './initialState';
 
 export default class EditPasswordForm extends Component {

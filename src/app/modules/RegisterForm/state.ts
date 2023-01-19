@@ -1,10 +1,11 @@
 import {name} from '@app/const';
 import {Singup} from '@api/types';
+import {RegisterState} from './types';
 
 const {email, login, displayName, firstName, phone, secondName, password, confirmPassword} = name;
 
-const initialState = {
-  error: undefined,
+const registerState: RegisterState = {
+  error: '',
   load: false,
   data: {
     [email]: '',
@@ -18,4 +19,4 @@ const initialState = {
   } as Singup,
 };
 
-export {initialState};
+export {registerState};

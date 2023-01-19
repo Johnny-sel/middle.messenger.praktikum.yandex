@@ -5,6 +5,8 @@ import {Component} from '@core/component';
 import {Props, State} from '@core/types';
 import {name as names} from '@app/const';
 
+const {confirmPassword, password} = names;
+
 export default class Input extends Component<any> {
   constructor() {
     super();
@@ -12,7 +14,7 @@ export default class Input extends Component<any> {
 
   create(_: State, props: Props) {
     const {value, name, placeholder, change: onChange, pattern, error, className, load} = props;
-    const type = name === names.confirmPassword ? names.password : name;
+    const type = name === confirmPassword ? password : name;
     // prettier-ignore
     return (
       div(`c=${className ?? 'form__input'} input_group;`, [
@@ -25,8 +27,8 @@ export default class Input extends Component<any> {
           p=${placeholder};
           pt=${pattern};
           ${load ? "di=" :''};
-        `, [],
-        {input: onChange},
+        `, 
+        [], {input: onChange},
         ),
         span('c=input_group__error;', [error]),
       ])

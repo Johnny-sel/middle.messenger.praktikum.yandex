@@ -3,34 +3,37 @@ import {span, section, form, component, a} from '@core/tags';
 import {Component} from '@core/component';
 import {Router} from '@core/router';
 // app
+import {CHANGE_INPUT_ACTION, GET_USER_ACTION, LOGIN_USER_ACTION} from '@app/actions';
 import {Button, Input} from '@app/components';
 import {location} from '@app/const';
 import {TInput} from '@app/types';
-import {loginInputs} from '../utils/getInputs';
-import {initialState, dispatch} from './reducer';
+import {loginInputs} from '../../resources/getInputs';
+import {dispatch} from './reducer';
+import {LoginState} from './types';
+import {loginState} from './state';
 
-export default class LoginForm extends Component<typeof initialState> {
+export default class LoginForm extends Component<LoginState> {
   constructor() {
     super();
   }
 
   createState() {
-    return initialState;
-  }
-
-  onSubmit(event: SubmitEvent) {
-    event.preventDefault();
-    this.state.target = event.target as any;
-    dispatch.call(this, 'LOGIN_USER');
-  }
-
-  didMount(): void {
-    dispatch.call(this, 'GET_USER');
+    return loginState;
   }
 
   onChange(event: InputEvent): void {
     this.state.event = event;
-    dispatch.call(this, 'CHANGE_INPUT');
+    dispatch.call(this, CHANGE_INPUT_ACTION);
+  }
+
+  onSubmit(event: SubmitEvent) {
+    event.preventDefault()
+    this.state.target = event.target as HTMLButtonElement;
+    dispatch.call(this, LOGIN_USER_ACTION);
+  }
+
+  didMount(): void {
+    dispatch.call(this, GET_USER_ACTION);
   }
 
   create() {
@@ -38,6 +41,8 @@ export default class LoginForm extends Component<typeof initialState> {
 
     const change = this.onChange.bind(this);
     const onSubmit = this.onSubmit.bind(this);
+
+    const disabled = load ? 'disabled' : '';
 
     // prettier-ignore
     return (
@@ -51,7 +56,7 @@ export default class LoginForm extends Component<typeof initialState> {
           component(Button, {text: 'Login', onSubmit, load, type: 'submit'}),
         ]),
         span(`c=${error? 'error':'hidden'};`, [error ?? '']),
-        a('c=link;', ['Create account'], {click: () => Router.to(location.registration)}),
+        a(`c=link ${disabled};`, ['Create account'], {click: () => Router.to(location.registration)}),
       ])
     );
   }

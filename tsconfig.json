@@ -13,6 +13,9 @@
     "baseUrl": ".",
     "paths": {
       "@api": ["./src/api"],
+      "@app/actions": ["./src/app/actions"],
+      "@app/functions": ["./src/app/functions"],
+      "@app/utils": ["./src/app/utils"],
       "@core/http": ["./src/core/http"],
       "@core/types": ["./src/core/types.ts"],
       "@core/component": ["./src/core/component/component.ts"],
