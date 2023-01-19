@@ -29,6 +29,11 @@ export type UpdateProfile = {
   phone: string;
 };
 
+export type UpdatePassword = {
+  oldPassword: string;
+  newPassword: string;
+};
+
 export type Signin = {
   login: string;
   password: string;

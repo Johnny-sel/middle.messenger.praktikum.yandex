@@ -1,20 +1,17 @@
 // core
-import {section, form, component, a} from '@core/tags';
+import {section, form, component, a, span} from '@core/tags';
 import {Component} from '@core/component';
 import {Router} from '@core/router';
-import {Props, State} from '@core/types';
 // app
+import {CHANGE_INPUT_ACTION, GET_USER_ACTION, UPDATE_USER_ACTION} from '@app/actions';
 import {Button, Input} from '@app/components';
 import {location} from '@app/const';
 import {TInput} from '@app/types';
+import {editProfileInputs} from '@app/resources';
 // local
-import {validateForm} from '../../utils/validateForm';
-import {onChange} from '../../functions/onChange';
-import {editProfileInputs} from '../../resources/getInputs';
-import { EditProfileState } from './types';
-import { editProfileState } from './state';
-import { dispatch } from './reducer';
-import { CHANGE_INPUT_ACTION, GET_USER_ACTION, UPDATE_USER_ACTION } from '@app/actions';
+import {EditProfileState} from './types';
+import {editProfileState} from './state';
+import {dispatch} from './reducer';
 
 export default class EditProfileForm extends Component<EditProfileState> {
   constructor() {
@@ -44,7 +41,7 @@ export default class EditProfileForm extends Component<EditProfileState> {
     const onSubmit = this.onSubmit.bind(this);
     const change = this.onChange.bind(this);
 
-    const {data, load} = this.state;
+    const {data, load, error} = this.state;
 
     // prettier-ignore
     return (
@@ -56,6 +53,7 @@ export default class EditProfileForm extends Component<EditProfileState> {
           }),
           component(Button, {text: 'Change account', onSubmit, load, type: 'submit'}),
         ]),
+        span(`c=${error? 'error':'hidden'};`, [error ?? '']),
         a('c=link;', ['Go to account'], {click: () => Router.to(location.profile)}),
       ])
     );

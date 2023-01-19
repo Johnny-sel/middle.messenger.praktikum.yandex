@@ -7,7 +7,8 @@ import {CHANGE_INPUT_ACTION, GET_USER_ACTION, LOGIN_USER_ACTION} from '@app/acti
 import {Button, Input} from '@app/components';
 import {location} from '@app/const';
 import {TInput} from '@app/types';
-import {loginInputs} from '../../resources/getInputs';
+import {loginInputs} from '@app/resources';
+
 import {dispatch} from './reducer';
 import {LoginState} from './types';
 import {loginState} from './state';

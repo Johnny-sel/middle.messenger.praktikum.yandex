@@ -19,6 +19,8 @@ const pattern = {
   searchChat: '^[^\\d][^\\s][a-zA-Z\\d_-]{1,18}$',
   searchMessage: '.*',
   sendMessage: '.*',
+  oldPassword: '^(?=^.{8,40}$)((?=.*\\d)|(?=.*\\W+))(?![.\\n])(?=.*[A-Z])(?=.*[a-z]).*$',
+  newPassword: '^(?=^.{8,40}$)((?=.*\\d)|(?=.*\\W+))(?![.\\n])(?=.*[A-Z])(?=.*[a-z]).*$',
 };
 
 const name = {
@@ -33,6 +35,8 @@ const name = {
   searchChat: 'search_chat',
   searchMessage: 'search_message',
   sendMessage: 'message',
+  oldPassword: 'oldPassword',
+  newPassword: 'newPassword',
 };
 
 const placeholder = {
@@ -47,6 +51,8 @@ const placeholder = {
   searchChat: 'Search chat',
   searchMessage: 'Search Message',
   sendMessage: 'Send Message',
+  oldPassword: 'Old Password',
+  newPassword: 'New Password',
 };
 
 const error = {
@@ -61,8 +67,26 @@ const error = {
   searchChat: 'Invalid search string',
   searchMessage: 'Invalid search string',
   sendMessage: 'Invalid string',
-  auth: 'Auth error',
+  auth: 'Authenticate error',
   cookie: 'Cookie is not valid',
+  oldPassword: 'Invalid password',
+  newPassword: 'Invalid password',
 };
 
-export {location, pattern, name, placeholder, error};
+const type = {
+  email: 'email',
+  login: 'text',
+  firstName: 'text',
+  secondName: 'text',
+  displayName: 'text',
+  phone: 'number',
+  password: 'password',
+  confirmPassword: 'password',
+  searchChat: 'text',
+  searchMessage: 'text',
+  sendMessage: 'text',
+  oldPassword: 'password',
+  newPassword: 'password',
+};
+
+export {location, pattern, name, placeholder, error, type};

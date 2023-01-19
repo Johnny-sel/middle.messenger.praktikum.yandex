@@ -3,9 +3,6 @@ import './Input.sass';
 import {div, input, span} from '@core/tags';
 import {Component} from '@core/component';
 import {Props, State} from '@core/types';
-import {name as names} from '@app/const';
-
-const {confirmPassword, password} = names;
 
 export default class Input extends Component<any> {
   constructor() {
@@ -13,8 +10,8 @@ export default class Input extends Component<any> {
   }
 
   create(_: State, props: Props) {
-    const {value, name, placeholder, change: onChange, pattern, error, className, load} = props;
-    const type = name === confirmPassword ? password : name;
+    const {value, name, type, placeholder, change, pattern, error, className, load} = props;
+
     // prettier-ignore
     return (
       div(`c=${className ?? 'form__input'} input_group;`, [
@@ -28,7 +25,7 @@ export default class Input extends Component<any> {
           pt=${pattern};
           ${load ? "di=" :''};
         `, 
-        [], {input: onChange},
+        [], {input: change},
         ),
         span('c=input_group__error;', [error]),
       ])

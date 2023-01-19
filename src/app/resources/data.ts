@@ -1,9 +1,10 @@
-import {name, pattern, placeholder, error} from '@app/const';
+import {name, pattern, placeholder, error, type} from '@app/const';
 import {TInput} from '../types';
 
 const inputs: TInput[] = [
   {
     name: name.email,
+    type: type.email,
     placeholder: placeholder.email,
     pattern: pattern.email,
     error: error.email,
@@ -11,6 +12,7 @@ const inputs: TInput[] = [
 
   {
     name: name.login,
+    type: type.login,
     placeholder: placeholder.login,
     pattern: pattern.login,
     error: error.login,
@@ -18,6 +20,7 @@ const inputs: TInput[] = [
 
   {
     name: name.firstName,
+    type: type.firstName,
     placeholder: placeholder.firstName,
     pattern: pattern.firstName,
     error: error.firstName,
@@ -25,6 +28,7 @@ const inputs: TInput[] = [
 
   {
     name: name.secondName,
+    type: type.secondName,
     placeholder: placeholder.secondName,
     pattern: pattern.secondName,
     error: error.secondName,
@@ -32,6 +36,7 @@ const inputs: TInput[] = [
 
   {
     name: name.displayName,
+    type: type.displayName,
     placeholder: placeholder.displayName,
     pattern: pattern.displayName,
     error: error.displayName,
@@ -39,6 +44,7 @@ const inputs: TInput[] = [
 
   {
     name: name.phone,
+    type: type.phone,
     placeholder: placeholder.phone,
     pattern: pattern.phone,
     error: error.phone,
@@ -46,6 +52,7 @@ const inputs: TInput[] = [
 
   {
     name: name.password,
+    type: type.password,
     placeholder: placeholder.password,
     pattern: pattern.password,
     error: error.password,
@@ -53,6 +60,7 @@ const inputs: TInput[] = [
 
   {
     name: name.confirmPassword,
+    type: type.confirmPassword,
     placeholder: placeholder.confirmPassword,
     pattern: pattern.password,
     error: error.password,
@@ -60,6 +68,7 @@ const inputs: TInput[] = [
 
   {
     name: name.searchChat,
+    type: type.searchChat,
     placeholder: placeholder.searchChat,
     pattern: pattern.searchChat,
     error: error.searchChat,
@@ -67,6 +76,7 @@ const inputs: TInput[] = [
 
   {
     name: name.searchMessage,
+    type: type.searchMessage,
     placeholder: placeholder.searchMessage,
     pattern: pattern.searchMessage,
     error: error.searchMessage,
@@ -74,9 +84,26 @@ const inputs: TInput[] = [
 
   {
     name: name.sendMessage,
+    type: type.sendMessage,
     placeholder: placeholder.sendMessage,
     pattern: pattern.sendMessage,
     error: error.sendMessage,
+  },
+  {
+    name: name.newPassword,
+    type: type.newPassword,
+    placeholder: placeholder.newPassword,
+    pattern: pattern.newPassword,
+    error: error.newPassword,
+  },
+
+  {
+    name: name.oldPassword,
+    type: type.oldPassword,
+
+    placeholder: placeholder.oldPassword,
+    pattern: pattern.oldPassword,
+    error: error.oldPassword,
   },
 ];
 

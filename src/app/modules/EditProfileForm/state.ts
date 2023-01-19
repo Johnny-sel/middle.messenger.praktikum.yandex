@@ -1,10 +1,10 @@
-import { Singup, UpdateProfile } from '@api/types';
+import {UpdateProfile} from '@api/types';
 import {name} from '@app/const';
-import { EditProfileState } from './types';
+import {EditProfileState} from './types';
 
 const {email, login, displayName, firstName, phone, secondName} = name;
 
-const editProfileState:EditProfileState = {
+const editProfileState: EditProfileState = {
   load: false,
   error: '',
   user: undefined,
@@ -15,7 +15,7 @@ const editProfileState:EditProfileState = {
     [secondName]: '',
     [displayName]: '',
     [phone]: '',
-  } as UpdateProfile
+  } as UpdateProfile,
 };
 
 export {editProfileState};

@@ -1,8 +1,8 @@
 import {LoginState} from './types';
 import {Auth} from '@api/repositories';
 import {location, error} from '@app/const';
-import {onChange} from '../../functions/onChange';
-import {validateForm} from '../../utils/validateForm';
+import {onChange} from '@app/functions';
+import {validateForm} from '@app/utils';
 import {Component} from '@core/component';
 import {Router} from '@core/router';
 import {Reason} from '@api/types';
