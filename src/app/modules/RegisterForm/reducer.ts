@@ -38,6 +38,7 @@ async function dispatch(type: string) {
       }
     }
   } catch (error) {
+    console.log("error", error)
     handleError.call(this, error);
   } finally {
     state.load = false;

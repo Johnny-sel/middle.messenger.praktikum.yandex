@@ -1,19 +1,18 @@
-function validateForm(form: HTMLElement): boolean {
-  console.log('form:', form)
+function validateForm(form: HTMLFormElement): boolean {
   const inputs = form.querySelectorAll('input');
   const results: boolean[] = [];
 
   let isValid = false;
 
-  Array.from(inputs).forEach((input: any) => {
-    if (!input.value || !input.checkValidity()) {
-      input.setCustomValidity('Invalid field.');
+  Array.from(inputs).forEach((input: HTMLInputElement) => {
+    if (!input.value || !input.validity.valid) {
+      input.setCustomValidity('Invalid field');
+      
       results.push(false);
     }
   });
 
   isValid = !(results.some((value) => value === false));
-
   return isValid;
 }
 

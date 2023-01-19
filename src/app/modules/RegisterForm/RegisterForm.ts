@@ -29,6 +29,7 @@ export default class RegisterForm extends Component<RegisterState> {
   }
 
   onSubmit(event: InputEvent): void {
+    event.preventDefault();
     this.state.target = event.target as HTMLButtonElement;
     dispatch.call(this, CREATE_USER_ACTION);
   }
