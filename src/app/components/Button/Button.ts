@@ -2,15 +2,13 @@ import './Button.sass';
 
 import {button} from '@core/tags';
 import {Component} from '@core/component';
-import {Props} from '@core/types';
-
-export default class Button extends Component<void> {
+export default class Button extends Component<{}> {
   constructor() {
     super();
   }
 
-  create(_: void, props: Props) {
-    const {onSubmit, text, type, load} = props;
+  create() {
+    const {onSubmit, text, type, load} = this.props;
 
     // prettier-ignore
     return (

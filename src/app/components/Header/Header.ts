@@ -7,20 +7,19 @@ import {Router} from '@core/router';
 import {location} from '@app/const';
 import {State} from '@core/types';
 
-
 const {root, error, chats, registration, profile, profileEdit, passwordEdit} = location;
 
 const titles = {
   [root]: 'Sign in chats',
   [error]: 'ERROR',
-  [chats]: 'Chats',
+  [chats]: 'ChatsResponse',
   [registration]: 'Registration',
   [profile]: 'Account',
   [profileEdit]: 'Change account',
   [passwordEdit]: 'Change password',
 };
 
-export default class Header extends Component {
+export default class Header extends Component<{title: string}> {
   constructor() {
     super();
   }

@@ -5,14 +5,13 @@ import {div, span, img,  input, label} from '@core/tags';
 import {Component} from '@core/component';
 import {hostResources} from '@app/const';
 
-export default class ProfilePhoto extends Component<void> {
+export default class ProfilePhoto extends Component<{}> {
   constructor() {
     super();
   }
 
   create() {
     const {name, photoUrl, upload} = this.props;
-
 
     // prettier-ignore
     return (

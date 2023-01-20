@@ -2,7 +2,6 @@ import './InfoLine.sass';
 
 import {div, span} from '@core/tags';
 import {Component} from '@core/component';
-import {Props, State} from '@core/types';
 import {capitalizeFirstLetter} from '@core/utils';
 
 export default class InfoLine extends Component<{}> {
@@ -10,9 +9,9 @@ export default class InfoLine extends Component<{}> {
     super();
   }
 
-  create(_: State, props: Props) {
-    const name = (props.name as string).replace('_', ' ');
-    const value = props.value as string;
+  create() {
+    const name = (this.props.name as string).replace('_', ' ');
+    const value = this.props.value as string;
 
     // prettier-ignore
     return (

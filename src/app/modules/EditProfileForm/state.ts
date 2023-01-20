@@ -1,4 +1,4 @@
-import {UpdateProfile} from '@api/types';
+import {UpdateProfileRequest} from '@api/types';
 import {name} from '@app/const';
 import {EditProfileState} from './types';
 
@@ -15,7 +15,7 @@ const editProfileState: EditProfileState = {
     [secondName]: '',
     [displayName]: '',
     [phone]: '',
-  } as UpdateProfile,
+  } as UpdateProfileRequest,
 };
 
 export {editProfileState};

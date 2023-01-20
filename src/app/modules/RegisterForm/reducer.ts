@@ -3,7 +3,7 @@ import {Component} from '@core/component';
 import {Router} from '@core/router';
 // api
 import {Auth} from '@api/repositories';
-import {Reason} from '@api/types';
+import {ReasonResponse} from '@api/types';
 // app
 import {location, error} from '@app/const';
 import {onChange} from '@app/functions';
@@ -13,7 +13,7 @@ import {comparePasswords} from '@app/utils';
 // local
 import {RegisterState} from './types';
 
-function handleError(err: Reason) {
+function handleError(err: ReasonResponse) {
   const {state} = this as Component<RegisterState>;
   if (err.reason === error.cookie) return;
   state.error = err.reason ?? error.auth;

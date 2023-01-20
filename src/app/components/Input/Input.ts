@@ -2,15 +2,14 @@ import './Input.sass';
 
 import {div, input, span} from '@core/tags';
 import {Component} from '@core/component';
-import {Props, State} from '@core/types';
 
-export default class Input extends Component<any> {
+export default class Input extends Component<{}> {
   constructor() {
     super();
   }
 
-  create(_: State, props: Props) {
-    const {value, name, type, placeholder, change, pattern, error, className, load} = props;
+  create() {
+    const {value, name, type, placeholder, change, pattern, error, className, load} = this.props;
 
     // prettier-ignore
     return (

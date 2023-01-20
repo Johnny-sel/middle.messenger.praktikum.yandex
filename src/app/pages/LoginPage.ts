@@ -2,7 +2,7 @@ import {component} from '@core/tags';
 import {Component} from '@core/component';
 import {LoginForm, Layout} from '@app/components';
 
-export default class LoginPage extends Component {
+export default class LoginPage extends Component<{}> {
   constructor() {
     super();
   }

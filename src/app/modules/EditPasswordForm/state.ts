@@ -1,4 +1,4 @@
-import {UpdatePassword} from '@api/types';
+import {UpdatePasswordRequest} from '@api/types';
 import {name} from '@app/const';
 import {EditPasswordState} from './types';
 
@@ -10,7 +10,7 @@ const editPasswordState: EditPasswordState = {
   data: {
     [oldPassword]: '',
     [newPassword]: '',
-  } as UpdatePassword,
+  } as UpdatePasswordRequest,
 };
 
 export {editPasswordState};

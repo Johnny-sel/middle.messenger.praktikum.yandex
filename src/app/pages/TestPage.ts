@@ -1,8 +1,14 @@
 import {div, span, button} from '@core/tags';
 import {Component} from '@core/component';
-import {State} from '@core/types';
 
-export default class TestPage extends Component {
+type State = {
+  users: unknown[];
+  load: boolean;
+  count: number;
+  isActive: boolean;
+};
+
+export default class TestPage extends Component<State> {
   constructor() {
     super();
   }
@@ -13,9 +19,9 @@ export default class TestPage extends Component {
 
   didMount() {
     fetch('https://jsonplaceholder.typicode.com/users')
-        .then((response) => response.json())
-        .then((users) => (this.state.users = users))
-        .finally(() => (this.state.load = false));
+      .then((response) => response.json())
+      .then((users) => (this.state.users = users))
+      .finally(() => (this.state.load = false));
 
     setInterval(() => {
       this.state.count++;
@@ -28,8 +34,8 @@ export default class TestPage extends Component {
     this.state.users = [...this.state.users, user];
   }
 
-  create(state: State) {
-    const {load, users, count, isActive} = state;
+  create() {
+    const {load, users, count, isActive} = this.state;
     const active = isActive ? 'green' : 'red';
 
     const addUser = this.addUser.bind(this);

@@ -1,13 +1,13 @@
 import {UPLOAD_PHOTO} from './../../actions/index';
-import {Reason} from '@api/types';
+import {ReasonResponse} from '@api/types';
 import {error, location} from '@app/const';
 import {Item, ProfileState} from './types';
 import {Component} from '@core/component';
-import {Auth, User} from '@api/repositories';
+import {Auth, UserResponse} from '@api/repositories';
 import {Router} from '@core/router';
 import {GET_USER, LOGOUT_USER} from '@app/actions';
 
-function handleError(err: Reason) {
+function handleError(err: ReasonResponse) {
   const {state} = this as Component<ProfileState>;
   state.error = err.reason ?? error.auth;
   Router.to(location.root);
@@ -42,7 +42,7 @@ async function dispatch(type: string) {
         if (!image) return;
 
         formData.append('avatar', image);
-        state.user = await User.updatePhoto(formData);
+        state.user = await UserResponse.updatePhoto(formData);
         state.items = Object.entries(state.user!)
           .map(([name, value]) => ({name, value} as Item))
           .filter((e) => e.value !== null && e.name !== 'avatar');

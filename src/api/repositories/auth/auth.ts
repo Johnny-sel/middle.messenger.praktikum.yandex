@@ -1,17 +1,17 @@
 import {api} from '../..';
-import {User, UserId, Signin, Singup} from '@api/types';
+import {UserResponse, UserIdResponse, SigninRequest, SingupRequest} from '@api/types';
 
 const Auth = {
-  signin: (body: Signin): Promise<string> => {
+  signin: (body: SigninRequest): Promise<string> => {
     return api.post('/auth/signin', body);
   },
-  signup: (body: Singup): Promise<UserId> => {
+  signup: (body: SingupRequest): Promise<UserIdResponse> => {
     return api.post('/auth/signup', body);
   },
   logout: (): Promise<void> => {
     return api.post('/auth/logout');
   },
-  user: (): Promise<User> => {
+  user: (): Promise<UserResponse> => {
     return api.get('/auth/user');
   },
 };

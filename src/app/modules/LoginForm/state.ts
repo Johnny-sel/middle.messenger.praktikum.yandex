@@ -1,6 +1,6 @@
 import {LoginState} from './types';
 import {name} from '@app/const';
-import {Signin} from '@api/types';
+import {SigninRequest} from '@api/types';
 
 const {login, password} = name;
 
@@ -10,7 +10,7 @@ const loginState: LoginState = {
   data: {
     [login]: '',
     [password]: '',
-  } as Signin,
+  } as SigninRequest,
 };
 
 export {loginState};

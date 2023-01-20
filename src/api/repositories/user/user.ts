@@ -1,16 +1,16 @@
 import {api} from '../..';
-import {User, UpdateProfile, UpdatePassword} from '@api/types';
+import {UserResponse, UpdateProfileRequest, UpdatePasswordRequest} from '@api/types';
 
-const User = {
-  updateProfile: (body: UpdateProfile): Promise<string> => {
+const UserResponse = {
+  updateProfile: (body: UpdateProfileRequest): Promise<string> => {
     return api.put('/user/profile', body);
   },
-  updatePassword: (body: UpdatePassword): Promise<string> => {
+  updatePassword: (body: UpdatePasswordRequest): Promise<string> => {
     return api.put('/user/password', body);
   },
-  updatePhoto: (body: FormData): Promise<User> => {
+  updatePhoto: (body: FormData): Promise<UserResponse> => {
     return api.put('/user/profile/avatar', body);
   },
 };
 
-export {User};
+export {UserResponse};

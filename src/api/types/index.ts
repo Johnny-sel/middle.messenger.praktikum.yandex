@@ -1,4 +1,4 @@
-export type User = {
+export type UserResponse = {
   id: number;
   first_name: string;
   second_name: string;
@@ -9,7 +9,7 @@ export type User = {
   avatar: string;
 };
 
-export type Singup = {
+export type SingupRequest = {
   first_name: string;
   second_name: string;
   display_name: string;
@@ -20,7 +20,7 @@ export type Singup = {
   phone: string;
 };
 
-export type UpdateProfile = {
+export type UpdateProfileRequest = {
   first_name: string;
   second_name: string;
   display_name: string;
@@ -29,31 +29,31 @@ export type UpdateProfile = {
   phone: string;
 };
 
-export type UpdatePassword = {
+export type UpdatePasswordRequest = {
   oldPassword: string;
   newPassword: string;
 };
 
-export type Signin = {
+export type SigninRequest = {
   login: string;
   password: string;
 };
 
-export type UserId = {
+export type UserIdResponse = {
   id: string;
 };
 
-export type Reason = {
+export type ReasonResponse = {
   reason: string;
 };
 
-export type GetChats = {
+export type GetChatsRequest = {
   offset?: number;
   limit?: number;
   title?: string;
 };
 
-export type Chats = {
+export type ChatsResponse = {
   id: number;
   title: string;
   avatar: string;
@@ -62,7 +62,7 @@ export type Chats = {
 };
 
 export type LastMessage = {
-  user: User;
+  user: UserResponse;
   time: string;
   content: string;
 };

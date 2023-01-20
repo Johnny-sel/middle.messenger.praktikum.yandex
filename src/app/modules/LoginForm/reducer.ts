@@ -5,10 +5,10 @@ import {onChange} from '@app/functions';
 import {validateForm} from '@app/utils';
 import {Component} from '@core/component';
 import {Router} from '@core/router';
-import {Reason} from '@api/types';
+import {ReasonResponse} from '@api/types';
 import {CHANGE_INPUT, GET_USER, LOGIN_USER} from '@app/actions';
 
-function handleError(err: Reason) {
+function handleError(err: ReasonResponse) {
   const {state} = this as Component<LoginState>;
   if (err.reason === error.cookie) return;
   state.error = err.reason ?? error.auth;

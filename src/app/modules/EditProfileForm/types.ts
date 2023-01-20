@@ -1,10 +1,10 @@
-import {UpdateProfile, User} from '@api/types';
+import {UpdateProfileRequest, UserResponse} from '@api/types';
 
 export type EditProfileState = {
   load: boolean;
   error?: string;
-  user?: User;
-  data: UpdateProfile;
+  user?: UserResponse;
+  data: UpdateProfileRequest;
   target?: HTMLButtonElement;
   event?: InputEvent;
 };

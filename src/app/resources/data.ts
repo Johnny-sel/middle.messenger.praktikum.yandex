@@ -1,7 +1,7 @@
 import {name, pattern, placeholder, error, type} from '@app/const';
-import {TInput} from '../types';
+import {Input} from '../types';
 
-const inputs: TInput[] = [
+const inputs: Input[] = [
   {
     name: name.email,
     type: type.email,
@@ -100,7 +100,6 @@ const inputs: TInput[] = [
   {
     name: name.oldPassword,
     type: type.oldPassword,
-
     placeholder: placeholder.oldPassword,
     pattern: pattern.oldPassword,
     error: error.oldPassword,

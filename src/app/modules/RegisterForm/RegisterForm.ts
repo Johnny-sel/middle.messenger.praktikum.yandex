@@ -9,7 +9,7 @@ import {location} from '@app/const';
 import {TInput} from '@app/types';
 
 // local
-import {regInputs} from '../../resources/getInputs';
+import {regInputs} from '../../resources/inputs';
 import {RegisterState} from './types';
 import {registerState} from './state';
 import {dispatch} from './reducer';

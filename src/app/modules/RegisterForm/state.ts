@@ -1,5 +1,5 @@
 import {name} from '@app/const';
-import {Singup} from '@api/types';
+import {SingupRequest} from '@api/types';
 import {RegisterState} from './types';
 
 const {email, login, displayName, firstName, phone, secondName, password, confirmPassword} = name;
@@ -16,7 +16,7 @@ const registerState: RegisterState = {
     [phone]: '',
     [password]: '',
     [confirmPassword]: '',
-  } as Singup,
+  } as SingupRequest,
 };
 
 export {registerState};

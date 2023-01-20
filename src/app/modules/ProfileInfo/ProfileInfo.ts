@@ -44,7 +44,7 @@ export default class ProfileInfo extends Component<ProfileState> {
     return (
       section('c=profile__info section;', [
         component(ProfilePhoto, {
-          name: user? `${user?.first_name} ${user?.second_name}` : 'Loading...',
+          name: load? 'Loading...' :  `${user?.first_name} ${user?.second_name}` ,
           photoUrl: user?.avatar,
           upload
         }),

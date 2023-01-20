@@ -1,2 +1,2 @@
 export {inputs} from './data';
-export {loginInputs, editPasswordInputs, editProfileInputs, regInputs} from './getInputs';
+export {loginInputs, editPasswordInputs, editProfileInputs, regInputs} from './inputs';
