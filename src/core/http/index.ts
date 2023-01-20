@@ -34,10 +34,6 @@ function fetch(url: string, options?: any): Promise<any> {
     xhr.open(method, uri);
     xhr.withCredentials = true;
 
-    if (isFormdata) {
-      headers['Content-Type'] = 'multipart/form-data';
-    }
-
     Object.keys(headers).forEach((key) => {
       xhr.setRequestHeader(key, headers[key]);
     });

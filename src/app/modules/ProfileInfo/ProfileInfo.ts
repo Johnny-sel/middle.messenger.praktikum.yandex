@@ -4,7 +4,7 @@ import {section, div, component, a, span} from '@core/tags';
 import {Component} from '@core/component';
 import {Router} from '@core/router';
 // app
-import {GET_USER, LOGOUT_USER} from '@app/actions';
+import {GET_USER, LOGOUT_USER, UPLOAD_PHOTO} from '@app/actions';
 import {ProfilePhoto, InfoLine} from '@app/components';
 import {location} from '@app/const';
 // local
@@ -29,16 +29,24 @@ export default class ProfileInfo extends Component<ProfileState> {
     dispatch.call(this, GET_USER);
   }
 
+  uploadPhoto(event: InputEvent) {
+    this.state.target = event.target as HTMLInputElement;
+    dispatch.call(this, UPLOAD_PHOTO);
+  }
+
   create() {
     const {user, items, error, load} = this.state;
+
     const logout = this.logout.bind(this);
+    const upload = this.uploadPhoto.bind(this);
 
     // prettier-ignore
     return (
       section('c=profile__info section;', [
         component(ProfilePhoto, {
-          profileName: user? `${user?.first_name} ${user?.second_name}` : 'Loading...',
+          name: user? `${user?.first_name} ${user?.second_name}` : 'Loading...',
           photoUrl: user?.avatar,
+          upload
         }),
         ...items.map((item: Item) => {
           return component(InfoLine, {name: item.name, value: item.value});

@@ -1,8 +1,9 @@
+import {UPLOAD_PHOTO} from './../../actions/index';
 import {Reason} from '@api/types';
 import {error, location} from '@app/const';
 import {Item, ProfileState} from './types';
 import {Component} from '@core/component';
-import {Auth} from '@api/repositories';
+import {Auth, User} from '@api/repositories';
 import {Router} from '@core/router';
 import {GET_USER, LOGOUT_USER} from '@app/actions';
 
@@ -28,6 +29,20 @@ async function dispatch(type: string) {
 
       case GET_USER: {
         state.user = await Auth.user();
+        state.items = Object.entries(state.user!)
+          .map(([name, value]) => ({name, value} as Item))
+          .filter((e) => e.value !== null && e.name !== 'avatar');
+        break;
+      }
+
+      case UPLOAD_PHOTO: {
+        const formData = new FormData();
+        const image = state.target!.files?.item(0);
+
+        if (!image) return;
+
+        formData.append('avatar', image);
+        state.user = await User.updatePhoto(formData);
         state.items = Object.entries(state.user!)
           .map(([name, value]) => ({name, value} as Item))
           .filter((e) => e.value !== null && e.name !== 'avatar');

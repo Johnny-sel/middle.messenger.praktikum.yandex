@@ -5,6 +5,7 @@ export type ProfileState = {
   error?: string;
   items: Item[];
   user?: User;
+  target?: HTMLInputElement;
 };
 
 export type Item = {

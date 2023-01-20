@@ -18,8 +18,10 @@ const api = {
   },
 
   put: (url: string, data?: unknown) => {
-    const {headers} = api;
-
+    let {headers} = api;
+    if (data instanceof FormData) {
+      headers = {} as any;
+    }
     return fetch(api.baseUrl + url, {method: 'PUT', headers, data});
   },
 
