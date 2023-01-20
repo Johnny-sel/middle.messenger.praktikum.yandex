@@ -1,4 +1,4 @@
-import {api} from '../..';
+import {api} from '..';
 import {UserResponse, UserIdResponse, SigninRequest, SingupRequest} from '@api/types';
 
 const Auth = {

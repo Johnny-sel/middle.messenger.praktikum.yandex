@@ -1,5 +1,5 @@
 import {EditProfileState} from './types';
-import {Auth, UserResponse} from '@api/repositories';
+import {Auth, User} from '@api/repositories';
 import {location, error} from '@app/const';
 import {onChange} from '@app/functions';
 import {validateForm} from '@app/utils';
@@ -38,7 +38,7 @@ async function dispatch(type: string) {
         state.load = true;
         if (!validateForm(state.target!.form!)) return;
 
-        await UserResponse.updateProfile(state.data);
+        await User.updateProfile(state.data);
         Router.to(location.profile);
 
         break;

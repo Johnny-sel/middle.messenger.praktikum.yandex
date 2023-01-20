@@ -1,7 +1,7 @@
-import {api} from '../..';
+import {api} from '..';
 import {UserResponse, UpdateProfileRequest, UpdatePasswordRequest} from '@api/types';
 
-const UserResponse = {
+const User = {
   updateProfile: (body: UpdateProfileRequest): Promise<string> => {
     return api.put('/user/profile', body);
   },
@@ -13,4 +13,4 @@ const UserResponse = {
   },
 };
 
-export {UserResponse};
+export {User};

@@ -1,4 +1,4 @@
-import {UserResponse} from '@api/repositories';
+import {User} from '@api/repositories';
 import {location, error} from '@app/const';
 import {onChange} from '@app/functions';
 import {validateForm} from '@app/utils';
@@ -27,7 +27,7 @@ async function dispatch(type: string) {
         state.load = true;
         if (!validateForm(state.target!.form!)) return;
 
-        await UserResponse.updatePassword(state.data);
+        await User.updatePassword(state.data);
         Router.to(location.profile);
 
         break;

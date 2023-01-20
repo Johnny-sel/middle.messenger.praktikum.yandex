@@ -1,2 +1,2 @@
-export {Auth} from './auth/auth';
-export {UserResponse} from './user/user';
+export {Auth} from './auth';
+export {User} from './user';
