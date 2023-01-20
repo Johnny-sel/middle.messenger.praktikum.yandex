@@ -18,6 +18,9 @@
   align-items: center
 
 .large_avatar__preview_button
+  display: none
+
+.large_avatar__preview_label
   position: absolute
   border-radius: 50%
   background-color: #0000007a
@@ -29,12 +32,22 @@
   align-items: center
   cursor: pointer
   color: #fff
+  transition: all 0.3s ease
 
 .large_avatar__preview__img
   width: 4.5rem
   height: 4.5rem
 
-.large_avatar .large_avatar__preview_button
+.large_avatar__img
+  border-radius: 50%
+
+::-webkit-file-upload-button
+  display: none
+
+::file-selector-button
+  display: none
+
+.large_avatar .large_avatar__preview_label
   &:hover
     opacity: 1
 

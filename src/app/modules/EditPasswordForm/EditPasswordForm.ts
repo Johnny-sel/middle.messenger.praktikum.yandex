@@ -1,10 +1,10 @@
-import {UPDATE_PASSWORD_ACTION} from './../../actions/index';
+import {UPDATE_PASSWORD} from './../../actions/index';
 // core
 import {section, form, component, a, span} from '@core/tags';
 import {Component} from '@core/component';
 import {Router} from '@core/router';
 // app
-import {CHANGE_INPUT_ACTION} from '@app/actions';
+import {CHANGE_INPUT} from '@app/actions';
 import {Button, Input} from '@app/components';
 import {location} from '@app/const';
 import {TInput} from '@app/types';
@@ -25,13 +25,13 @@ export default class EditPasswordForm extends Component<EditPasswordState> {
 
   onChange(event: InputEvent): void {
     this.state.event = event;
-    dispatch.call(this, CHANGE_INPUT_ACTION);
+    dispatch.call(this, CHANGE_INPUT);
   }
 
   onSubmit(event: SubmitEvent) {
     event.preventDefault();
     this.state.target = event.target as HTMLButtonElement;
-    dispatch.call(this, UPDATE_PASSWORD_ACTION);
+    dispatch.call(this, UPDATE_PASSWORD);
   }
 
   create() {

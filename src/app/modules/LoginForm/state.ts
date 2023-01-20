@@ -7,7 +7,10 @@ const {login, password} = name;
 const loginState: LoginState = {
   load: false,
   error: '',
-  data: {[login]: '', [password]: ''} as Signin,
+  data: {
+    [login]: '',
+    [password]: '',
+  } as Signin,
 };
 
 export {loginState};

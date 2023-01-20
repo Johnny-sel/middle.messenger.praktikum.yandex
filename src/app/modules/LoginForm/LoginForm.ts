@@ -3,12 +3,12 @@ import {span, section, form, component, a} from '@core/tags';
 import {Component} from '@core/component';
 import {Router} from '@core/router';
 // app
-import {CHANGE_INPUT_ACTION, GET_USER_ACTION, LOGIN_USER_ACTION} from '@app/actions';
+import {CHANGE_INPUT, GET_USER, LOGIN_USER} from '@app/actions';
 import {Button, Input} from '@app/components';
 import {location} from '@app/const';
 import {TInput} from '@app/types';
 import {loginInputs} from '@app/resources';
-
+// local
 import {dispatch} from './reducer';
 import {LoginState} from './types';
 import {loginState} from './state';
@@ -24,17 +24,17 @@ export default class LoginForm extends Component<LoginState> {
 
   onChange(event: InputEvent): void {
     this.state.event = event;
-    dispatch.call(this, CHANGE_INPUT_ACTION);
+    dispatch.call(this, CHANGE_INPUT);
   }
 
   onSubmit(event: SubmitEvent) {
     event.preventDefault()
     this.state.target = event.target as HTMLButtonElement;
-    dispatch.call(this, LOGIN_USER_ACTION);
+    dispatch.call(this, LOGIN_USER);
   }
 
   didMount(): void {
-    dispatch.call(this, GET_USER_ACTION);
+    dispatch.call(this, GET_USER);
   }
 
   create() {

@@ -24,13 +24,19 @@ function fetch(url: string, options?: any): Promise<any> {
 
   const isGet = method === METHODS.GET;
   const isData = !!data;
+  const isFormdata = data instanceof FormData;
 
   const xhr = new XMLHttpRequest();
   const uri = isGet && isData ? `${url}${queryStringify(data)}` : url;
+  const body = isFormdata ? data : JSON.stringify(data);
 
   const promise = new Promise((resolve, reject) => {
     xhr.open(method, uri);
     xhr.withCredentials = true;
+
+    if (isFormdata) {
+      headers['Content-Type'] = 'multipart/form-data';
+    }
 
     Object.keys(headers).forEach((key) => {
       xhr.setRequestHeader(key, headers[key]);
@@ -43,10 +49,9 @@ function fetch(url: string, options?: any): Promise<any> {
       const isJson = isStartBracket && isEndBracket;
       const badResponse = !xhr.status.toString().startsWith('2');
 
-      if (badResponse) {
-        reject(isJson ? JSON.parse(xhr.responseText) : xhr.responseText);
-      }
-      resolve(isJson ? JSON.parse(xhr.responseText) : xhr.responseText);
+      const done = badResponse ? reject : resolve;
+
+      done(isJson ? JSON.parse(xhr.responseText) : xhr.responseText);
       xhr.abort();
     };
 
@@ -59,27 +64,11 @@ function fetch(url: string, options?: any): Promise<any> {
     if (isGet || !data) {
       xhr.send();
     } else {
-      xhr.send(JSON.stringify(data));
+      xhr.send(body);
     }
   });
 
   return promise;
 }
 
-function testApi() {
-  fetch('https://jsonplaceholder.typicode.com/users')
-    .then((v) => console.log('[GET] test api value: ', v))
-    .catch((e) => console.log('[GET] test api error', e))
-    .finally(() => console.log('[GET] test api finally'));
-
-  fetch('https://jsonplaceholder.typicode.com/posts', {
-    method: 'POST',
-    data: {title: 'foo', body: 'bar', userId: 1},
-    headers: {'Content-type': 'application/json; charset=UTF-8'},
-  })
-    .then((v) => console.log('[POST] test api value: ', v))
-    .catch((e) => console.log('[POST] test api error', e))
-    .finally(() => console.log('[POST] test api finally'));
-}
-
-export {fetch, testApi};
+export {fetch};

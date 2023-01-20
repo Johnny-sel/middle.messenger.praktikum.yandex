@@ -29,7 +29,6 @@ export default class Input extends Component<any> {
         ),
         span('c=input_group__error;', [error]),
       ])
-
     );
   }
 }

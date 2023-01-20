@@ -5,7 +5,7 @@ import {validateForm} from '@app/utils';
 import {Component} from '@core/component';
 import {Router} from '@core/router';
 import {Reason} from '@api/types';
-import {CHANGE_INPUT_ACTION, UPDATE_PASSWORD_ACTION} from '@app/actions';
+import {CHANGE_INPUT, UPDATE_PASSWORD} from '@app/actions';
 import {EditPasswordState} from './types';
 
 function handleError(err: Reason) {
@@ -18,12 +18,12 @@ async function dispatch(type: string) {
   const {state} = this as Component<EditPasswordState>;
   try {
     switch (type) {
-      case CHANGE_INPUT_ACTION: {
+      case CHANGE_INPUT: {
         onChange.call(this, this.state.event);
         break;
       }
 
-      case UPDATE_PASSWORD_ACTION: {
+      case UPDATE_PASSWORD: {
         state.load = true;
         if (!validateForm(state.target!.form!)) return;
 

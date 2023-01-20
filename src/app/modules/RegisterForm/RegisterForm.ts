@@ -3,7 +3,7 @@ import {section, form, component, a, span} from '@core/tags';
 import {Component} from '@core/component';
 import {Router} from '@core/router';
 // app
-import {CHANGE_INPUT_ACTION, CREATE_USER_ACTION} from '@app/actions';
+import {CHANGE_INPUT, CREATE_USER} from '@app/actions';
 import {Button, Input} from '@app/components';
 import {location} from '@app/const';
 import {TInput} from '@app/types';
@@ -25,13 +25,13 @@ export default class RegisterForm extends Component<RegisterState> {
 
   onChange(event: InputEvent): void {
     this.state.event = event;
-    dispatch.call(this, CHANGE_INPUT_ACTION);
+    dispatch.call(this, CHANGE_INPUT);
   }
 
   onSubmit(event: InputEvent): void {
     event.preventDefault();
     this.state.target = event.target as HTMLButtonElement;
-    dispatch.call(this, CREATE_USER_ACTION);
+    dispatch.call(this, CREATE_USER);
   }
 
   create() {

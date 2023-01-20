@@ -8,7 +8,7 @@ import {Reason} from '@api/types';
 import {location, error} from '@app/const';
 import {onChange} from '@app/functions';
 import {validateForm} from '@app/utils';
-import {CHANGE_INPUT_ACTION, CREATE_USER_ACTION} from '@app/actions';
+import {CHANGE_INPUT, CREATE_USER} from '@app/actions';
 import {comparePasswords} from '@app/utils';
 // local
 import {RegisterState} from './types';
@@ -23,12 +23,12 @@ async function dispatch(type: string) {
   const {state} = this as Component<RegisterState>;
   try {
     switch (type) {
-      case CHANGE_INPUT_ACTION: {
+      case CHANGE_INPUT: {
         onChange.call(this, this.state.event);
         break;
       }
 
-      case CREATE_USER_ACTION: {
+      case CREATE_USER: {
         state.load = true;
         if (!validateForm(this.state.target.form)) return;
         if (!comparePasswords(this.state.data)) throw 'Passwords not match';

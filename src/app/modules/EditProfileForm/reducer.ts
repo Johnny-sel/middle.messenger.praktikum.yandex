@@ -6,7 +6,7 @@ import {validateForm} from '@app/utils';
 import {Component} from '@core/component';
 import {Router} from '@core/router';
 import {Reason} from '@api/types';
-import {CHANGE_INPUT_ACTION, GET_USER_ACTION, UPDATE_USER_ACTION} from '@app/actions';
+import {CHANGE_INPUT, GET_USER, UPDATE_USER} from '@app/actions';
 
 function handleError(err: Reason) {
   const {state} = this as Component<EditProfileState>;
@@ -18,12 +18,12 @@ async function dispatch(type: string) {
   const {state} = this as Component<EditProfileState>;
   try {
     switch (type) {
-      case CHANGE_INPUT_ACTION: {
+      case CHANGE_INPUT: {
         onChange.call(this, this.state.event);
         break;
       }
 
-      case GET_USER_ACTION: {
+      case GET_USER: {
         state.load = true;
         state.user = await Auth.user();
         for (const prop in state.data) {
@@ -34,7 +34,7 @@ async function dispatch(type: string) {
         break;
       }
 
-      case UPDATE_USER_ACTION: {
+      case UPDATE_USER: {
         state.load = true;
         if (!validateForm(state.target!.form!)) return;
 

@@ -19,6 +19,7 @@ const api = {
 
   put: (url: string, data?: unknown) => {
     const {headers} = api;
+
     return fetch(api.baseUrl + url, {method: 'PUT', headers, data});
   },
 

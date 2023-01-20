@@ -4,7 +4,7 @@ import {section, div, component, a, span} from '@core/tags';
 import {Component} from '@core/component';
 import {Router} from '@core/router';
 // app
-import {GET_USER_ACTION, LOGOUT_ACTION} from '@app/actions';
+import {GET_USER, LOGOUT_USER} from '@app/actions';
 import {ProfilePhoto, InfoLine} from '@app/components';
 import {location} from '@app/const';
 // local
@@ -22,11 +22,11 @@ export default class ProfileInfo extends Component<ProfileState> {
   }
 
   logout(): void {
-    dispatch.call(this, LOGOUT_ACTION);
+    dispatch.call(this, LOGOUT_USER);
   }
 
   didMount(): void {
-    dispatch.call(this, GET_USER_ACTION);
+    dispatch.call(this, GET_USER);
   }
 
   create() {
@@ -36,7 +36,10 @@ export default class ProfileInfo extends Component<ProfileState> {
     // prettier-ignore
     return (
       section('c=profile__info section;', [
-        component(ProfilePhoto, {profileName: user? `${user?.first_name} ${user?.second_name}` : 'Loading...'}),
+        component(ProfilePhoto, {
+          profileName: user? `${user?.first_name} ${user?.second_name}` : 'Loading...',
+          photoUrl: user?.avatar,
+        }),
         ...items.map((item: Item) => {
           return component(InfoLine, {name: item.name, value: item.value});
         }),

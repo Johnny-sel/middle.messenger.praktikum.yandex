@@ -6,7 +6,7 @@ import {validateForm} from '@app/utils';
 import {Component} from '@core/component';
 import {Router} from '@core/router';
 import {Reason} from '@api/types';
-import {CHANGE_INPUT_ACTION, GET_USER_ACTION, LOGIN_USER_ACTION} from '@app/actions';
+import {CHANGE_INPUT, GET_USER, LOGIN_USER} from '@app/actions';
 
 function handleError(err: Reason) {
   const {state} = this as Component<LoginState>;
@@ -18,19 +18,19 @@ async function dispatch(type: string) {
   const {state} = this as Component<LoginState>;
   try {
     switch (type) {
-      case CHANGE_INPUT_ACTION: {
+      case CHANGE_INPUT: {
         onChange.call(this, this.state.event);
         break;
       }
 
-      case GET_USER_ACTION: {
+      case GET_USER: {
         state.load = true;
         await Auth.user();
         Router.to(location.chats);
         break;
       }
 
-      case LOGIN_USER_ACTION: {
+      case LOGIN_USER: {
         state.load = true;
         if (!validateForm(state.target!.form!)) return;
 

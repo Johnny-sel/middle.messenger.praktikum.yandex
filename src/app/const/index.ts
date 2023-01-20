@@ -1,3 +1,5 @@
+const hostResources = 'https://ya-praktikum.tech/api/v2/resources';
+
 const location = {
   root: '/',
   error: '/error',
@@ -89,4 +91,4 @@ const type = {
   newPassword: 'password',
 };
 
-export {location, pattern, name, placeholder, error, type};
+export {location, pattern, name, placeholder, error, type, hostResources};

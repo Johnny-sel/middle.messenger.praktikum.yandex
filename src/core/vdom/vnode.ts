@@ -2,15 +2,18 @@ import {isArr} from '../utils';
 import {parseAttrs} from './parse';
 import {FunctionVirtualNode, IComponentConstructable, Props, VirtualNode} from '../types';
 
-function createVirtualComponent(ComponentInstance: IComponentConstructable, props?: Props)
-  : VirtualNode {
+function createVirtualComponent(
+  ComponentInstance: IComponentConstructable<unknown>,
+  props?: Props
+): VirtualNode {
   const instance = new ComponentInstance();
+  instance.props = props;
   const vNode = instance._init(props);
   return vNode;
 }
 
 function createVirtualNode(tag: string): FunctionVirtualNode {
-  return function(...args: any[]) {
+  return function (...args: any[]) {
     let attrsStr = '';
     let children = [];
     let handlers = {};

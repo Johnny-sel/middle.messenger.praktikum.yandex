@@ -43,7 +43,7 @@ export interface IComponent<State> {
   vNodeNext: VirtualNode;
   vNodeCurrent: VirtualNode;
   state: State;
-  props: Props;
+  props?: Props;
 
   createState(): State;
   create(state: State, props?: Props): VirtualNode;

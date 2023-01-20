@@ -4,7 +4,7 @@ import {Item, ProfileState} from './types';
 import {Component} from '@core/component';
 import {Auth} from '@api/repositories';
 import {Router} from '@core/router';
-import { GET_USER_ACTION, LOGOUT_ACTION } from '@app/actions';
+import {GET_USER, LOGOUT_USER} from '@app/actions';
 
 function handleError(err: Reason) {
   const {state} = this as Component<ProfileState>;
@@ -20,17 +20,17 @@ async function dispatch(type: string) {
 
   try {
     switch (type) {
-      case LOGOUT_ACTION: {
+      case LOGOUT_USER: {
         await Auth.logout();
         Router.to(location.root);
         break;
       }
-      
-      case GET_USER_ACTION: {
+
+      case GET_USER: {
         state.user = await Auth.user();
         state.items = Object.entries(state.user!)
           .map(([name, value]) => ({name, value} as Item))
-          .filter((e) => e.value !== null);
+          .filter((e) => e.value !== null && e.name !== 'avatar');
         break;
       }
     }
