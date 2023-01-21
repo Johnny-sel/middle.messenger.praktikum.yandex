@@ -12,11 +12,7 @@ export default class Button extends Component<{}> {
 
     // prettier-ignore
     return (
-      button(`
-        c=form__button button;
-        t=${type ?? 'button'};
-        ${load ? "di=" :''};
-      `, 
+      button(`c=form__button button; t=${type ?? 'button'}; ${load ? "di=" :''}; `, 
         [load? 'Loading...': text],
         {click: onSubmit}
       )

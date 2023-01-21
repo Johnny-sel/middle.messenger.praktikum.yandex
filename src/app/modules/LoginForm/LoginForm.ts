@@ -28,13 +28,18 @@ export default class LoginForm extends Component<LoginState> {
   }
 
   onSubmit(event: SubmitEvent) {
-    event.preventDefault()
+    event.preventDefault();
     this.state.target = event.target as HTMLButtonElement;
     dispatch.call(this, LOGIN_USER);
   }
 
   didMount(): void {
     dispatch.call(this, GET_USER);
+  }
+
+  unMount(): void {
+    console.log('LoginForm unmount');
+    console.log('this.state:', this.state.data);
   }
 
   create() {

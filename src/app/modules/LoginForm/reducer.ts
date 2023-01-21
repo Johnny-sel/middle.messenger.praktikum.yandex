@@ -16,6 +16,8 @@ function handleError(err: ReasonResponse) {
 
 async function dispatch(type: string) {
   const {state} = this as Component<LoginState>;
+  const form = state.target?.form;
+
   try {
     switch (type) {
       case CHANGE_INPUT: {
@@ -32,7 +34,7 @@ async function dispatch(type: string) {
 
       case LOGIN_USER: {
         state.load = true;
-        if (!validateForm(state.target!.form!)) return;
+        if (!validateForm(form!)) return;
 
         await Auth.signin(state.data);
         Router.to(location.chats);

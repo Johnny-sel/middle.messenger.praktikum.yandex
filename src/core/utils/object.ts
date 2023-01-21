@@ -18,4 +18,8 @@ function isEmpty(v: any): boolean {
   return true;
 }
 
-export {isEmpty};
+function deepCopy(obj: unknown): Record<string, unknown> {
+  return JSON.parse(JSON.stringify(obj));
+}
+
+export {isEmpty, deepCopy};

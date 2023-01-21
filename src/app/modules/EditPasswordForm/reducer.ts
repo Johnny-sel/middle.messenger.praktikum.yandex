@@ -16,16 +16,18 @@ function handleError(err: ReasonResponse) {
 
 async function dispatch(type: string) {
   const {state} = this as Component<EditPasswordState>;
+  const form = state.target?.form;
+
   try {
     switch (type) {
       case CHANGE_INPUT: {
-        onChange.call(this, this.state.event);
+        onChange.call(this, state.event);
         break;
       }
 
       case UPDATE_PASSWORD: {
         state.load = true;
-        if (!validateForm(state.target!.form!)) return;
+        if (!validateForm(form!)) return;
 
         await User.updatePassword(state.data);
         Router.to(location.profile);

@@ -1,6 +1,6 @@
 // VDOM --------------------
 export type VirtualNode = {
-  attrs: object;
+  attrs: Record<string, string>;
   children: VirtualNode[] | string[];
   handlers: object;
   tag: string;
@@ -42,12 +42,14 @@ export interface IComponentConstructable<State> {
 export interface IComponent<State> {
   vNodeNext: VirtualNode;
   vNodeCurrent: VirtualNode;
-  state: State;
+  state: State | null;
   props?: Props;
+  componentId: string;
 
   createState(): State;
-  create(state: State, props?: Props): VirtualNode;
-  didMount(state: State, props: Props): void;
+  create(): VirtualNode;
+  didMount(): void;
+  unMount(): void;
 
   _init(props?: Props): VirtualNode;
   _setState(state: State): State;

@@ -7,8 +7,8 @@ function createVirtualComponent(
   props?: Props
 ): VirtualNode {
   const instance = new ComponentInstance();
-  instance.props = props;
   const vNode = instance._init(props);
+
   return vNode;
 }
 
@@ -40,7 +40,7 @@ function createVirtualNode(tag: string): FunctionVirtualNode {
 
     const attrs = parseAttrs(attrsStr);
 
-    return {tag, attrs, children, handlers};
+    return {tag, attrs, children, handlers, HTMLElement: undefined};
   };
 }
 

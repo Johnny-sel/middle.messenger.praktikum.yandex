@@ -2,7 +2,6 @@ import './ChatsPage.sass';
 
 import {div, aside, section, footer, header, main, nav, button, ul, component} from '@core/tags';
 import {Component} from '@core/component';
-import {State} from '@core/types';
 
 import {ChatListItem, Input} from '@app/components';
 import {inputs} from '@app/resources';
@@ -15,7 +14,7 @@ const searchChatInput = inputs.find((e) => e.name === searchChat);
 const searchMessageInput = inputs.find((e) => e.name === searchMessage);
 const sendMessageInput = inputs.find((e) => e.name === sendMessage);
 
-export default class ChatsPage extends Component {
+export default class ChatsPage extends Component<any> {
   constructor() {
     super();
   }
@@ -32,8 +31,8 @@ export default class ChatsPage extends Component {
     this.state.data = {...this.state.data, [name]: value};
   }
 
-  create(state: State) {
-    console.log('form data:', state.data);
+  create() {
+    const { data } = this.state;
     const onChange = this.onChange.bind(this);
 
     // prettier-ignore
@@ -51,9 +50,12 @@ export default class ChatsPage extends Component {
             component(Input, {
               ...searchChatInput,
               change: onChange,
-              value: state.data[searchChatInput!.name],
+              value: data[searchChatInput!.name],
               className: 'chats__list__header_search',
             }),
+            button('c=chats__list__header_search__account button; t=button; n=account', [],
+            {click: () => Router.to(location.profile)},
+            ),
           ]),
           // chats items
           ul('c=chats__list__items;', [
@@ -69,7 +71,7 @@ export default class ChatsPage extends Component {
             component(Input, {
               ...searchMessageInput,
               change: onChange,
-              value: state.data[searchMessageInput!.name],
+              value: data[searchMessageInput!.name],
               className: 'chats__messages__header__search',
             }),
             button('c=chats__messages__header__account button; t=button; n=account', [],
@@ -86,7 +88,7 @@ export default class ChatsPage extends Component {
             component(Input, {
               ...sendMessageInput,
               change: onChange,
-              value: state.data[sendMessageInput!.name],
+              value: data[sendMessageInput!.name],
               className: 'chats__messages__footer__message',
             }),
             button('c=chats__messages__footer__send button; t=button; n=send message', []),

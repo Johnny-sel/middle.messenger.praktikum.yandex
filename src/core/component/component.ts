@@ -1,4 +1,4 @@
-import {isStr, isNum, isArr, isDiffLength} from '../utils';
+import {isStr, isNum, isArr, isDiffLength, random, deepCopy, isObject} from '../utils';
 import {createHTMLElement} from '../vdom/dom';
 import {Props, IComponent, VirtualNode} from '../types';
 
@@ -6,16 +6,27 @@ export abstract class Component<State> implements IComponent<State> {
   vNodeNext: VirtualNode;
   vNodeCurrent: VirtualNode;
   state: State;
+  initState: State;
   props: Props;
+  componentId: string;
+  observer: MutationObserver;
+  isClearState: boolean;
 
   constructor() {
+    this.isClearState = false;
+    this.componentId = random().toString();
     this.state = this._setState(this.createState()) as State;
-    setTimeout(() => this.didMount(this.state, this.props), 0);
+    this.initState = deepCopy(this.state) as State;
+    setTimeout(() => this.didMount(), 0);
   }
 
   _init(props: Props) {
     this.props = props;
-    this.vNodeCurrent = this.create(this.state, this.props);
+    this.vNodeCurrent = this.create();
+    this.vNodeCurrent.attrs['data-comp'] = this.componentId;
+
+    this._observer(this.componentId);
+
     return this.vNodeCurrent;
   }
 
@@ -27,7 +38,9 @@ export abstract class Component<State> implements IComponent<State> {
 
   _interception(state: any, prop: string, newValue: any) {
     state[prop] = newValue;
-    this.vNodeNext = this.create(state);
+    if (this.isClearState) return true;
+
+    this.vNodeNext = this.create();
     this._injectHTML();
     return true;
   }
@@ -142,12 +155,60 @@ export abstract class Component<State> implements IComponent<State> {
     return prevAttrs !== nextAttrs;
   }
 
+  _observer(componentId: string) {
+    this.observer = new MutationObserver(() => {
+      const selector = `[data-comp="${componentId}"]`;
+      const component = document.querySelector(selector);
+      const inDom = document.body.contains(component);
+
+      if (!inDom) {
+        this._destroy();
+      }
+    });
+
+    const rootElement = document.querySelector('#root')!;
+    this.observer.observe(rootElement, {childList: true});
+  }
+
+  unMount() {}
+
+  _destroy() {
+    this.observer.disconnect();
+    this._clearState();
+    this.unMount();
+  }
+
+  _clearState() {
+    this.isClearState = true;
+    const stack = [this.state];
+    const initStack = [this.initState];
+
+    while (stack.length > 0) {
+      const state = stack.pop();
+      const initState = initStack.pop();
+
+      for (const key in state) {
+        if (Object.prototype.hasOwnProperty.call(state, key)) {
+          const value = (state as any)[key];
+          const initValue = (initState as any)[key];
+          if (isObject(value) && isObject(initValue)) {
+            stack.push(value);
+            initStack.push(initValue);
+          } else {
+            state[key] = initValue;
+          }
+        }
+      }
+    }
+    this.isClearState = false;
+  }
+
   createState(): State {
     return {} as State;
   }
 
   /* eslint-disable */
-  didMount(_: State, __: Props) {}
+  didMount() {}
 
-  abstract create(state: State, props?: Props): VirtualNode;
+  abstract create(): VirtualNode;
 }

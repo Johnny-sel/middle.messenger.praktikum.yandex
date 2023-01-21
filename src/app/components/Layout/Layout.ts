@@ -19,7 +19,6 @@ export default class Layout extends Component<{}> {
         main('c=main;', [
           ...children.map((child: unknown) => child),
         ]),
-
         component(Footer),
       ])
     );

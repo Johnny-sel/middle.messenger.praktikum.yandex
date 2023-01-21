@@ -1,8 +1,8 @@
 import {api} from '..';
-import {ReasonResponse, GetChatsRequest, ChatsResponse} from '../types';
+import {GetChatsRequest, ChatsResponse} from '../types';
 
 const Chat = {
-  getChats: (body?: GetChatsRequest): Promise<ChatsResponse | ReasonResponse> => {
+  getChats: (body?: GetChatsRequest): Promise<ChatsResponse> => {
     return api.get('/chats', body);
   },
 };

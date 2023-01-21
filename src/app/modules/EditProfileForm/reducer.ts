@@ -16,27 +16,30 @@ function handleError(err: ReasonResponse) {
 
 async function dispatch(type: string) {
   const {state} = this as Component<EditProfileState>;
+  const form = state.target?.form;
+
   try {
     switch (type) {
       case CHANGE_INPUT: {
-        onChange.call(this, this.state.event);
+        onChange.call(this, state.event);
         break;
       }
 
       case GET_USER: {
         state.load = true;
         state.user = await Auth.user();
+
         for (const prop in state.data) {
-          if (Object.prototype.hasOwnProperty.call(state.data, prop)) {
-            (state.data as any)[prop] = (state.user as any)[prop] ?? '';
-          }
+          if (!state.data.hasOwnProperty(prop)) continue;
+          (state.data as any)[prop] = (state.user as any)[prop] ?? '';
         }
+
         break;
       }
 
       case UPDATE_USER: {
         state.load = true;
-        if (!validateForm(state.target!.form!)) return;
+        if (!validateForm(form!)) return;
 
         await User.updateProfile(state.data);
         Router.to(location.profile);

@@ -1,4 +1,4 @@
-export type Input = {
+export type TInput = {
   name: string;
   placeholder: string;
   pattern: string;

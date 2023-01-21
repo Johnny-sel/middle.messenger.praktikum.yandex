@@ -5,7 +5,6 @@ import {div, img, h1, button, header, nav} from '@core/tags';
 import {Component} from '@core/component';
 import {Router} from '@core/router';
 import {location} from '@app/const';
-import {State} from '@core/types';
 
 const {root, error, chats, registration, profile, profileEdit, passwordEdit} = location;
 
@@ -41,7 +40,7 @@ export default class Header extends Component<{title: string}> {
     Router.to(root);
   }
 
-  create(state: State) {
+  create() {
     const goToProfilePage = this.goToProfilePage.bind(this);
     const goToMainPage = this.goToMainPage.bind(this);
 
@@ -54,7 +53,7 @@ export default class Header extends Component<{title: string}> {
           }),
         ]),
         div('c=header__greet;', [
-          h1('c=header__greet__title title;', [state.title]),
+          h1('c=header__greet__title title;', [this.state.title]),
         ]),
         nav('c=header__links;', [
           button(`c=header__links__profile_button; n=profile; t=button`, [], {

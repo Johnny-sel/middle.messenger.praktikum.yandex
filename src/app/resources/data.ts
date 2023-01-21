@@ -1,7 +1,7 @@
 import {name, pattern, placeholder, error, type} from '@app/const';
-import {Input} from '../types';
+import {TInput} from '../types';
 
-const inputs: Input[] = [
+const inputs: TInput[] = [
   {
     name: name.email,
     type: type.email,
