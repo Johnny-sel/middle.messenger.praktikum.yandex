@@ -23,6 +23,7 @@ const pattern = {
   sendMessage: '.*',
   oldPassword: '^(?=^.{8,40}$)((?=.*\\d)|(?=.*\\W+))(?![.\\n])(?=.*[A-Z])(?=.*[a-z]).*$',
   newPassword: '^(?=^.{8,40}$)((?=.*\\d)|(?=.*\\W+))(?![.\\n])(?=.*[A-Z])(?=.*[a-z]).*$',
+  title: '^[^\\d][^\\s][a-zA-Z\\d_-]{1,18}$',
 };
 
 const name = {
@@ -39,6 +40,7 @@ const name = {
   sendMessage: 'message',
   oldPassword: 'oldPassword',
   newPassword: 'newPassword',
+  title: 'title',
 };
 
 const placeholder = {
@@ -55,6 +57,7 @@ const placeholder = {
   sendMessage: 'Send Message',
   oldPassword: 'Old Password',
   newPassword: 'New Password',
+  title: 'Chat name',
 };
 
 const error = {
@@ -73,6 +76,7 @@ const error = {
   cookie: 'Cookie is not valid',
   oldPassword: 'Invalid password',
   newPassword: 'Invalid password',
+  title: 'Invalid title',
 };
 
 const type = {
@@ -89,6 +93,7 @@ const type = {
   sendMessage: 'text',
   oldPassword: 'password',
   newPassword: 'password',
+  title: 'text',
 };
 
 export {location, pattern, name, placeholder, error, type, hostResources};

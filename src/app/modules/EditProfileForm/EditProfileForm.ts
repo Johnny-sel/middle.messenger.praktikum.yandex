@@ -5,7 +5,7 @@ import {Router} from '@core/router';
 // app
 import {CHANGE_INPUT, GET_USER, UPDATE_USER} from '@app/actions';
 import {Button, Input} from '@app/components';
-import {location} from '@app/const';
+import {location} from '@app/constants';
 import {TInput} from '@app/types';
 import {editProfileInputs} from '@app/resources';
 // local

@@ -12,17 +12,15 @@
 		"body": [
 			"import './$1.sass';",
 			"  ",
-			"import { div } from '@core/tags';",
-			"import { Component } from '@core/component';",
+			"import {div} from '@core/tags';",
+			"import {Component} from '@core/component';",
 			"  ",
-			"export default class $1 extends Component {",
+			"export default class $1 extends Component<{}, {}> {",
 			"  constructor() {",
 			"    super();",
 			"  }",
 			"  ",
-			"  create(state, props) {",
-			"    const { } = state;",
-			"    const { } = props;",
+			"  create() {",
 			"    ",
 			"    // prettier-ignore",
 			"    return (",
@@ -187,7 +185,7 @@
 		"scope": "javascript,typescript",
 		"prefix": "i",
 		"body": [
-			"input(`id=$1; c=$2; t=$4; n=$4; p=$5; change=$6;', [$7]),",
+			"input('id=$1; c=$2; t=$4; n=$4; p=$5;', [$6], {change: $7}),",
 		],
 	}
 }

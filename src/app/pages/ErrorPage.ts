@@ -2,8 +2,10 @@ import {main, component, span} from '@core/tags';
 import {Component} from '@core/component';
 import {Layout} from '@app/components';
 
-type State = {errorType: string; errorText: string};
-export default class ErrorPage extends Component<State> {
+type ErrorState = {errorType: string; errorText: string};
+type ErrorProps = {errorType: string; errorText: string};
+
+export default class ErrorPage extends Component<ErrorState, ErrorProps> {
   constructor() {
     super();
   }

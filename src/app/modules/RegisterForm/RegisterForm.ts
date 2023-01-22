@@ -5,7 +5,7 @@ import {Router} from '@core/router';
 // app
 import {CHANGE_INPUT, CREATE_USER} from '@app/actions';
 import {Button, Input} from '@app/components';
-import {location} from '@app/const';
+import {location} from '@app/constants';
 import {TInput} from '@app/types';
 
 // local
@@ -14,7 +14,7 @@ import {RegisterState} from './types';
 import {registerState} from './state';
 import {dispatch} from './reducer';
 
-export default class RegisterForm extends Component<RegisterState> {
+export default class RegisterForm extends Component<RegisterState, {}> {
   constructor() {
     super();
   }

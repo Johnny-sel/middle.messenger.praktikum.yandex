@@ -6,7 +6,7 @@ function createVirtualComponent(
   ComponentInstance: IComponentConstructable<unknown>,
   props?: Props
 ): VirtualNode {
-  const instance = new ComponentInstance();
+  let instance = new ComponentInstance();
   const vNode = instance._init(props);
 
   return vNode;

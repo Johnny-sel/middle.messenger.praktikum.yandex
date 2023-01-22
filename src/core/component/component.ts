@@ -1,8 +1,8 @@
 import {isStr, isNum, isArr, isDiffLength, random, deepCopy, isObject} from '../utils';
 import {createHTMLElement} from '../vdom/dom';
-import {Props, IComponent, VirtualNode} from '../types';
+import {IComponent, VirtualNode} from '../types';
 
-export abstract class Component<State> implements IComponent<State> {
+export abstract class Component<State, Props> implements IComponent<State, Props> {
   vNodeNext: VirtualNode;
   vNodeCurrent: VirtualNode;
   state: State;
@@ -15,9 +15,8 @@ export abstract class Component<State> implements IComponent<State> {
   constructor() {
     this.isClearState = false;
     this.componentId = random().toString();
-    this.state = this._setState(this.createState()) as State;
+    this.state = this._getProxyState(this.createState());
     this.initState = deepCopy(this.state) as State;
-    setTimeout(() => this.didMount(), 0);
   }
 
   _init(props: Props) {
@@ -30,15 +29,18 @@ export abstract class Component<State> implements IComponent<State> {
     return this.vNodeCurrent;
   }
 
-  _setState(initialState: State) {
-    return new Proxy(initialState as object, {
+  _getProxyState(initialState: State) {
+    return new Proxy(initialState as Record<string, unknown>, {
       set: this._interception.bind(this),
     }) as State;
   }
 
-  _interception(state: any, prop: string, newValue: any) {
+  _interception(state: Record<string, unknown>, prop: string, newValue: unknown) {
     state[prop] = newValue;
-    if (this.isClearState) return true;
+
+    if (this.isClearState) {
+      return true;
+    }
 
     this.vNodeNext = this.create();
     this._injectHTML();
@@ -161,16 +163,12 @@ export abstract class Component<State> implements IComponent<State> {
       const component = document.querySelector(selector);
       const inDom = document.body.contains(component);
 
-      if (!inDom) {
-        this._destroy();
-      }
+      inDom ? this.didMount() : this._destroy();
     });
 
     const rootElement = document.querySelector('#root')!;
     this.observer.observe(rootElement, {childList: true});
   }
-
-  unMount() {}
 
   _destroy() {
     this.observer.disconnect();
@@ -180,26 +178,32 @@ export abstract class Component<State> implements IComponent<State> {
 
   _clearState() {
     this.isClearState = true;
+
     const stack = [this.state];
     const initStack = [this.initState];
 
     while (stack.length > 0) {
-      const state = stack.pop();
-      const initState = initStack.pop();
+      const state = stack.pop() as Record<string, unknown>;
+      const initState = initStack.pop() as Record<string, unknown>;
 
       for (const key in state) {
-        if (Object.prototype.hasOwnProperty.call(state, key)) {
-          const value = (state as any)[key];
-          const initValue = (initState as any)[key];
-          if (isObject(value) && isObject(initValue)) {
-            stack.push(value);
-            initStack.push(initValue);
-          } else {
-            state[key] = initValue;
-          }
+        if (!state.hasOwnProperty(key)) {
+          continue;
+        }
+
+        const value = state[key];
+        const initValue = initState[key];
+        const isObjects = isObject(value) && isObject(initValue);
+
+        if (isObjects) {
+          stack.push(value as State);
+          initStack.push(initValue as State);
+        } else {
+          state[key] = initValue;
         }
       }
     }
+
     this.isClearState = false;
   }
 
@@ -209,6 +213,7 @@ export abstract class Component<State> implements IComponent<State> {
 
   /* eslint-disable */
   didMount() {}
+  unMount() {}
 
   abstract create(): VirtualNode;
 }

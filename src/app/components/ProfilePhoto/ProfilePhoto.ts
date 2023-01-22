@@ -3,7 +3,7 @@ import preview from '@app/img/avatar-preview.png';
 
 import {div, span, img,  input, label} from '@core/tags';
 import {Component} from '@core/component';
-import {hostResources} from '@app/const';
+import {hostResources} from '@app/constants';
 
 export default class ProfilePhoto extends Component<{}> {
   constructor() {

@@ -1,5 +1,5 @@
 import {UpdateProfileRequest} from '@api/types';
-import {name} from '@app/const';
+import {name} from '@app/constants';
 import {EditProfileState} from './types';
 
 const {email, login, displayName, firstName, phone, secondName} = name;

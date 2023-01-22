@@ -5,7 +5,7 @@ import {Router} from '@core/router';
 // app
 import {CHANGE_INPUT, GET_USER, LOGIN_USER} from '@app/actions';
 import {Button, Input} from '@app/components';
-import {location} from '@app/const';
+import {location} from '@app/constants';
 import {TInput} from '@app/types';
 import {loginInputs} from '@app/resources';
 // local
@@ -13,7 +13,7 @@ import {dispatch} from './reducer';
 import {LoginState} from './types';
 import {loginState} from './state';
 
-export default class LoginForm extends Component<LoginState> {
+export default class LoginForm extends Component<LoginState, {}> {
   constructor() {
     super();
   }

@@ -1,6 +1,6 @@
 import {UPLOAD_PHOTO} from './../../actions/index';
 import {ReasonResponse} from '@api/types';
-import {error, location} from '@app/const';
+import {error, location} from '@app/constants';
 import {Item, ProfileState} from './types';
 import {Component} from '@core/component';
 import {Auth, User} from '@api/repositories';
@@ -8,13 +8,13 @@ import {Router} from '@core/router';
 import {GET_USER, LOGOUT_USER} from '@app/actions';
 
 function handleError(err: ReasonResponse) {
-  const {state} = this as Component<ProfileState>;
+  const {state} = this as Component<ProfileState, {}>;
   state.error = err.reason ?? error.auth;
   Router.to(location.root);
 }
 
 async function dispatch(type: string) {
-  const {state} = this as Component<ProfileState>;
+  const {state} = this as Component<ProfileState, {}>;
 
   state.load = true;
   state.error = undefined;

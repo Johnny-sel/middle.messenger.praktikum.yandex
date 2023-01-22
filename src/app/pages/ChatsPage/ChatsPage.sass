@@ -1,4 +1,5 @@
 @import '@app/styles/varibales'
+@import '@app/styles/mixins'
 
 .chats .button,
 .chats .input
@@ -12,7 +13,9 @@
   height: 100vh
   justify-content: center
 
+// !ASIDE LEFT CHATLIST
 .chats__list
+  position: relative
   display: flex
   flex-direction: column
   flex-basis: 100%
@@ -67,6 +70,44 @@
   &:hover
     transform: scale(1.2)
 
+.chats__list__footer
+  position: absolute
+  bottom: 0
+  border-top: $border
+  width: 100%
+  padding: 1.5rem
+  z-index: 1
+  background-color: #fff
+  height: 6.5rem
+  @include flex-center
+
+.chats__list__footer__add_chat.button
+  display: block
+  background: transparent
+  background-size: cover
+  background-image: url('./../../static/img/add-circle.svg')
+  height: 3.4rem
+  width: 3.4rem
+  border-radius: 50%
+  transition: all 0.3s ease-out
+
+  &:hover
+    transform: scale(1.1)
+
+.chats__list__footer__add_chat--cancel.button
+  display: block
+  background: transparent
+  background-size: cover
+  background-image: url('./../../static/img/close-circle.svg')
+  height: 3.4rem
+  width: 3.4rem
+  border-radius: 50%
+  transition: all 0.3s ease-out
+
+  &:hover
+    transform: scale(1.1)
+
+// ! ASIDE RIGHT MESSAGES
 .chats__messages
   display: none
   flex-direction: column
@@ -96,7 +137,7 @@
     transition: all 0.3s ease-out
 
     &:hover
-      transform: scale(1.2)
+      transform: scale(1.1)
 
 .chats__messages__footer
   display: flex
@@ -104,6 +145,7 @@
   align-items: center
   border-top: $border
   padding: 1.5rem
+  height: 6.5rem
 
   .chats__messages__footer__message
     display: flex
@@ -137,3 +179,4 @@
     &:hover
       display: block
       transform: rotate(-25deg) scale(1.1) translateY(-0.5rem) translateX(0.5rem)
+

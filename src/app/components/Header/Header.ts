@@ -4,7 +4,7 @@ import headerLogo from '@app/img/header-logo.svg';
 import {div, img, h1, button, header, nav} from '@core/tags';
 import {Component} from '@core/component';
 import {Router} from '@core/router';
-import {location} from '@app/const';
+import {location} from '@app/constants';
 
 const {root, error, chats, registration, profile, profileEdit, passwordEdit} = location;
 

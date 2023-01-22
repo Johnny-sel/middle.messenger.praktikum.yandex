@@ -1,8 +1,9 @@
 import {component} from '@core/tags';
 import {Component} from '@core/component';
-import {EditPasswordForm, Layout} from '@app/components';
+import {Layout} from '@app/components';
+import {EditPasswordForm} from '@app/modules';
 
-export default class EditPasswordPage extends Component<{}> {
+export default class EditPasswordPage extends Component<{}, {}> {
   constructor() {
     super();
   }

@@ -5,3 +5,8 @@ export type TInput = {
   type: string;
   error: string;
 };
+
+export type ActionPayload = {
+  type: string;
+  payload: unknown;
+};

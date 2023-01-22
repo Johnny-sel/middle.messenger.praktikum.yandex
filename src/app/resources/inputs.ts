@@ -1,4 +1,4 @@
-import {name} from '@app/const';
+import {name} from '@app/constants';
 import {inputs} from '@app/resources';
 
 const {

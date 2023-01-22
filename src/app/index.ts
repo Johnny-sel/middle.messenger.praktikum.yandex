@@ -1,5 +1,5 @@
 import {Router} from '@core/router';
-import {location} from '@app/const';
+import {location} from '@app/constants';
 
 import {
   LoginPage,

@@ -3,13 +3,16 @@ import './Input.sass';
 import {div, input, span} from '@core/tags';
 import {Component} from '@core/component';
 
-export default class Input extends Component<{}> {
+export default class Input extends Component<{}, any> {
   constructor() {
     super();
   }
 
   create() {
-    const {value, name, type, placeholder, change, pattern, error, className, load} = this.props;
+    const {value, name, type, placeholder, change} = this.props;
+    const {pattern, error, className, load, showError = true} = this.props;
+
+    const hidden = showError ? '' : '--hidden';
 
     // prettier-ignore
     return (
@@ -26,7 +29,7 @@ export default class Input extends Component<{}> {
         `, 
         [], {input: change},
         ),
-        span('c=input_group__error;', [error]),
+        span(`c=input_group__error${hidden};`, [error]),
       ])
     );
   }

@@ -6,13 +6,13 @@ import {Router} from '@core/router';
 // app
 import {GET_USER, LOGOUT_USER, UPLOAD_PHOTO} from '@app/actions';
 import {ProfilePhoto, InfoLine} from '@app/components';
-import {location} from '@app/const';
+import {location} from '@app/constants';
 // local
 import {dispatch} from './reducer';
 import {Item, ProfileState} from './types';
 import {profileState} from './state';
 
-export default class ProfileInfo extends Component<ProfileState> {
+export default class ProfileInfo extends Component<ProfileState, {}> {
   constructor() {
     super();
   }

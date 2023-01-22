@@ -1,8 +1,9 @@
 import {component} from '@core/tags';
 import {Component} from '@core/component';
-import {RegisterForm, Layout} from '@app/components';
+import {Layout} from '@app/components';
+import {RegisterForm} from '@app/modules';
 
-export default class RegisterPage extends Component<{}> {
+export default class RegisterPage extends Component<{}, {}> {
   constructor() {
     super();
   }

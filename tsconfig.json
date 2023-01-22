@@ -13,6 +13,7 @@
     "baseUrl": ".",
     "paths": {
       "@api": ["./src/api"],
+      "@api/websoket": ["./src/api/websoket"],
       "@app/actions": ["./src/app/actions"],
       "@app/functions": ["./src/app/functions"],
       "@app/utils": ["./src/app/utils"],
@@ -27,9 +28,9 @@
       "@app/types": ["src/app/types"],
       "@app/resources": ["src/app/resources"],
       "@app/modules": ["./src/app/modules"],
-      "@app/const": ["./src/app/const"],
+      "@app/constants": ["./src/app/constants"],
       "@app/img": ["./src/app/static/img"],
-      "@app/styles/varibales": ["./src/app/styles/varibales.sass"],
+      "@app/styles": ["./src/app/styles"],
       "@api/repositories": ["./src/api/repositories"],
       "@api/types": ["./src/api/types"]
     }

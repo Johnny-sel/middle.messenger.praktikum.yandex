@@ -1,28 +1,28 @@
 import './ChatsPage.sass';
-
-import {div, aside, section, footer, header, main, nav, button, ul, component} from '@core/tags';
+// core
+import {div, section, footer, header, main, button, component} from '@core/tags';
 import {Component} from '@core/component';
-
-import {ChatListItem, Input} from '@app/components';
-import {inputs} from '@app/resources';
-import {location, name} from '@app/const';
 import {Router} from '@core/router';
+// app
+import {Input} from '@app/components';
+import {inputs} from '@app/resources';
+import {location, name} from '@app/constants';
+//local
+import {ChatPageState, chatPageState} from './state';
+import {ChatList} from '@app/modules';
 
-const {searchChat, searchMessage, sendMessage} = name;
+const {searchMessage, sendMessage} = name;
 
-const searchChatInput = inputs.find((e) => e.name === searchChat);
 const searchMessageInput = inputs.find((e) => e.name === searchMessage);
 const sendMessageInput = inputs.find((e) => e.name === sendMessage);
 
-export default class ChatsPage extends Component<any> {
+export default class ChatsPage extends Component<ChatPageState, {}> {
   constructor() {
     super();
   }
 
   createState() {
-    return {
-      data: {[searchChat]: '', [searchMessage]: '', [sendMessage]: ''},
-    };
+    return chatPageState;
   }
 
   onChange(event: InputEvent) {
@@ -32,38 +32,15 @@ export default class ChatsPage extends Component<any> {
   }
 
   create() {
-    const { data } = this.state;
+    const {data} = this.state;
+
     const onChange = this.onChange.bind(this);
 
     // prettier-ignore
     return (
       div('c=chats;', [
         // Left side
-        aside('c=chats__list;', [
-          // top
-          header('c=chats__list__header;', [
-            nav('c=chats__list__header__nav;', [
-              button('c=chats__list__header__nav__menu button; t=button; n=menu', [],
-                  {click: () => Router.to(location.root)},
-              ),
-            ]),
-            component(Input, {
-              ...searchChatInput,
-              change: onChange,
-              value: data[searchChatInput!.name],
-              className: 'chats__list__header_search',
-            }),
-            button('c=chats__list__header_search__account button; t=button; n=account', [],
-            {click: () => Router.to(location.profile)},
-            ),
-          ]),
-          // chats items
-          ul('c=chats__list__items;', [
-            ...[1, 2, 3, 4, 5, 6].map(() => {
-              return component(ChatListItem);
-            }),
-          ]),
-        ]),
+        component(ChatList),
         // Messages
         section('c=chats__messages;', [
           // top
@@ -71,7 +48,7 @@ export default class ChatsPage extends Component<any> {
             component(Input, {
               ...searchMessageInput,
               change: onChange,
-              value: data[searchMessageInput!.name],
+              value: data['search_message'],
               className: 'chats__messages__header__search',
             }),
             button('c=chats__messages__header__account button; t=button; n=account', [],
@@ -88,7 +65,7 @@ export default class ChatsPage extends Component<any> {
             component(Input, {
               ...sendMessageInput,
               change: onChange,
-              value: data[sendMessageInput!.name],
+              value: data['message'],
               className: 'chats__messages__footer__message',
             }),
             button('c=chats__messages__footer__send button; t=button; n=send message', []),

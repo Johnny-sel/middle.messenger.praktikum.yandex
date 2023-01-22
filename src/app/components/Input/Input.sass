@@ -1,7 +1,10 @@
 @import '@app/styles/varibales'
 
+.input_group
+  width: 100%
+
 .input_group__input
-  width: 30rem
+  width: 100%
   border: $border
   border-radius: $border-radius
   outline: 0
@@ -16,3 +19,6 @@
 
 .input:invalid.input:not(:focus) + .input_group__error
   display: block
+
+.input_group__error--hidden
+  display: none

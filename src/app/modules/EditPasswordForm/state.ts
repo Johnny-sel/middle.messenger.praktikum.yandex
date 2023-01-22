@@ -1,5 +1,5 @@
 import {UpdatePasswordRequest} from '@api/types';
-import {name} from '@app/const';
+import {name} from '@app/constants';
 import {EditPasswordState} from './types';
 
 const {oldPassword, newPassword} = name;

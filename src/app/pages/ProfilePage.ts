@@ -1,8 +1,9 @@
 import {component} from '@core/tags';
 import {Component} from '@core/component';
-import {ProfileInfo, Layout} from '@app/components';
+import {Layout} from '@app/components';
+import {ProfileInfo} from '@app/modules';
 
-export default class ProfilePage extends Component<{}> {
+export default class ProfilePage extends Component<{}, {}> {
   constructor() {
     super();
   }

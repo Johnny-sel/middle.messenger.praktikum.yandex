@@ -39,8 +39,14 @@ function fetch(url: string, options?: any): Promise<any> {
     });
 
     xhr.onload = function () {
-      const isStartBracket = xhr.responseText.trim().startsWith('{');
-      const isEndBracket = xhr.responseText.trim().endsWith('}');
+      const startObject = xhr.responseText.trim().startsWith('{');
+      const startArray = xhr.responseText.trim().startsWith('[');
+
+      const endObject = xhr.responseText.trim().endsWith('}');
+      const endArray = xhr.responseText.trim().endsWith(']');
+
+      const isStartBracket = startObject || startArray;
+      const isEndBracket = endObject || endArray;
 
       const isJson = isStartBracket && isEndBracket;
       const badResponse = !xhr.status.toString().startsWith('2');

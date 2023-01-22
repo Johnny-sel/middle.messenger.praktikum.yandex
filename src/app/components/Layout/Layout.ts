@@ -3,21 +3,26 @@ import './Layout.sass';
 import {div, main, component} from '@core/tags';
 import {Component} from '@core/component';
 import {Header, Footer} from '@app/components';
+import {VirtualNode} from '@core/types';
 
-export default class Layout extends Component<{}> {
+type LayoutProps = {
+  children: VirtualNode[];
+};
+
+export default class Layout extends Component<{}, LayoutProps> {
   constructor() {
     super();
   }
 
   create() {
-    const {children} = this.props as { children: unknown[] };
+    const {children} = this.props;
 
     // prettier-ignore
     return (
       div('c=layout;', [
         component(Header),
         main('c=main;', [
-          ...children.map((child: unknown) => child),
+          ...children,
         ]),
         component(Footer),
       ])

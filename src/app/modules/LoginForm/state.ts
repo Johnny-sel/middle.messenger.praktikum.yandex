@@ -1,5 +1,5 @@
 import {LoginState} from './types';
-import {name} from '@app/const';
+import {name} from '@app/constants';
 import {SigninRequest} from '@api/types';
 
 const {login, password} = name;

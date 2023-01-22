@@ -6,7 +6,7 @@ import {Router} from '@core/router';
 // app
 import {CHANGE_INPUT} from '@app/actions';
 import {Button, Input} from '@app/components';
-import {location} from '@app/const';
+import {location} from '@app/constants';
 import {TInput} from '@app/types';
 import {editPasswordInputs} from '@app/resources';
 // local

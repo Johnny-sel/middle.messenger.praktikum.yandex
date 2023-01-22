@@ -1,10 +1,10 @@
-import {UserResponse} from '@api/types';
+import {GetUserResponse} from '@api/types';
 
 export type ProfileState = {
   load: boolean;
   error?: string;
   items: Item[];
-  user?: UserResponse;
+  user?: GetUserResponse;
   target?: HTMLInputElement;
 };
 

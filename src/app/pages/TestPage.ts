@@ -8,7 +8,7 @@ type State = {
   isActive: boolean;
 };
 
-export default class TestPage extends Component<State> {
+export default class TestPage extends Component<State, {}> {
   constructor() {
     super();
   }
