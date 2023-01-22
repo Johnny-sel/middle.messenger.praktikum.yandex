@@ -22,19 +22,23 @@ async function dispatch(type: string, payload: unknown) {
         onChange.call(this, state.event);
         break;
       }
+      
       case SWITCH_TOOLTIP: {
         state.showTooltip = !state.showTooltip;
         break;
       }
+
       case CREATE_CHAT: {
         state.showTooltip = false;
         break;
       }
+
       case GET_CHATS: {
         state.load = true;
         state.chats = await Chat.getChats();
         break;
       }
+
       case OPEN_CHAT: {
         state.load = true;
 
