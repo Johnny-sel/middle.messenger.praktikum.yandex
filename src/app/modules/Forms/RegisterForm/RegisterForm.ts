@@ -3,23 +3,24 @@ import {section, form, component, a, span} from '@core/tags';
 import {Component} from '@core/component';
 import {Router} from '@core/router';
 // app
-import {CHANGE_INPUT, GET_USER, UPDATE_USER} from '@app/actions';
+import {CHANGE_INPUT, CREATE_USER} from '@app/actions';
 import {Button, Input} from '@app/components';
 import {location} from '@app/constants';
 import {TInput} from '@app/types';
-import {editProfileInputs} from '@app/resources';
+import {regInputs} from '@app/resources';
+
 // local
-import {EditProfileState} from './types';
-import {editProfileState} from './state';
+import {RegisterState} from './types';
+import {registerState} from './state';
 import {dispatch} from './reducer';
 
-export default class EditProfileForm extends Component<EditProfileState> {
+export default class RegisterForm extends Component<RegisterState, {}> {
   constructor() {
     super();
   }
 
   createState() {
-    return editProfileState;
+    return registerState;
   }
 
   onChange(event: InputEvent): void {
@@ -27,34 +28,30 @@ export default class EditProfileForm extends Component<EditProfileState> {
     dispatch.call(this, CHANGE_INPUT);
   }
 
-  onSubmit(event: SubmitEvent) {
+  onSubmit(event: InputEvent): void {
     event.preventDefault();
     this.state.target = event.target as HTMLButtonElement;
-    dispatch.call(this, UPDATE_USER);
-  }
-
-  didMount(): void {
-    dispatch.call(this, GET_USER);
+    dispatch.call(this, CREATE_USER);
   }
 
   create() {
+    const {error, load, data} = this.state;
+
     const onSubmit = this.onSubmit.bind(this);
     const change = this.onChange.bind(this);
 
-    const {data, load, error} = this.state;
-
     // prettier-ignore
     return (
-      section('c=section', [
+      section('c=section;', [
         form('c=form;', [
-          ...editProfileInputs.map((input: TInput) => {
-            const value = (data as any)[input.name];
-            return component(Input, {...input, change, load, value});
+          ...regInputs.map((input: TInput) => {
+            const value = (data as any)[input.name]
+            return component(Input, {...input, change, value, load});
           }),
-          component(Button, {text: 'Change account', onSubmit, load, type: 'submit'}),
+          component(Button, {text: 'Create account', onSubmit, type: 'submit', load}),
         ]),
         span(`c=${error? 'error':'hidden'};`, [error ?? '']),
-        a('c=link;', ['Go to account'], {click: () => Router.to(location.profile)}),
+        a('c=link;', ['Go to login'], {click: () => Router.to(location.root)}),
       ])
     );
   }

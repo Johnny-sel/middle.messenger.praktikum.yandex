@@ -1,4 +1,4 @@
-import {GetChatsResponse} from '@api/types';
+import {GetChatsResponse, IWebSocketChat} from '@api/types';
 
 export type ChatListState = {
   showTooltip: boolean;
@@ -10,6 +10,7 @@ export type ChatListState = {
     search_chat: string;
   };
   event?: InputEvent;
+  socket?: IWebSocketChat;
 };
 
 export const chatListState: ChatListState = {
@@ -21,4 +22,5 @@ export const chatListState: ChatListState = {
     title: '',
     search_chat: '',
   },
+  socket: undefined,
 };

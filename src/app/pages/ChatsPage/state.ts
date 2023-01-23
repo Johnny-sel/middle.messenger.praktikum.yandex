@@ -1,15 +1,13 @@
+import {IWebSocketChat} from '@api/types';
+
 export type ChatPageState = {
-  showTooltip: boolean;
-  data: {
-    search_message: string;
-    message: string;
-  };
+  load: boolean;
+  messages: unknown[];
+  socket?: IWebSocketChat;
 };
 
 export const chatPageState: ChatPageState = {
-  showTooltip: false,
-  data: {
-    search_message: '',
-    message: '',
-  },
+  load: false,
+  messages: [],
+  socket: undefined,
 };

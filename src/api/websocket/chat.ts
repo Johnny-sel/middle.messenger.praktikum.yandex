@@ -1,12 +1,12 @@
 import {Auth} from '../repositories/auth';
 import {Chat} from '../repositories/chat';
-import {IConnectFunction, IWebSoketChat} from '../types/websoket';
+import {IConnectFunction, IWebSocketChat} from '../types/websocket';
 
-export class WebSocketChat implements IWebSoketChat {
+export class WebSocketChat implements IWebSocketChat {
   private static _instance: WebSocketChat;
 
   private baseUrl = 'wss://ya-praktikum.tech/ws/chats';
-  private soket: WebSocket | null;
+  private socket: WebSocket | null;
   private interval: number | null;
 
   static get instance() {
@@ -17,8 +17,16 @@ export class WebSocketChat implements IWebSoketChat {
     return this._instance;
   }
 
+  getMessages() {
+    this.socket?.send(JSON.stringify({content: '0', type: 'get old'}));
+  }
+
+  sendMessage(message: string) {
+    this.socket?.send(JSON.stringify({content: message, type: 'message'}));
+  }
+
   async connect({chatId, getMessages, opened, closed, failed}: IConnectFunction) {
-    if (this.soket?.readyState === WebSocket.OPEN) {
+    if (this.socket?.readyState === WebSocket.OPEN) {
       this.clearInterval();
       this.disconnect();
     }
@@ -26,26 +34,28 @@ export class WebSocketChat implements IWebSoketChat {
     const data = await Chat.getToken(chatId);
     const user = await Auth.user();
 
-    const WEB_SOKET_URL = this.baseUrl + `/${user.id}/${chatId}/${data.token}`;
+    const WEB_socket_URL = this.baseUrl + `/${user.id}/${chatId}/${data.token}`;
 
-    this.soket = new WebSocket(WEB_SOKET_URL);
+    this.socket = new WebSocket(WEB_socket_URL);
 
-    this.soket.addEventListener('message', (ev) => {
+    this.socket.addEventListener('message', (ev) => {
       getMessages(ev);
     });
 
-    this.soket?.addEventListener('open', () => {
-      this.ping();
+    this.socket?.addEventListener('open', () => {
+      // this.ping();
       opened();
     });
 
-    this.soket?.addEventListener('close', () => {
+    this.socket?.addEventListener('close', () => {
       closed();
     });
 
-    this.soket?.addEventListener('error', () => {
+    this.socket?.addEventListener('error', () => {
       failed();
     });
+
+    return this;
   }
 
   clearInterval() {
@@ -54,15 +64,15 @@ export class WebSocketChat implements IWebSoketChat {
   }
 
   disconnect() {
-    this.soket?.close();
-    this.soket = null;
+    this.socket?.close();
+    this.socket = null;
   }
 
   private ping() {
     if (this.interval) this.clearInterval();
 
     this.interval = window.setInterval(() => {
-      this.soket?.send(JSON.stringify({type: 'ping'}));
+      this.socket?.send(JSON.stringify({type: 'ping'}));
     }, 10000);
   }
 }

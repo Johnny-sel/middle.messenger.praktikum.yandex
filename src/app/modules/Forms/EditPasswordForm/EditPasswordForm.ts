@@ -1,10 +1,9 @@
-import {UPDATE_PASSWORD} from './../../actions/index';
 // core
 import {section, form, component, a, span} from '@core/tags';
 import {Component} from '@core/component';
 import {Router} from '@core/router';
 // app
-import {CHANGE_INPUT} from '@app/actions';
+import {CHANGE_INPUT, UPDATE_PASSWORD} from '@app/actions';
 import {Button, Input} from '@app/components';
 import {location} from '@app/constants';
 import {TInput} from '@app/types';
@@ -14,7 +13,7 @@ import {EditPasswordState} from './types';
 import {dispatch} from './reducer';
 import {editPasswordState} from './state';
 
-export default class EditPasswordForm extends Component<EditPasswordState> {
+export default class EditPasswordForm extends Component<EditPasswordState, {}> {
   constructor() {
     super();
   }

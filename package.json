@@ -42,7 +42,7 @@
   },
   "alias": {
     "@api": "./src/api",
-    "@api/websoket": "./src/api/websoket",
+    "@api/websocket/chat": "./src/api/websocket/chat.ts",
     "@app/actions": "./src/app/actions",
     "@app/utils": "./src/app/utils",
     "@app/functions": "./src/app/functions",

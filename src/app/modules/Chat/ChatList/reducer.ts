@@ -2,19 +2,21 @@ import {onChange} from '@app/functions';
 import {Component} from '@core/component';
 import {ReasonResponse} from '@api/types';
 import {error} from '@app/constants';
-import {ChatListState} from './state';
+import {ChatListState} from './State';
 import {CHANGE_INPUT, CREATE_CHAT, GET_CHATS, OPEN_CHAT, SWITCH_TOOLTIP} from '@app/actions';
 import {Chat} from '@api/repositories';
-import {WebSocketChat} from '@api/websoket';
+import {WebSocketChat} from '@api/websocket/chat';
+import {ChatListProps} from './ChatList';
 
 function handleError(err: ReasonResponse) {
-  const {state} = this as Component<ChatListState, {}>;
+  const {state} = this as Component<ChatListState, ChatListProps>;
+
   if (err.reason === error.cookie) return;
   state.error = err.reason ?? error.auth;
 }
 
 async function dispatch(type: string, payload: unknown) {
-  const {state} = this as Component<ChatListState, {}>;
+  const {state, props} = this as Component<ChatListState, ChatListProps>;
 
   try {
     switch (type) {
@@ -22,7 +24,7 @@ async function dispatch(type: string, payload: unknown) {
         onChange.call(this, state.event);
         break;
       }
-      
+
       case SWITCH_TOOLTIP: {
         state.showTooltip = !state.showTooltip;
         break;
@@ -40,28 +42,8 @@ async function dispatch(type: string, payload: unknown) {
       }
 
       case OPEN_CHAT: {
-        state.load = true;
-
-        const soket = WebSocketChat.instance;
-        const chatId = payload as string;
-
-        soket.connect({
-          chatId,
-          getMessages: (ev: MessageEvent<any>) => {
-            console.log('data', ev.data);
-          },
-          opened: () => {
-            console.log('socket opened:');
-            state.load = false;
-          },
-          closed: () => {
-            console.log('socket closed:');
-          },
-          failed: () => {
-            console.log('socket errro:');
-          },
-        });
-
+        state.socket = WebSocketChat.instance;
+        props.setWebSocketChat(state.socket, payload as string); // pass to parent component
         break;
       }
     }

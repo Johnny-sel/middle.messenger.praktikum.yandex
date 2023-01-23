@@ -9,13 +9,18 @@ import {location, name} from '@app/constants';
 import {inputs} from '@app/resources';
 import {CHANGE_INPUT, CREATE_CHAT, GET_CHATS, OPEN_CHAT, SWITCH_TOOLTIP} from '@app/actions';
 // local
-import {chatListState, ChatListState} from './state';
-import {dispatch} from './reducer';
+import {chatListState, ChatListState} from './State';
+import {dispatch} from './Reducer';
+import {IWebSocketChat} from '@api/types';
 
 const searchChatInput = inputs.find((e) => e.name === name.searchChat);
 const titleInput = inputs.find((e) => e.name === name.title);
 
-export default class ChatList extends Component<ChatListState, {}> {
+export type ChatListProps = {
+  setWebSocketChat: (socket: IWebSocketChat, chatId: string) => void;
+};
+
+export default class ChatList extends Component<ChatListState, ChatListProps> {
   constructor() {
     super();
   }
