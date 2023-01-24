@@ -6,30 +6,14 @@ import {Component} from '@core/component';
 import {Router} from '@core/router';
 import {location} from '@app/constants';
 
-const {root, error, chats, registration, profile, profileEdit, passwordEdit} = location;
-
-const titles = {
-  [root]: 'Sign in chats',
-  [error]: 'ERROR',
-  [chats]: 'ChatsResponse',
-  [registration]: 'Registration',
-  [profile]: 'Account',
-  [profileEdit]: 'Change account',
-  [passwordEdit]: 'Change password',
-};
-
-export default class Header extends Component<{title: string}> {
+const {root, profile} = location;
+export default class Header extends Component<{title: string}, {title: string}> {
   constructor() {
     super();
   }
 
   createState() {
     return {title: 'Welcome'};
-  }
-
-  didMount() {
-    const path = window.location.pathname;
-    this.state.title = titles[path];
   }
 
   goToProfilePage() {
@@ -53,7 +37,7 @@ export default class Header extends Component<{title: string}> {
           }),
         ]),
         div('c=header__greet;', [
-          h1('c=header__greet__title title;', [this.state.title]),
+          h1('c=header__greet__title title;', [this.props?.title ?? this.state.title]),
         ]),
         nav('c=header__links;', [
           button(`c=header__links__profile_button; n=profile; t=button`, [], {

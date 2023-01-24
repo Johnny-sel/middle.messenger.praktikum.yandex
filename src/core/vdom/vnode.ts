@@ -1,10 +1,10 @@
 import {isArr} from '../utils';
 import {parseAttrs} from './parse';
-import {FunctionVirtualNode, IComponentConstructable, Props, VirtualNode} from '../types';
+import {FunctionVirtualNode, IComponentConstructable, VirtualNode} from '../types';
 
 function createVirtualComponent(
-  ComponentInstance: IComponentConstructable<unknown>,
-  props?: Props
+  ComponentInstance: IComponentConstructable<unknown, unknown>,
+  props?: unknown
 ): VirtualNode {
   let instance = new ComponentInstance();
   const vNode = instance._init(props);

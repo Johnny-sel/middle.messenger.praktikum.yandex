@@ -10,6 +10,16 @@ const location = {
   passwordEdit: '/password/edit',
 };
 
+const title = {
+  root: 'Sign in chats',
+  error: 'ERROR',
+  chats: 'ChatsResponse',
+  registration: 'Registration',
+  profile: 'Account',
+  profileEdit: 'Change account',
+  passwordEdit: 'Change password',
+};
+
 const pattern = {
   email: '[a-zA-Z\\d-]+@+[a-zA-Z\\d-]+\\.+[a-zA-Z\\d-]*',
   login: '^[^\\d][^\\s][a-zA-Z\\d_-]{1,18}$', //
@@ -96,4 +106,4 @@ const type = {
   title: 'text',
 };
 
-export {location, pattern, name, placeholder, error, type, hostResources};
+export {location, pattern, name, placeholder, error, type, hostResources, title};

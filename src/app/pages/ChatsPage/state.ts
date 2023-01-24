@@ -1,10 +1,4 @@
-import {IWebSocketChat} from '@api/types';
-
-export type ChatPageState = {
-  load: boolean;
-  messages: unknown[];
-  socket?: IWebSocketChat;
-};
+import {ChatPageState} from './Types';
 
 export const chatPageState: ChatPageState = {
   load: false,

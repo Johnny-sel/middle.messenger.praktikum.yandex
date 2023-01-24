@@ -42,8 +42,10 @@ export interface IComponent<State, Props> {
   vNodeNext: VirtualNode;
   vNodeCurrent: VirtualNode;
   state: State | null;
+  initState: State | null;
   props?: Props;
   componentId: string;
+  isClearState: boolean;
 
   createState(): State;
   create(): VirtualNode;
