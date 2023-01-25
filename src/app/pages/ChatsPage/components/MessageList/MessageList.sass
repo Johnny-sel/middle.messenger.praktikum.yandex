@@ -16,7 +16,14 @@
     display: flex
 
 .chats__messages__message_items
+  overflow-y: scroll
+  display: flex
+  flex-direction: column
+  align-items: end
   height: 100%
+
+.chats__messages__message_items.center
+  @include flex-center
 
 .chats__messages__header
   display: flex

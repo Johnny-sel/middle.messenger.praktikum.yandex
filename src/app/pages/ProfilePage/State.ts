@@ -1,5 +1,5 @@
 
-import {ProfileState} from './Types';
+import {ProfileState} from './types';
 
 const profileState: ProfileState = {
   load: false,

@@ -1,4 +1,4 @@
-import {LoginState} from './Types';
+import {LoginState} from './types';
 import {name} from '@app/constants';
 import {SigninRequest} from '@api/types';
 

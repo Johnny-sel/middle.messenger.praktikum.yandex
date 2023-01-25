@@ -1,13 +1,14 @@
-import './Styles.sass';
+import './ChatPage.sass';
 // api
 import {IWebSocketChat} from '@api/types';
 // core
 import {div, component} from '@core/tags';
 import {Component} from '@core/component';
 //local
-import {chatPageState} from './State';
+import {chatPageState} from './state';
 import {ChatList, MessageList} from './components';
-import {ChatPageState} from './Types';
+import {ChatPageState} from './types';
+import {isArr} from '@core/utils';
 
 export default class ChatsPage extends Component<ChatPageState, {}> {
   constructor() {
@@ -18,15 +19,25 @@ export default class ChatsPage extends Component<ChatPageState, {}> {
     return chatPageState;
   }
 
+  scrollBottom() {
+    const div = document.querySelector('#messages')!;
+    div.scrollTop = div.scrollHeight;
+  }
+
   async setWebSocketChat(socket: IWebSocketChat, chatId: string) {
+    this.state.load = true;
+    this.state.messages = [];
     this.state.socket = await socket.connect({
       chatId: chatId,
       getMessages: (ev: MessageEvent<any>) => {
-        this.state.messages = ev.data;
+        const data = JSON.parse(ev.data);
+        this.state.messages = isArr(data) ? (data as []).reverse() : [...this.state.messages, data];
+        this.state.load = false;
+        this.scrollBottom();
       },
       opened: () => {
         console.log('socket opened:');
-        this.state.load = false;
+        this.state.socket?.getMessages();
       },
       closed: () => {
         console.log('socket closed:');
@@ -37,15 +48,22 @@ export default class ChatsPage extends Component<ChatPageState, {}> {
     });
   }
 
-  sendMessage(message: string) {
-    this.state.socket?.sendMessage(message);
+  onChange(event: InputEvent) {
+    const name = (event.target as any).name;
+    const value = (event.target as any).value;
+    this.state.data = {...this.state.data, [name]: value};
+  }
+
+  onSubmit() {
+    this.state.socket?.sendMessage(this.state.data.message);
   }
 
   create() {
-    const {messages} = this.state;
+    const {messages, load} = this.state;
 
     const setWebSocketChat = this.setWebSocketChat.bind(this);
-    const sendMessage = this.sendMessage.bind(this);
+    const onChange = this.onChange.bind(this);
+    const onSubmit = this.onSubmit.bind(this);
 
     // prettier-ignore
     return (
@@ -53,7 +71,7 @@ export default class ChatsPage extends Component<ChatPageState, {}> {
         // Left side
         component(ChatList, {setWebSocketChat}),
         // Messages
-        component(MessageList, {messages, sendMessage}),
+        component(MessageList, {messages, load, onChange, onSubmit}),
       ])
     );
   }

@@ -1,4 +1,4 @@
-import './Styles.sass';
+import './ChatList.sass';
 // core
 import {aside, button, component, footer, header, nav, ul} from '@core/tags';
 import {Component} from '@core/component';
@@ -9,8 +9,8 @@ import {location, name} from '@app/constants';
 import {inputs} from '@app/resources';
 import {CHANGE_INPUT, CREATE_CHAT, GET_CHATS, OPEN_CHAT, SWITCH_TOOLTIP} from '@app/actions';
 // local
-import {chatListState, ChatListState} from './State';
-import {dispatch} from './Logic';
+import {chatListState, ChatListState} from './state';
+import {dispatch} from './reducer';
 import {IWebSocketChat} from '@api/types';
 
 const searchChatInput = inputs.find((e) => e.name === name.searchChat);
@@ -64,7 +64,7 @@ export default class ChatList extends Component<ChatListState, ChatListProps> {
         // header aside
         header('c=chats__list__header;', [
           nav('c=chats__list__header__nav;', [
-            button('c=chats__list__header__nav__menu button; t=button; n=menu', [],
+            button('c=chats__list__header__nav__menu button; t=button; n=menu',
                 {click: () => Router.to(location.root)},
             ),
           ]),
@@ -75,7 +75,7 @@ export default class ChatList extends Component<ChatListState, ChatListProps> {
             value: data['search_chat'],
             className: 'chats__list__header_search',
           }),
-          button('c=chats__list__header_search__account button; t=button; n=account', [],
+          button('c=chats__list__header_search__account button; t=button; n=account',
             {click: () => Router.to(location.profile)},
           ),
         ]),
@@ -97,16 +97,14 @@ export default class ChatList extends Component<ChatListState, ChatListProps> {
                 value: data['title'],
                 className: 'tooltip__input',
               }),
-              button('c=tooltip__button button; t=button; n=create chat', [],
-                {click: createChat},
-              ),
+              button('c=tooltip__button button; t=button; n=create chat', {click: createChat}),
           ]}),
           button(`
               c=chats__list__footer__add_chat${showTooltip ? '--cancel' : ''} 
               button; 
               t=button; 
               n=add chat;
-            `, [],
+            `,
             {click: switchTooltip},
           ),
         ]),

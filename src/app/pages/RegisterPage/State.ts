@@ -1,6 +1,6 @@
 import {name} from '@app/constants';
 import {SingupRequest} from '@api/types';
-import {RegisterState} from './Types';
+import {RegisterState} from './types';
 
 const {email, login, displayName, firstName, phone, secondName, password, confirmPassword} = name;
 

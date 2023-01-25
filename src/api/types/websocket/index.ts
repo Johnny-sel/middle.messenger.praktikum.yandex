@@ -1,6 +1,7 @@
 export interface IWebSocketChat {
   connect: (args: IConnectFunction) => Promise<IWebSocketChat>;
   sendMessage: (message: string) => void;
+  getMessages: () => void;
 }
 
 export interface IConnectFunction {

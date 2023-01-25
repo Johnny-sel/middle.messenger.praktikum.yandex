@@ -1,6 +1,6 @@
 import {div, span, button} from '@core/tags';
 import {Component} from '@core/component';
-import {TestState} from './Types';
+import {TestState} from './types';
 
 export default class TestPage extends Component<TestState, {}> {
   constructor() {

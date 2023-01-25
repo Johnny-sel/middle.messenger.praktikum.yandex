@@ -9,9 +9,9 @@ import {location, title} from '@app/constants';
 import {TInput} from '@app/types';
 import {loginInputs} from '@app/resources';
 // local
-import {dispatch} from './Logic';
-import {LoginState} from './Types';
-import {loginState} from './State';
+import {dispatch} from './reducer';
+import {LoginState} from './types';
+import {loginState} from './state';
 
 export default class LoginPage extends Component<LoginState, {}> {
   constructor() {

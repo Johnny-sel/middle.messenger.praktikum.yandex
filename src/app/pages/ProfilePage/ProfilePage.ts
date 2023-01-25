@@ -1,4 +1,4 @@
-import './Styles.sass';
+import './ProfilePage.sass';
 // core
 import {section, div, component, a, span} from '@core/tags';
 import {Component} from '@core/component';
@@ -10,7 +10,7 @@ import {location, title} from '@app/constants';
 // local
 import {Item, ProfileState} from './types';
 import {profileState} from './state';
-import {dispatch} from './Logic';
+import {dispatch} from './reducer';
 
 
 export default class ProfilePage extends Component<ProfileState,{}> {

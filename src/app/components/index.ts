@@ -3,7 +3,7 @@ export {default as Input} from './Input/Input';
 export {default as Tooltip} from './Tooltip/Tooltip';
 
 export {default as InfoLine} from './InfoLine/InfoLine';
-export {default as ProfilePhoto} from '../pages/ProfilePage/ProfilePhoto/View';
+export {default as ProfilePhoto} from '../pages/ProfilePage/ProfilePhoto/ProfilePhoto';
 
 export {default as Layout} from './Layout/Layout';
 export {default as Header} from './Header/Header';

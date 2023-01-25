@@ -1,19 +1,20 @@
-import {GetChatsResponse, IWebSocketChat} from '@api/types';
+import {Message} from '@app/types';
 
 export type MessageListState = {
-  showTooltip: boolean;
   load: boolean;
   error: string;
-  chats: GetChatsResponse[];
+  messages: Message[];
   data: {
     search_message: string;
     message: string;
   };
   event?: InputEvent;
-  socket?: IWebSocketChat;
 };
 
 export type MessageListProps = {
-  messages: unknown[];
+  load: boolean;
+  messages: Message[];
   sendMessage: (message: string) => void;
+  onChange: (event: InputEvent) => void;
+  onSubmit: (event: SubmitEvent) => void;
 };

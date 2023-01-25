@@ -1,7 +1,7 @@
 import {main, component, span} from '@core/tags';
 import {Component} from '@core/component';
 import {Layout} from '@app/components';
-import {ErrorProps, ErrorState} from './Types';
+import {ErrorProps, ErrorState} from './types';
 import {title} from '@app/constants';
 
 export default class ErrorPage extends Component<ErrorState, ErrorProps> {

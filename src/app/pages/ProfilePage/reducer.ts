@@ -7,7 +7,7 @@ import {Router} from '@core/router';
 import {error, location} from '@app/constants';
 import {GET_USER, LOGOUT_USER, UPLOAD_PHOTO} from '@app/actions';
 // local
-import {Item, ProfileState} from './Types';
+import {Item, ProfileState} from './types';
 
 function handleError(err: ReasonResponse) {
   const {state} = this as Component<ProfileState, {}>;

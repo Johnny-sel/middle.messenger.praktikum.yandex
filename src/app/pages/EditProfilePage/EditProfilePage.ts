@@ -1,25 +1,26 @@
+import {Layout} from '@app/components';
 // core
 import {section, form, component, a, span} from '@core/tags';
 import {Component} from '@core/component';
 import {Router} from '@core/router';
 // app
-import {CHANGE_INPUT, UPDATE_PASSWORD} from '@app/actions';
-import {Button, Input, Layout} from '@app/components';
+import {CHANGE_INPUT, GET_USER, UPDATE_USER} from '@app/actions';
+import {Button, Input} from '@app/components';
 import {location, title} from '@app/constants';
 import {TInput} from '@app/types';
-import {editPasswordInputs} from '@app/resources';
+import {editProfileInputs} from '@app/resources';
 // local
-import {EditPasswordState} from './Types';
-import {dispatch} from './Logic';
-import {editPasswordState} from './State';
+import {EditProfileState} from './types';
+import {editProfileState} from './state';
+import {dispatch} from './reducer';
 
-export default class EditPasswordPage extends Component<EditPasswordState, {}> {
+export default class EditProfilePage extends Component<EditProfileState, {}> {
   constructor() {
     super();
   }
 
   createState() {
-    return editPasswordState;
+    return editProfileState;
   }
 
   onChange(event: InputEvent): void {
@@ -30,15 +31,18 @@ export default class EditPasswordPage extends Component<EditPasswordState, {}> {
   onSubmit(event: SubmitEvent) {
     event.preventDefault();
     this.state.target = event.target as HTMLButtonElement;
-    dispatch.call(this, UPDATE_PASSWORD);
+    dispatch.call(this, UPDATE_USER);
+  }
+
+  didMount(): void {
+    dispatch.call(this, GET_USER);
   }
 
   create() {
-    const change = this.onChange.bind(this);
     const onSubmit = this.onSubmit.bind(this);
+    const change = this.onChange.bind(this);
 
-    const {data, error, load} = this.state;
-
+    const {data, load, error} = this.state;
     // prettier-ignore
     return (
       component(Layout, {
@@ -46,15 +50,15 @@ export default class EditPasswordPage extends Component<EditPasswordState, {}> {
         children: [
           section('c=section', [
             form('c=form;', [
-              ...editPasswordInputs.map((input: TInput) => {
+              ...editProfileInputs.map((input: TInput) => {
                 const value = (data as any)[input.name];
-                return component(Input, {...input, change, value, load});
+                return component(Input, {...input, change, load, value});
               }),
-              component(Button, {text: 'Change password', onSubmit, load, type: 'submit'}),
+              component(Button, {text: 'Change account', onSubmit, load, type: 'submit'}),
             ]),
             span(`c=${error? 'error':'hidden'};`, [error ?? '']),
             a('c=link;', ['Go to account'], {click: () => Router.to(location.profile)}),
-          ])
+          ]),
       ]})
     );
   }

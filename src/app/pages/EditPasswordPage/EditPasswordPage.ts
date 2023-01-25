@@ -3,25 +3,23 @@ import {section, form, component, a, span} from '@core/tags';
 import {Component} from '@core/component';
 import {Router} from '@core/router';
 // app
-import {CHANGE_INPUT, CREATE_USER} from '@app/actions';
+import {CHANGE_INPUT, UPDATE_PASSWORD} from '@app/actions';
 import {Button, Input, Layout} from '@app/components';
 import {location, title} from '@app/constants';
 import {TInput} from '@app/types';
-import {regInputs} from '@app/resources';
-
+import {editPasswordInputs} from '@app/resources';
 // local
+import {EditPasswordState} from './types';
+import {dispatch} from './reducer';
+import {editPasswordState} from './state';
 
-import {registerState} from './state';
-import {dispatch} from './Logic';
-import {RegisterState} from './Types';
-
-export default class RegisterPage extends Component<RegisterState, {}> {
+export default class EditPasswordPage extends Component<EditPasswordState, {}> {
   constructor() {
     super();
   }
 
   createState() {
-    return registerState;
+    return editPasswordState;
   }
 
   onChange(event: InputEvent): void {
@@ -29,33 +27,33 @@ export default class RegisterPage extends Component<RegisterState, {}> {
     dispatch.call(this, CHANGE_INPUT);
   }
 
-  onSubmit(event: InputEvent): void {
+  onSubmit(event: SubmitEvent) {
     event.preventDefault();
     this.state.target = event.target as HTMLButtonElement;
-    dispatch.call(this, CREATE_USER);
+    dispatch.call(this, UPDATE_PASSWORD);
   }
 
   create() {
-    const {error, load, data} = this.state;
-
-    const onSubmit = this.onSubmit.bind(this);
     const change = this.onChange.bind(this);
+    const onSubmit = this.onSubmit.bind(this);
+
+    const {data, error, load} = this.state;
 
     // prettier-ignore
     return (
       component(Layout, {
-        title: title.registration,
+        title: title.passwordEdit,
         children: [
-          section('c=section;', [
+          section('c=section', [
             form('c=form;', [
-              ...regInputs.map((input: TInput) => {
-                const value = (data as any)[input.name]
+              ...editPasswordInputs.map((input: TInput) => {
+                const value = (data as any)[input.name];
                 return component(Input, {...input, change, value, load});
               }),
-              component(Button, {text: 'Create account', onSubmit, type: 'submit', load}),
+              component(Button, {text: 'Change password', onSubmit, load, type: 'submit'}),
             ]),
             span(`c=${error? 'error':'hidden'};`, [error ?? '']),
-            a('c=link;', ['Go to login'], {click: () => Router.to(location.root)}),
+            a('c=link;', ['Go to account'], {click: () => Router.to(location.profile)}),
           ])
       ]})
     );

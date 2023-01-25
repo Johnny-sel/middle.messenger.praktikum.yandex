@@ -1,4 +1,4 @@
-import {isArr} from '../utils';
+import {isArr, isObject} from '../utils';
 import {parseAttrs} from './parse';
 import {FunctionVirtualNode, IComponentConstructable, VirtualNode} from '../types';
 
@@ -29,7 +29,8 @@ function createVirtualNode(tag: string): FunctionVirtualNode {
 
     if (args.length === 2) {
       attrsStr = args[0];
-      children = args[1];
+      children = isArr(args[1]) ? args[1] : [];
+      handlers = isObject(args[1]) ? args[1] : [];
     }
 
     if (args.length === 3) {
@@ -40,7 +41,7 @@ function createVirtualNode(tag: string): FunctionVirtualNode {
 
     const attrs = parseAttrs(attrsStr);
 
-    return {tag, attrs, children, handlers, HTMLElement: undefined};
+    return {tag, attrs, children, handlers, HTMLElement: undefined, props: undefined};
   };
 }
 

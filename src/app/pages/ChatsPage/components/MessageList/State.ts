@@ -1,13 +1,11 @@
-import {MessageListState} from './Types';
+import {MessageListState} from './types';
 
 export const messageListState: MessageListState = {
-  showTooltip: false,
   load: false,
-  chats: [],
   error: '',
+  messages: [],
   data: {
     search_message: '',
     message: '',
   },
-  socket: undefined,
 };

@@ -6,7 +6,7 @@ import {Component} from '@core/component';
 import {Router} from '@core/router';
 import {ReasonResponse} from '@api/types';
 import {CHANGE_INPUT, UPDATE_PASSWORD} from '@app/actions';
-import {EditPasswordState} from './Types';
+import {EditPasswordState} from './types';
 
 function handleError(err: ReasonResponse) {
   const {state} = this as Component<EditPasswordState, {}>;

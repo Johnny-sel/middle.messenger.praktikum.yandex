@@ -2,11 +2,11 @@ import {onChange} from '@app/functions';
 import {Component} from '@core/component';
 import {ReasonResponse} from '@api/types';
 import {error} from '@app/constants';
-import {ChatListState} from './State';
+import {ChatListState} from './state';
 import {CHANGE_INPUT, CREATE_CHAT, GET_CHATS, OPEN_CHAT, SWITCH_TOOLTIP} from '@app/actions';
 import {Chat} from '@api/repositories';
 import {WebSocketChat} from '@api/websocket/chat';
-import {ChatListProps} from './View';
+import {ChatListProps} from './ChatList';
 
 function handleError(err: ReasonResponse) {
   const {state} = this as Component<ChatListState, ChatListProps>;

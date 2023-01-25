@@ -21,11 +21,11 @@ export abstract class Component<State, Props> implements IComponent<State, Props
 
   _init(props: Props) {
     this.props = props;
+
     this.vNodeCurrent = this.create();
     this.vNodeCurrent.attrs['data-comp'] = this.componentId;
 
     this._observer(this.componentId);
-
     return this.vNodeCurrent;
   }
 
@@ -107,7 +107,7 @@ export abstract class Component<State, Props> implements IComponent<State, Props
       const element = createHTMLElement(child);
 
       child.HTMLElement = element;
-      vNode.HTMLElement!.appendChild(element);
+      vNode.HTMLElement?.appendChild(element);
     });
   }
 
@@ -213,6 +213,7 @@ export abstract class Component<State, Props> implements IComponent<State, Props
 
   /* eslint-disable */
   didMount() {}
+  didUpdate() {}
   unMount() {}
 
   abstract create(): VirtualNode;

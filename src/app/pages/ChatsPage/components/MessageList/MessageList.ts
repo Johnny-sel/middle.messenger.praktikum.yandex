@@ -1,13 +1,14 @@
-import './Styles.sass';
+import './MessageList.sass';
 
-import {button, component, footer, header, main, section} from '@core/tags';
+import {button, component, footer, header, main, section, span} from '@core/tags';
 import {Component} from '@core/component';
 import {Input} from '@app/components';
 import {Router} from '@core/router';
 import {location, name} from '@app/constants';
 import {inputs} from '@app/resources';
-import {messageListState} from './State';
-import {MessageListProps, MessageListState} from './Types';
+import {messageListState} from './state';
+import {MessageListProps, MessageListState} from './types';
+import {Message} from '../index';
 
 const {searchMessage, sendMessage} = name;
 
@@ -23,23 +24,13 @@ export default class MessageList extends Component<MessageListState, MessageList
     return messageListState;
   }
 
-  onChange(event: InputEvent) {
-    const name = (event.target as any).name;
-    const value = (event.target as any).value;
-    this.state.data = {...this.state.data, [name]: value};
-  }
-
-  onSubmit() {
-    this.props.sendMessage(this.state.data.message);
-  }
-
   create() {
     const {data} = this.state;
-    const {messages} = this.props;
-    console.log('messages:', messages);
+    const {messages, load, onChange, onSubmit} = this.props;
 
-    const onChange = this.onChange.bind(this);
-    const onSubmit = this.onSubmit.bind(this);
+    const openHidden = messages.length > 0 || load ? 'hidden' : '';
+    const loadHidden = load ? '' : 'hidden';
+    const center = !openHidden || load ? 'center' : '';
 
     // prettier-ignore
     return (
@@ -57,8 +48,12 @@ export default class MessageList extends Component<MessageListState, MessageList
           ),
         ]),
         // middle
-        main('c=chats__messages__message_items;', [
-
+        main(`c=chats__messages__message_items ${center}; id=messages`, [
+          span(`c=chats__messages__message_items__info ${openHidden};`, ['Open any chat']),
+          span(`c=chats__messages__message_items__info ${loadHidden};`, ['Loading messages...']),
+          ...messages.map(message =>{
+            return component(Message, {...message });
+          })
         ]),
         // bottom
         footer('c=chats__messages__footer;', [
@@ -80,7 +75,7 @@ export default class MessageList extends Component<MessageListState, MessageList
               t=button;
               n=send message;
             `,
-            [], {click: onSubmit}
+            {click: onSubmit}
           ),
         ]),
       ])

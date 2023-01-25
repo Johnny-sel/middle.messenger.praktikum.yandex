@@ -27,7 +27,7 @@ export default class Input extends Component<{}, any> {
           pt=${pattern};
           ${load ? "di=" :''};
         `, 
-        [], {input: change},
+        {input: change},
         ),
         span(`c=input_group__error${hidden};`, [error]),
       ])

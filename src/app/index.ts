@@ -9,10 +9,12 @@ import {
   EditPasswordPage,
   ErrorPage,
   ChatsPage,
+  TestPage,
 } from '@app/pages';
 
 function initApp() {
   const routes = [
+    {path: '/test', component: TestPage},
     {path: location.root, component: LoginPage},
     {path: location.error, component: ErrorPage},
     {path: location.chats, component: ChatsPage},
@@ -33,4 +35,3 @@ function initApp() {
 }
 
 initApp();
-// testApi();

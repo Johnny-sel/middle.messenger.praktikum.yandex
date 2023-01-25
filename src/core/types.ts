@@ -5,6 +5,7 @@ export type VirtualNode = {
   handlers: object;
   tag: string;
   HTMLElement?: HTMLElement | Text;
+  props?: unknown
 };
 
 export type FunctionVirtualNode = (...args: any[]) => VirtualNode;
@@ -49,6 +50,7 @@ export interface IComponent<State, Props> {
 
   createState(): State;
   create(): VirtualNode;
+  didUpdate(): void;
   didMount(): void;
   unMount(): void;
 

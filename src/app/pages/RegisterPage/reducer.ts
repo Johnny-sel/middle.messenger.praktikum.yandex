@@ -11,7 +11,7 @@ import {validateForm} from '@app/utils';
 import {CHANGE_INPUT, CREATE_USER} from '@app/actions';
 import {comparePasswords} from '@app/utils';
 // local
-import {RegisterState} from './Types';
+import {RegisterState} from './types';
 
 function handleError(err: ReasonResponse) {
   const {state} = this as Component<RegisterState,{}>;

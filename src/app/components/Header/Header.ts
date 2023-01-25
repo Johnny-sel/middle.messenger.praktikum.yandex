@@ -32,7 +32,7 @@ export default class Header extends Component<{title: string}, {title: string}> 
     return (
       header('c=header;', [
         div('c=header__logo logo;', [
-          img(`c=logo_image; src=${headerLogo}; alt=logo;`, [], {
+          img(`c=logo_image; src=${headerLogo}; alt=logo;`, {
             click: goToMainPage,
           }),
         ]),
@@ -40,7 +40,7 @@ export default class Header extends Component<{title: string}, {title: string}> 
           h1('c=header__greet__title title;', [this.props?.title ?? this.state.title]),
         ]),
         nav('c=header__links;', [
-          button(`c=header__links__profile_button; n=profile; t=button`, [], {
+          button(`c=header__links__profile_button; n=profile; t=button`, {
             click: goToProfilePage,
           }),
         ]),

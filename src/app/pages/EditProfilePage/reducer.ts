@@ -1,4 +1,4 @@
-import {EditProfileState} from './Types';
+import {EditProfileState} from './types';
 import {Auth, User} from '@api/repositories';
 import {location, error} from '@app/constants';
 import {onChange} from '@app/functions';

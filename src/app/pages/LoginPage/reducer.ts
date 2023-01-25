@@ -1,4 +1,4 @@
-import {LoginState} from './Types';
+import {LoginState} from './types';
 import {Auth} from '@api/repositories';
 import {location, error} from '@app/constants';
 import {onChange} from '@app/functions';
