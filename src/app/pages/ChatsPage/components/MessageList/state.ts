@@ -4,7 +4,7 @@ export const messageListState: MessageListState = {
   load: false,
   error: '',
   messages: [],
-  data: {
+  inputData: {
     search_message: '',
     message: '',
   },

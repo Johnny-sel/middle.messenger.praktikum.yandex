@@ -1,4 +1,5 @@
 export const CHANGE_INPUT = 'CHANGE_INPUT';
+export const CLEAR_INPUT = 'CLEAR_INPUT';
 export const GET_USER = 'GET_USER';
 export const LOGIN_USER = 'LOGIN_USER';
 export const LOGOUT_USER = 'LOGOUT_USER';
@@ -10,3 +11,6 @@ export const SWITCH_TOOLTIP = 'SWITCH_TOOLTIP';
 export const CREATE_CHAT = 'CREATE_CHAT';
 export const GET_CHATS = 'GET_CHATS';
 export const OPEN_CHAT = 'OPEN_CHAT';
+export const CONNECT_WEBSOCKET = 'CONNECT_WEBSOCKET';
+export const SEND_MESSAGE = 'SEND_MESSAGE';
+export const SCROLL_BOTTOM = 'SCROLL_BOTTOM';

@@ -5,9 +5,9 @@ export interface IWebSocketChat {
 }
 
 export interface IConnectFunction {
-  chatId: string;
-  getMessages: Function;
+  chatId: number;
+  messages: Function;
   opened: Function;
-  closed: Function;
-  failed: Function;
+  closed?: Function;
+  failed?: Function;
 }

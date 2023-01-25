@@ -36,7 +36,7 @@ async function dispatch(type: string) {
         state.load = true;
         if (!validateForm(form!)) return;
 
-        await Auth.signin(state.data);
+        await Auth.signin(state.inputData);
         Router.to(location.chats);
         break;
       }

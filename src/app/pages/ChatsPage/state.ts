@@ -3,8 +3,11 @@ import {ChatPageState} from './types';
 export const chatPageState: ChatPageState = {
   load: false,
   messages: [],
+  chats: [],
+  selectedChatId: 0,
+  error: '',
   socket: undefined,
-  data: {
+  inputData: {
     search_message: '',
     message: '',
   },

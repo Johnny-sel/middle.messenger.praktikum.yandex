@@ -4,7 +4,7 @@ export type EditProfileState = {
   load: boolean;
   error?: string;
   user?: GetUserResponse;
-  data: UpdateProfileRequest;
+  inputData: UpdateProfileRequest;
   target?: HTMLButtonElement;
   event?: InputEvent;
 };

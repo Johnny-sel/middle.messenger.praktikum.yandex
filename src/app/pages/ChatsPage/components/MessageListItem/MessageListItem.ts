@@ -1,7 +1,8 @@
-import './Message.sass';
+import './MessageListItem.sass';
 
 import {div, span} from '@core/tags';
 import {Component} from '@core/component';
+import {parseDate} from '@app/utils';
 import {MessageProps} from './types';
 
 export default class Message extends Component<{}, MessageProps> {
@@ -10,11 +11,12 @@ export default class Message extends Component<{}, MessageProps> {
   }
 
   create() {
-    const {content, time} = this.props;
+    const {content, time: datetime} = this.props;
+    const {date, time} = parseDate(datetime);
     // prettier-ignore
     return (
       div('c=message;', [
-        span('c=message__title;', [time]),
+        span('c=message__title;', [`${date}  ${time}`]),
         span('c=message__content;', [content]),
       ])
     );

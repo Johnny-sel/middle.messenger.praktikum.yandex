@@ -1,6 +1,11 @@
 import {api} from '..';
-import {GetChatsRequest, GetChatsResponse, CreateChatsRequest, ChatIdResponse} from '../types';
-import {GetChatToken} from '../types/response/GetChatToken';
+import {
+  GetChatsRequest,
+  GetChatsResponse,
+  CreateChatsRequest,
+  ChatIdResponse,
+  GetChatTokenResponse,
+} from '../types';
 
 const Chat = {
   getChats: (body?: GetChatsRequest): Promise<GetChatsResponse[]> => {
@@ -9,7 +14,7 @@ const Chat = {
   createChat: (body?: CreateChatsRequest): Promise<ChatIdResponse> => {
     return api.post('/chats', body);
   },
-  getToken: (chatId?: string): Promise<GetChatToken> => {
+  getToken: (chatId?: number): Promise<GetChatTokenResponse> => {
     return api.post(`/chats/token/${chatId}`);
   },
 };

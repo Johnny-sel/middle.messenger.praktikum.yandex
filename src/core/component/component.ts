@@ -66,12 +66,12 @@ export abstract class Component<State, Props> implements IComponent<State, Props
         break;
       }
 
-      if (isArr<unknown>(vNodePrev.children)) {
+      if (isArr(vNodePrev.children)) {
         vNodePrevLast = vNodePrev;
         stackPrev.push(...(vNodePrev.children as []));
       }
 
-      if (isArr<unknown>(vNodeNext.children)) {
+      if (isArr(vNodeNext.children)) {
         vNodeNextLast = vNodeNext;
         stackNext.push(...(vNodeNext.children as []));
       }

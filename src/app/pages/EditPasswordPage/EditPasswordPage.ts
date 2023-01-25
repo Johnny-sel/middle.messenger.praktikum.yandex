@@ -37,7 +37,7 @@ export default class EditPasswordPage extends Component<EditPasswordState, {}> {
     const change = this.onChange.bind(this);
     const onSubmit = this.onSubmit.bind(this);
 
-    const {data, error, load} = this.state;
+    const {inputData, error, load} = this.state;
 
     // prettier-ignore
     return (
@@ -47,7 +47,7 @@ export default class EditPasswordPage extends Component<EditPasswordState, {}> {
           section('c=section', [
             form('c=form;', [
               ...editPasswordInputs.map((input: TInput) => {
-                const value = (data as any)[input.name];
+                const value = (inputData as any)[input.name];
                 return component(Input, {...input, change, value, load});
               }),
               component(Button, {text: 'Change password', onSubmit, load, type: 'submit'}),

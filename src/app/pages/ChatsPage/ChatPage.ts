@@ -8,7 +8,15 @@ import {Component} from '@core/component';
 import {chatPageState} from './state';
 import {ChatList, MessageList} from './components';
 import {ChatPageState} from './types';
-import {isArr} from '@core/utils';
+import {
+  CHANGE_INPUT,
+  CLEAR_INPUT,
+  CONNECT_WEBSOCKET,
+  GET_CHATS,
+  SCROLL_BOTTOM,
+  SEND_MESSAGE,
+} from '@app/actions';
+import {dispatch} from './reducer';
 
 export default class ChatsPage extends Component<ChatPageState, {}> {
   constructor() {
@@ -20,46 +28,32 @@ export default class ChatsPage extends Component<ChatPageState, {}> {
   }
 
   scrollBottom() {
-    const div = document.querySelector('#messages')!;
-    div.scrollTop = div.scrollHeight;
+    dispatch.call(this, SCROLL_BOTTOM);
   }
 
-  async setWebSocketChat(socket: IWebSocketChat, chatId: string) {
-    this.state.load = true;
-    this.state.messages = [];
-    this.state.socket = await socket.connect({
-      chatId: chatId,
-      getMessages: (ev: MessageEvent<any>) => {
-        const data = JSON.parse(ev.data);
-        this.state.messages = isArr(data) ? (data as []).reverse() : [...this.state.messages, data];
-        this.state.load = false;
-        this.scrollBottom();
-      },
-      opened: () => {
-        console.log('socket opened:');
-        this.state.socket?.getMessages();
-      },
-      closed: () => {
-        console.log('socket closed:');
-      },
-      failed: () => {
-        console.log('socket errro:');
-      },
-    });
+  clearInput() {
+    dispatch.call(this, CLEAR_INPUT);
+  }
+
+  setWebSocketChat(socket: IWebSocketChat, chatId: number) {
+    dispatch.call(this, CONNECT_WEBSOCKET, {socket, chatId});
   }
 
   onChange(event: InputEvent) {
-    const name = (event.target as any).name;
-    const value = (event.target as any).value;
-    this.state.data = {...this.state.data, [name]: value};
+    this.state.event = event;
+    dispatch.call(this, CHANGE_INPUT);
   }
 
   onSubmit() {
-    this.state.socket?.sendMessage(this.state.data.message);
+    dispatch.call(this, SEND_MESSAGE);
+  }
+
+  didMount() {
+    dispatch.call(this, GET_CHATS);
   }
 
   create() {
-    const {messages, load} = this.state;
+    const {messages, load, inputData, chats} = this.state;
 
     const setWebSocketChat = this.setWebSocketChat.bind(this);
     const onChange = this.onChange.bind(this);
@@ -68,10 +62,8 @@ export default class ChatsPage extends Component<ChatPageState, {}> {
     // prettier-ignore
     return (
       div('c=chats;', [
-        // Left side
-        component(ChatList, {setWebSocketChat}),
-        // Messages
-        component(MessageList, {messages, load, onChange, onSubmit}),
+        component(ChatList, {setWebSocketChat, chats}),
+        component(MessageList, {messages, load, onChange, onSubmit, inputData}),
       ])
     );
   }

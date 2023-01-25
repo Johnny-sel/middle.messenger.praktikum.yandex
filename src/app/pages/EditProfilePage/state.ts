@@ -8,7 +8,7 @@ const editProfileState: EditProfileState = {
   load: false,
   error: '',
   user: undefined,
-  data: {
+  inputData: {
     [email]: '',
     [login]: '',
     [firstName]: '',

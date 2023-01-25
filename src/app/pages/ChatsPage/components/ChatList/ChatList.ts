@@ -7,18 +7,14 @@ import {Router} from '@core/router';
 import {Input, ChatListItem, Tooltip} from '@app/components';
 import {location, name} from '@app/constants';
 import {inputs} from '@app/resources';
-import {CHANGE_INPUT, CREATE_CHAT, GET_CHATS, OPEN_CHAT, SWITCH_TOOLTIP} from '@app/actions';
+import {CHANGE_INPUT, CREATE_CHAT, OPEN_CHAT, SWITCH_TOOLTIP} from '@app/actions';
 // local
-import {chatListState, ChatListState} from './state';
+import {chatListState} from './state';
 import {dispatch} from './reducer';
-import {IWebSocketChat} from '@api/types';
+import {ChatListProps, ChatListState} from './types';
 
 const searchChatInput = inputs.find((e) => e.name === name.searchChat);
 const titleInput = inputs.find((e) => e.name === name.title);
-
-export type ChatListProps = {
-  setWebSocketChat: (socket: IWebSocketChat, chatId: string) => void;
-};
 
 export default class ChatList extends Component<ChatListState, ChatListProps> {
   constructor() {
@@ -34,7 +30,7 @@ export default class ChatList extends Component<ChatListState, ChatListProps> {
     dispatch.call(this, CHANGE_INPUT);
   }
 
-  onToogleTooltip() {
+  switchTooltip() {
     dispatch.call(this, SWITCH_TOOLTIP);
   }
 
@@ -46,15 +42,13 @@ export default class ChatList extends Component<ChatListState, ChatListProps> {
     dispatch.call(this, OPEN_CHAT, chatId);
   }
 
-  didMount() {
-    dispatch.call(this, GET_CHATS);
-  }
-
   create() {
-    const {data, showTooltip, chats} = this.state;
+    const {inputData, showTooltip, selectedChatId} = this.state;
+    const {chats} = this.props;
+;
 
     const onChange = this.onChange.bind(this);
-    const switchTooltip = this.onToogleTooltip.bind(this);
+    const switchTooltip = this.switchTooltip.bind(this);
     const createChat = this.createChat.bind(this);
     const openChat = this.openChat.bind(this);
 
@@ -72,7 +66,7 @@ export default class ChatList extends Component<ChatListState, ChatListProps> {
             ...searchChatInput,
             showError: false,
             change: onChange,
-            value: data['search_chat'],
+            value: inputData['search_chat'],
             className: 'chats__list__header_search',
           }),
           button('c=chats__list__header_search__account button; t=button; n=account',
@@ -82,7 +76,8 @@ export default class ChatList extends Component<ChatListState, ChatListProps> {
         // chats items
         ul('c=chats__list__items;', [
           ...chats?.map((chat) => {
-            return component(ChatListItem, {chat, onClick: openChat});
+            const active = chat.id === selectedChatId;
+            return component(ChatListItem, {chat, active, onClick: openChat});
           }),
         ]),
         // footer aside
@@ -94,14 +89,13 @@ export default class ChatList extends Component<ChatListState, ChatListProps> {
                 ...titleInput,
                 change: onChange,
                 showError: false,
-                value: data['title'],
+                value: inputData['title'],
                 className: 'tooltip__input',
               }),
               button('c=tooltip__button button; t=button; n=create chat', {click: createChat}),
           ]}),
           button(`
-              c=chats__list__footer__add_chat${showTooltip ? '--cancel' : ''} 
-              button; 
+              c=chats__list__footer__add_chat${showTooltip ? '--cancel' : ''} button; 
               t=button; 
               n=add chat;
             `,

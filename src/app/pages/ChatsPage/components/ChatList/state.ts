@@ -1,24 +1,11 @@
-import {GetChatsResponse, IWebSocketChat} from '@api/types';
-
-export type ChatListState = {
-  showTooltip: boolean;
-  load: boolean;
-  error: string;
-  chats: GetChatsResponse[];
-  data: {
-    title: string;
-    search_chat: string;
-  };
-  event?: InputEvent;
-  socket?: IWebSocketChat;
-};
+import {ChatListState} from './types';
 
 export const chatListState: ChatListState = {
   showTooltip: false,
   load: false,
-  chats: [],
   error: '',
-  data: {
+  selectedChatId: 0,
+  inputData: {
     title: '',
     search_chat: '',
   },

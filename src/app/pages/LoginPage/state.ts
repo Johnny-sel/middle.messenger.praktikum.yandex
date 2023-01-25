@@ -7,7 +7,7 @@ const {login, password} = name;
 const loginState: LoginState = {
   load: false,
   error: '',
-  data: {
+  inputData: {
     [login]: '',
     [password]: '',
   } as SigninRequest,

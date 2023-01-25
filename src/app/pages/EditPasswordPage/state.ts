@@ -7,7 +7,7 @@ const {oldPassword, newPassword} = name;
 const editPasswordState: EditPasswordState = {
   load: false,
   error: '',
-  data: {
+  inputData :{
     [oldPassword]: '',
     [newPassword]: '',
   } as UpdatePasswordRequest,

@@ -42,7 +42,7 @@ export default class EditProfilePage extends Component<EditProfileState, {}> {
     const onSubmit = this.onSubmit.bind(this);
     const change = this.onChange.bind(this);
 
-    const {data, load, error} = this.state;
+    const {inputData, load, error} = this.state;
     // prettier-ignore
     return (
       component(Layout, {
@@ -51,7 +51,7 @@ export default class EditProfilePage extends Component<EditProfileState, {}> {
           section('c=section', [
             form('c=form;', [
               ...editProfileInputs.map((input: TInput) => {
-                const value = (data as any)[input.name];
+                const value = (inputData as any)[input.name];
                 return component(Input, {...input, change, load, value});
               }),
               component(Button, {text: 'Change account', onSubmit, load, type: 'submit'}),

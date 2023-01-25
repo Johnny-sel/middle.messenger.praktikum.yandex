@@ -2,6 +2,7 @@
 export type {GetChatsResponse, ChatIdResponse} from './repositires/response/GetChatsResponse';
 export type {GetUserResponse, UserIdResponse} from './repositires/response/GetUserResponse';
 export type {ReasonResponse} from './repositires/response/ReasonResponse';
+export type {GetChatTokenResponse} from './repositires/response/GetChatTokenResponse';
 
 // request
 export type {CreateChatsRequest} from './repositires/request/CreateChatsRequest';

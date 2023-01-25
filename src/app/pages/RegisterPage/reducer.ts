@@ -34,9 +34,9 @@ async function dispatch(type: string) {
         state.load = true;
 
         if (!validateForm(form!)) return;
-        if (!comparePasswords(state.data)) throw 'Passwords not match';
+        if (!comparePasswords(state.inputData)) throw 'Passwords not match';
 
-        await Auth.signup(state.data);
+        await Auth.signup(state.inputData);
         Router.to(location.chats);
         break;
       }

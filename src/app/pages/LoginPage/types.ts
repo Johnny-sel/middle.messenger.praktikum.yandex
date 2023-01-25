@@ -3,7 +3,7 @@ import {SigninRequest} from '@api/types';
 export type LoginState = {
   load: boolean;
   error?: string;
-  data: SigninRequest;
+  inputData: SigninRequest;
   target?: HTMLButtonElement;
   event?: InputEvent;
 };

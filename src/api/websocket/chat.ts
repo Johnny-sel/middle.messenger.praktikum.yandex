@@ -1,3 +1,5 @@
+import {Message} from './../../app/types/index';
+import {isArr} from '@core/utils';
 import {Auth} from '../repositories/auth';
 import {Chat} from '../repositories/chat';
 import {IConnectFunction, IWebSocketChat} from '../types/websocket';
@@ -25,7 +27,7 @@ export class WebSocketChat implements IWebSocketChat {
     this.socket?.send(JSON.stringify({content: message, type: 'message'}));
   }
 
-  async connect({chatId, getMessages, opened, closed, failed}: IConnectFunction) {
+  async connect({chatId, messages, opened, closed, failed}: IConnectFunction) {
     if (this.socket?.readyState === WebSocket.OPEN) {
       this.clearInterval();
       this.disconnect();
@@ -39,7 +41,9 @@ export class WebSocketChat implements IWebSocketChat {
     this.socket = new WebSocket(WEB_socket_URL);
 
     this.socket.addEventListener('message', (ev) => {
-      getMessages(ev);
+      const data = JSON.parse(ev.data);
+      const message: Message[] = isArr(data) ? (data as []).reverse() : data;
+      messages(message);
     });
 
     this.socket?.addEventListener('open', () => {
@@ -48,11 +52,11 @@ export class WebSocketChat implements IWebSocketChat {
     });
 
     this.socket?.addEventListener('close', () => {
-      closed();
+      closed && closed();
     });
 
     this.socket?.addEventListener('error', () => {
-      failed();
+      failed && failed();
     });
 
     return this;

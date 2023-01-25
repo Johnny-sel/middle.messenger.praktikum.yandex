@@ -8,7 +8,7 @@ export interface GetChatsResponse {
 
 export interface LastMessage {
   user: User;
-  time: Date;
+  time: string;
   content: string;
 }
 

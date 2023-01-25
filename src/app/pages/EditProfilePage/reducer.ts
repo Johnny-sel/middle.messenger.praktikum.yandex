@@ -29,9 +29,9 @@ async function dispatch(type: string) {
         state.load = true;
         state.user = await Auth.user();
 
-        for (const prop in state.data) {
-          if (!state.data.hasOwnProperty(prop)) continue;
-          (state.data as any)[prop] = (state.user as any)[prop] ?? '';
+        for (const prop in state.inputData) {
+          if (!state.inputData.hasOwnProperty(prop)) continue;
+          (state.inputData as any)[prop] = (state.user as any)[prop] ?? '';
         }
 
         break;
@@ -41,7 +41,7 @@ async function dispatch(type: string) {
         state.load = true;
         if (!validateForm(form!)) return;
 
-        await User.updateProfile(state.data);
+        await User.updateProfile(state.inputData);
         Router.to(location.profile);
 
         break;

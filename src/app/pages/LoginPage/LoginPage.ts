@@ -38,7 +38,7 @@ export default class LoginPage extends Component<LoginState, {}> {
   }
 
   create() {
-    const {error, load, data} = this.state;
+    const {error, load, inputData} = this.state;
 
     const change = this.onChange.bind(this);
     const onSubmit = this.onSubmit.bind(this);
@@ -54,7 +54,7 @@ export default class LoginPage extends Component<LoginState, {}> {
             span('c=text;', ['Welcom to online messeger']),
             form('c=form; a=s;', [
               ...loginInputs.map((input: TInput) => {
-                const value = (data as any)[input.name];
+                const value = (inputData as any)[input.name];
                 return component(Input, {...input, change, load, value});
               }),
               component(Button, {text: 'Login', onSubmit, load, type: 'submit'}),

@@ -1,4 +1,4 @@
-function isArr<T>(arr: T[]): boolean {
+function isArr(arr: unknown): boolean {
   return Array.isArray(arr);
 }
 
@@ -24,6 +24,5 @@ function isObject(item: any): boolean {
   }
   return false;
 }
-
 
 export {isArr, isStr, isNum, isFunc, isObject};

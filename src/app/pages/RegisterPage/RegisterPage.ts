@@ -36,7 +36,7 @@ export default class RegisterPage extends Component<RegisterState, {}> {
   }
 
   create() {
-    const {error, load, data} = this.state;
+    const {error, load, inputData} = this.state;
 
     const onSubmit = this.onSubmit.bind(this);
     const change = this.onChange.bind(this);
@@ -49,7 +49,7 @@ export default class RegisterPage extends Component<RegisterState, {}> {
           section('c=section;', [
             form('c=form;', [
               ...regInputs.map((input: TInput) => {
-                const value = (data as any)[input.name]
+                const value = (inputData as any)[input.name]
                 return component(Input, {...input, change, value, load});
               }),
               component(Button, {text: 'Create account', onSubmit, type: 'submit', load}),

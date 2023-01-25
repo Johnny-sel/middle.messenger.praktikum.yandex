@@ -1,7 +1,7 @@
 import { name } from "@app/constants";
 
-function comparePasswords(data: any): boolean {
-  return data[name.confirmPassword] === data[name.password];
+function comparePasswords(inputData any): boolean {
+  return inputData[name.confirmPassword] === inputData[name.password];
 }
 
 export {comparePasswords};

@@ -87,6 +87,7 @@ const error = {
   oldPassword: 'Invalid password',
   newPassword: 'Invalid password',
   title: 'Invalid title',
+  unknown: 'Unknown error',
 };
 
 const type = {

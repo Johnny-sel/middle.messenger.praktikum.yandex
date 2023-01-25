@@ -2,7 +2,7 @@ import {lastIndex} from '@core/utils';
 
 const METHODS = {GET: 'GET', POST: 'POST', PUT: 'PUT', DELETE: 'DELETE'};
 
-function queryStringify(data: object) {
+function queryStringify(inputData object) {
   if (typeof data !== 'object') {
     throw new Error('Data must be object');
   }

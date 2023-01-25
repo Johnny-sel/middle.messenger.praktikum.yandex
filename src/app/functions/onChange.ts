@@ -4,7 +4,7 @@ function onChange(event: InputEvent) {
   const name = (event.target as any).name;
   const value = (event.target as any).value;
 
-  this.state.data = {...this.state.data, [name]: value};
+  this.state.inputData = {...this.state.inputData, [name]: value};
 }
 
 export {onChange};

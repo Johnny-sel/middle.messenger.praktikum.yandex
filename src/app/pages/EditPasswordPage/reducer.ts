@@ -29,7 +29,7 @@ async function dispatch(type: string) {
         state.load = true;
         if (!validateForm(form!)) return;
 
-        await User.updatePassword(state.data);
+        await User.updatePassword(state.inputData);
         Router.to(location.profile);
 
         break;

@@ -2,11 +2,9 @@ import {onChange} from '@app/functions';
 import {Component} from '@core/component';
 import {ReasonResponse} from '@api/types';
 import {error} from '@app/constants';
-import {ChatListState} from './state';
-import {CHANGE_INPUT, CREATE_CHAT, GET_CHATS, OPEN_CHAT, SWITCH_TOOLTIP} from '@app/actions';
-import {Chat} from '@api/repositories';
+import {CHANGE_INPUT, CREATE_CHAT, OPEN_CHAT, SWITCH_TOOLTIP} from '@app/actions';
 import {WebSocketChat} from '@api/websocket/chat';
-import {ChatListProps} from './ChatList';
+import {ChatListProps, ChatListState} from './types';
 
 function handleError(err: ReasonResponse) {
   const {state} = this as Component<ChatListState, ChatListProps>;
@@ -35,15 +33,11 @@ async function dispatch(type: string, payload: unknown) {
         break;
       }
 
-      case GET_CHATS: {
-        state.load = true;
-        state.chats = await Chat.getChats();
-        break;
-      }
-
       case OPEN_CHAT: {
+        const chatId = payload as number;
+        state.selectedChatId = chatId;
         state.socket = WebSocketChat.instance;
-        props.setWebSocketChat(state.socket, payload as string); // pass to parent component
+        props.setWebSocketChat(state.socket, chatId); // pass to parent component
         break;
       }
     }

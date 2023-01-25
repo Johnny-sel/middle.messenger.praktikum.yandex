@@ -6,8 +6,7 @@ import {Input} from '@app/components';
 import {Router} from '@core/router';
 import {location, name} from '@app/constants';
 import {inputs} from '@app/resources';
-import {messageListState} from './state';
-import {MessageListProps, MessageListState} from './types';
+import {MessageListProps} from './types';
 import {Message} from '../index';
 
 const {searchMessage, sendMessage} = name;
@@ -15,18 +14,13 @@ const {searchMessage, sendMessage} = name;
 const searchMessageInput = inputs.find((e) => e.name === searchMessage);
 const sendMessageInput = inputs.find((e) => e.name === sendMessage);
 
-export default class MessageList extends Component<MessageListState, MessageListProps> {
+export default class MessageList extends Component<{}, MessageListProps> {
   constructor() {
     super();
   }
 
-  createState() {
-    return messageListState;
-  }
-
   create() {
-    const {data} = this.state;
-    const {messages, load, onChange, onSubmit} = this.props;
+    const {messages, load, inputData, onChange, onSubmit} = this.props;
 
     const openHidden = messages.length > 0 || load ? 'hidden' : '';
     const loadHidden = load ? '' : 'hidden';
@@ -40,7 +34,7 @@ export default class MessageList extends Component<MessageListState, MessageList
           component(Input, {
             ...searchMessageInput,
             change: onChange,
-            value: data['search_message'],
+            value: inputData['search_message'],
             className: 'chats__messages__header__search',
           }),
           button('c=chats__messages__header__account button; t=button; n=account', [],
@@ -67,7 +61,7 @@ export default class MessageList extends Component<MessageListState, MessageList
           component(Input, {
             ...sendMessageInput,
             change: onChange,
-            value: data['message'],
+            value: inputData['message'],
             className: 'chats__messages__footer__message',
           }),
           button(`
