@@ -59,6 +59,7 @@ export interface IComponent<State, Props> {
   unMount(): void;
 
   _init(props?: Props): VirtualNode;
+  _reCreate(props?: Props): VirtualNode;
   _getProxyState(state: State): State;
   _interception(state: Record<string, unknown>, prop: string, newValue: any): boolean;
   _injectHTML(): void;

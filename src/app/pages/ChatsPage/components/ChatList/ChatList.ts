@@ -87,12 +87,12 @@ export default class ChatList extends Component<ChatListState, ChatListProps> {
         // footer aside
         footer('c=chats__list__footer;', [
           component.call(this, Tooltip, {
-            key: 2,
+            key: '2',
             show: showTooltip, 
             children: [
               component.call(this, Input, {
                 ...titleInput,
-                key: 3,
+                key: '3',
                 change: onChange,
                 showError: false,
                 value: inputData['title'],

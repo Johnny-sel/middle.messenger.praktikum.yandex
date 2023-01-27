@@ -16,7 +16,7 @@ export default class ChatListItem extends Component<{}, ChatListItemProps> {
     const {content} = last_message;
     const {time} = parseDate(last_message.time);
 
-    const selected = active ? 'active' : '';
+    const selected = active ? '--active' : '';
     const length = content?.length;
 
     const lastMessage = length > 20 ? content?.slice(0, 20) + '...' : content;
@@ -24,7 +24,7 @@ export default class ChatListItem extends Component<{}, ChatListItemProps> {
     const click = this.props.onClick.bind(this);
     // prettier-ignore
     return (
-      li(`c=chat__list__items__item chat__list__items__item--${selected}; tabIndex=0;`, [
+      li(`c=chat__list__items__item chat__list__items__item${selected}; tabIndex=0;`, [
         div('c=chat__list__items__item__avatar;', ['E']),
         div('c=chat__list__items__item__body;', [
           div('c=chat__list__items__item__body__top;', [

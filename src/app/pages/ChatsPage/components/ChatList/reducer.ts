@@ -44,7 +44,7 @@ async function dispatch(type: string, payload: unknown) {
   } catch (error) {
     handleError.call(this, error);
   } finally {
-    state.load = false;
+    // state.load = false;
   }
 }
 

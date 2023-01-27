@@ -9,7 +9,7 @@ function createVirtualComponent(Component: Component, props: Props): VirtualNode
 
   if (finded) {
     const component = finded.component;
-    const vNode = component._init(props);
+    const vNode = component._reCreate(props);
     return vNode;
   }
 
@@ -50,7 +50,7 @@ function createVirtualNode(tag: string): FunctionVirtualNode {
 
     const attrs = parseAttrs(attrsStr);
 
-    return {tag, attrs, children, handlers};
+    return {tag, attrs, children, handlers, HTMLElement: undefined};
   };
 }
 
