@@ -1,7 +1,9 @@
 import {isStr, isNum} from '../utils';
 import {VirtualNode} from '../types';
 
-function createHTMLElement(vNode: VirtualNode | string | number): HTMLElement | Text {
+type vNode = VirtualNode | string | number;
+
+function createHTMLElement(vNode: vNode): HTMLElement | Text {
   if (isStr(vNode) || isNum(vNode)) {
     return document.createTextNode(String(vNode));
   }

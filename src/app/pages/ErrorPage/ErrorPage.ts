@@ -19,7 +19,8 @@ export default class ErrorPage extends Component<ErrorState, ErrorProps> {
   create() {
     // prettier-ignore
     return (
-      component(Layout, {
+      component.call(this, Layout, {
+        key: '1',
         title: title.error,
         children: [
           main('c=error-page', [

@@ -45,16 +45,18 @@ export default class EditProfilePage extends Component<EditProfileState, {}> {
     const {inputData, load, error} = this.state;
     // prettier-ignore
     return (
-      component(Layout, {
-        title: title.passwordEdit,
+      component.call(this, Layout, {
+        key: '1',
+        title: title.profileEdit,
         children: [
-          section('c=section', [
+          section('c=section;', [
             form('c=form;', [
               ...editProfileInputs.map((input: TInput) => {
                 const value = (inputData as any)[input.name];
-                return component(Input, {...input, change, load, value});
+                const key = input.name;
+                return component.call(this,Input, {...input, change, load, value, key});
               }),
-              component(Button, {text: 'Change account', onSubmit, load, type: 'submit'}),
+              component.call(this, Button, {text: 'Change account', onSubmit, load, type: 'submit', key: '2'}),
             ]),
             span(`c=${error? 'error':'hidden'};`, [error ?? '']),
             a('c=link;', ['Go to account'], {click: () => Router.to(location.profile)}),

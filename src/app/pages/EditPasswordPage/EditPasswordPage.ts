@@ -41,16 +41,18 @@ export default class EditPasswordPage extends Component<EditPasswordState, {}> {
 
     // prettier-ignore
     return (
-      component(Layout, {
+      component.call(this, Layout, {
+        key: '1',
         title: title.passwordEdit,
         children: [
           section('c=section', [
             form('c=form;', [
               ...editPasswordInputs.map((input: TInput) => {
-                const value = (inputData as any)[input.name];
-                return component(Input, {...input, change, value, load});
+                const value = (inputData as Record<string, unknown>)[input.name];
+                const key = input.name;
+                return component.call(this, Input, {...input, change, value, load, key});
               }),
-              component(Button, {text: 'Change password', onSubmit, load, type: 'submit'}),
+              component.call(this, Button, {text: 'Change password', onSubmit, load, type: 'submit', key: '2'}),
             ]),
             span(`c=${error? 'error':'hidden'};`, [error ?? '']),
             a('c=link;', ['Go to account'], {click: () => Router.to(location.profile)}),

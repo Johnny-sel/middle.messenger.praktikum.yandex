@@ -7,7 +7,7 @@ import {VirtualNode} from '@core/types';
 
 type LayoutProps = {
   children: VirtualNode[];
-  title?: string
+  title?: string;
 };
 
 export default class Layout extends Component<{}, LayoutProps> {
@@ -21,11 +21,9 @@ export default class Layout extends Component<{}, LayoutProps> {
     // prettier-ignore
     return (
       div('c=layout;', [
-        component(Header, {title}),
-        main('c=main;', [
-          ...children,
-        ]),
-        component(Footer),
+        component.call(this, Header, {title, key:1}),
+        main('c=main;', [...children]),
+        component.call(this, Footer, {key:2}),
       ])
     );
   }

@@ -1,3 +1,4 @@
+import {lastIndex} from '@core/utils';
 import {isStr, isNum, isArr, isDiffLength, random, deepCopy, isObject} from '../utils';
 import {createHTMLElement} from '../vdom/dom';
 import {IComponent, VirtualNode} from '../types';
@@ -8,29 +9,31 @@ export abstract class Component<State, Props> implements IComponent<State, Props
   state: State;
   initState: State;
   props: Props;
-  componentId: string;
+  key: string;
   observer: MutationObserver;
   isClearState: boolean;
+  stack: any[]
 
   constructor() {
+    this.stack = [];
     this.isClearState = false;
-    this.componentId = random().toString();
+    this.key = random().toString();
     this.state = this._getProxyState(this.createState());
     this.initState = deepCopy(this.state) as State;
   }
 
   _init(props: Props) {
     this.props = props;
-
     this.vNodeCurrent = this.create();
-    this.vNodeCurrent.attrs['data-comp'] = this.componentId;
+    this.vNodeCurrent.attrs['data-key'] = this.key;
 
-    this._observer(this.componentId);
+    this._observer(this.key);
+
     return this.vNodeCurrent;
   }
 
-  _getProxyState(initialState: State) {
-    return new Proxy(initialState as Record<string, unknown>, {
+  _getProxyState(state: State) {
+    return new Proxy(state as Record<string, unknown>, {
       set: this._interception.bind(this),
     }) as State;
   }
@@ -157,9 +160,9 @@ export abstract class Component<State, Props> implements IComponent<State, Props
     return prevAttrs !== nextAttrs;
   }
 
-  _observer(componentId: string) {
+  _observer(key: string) {
     this.observer = new MutationObserver(() => {
-      const selector = `[data-comp="${componentId}"]`;
+      const selector = `[data-key="${key}"]`;
       const component = document.querySelector(selector);
       const inDom = document.body.contains(component);
 

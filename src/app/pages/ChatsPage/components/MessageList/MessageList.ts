@@ -31,44 +31,39 @@ export default class MessageList extends Component<{}, MessageListProps> {
       section('c=chats__messages;', [
         // top
         header('c=chats__messages__header;', [
-          component(Input, {
+          component.call(this, Input, {
             ...searchMessageInput,
             change: onChange,
+            key: '1',
             value: inputData['search_message'],
             className: 'chats__messages__header__search',
           }),
-          button('c=chats__messages__header__account button; t=button; n=account', [],
-              {click: () => Router.to(location.profile)},
+          button('c=chats__messages__header__account button; t=button; n=account',
+            {click: () => Router.to(location.profile)},
           ),
         ]),
         // middle
         main(`c=chats__messages__message_items ${center}; id=messages`, [
           span(`c=chats__messages__message_items__info ${openHidden};`, ['Open any chat']),
           span(`c=chats__messages__message_items__info ${loadHidden};`, ['Loading messages...']),
-          ...messages.map(message =>{
-            return component(Message, {...message });
+          ...messages.map((message) =>{
+            const key = message.id;
+            return component.call(this, Message, {...message, key });
           })
         ]),
         // bottom
         footer('c=chats__messages__footer;', [
-          button(`
-              c=chats__messages__footer__attach button;
-              t=button;
-              n=attach file
-            `, 
-            []
+          button(`c=chats__messages__footer__attach button; t=button; n=attach file;`,
+            {click: onSubmit}
           ),
-          component(Input, {
+          component.call(this, Input, {
             ...sendMessageInput,
             change: onChange,
+            key: '2',
             value: inputData['message'],
             className: 'chats__messages__footer__message',
           }),
-          button(`
-              c=chats__messages__footer__send button;
-              t=button;
-              n=send message;
-            `,
+          button(`c=chats__messages__footer__send button; t=button; n=send message;`,
             {click: onSubmit}
           ),
         ]),

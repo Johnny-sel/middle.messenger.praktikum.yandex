@@ -2,11 +2,10 @@ import './Button.sass';
 
 import {button} from '@core/tags';
 import {Component} from '@core/component';
-export default class Button extends Component<{}, any> {
+export default class Button extends Component<ButtonState, ButtonProps> {
   constructor() {
     super();
   }
-
 
   create() {
     const {onSubmit, text, type, load} = this.props;
@@ -20,3 +19,12 @@ export default class Button extends Component<{}, any> {
     );
   }
 }
+
+type ButtonProps = {
+  text: string;
+  type: string;
+  load: boolean;
+  onSubmit: (e: SubmitEvent) => void;
+};
+
+type ButtonState = {};

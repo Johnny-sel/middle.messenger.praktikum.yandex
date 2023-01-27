@@ -38,10 +38,6 @@ function parseAttrs(attrsStr: string): Attrs {
         const value = element.slice(match.index + 1).trim();
         attrs[key] = value;
       }
-
-      // const key = element.split('=')[0].trim();
-      // const value = element.split('=')[1].trim();
-      // attrs[key] = value;
     }
   });
 

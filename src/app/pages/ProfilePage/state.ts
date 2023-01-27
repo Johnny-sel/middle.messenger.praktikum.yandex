@@ -1,4 +1,3 @@
-
 import {ProfileState} from './types';
 
 const profileState: ProfileState = {
@@ -9,6 +8,7 @@ const profileState: ProfileState = {
     {name: 'id', value: ''},
     {name: 'first_name', value: ''},
     {name: 'second_name', value: ''},
+    {name: 'display_name', value: ''},
     {name: 'login', value: ''},
     {name: 'email', value: ''},
     {name: 'phone', value: ''},

@@ -1,6 +1,6 @@
 import './ChatList.sass';
 // core
-import {aside, button, component, footer, header, nav, ul} from '@core/tags';
+import {aside, button, component, footer, header, nav, span, ul} from '@core/tags';
 import {Component} from '@core/component';
 import {Router} from '@core/router';
 // app
@@ -43,9 +43,8 @@ export default class ChatList extends Component<ChatListState, ChatListProps> {
   }
 
   create() {
-    const {inputData, showTooltip, selectedChatId} = this.state;
+    const {inputData, showTooltip, selectedChatId, load} = this.state;
     const {chats} = this.props;
-;
 
     const onChange = this.onChange.bind(this);
     const switchTooltip = this.switchTooltip.bind(this);
@@ -59,11 +58,12 @@ export default class ChatList extends Component<ChatListState, ChatListProps> {
         header('c=chats__list__header;', [
           nav('c=chats__list__header__nav;', [
             button('c=chats__list__header__nav__menu button; t=button; n=menu',
-                {click: () => Router.to(location.root)},
+              {click: () => Router.to(location.root)},
             ),
           ]),
-          component(Input, {
+          component.call(this, Input, {
             ...searchChatInput,
+            key: '1',
             showError: false,
             change: onChange,
             value: inputData['search_chat'],
@@ -74,26 +74,33 @@ export default class ChatList extends Component<ChatListState, ChatListProps> {
           ),
         ]),
         // chats items
-        ul('c=chats__list__items;', [
+        load? 
+          span('c=;', ['loading...'])
+          :
+          ul('c=chats__list__items;', [
           ...chats?.map((chat) => {
             const active = chat.id === selectedChatId;
-            return component(ChatListItem, {chat, active, onClick: openChat});
+            const key = chat.id;
+            return component.call(this, ChatListItem, {chat, active, onClick: openChat, key});
           }),
         ]),
         // footer aside
         footer('c=chats__list__footer;', [
-          component(Tooltip, {
+          component.call(this, Tooltip, {
+            key: 2,
             show: showTooltip, 
             children: [
-              component(Input, {
+              component.call(this, Input, {
                 ...titleInput,
+                key: 3,
                 change: onChange,
                 showError: false,
                 value: inputData['title'],
                 className: 'tooltip__input',
               }),
               button('c=tooltip__button button; t=button; n=create chat', {click: createChat}),
-          ]}),
+            ]
+          }),
           button(`
               c=chats__list__footer__add_chat${showTooltip ? '--cancel' : ''} button; 
               t=button; 

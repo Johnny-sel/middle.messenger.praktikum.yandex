@@ -62,8 +62,8 @@ export default class ChatsPage extends Component<ChatPageState, {}> {
     // prettier-ignore
     return (
       div('c=chats;', [
-        component(ChatList, {setWebSocketChat, chats}),
-        component(MessageList, {messages, load, onChange, onSubmit, inputData}),
+        component.call(this, ChatList, {setWebSocketChat, chats, key: '1'}),
+        component.call(this, MessageList, {messages, load, onChange, onSubmit, inputData, key: '2'}),
       ])
     );
   }

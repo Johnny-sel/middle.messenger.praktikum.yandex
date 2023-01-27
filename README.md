@@ -181,7 +181,7 @@ export default class Header extends Component {
     // prettier-ignore
     return (
       div('c=main;', [
-        component(Header),
+        component.call(this, Header),
         span('c=main__text text;', [ 'Main page text' ])
       ])
     )
@@ -228,7 +228,7 @@ export default class MainPage extends Component {
     // prettier-ignore
     return (
       div('c=main;', [
-        component(Header, { title: 'Header title' }),
+        component.call(this, Header, { title: 'Header title' }),
         span('c=main__text text;', [ 'Main page text' ])
       ])
     )
@@ -396,9 +396,9 @@ export default class Layout extends Component {
     // prettier-ignore
     return (
       div('c=layout;', [
-        component(Header),
+        component.call(this, Header),
         ...children.map(child => child),
-        component(Footer)
+        component.call(this, Footer)
       ])
     );
   }
@@ -419,9 +419,9 @@ export default class LoginPage extends Component {
   create() {
     // prettier-ignore
     return (
-      component(Layout, { children: [
+      component.call(this, Layout, { children: [
         div('c=main;', [
-            component(LoginForm)
+            component.call(this, LoginForm)
         ])
       ]})
     )

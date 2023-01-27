@@ -7,7 +7,11 @@ import {Router} from '@core/router';
 import {location} from '@app/constants';
 
 const {root, profile} = location;
-export default class Header extends Component<{title: string}, {title: string}> {
+
+type HeaderProps = {title: string};
+type HeaderState = {title: string};
+
+export default class Header extends Component<HeaderState, HeaderProps> {
   constructor() {
     super();
   }

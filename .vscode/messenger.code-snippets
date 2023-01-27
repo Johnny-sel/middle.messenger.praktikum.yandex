@@ -52,7 +52,7 @@
 		"scope": "javascript,typescript",
 		"prefix": "c",
 		"body": [
-			"component($1, { $2 }),",
+			"component.call(this, $1, { $2 }),",
 		],
 	},
 	"label": {

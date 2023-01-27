@@ -5,7 +5,7 @@ import {Router} from '@core/router';
 // app
 import {CHANGE_INPUT, GET_USER, LOGIN_USER} from '@app/actions';
 import {Button, Input, Layout} from '@app/components';
-import {location, title} from '@app/constants';
+import { location, title} from '@app/constants';
 import {TInput} from '@app/types';
 import {loginInputs} from '@app/resources';
 // local
@@ -47,17 +47,19 @@ export default class LoginPage extends Component<LoginState, {}> {
 
     // prettier-ignore
     return (
-      component(Layout, {
+      component.call(this, Layout, {
+        key: '1',
         title: title.root,
         children: [
           section('c=section', [
             span('c=text;', ['Welcom to online messeger']),
             form('c=form; a=s;', [
               ...loginInputs.map((input: TInput) => {
-                const value = (inputData as any)[input.name];
-                return component(Input, {...input, change, load, value});
+                const value = (inputData as Record<string, string>)[input.name];
+                const key = input.name;
+                return component.call(this, Input, {...input, change, load, value, key});
               }),
-              component(Button, {text: 'Login', onSubmit, load, type: 'submit'}),
+              component.call(this, Button, {text: 'Login', onSubmit, load, type: 'submit', key: '2'}),
             ]),
             span(`c=${error? 'error':'hidden'};`, [error ?? '']),
             a(`c=link ${disabled};`, ['Create account'], {click: () => Router.to(location.registration)}),

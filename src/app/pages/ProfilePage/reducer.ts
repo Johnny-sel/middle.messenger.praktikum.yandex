@@ -44,6 +44,7 @@ async function dispatch(type: string) {
         if (!image) return;
 
         formData.append('avatar', image);
+
         state.user = await User.updatePhoto(formData);
         state.items = Object.entries(state.user!)
           .map(([name, value]) => ({name, value} as Item))

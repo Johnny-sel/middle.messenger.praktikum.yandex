@@ -1,6 +1,6 @@
 import {createHTMLElement} from '../vdom/dom';
 import {isStr, penultimate} from '../utils';
-import {IComponentConstructable, IRouter, NavOptions, Route} from './../types';
+import {ClickButton, IComponentConstructable, IRouter, NavOptions, Route} from './../types';
 
 export class Router implements IRouter {
   static instance: IRouter;
@@ -42,7 +42,7 @@ export class Router implements IRouter {
   }
 
   _subscribe(event: string, context: IRouter): void {
-    return window.addEventListener(event, function() {
+    return window.addEventListener(event, function () {
       if (event === 'popstate') {
         const path = window.location.pathname;
 
@@ -79,15 +79,15 @@ export class Router implements IRouter {
     }
   }
 
-  _renderPage(ComponentInstance: IComponentConstructable<unknown, unknown>): void {
+  _renderPage(Component: IComponentConstructable<unknown, unknown>): void {
     this.root.innerHTML = '';
-    const componentInstance = new ComponentInstance();
-    const vDom = componentInstance._init();
+    const component = new Component();
+    const vDom = component._init();
     const rootNode = createHTMLElement(vDom);
     this.root.appendChild(rootNode);
   }
 
-  _changeUrl(route: Route, clickButton: NavOptions['clickButton']): void {
+  _changeUrl(route: Route, clickButton: ClickButton): void {
     if (clickButton) {
       history.replaceState({}, route.path, route.path);
     } else {
@@ -95,7 +95,7 @@ export class Router implements IRouter {
     }
   }
 
-  _registRoute(route: Route, clickButton: NavOptions['clickButton']): void {
+  _registRoute(route: Route, clickButton: ClickButton): void {
     if (clickButton === 'prev') {
       this.index--;
     } else if (clickButton === 'next') {
@@ -106,14 +106,14 @@ export class Router implements IRouter {
     }
   }
 
-  _checkRoute(route: Route | undefined): boolean {
+  _checkRoute(route?: Route): boolean {
     if (!route) {
       this._printError('define route in index.js');
       return false;
     }
 
     if (!route.path.startsWith('/')) {
-      this._printError('route shoulde be start with \'/\'');
+      this._printError("route shoulde be start with '/'");
       return false;
     }
 

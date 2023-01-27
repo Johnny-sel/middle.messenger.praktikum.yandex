@@ -21,7 +21,7 @@ export default class ProfilePhoto extends Component<{}, ProfilePhotoProps> {
           photoUrl? 
             img(`c=large_avatar__img; src=${hostResources + photoUrl}; alt=insert profile photo;`, [])
               :
-            img(`c=large_avatar__preview__img; src=${preview}; alt=insert profile photo;`),
+            img(`c=large_avatar__preview_img; src=${preview}; alt=insert profile photo;`),
           input(`c=large_avatar__preview_button; t=file; id=file; v=Change avatar; `, {input: upload}),
           label(`c=large_avatar__preview_label; for=file;`,['Change avatar'])
         ]),

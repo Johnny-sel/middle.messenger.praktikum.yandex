@@ -5,14 +5,17 @@ export type VirtualNode = {
   handlers: object;
   tag: string;
   HTMLElement?: HTMLElement | Text;
-  props?: unknown
 };
 
 export type FunctionVirtualNode = (...args: any[]) => VirtualNode;
 export type Attrs = Record<string, string>;
+export type Props = Record<string, string>;
 export type Route = {path: string; component: any};
 export type NavOptions = {clickButton?: 'prev' | 'next'};
+export type ClickButton = NavOptions['clickButton'];
 export type State = Record<string, string>;
+export type ComponentStack = {key: string; component: IComponent<unknown, unknown>}[];
+export type Component = IComponentConstructable<unknown, unknown>;
 
 // ROUTER ------------------
 export interface IRouter {
@@ -45,8 +48,9 @@ export interface IComponent<State, Props> {
   state: State | null;
   initState: State | null;
   props?: Props;
-  componentId: string;
+  key: string;
   isClearState: boolean;
+  stack: ComponentStack;
 
   createState(): State;
   create(): VirtualNode;

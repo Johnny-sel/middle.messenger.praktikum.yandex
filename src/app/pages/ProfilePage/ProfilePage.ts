@@ -12,8 +12,7 @@ import {Item, ProfileState} from './types';
 import {profileState} from './state';
 import {dispatch} from './reducer';
 
-
-export default class ProfilePage extends Component<ProfileState,{}> {
+export default class ProfilePage extends Component<ProfileState, {}> {
   constructor() {
     super();
   }
@@ -43,17 +42,19 @@ export default class ProfilePage extends Component<ProfileState,{}> {
 
     // prettier-ignore
     return (
-      component(Layout, {
+      component.call(this, Layout, {
+        key: '1',
         title: title.profile,
         children: [
           section('c=profile__info section;', [
-            component(ProfilePhoto, {
+            component.call(this, ProfilePhoto, {
+              key: '2',
               name: load? 'Loading...' :  `${user?.first_name} ${user?.second_name}` ,
               photoUrl: user?.avatar,
               upload
             }),
-            ...items.map((item: Item) => {
-              return component(InfoLine, {name: item.name, value: item.value});
+            ...items.map((item: Item, index) => {
+              return component.call(this, InfoLine, {name: item.name, value: item.value, key: `key-${index}`});
             }),
             div('c=profile__info__group_link;', [
               a('c=profile__info__group_link__link link;', ['Change account'], 

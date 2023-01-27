@@ -3,7 +3,7 @@ import './Input.sass';
 import {div, input, span} from '@core/tags';
 import {Component} from '@core/component';
 
-export default class Input extends Component<{}, any> {
+export default class Input extends Component<InputState, InputProps> {
   constructor() {
     super();
   }
@@ -27,10 +27,25 @@ export default class Input extends Component<{}, any> {
           pt=${pattern};
           ${load ? "di=" :''};
         `, 
-        {input: change},
+          {input: change},
         ),
-        span(`c=input_group__error${hidden};`, [error]),
+        span(`c=input_group__error${hidden};`, [error ?? '']),
       ])
     );
   }
 }
+
+type InputProps = {
+  value: string;
+  name: string;
+  type: string;
+  placeholder: string;
+  pattern: string;
+  error: string;
+  className: string;
+  load: boolean;
+  showError?: boolean;
+  change: (e: InputEvent) => void;
+};
+
+type InputState = {};

@@ -43,16 +43,18 @@ export default class RegisterPage extends Component<RegisterState, {}> {
 
     // prettier-ignore
     return (
-      component(Layout, {
+      component.call(this, Layout, {
+        key: '1',
         title: title.registration,
         children: [
           section('c=section;', [
             form('c=form;', [
-              ...regInputs.map((input: TInput) => {
+              ...regInputs.map((input: TInput,) => {
                 const value = (inputData as any)[input.name]
-                return component(Input, {...input, change, value, load});
+                const key = input.name;
+                return component.call(this, Input, {...input, change, value, load, key});
               }),
-              component(Button, {text: 'Create account', onSubmit, type: 'submit', load}),
+              component.call(this, Button, {key: '2', text: 'Create account', type: 'submit', onSubmit, load }),
             ]),
             span(`c=${error? 'error':'hidden'};`, [error ?? '']),
             a('c=link;', ['Go to login'], {click: () => Router.to(location.root)}),
