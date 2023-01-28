@@ -1,6 +1,6 @@
 import {createHTMLElement} from '../vdom/dom';
 import {isStr, penultimate} from '../utils';
-import {ClickButton, IComponentConstructable, IRouter, NavOptions, Route} from './../types';
+import {ClickButton, ComponentStack, IRouter, NavOptions, Route} from './../types';
 
 export class Router implements IRouter {
   static instance: IRouter;
@@ -10,9 +10,11 @@ export class Router implements IRouter {
   index: number;
   isInit: boolean;
   root: HTMLElement;
+  renderRoutes: ComponentStack;
 
   constructor(routes: Route[]) {
     this.routes = routes;
+    this.renderRoutes = [];
     this.stack = [];
     this.index = 0;
     this.isInit = true;
@@ -67,7 +69,7 @@ export class Router implements IRouter {
       throw new Error('[Roter]: router is undefined');
     }
 
-    this._renderPage(route.component);
+    this._renderPage(route);
     this._changeUrl(route, clickButton);
     this._registRoute(route, clickButton);
   }
@@ -79,11 +81,18 @@ export class Router implements IRouter {
     }
   }
 
-  _renderPage(Component: IComponentConstructable<unknown, unknown>): void {
+  _renderPage(route: Route): void {
     this.root.innerHTML = '';
-    const component = new Component();
+
+    const finded = this.renderRoutes.find((e) => e.key === route.path);
+    const component = finded ? finded.component : new route.component();
     const vDom = component._init();
     const rootNode = createHTMLElement(vDom);
+
+    if (!finded) {
+      this.renderRoutes.push({key: route.path, component});
+    }
+
     this.root.appendChild(rootNode);
   }
 

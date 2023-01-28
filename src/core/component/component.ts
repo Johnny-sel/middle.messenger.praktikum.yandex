@@ -1,6 +1,6 @@
 import {isStr, isNum, isArr, isDiffLength, random, deepCopy, isObject} from '../utils';
 import {createHTMLElement} from '../vdom/dom';
-import {IComponent, VirtualNode} from '../types';
+import {ComponentStack, IComponent, VirtualNode} from '../types';
 
 export abstract class Component<State, Props> implements IComponent<State, Props> {
   vNodeNext: VirtualNode;
@@ -11,7 +11,7 @@ export abstract class Component<State, Props> implements IComponent<State, Props
   key: string;
   observer: MutationObserver;
   isClearState: boolean;
-  stack: any[];
+  stack: ComponentStack;
 
   constructor() {
     this.stack = [];
@@ -24,7 +24,6 @@ export abstract class Component<State, Props> implements IComponent<State, Props
   _init(props: Props) {
     this.props = props;
     this.vNodeCurrent = this.create();
-
     this.vNodeCurrent.attrs['data-key'] = this.key;
 
     this._observer(this.key);
@@ -67,7 +66,6 @@ export abstract class Component<State, Props> implements IComponent<State, Props
 
     while (stackPrev.length > 0 || stackNext.length > 0) {
       const vNodePrev: VirtualNode | string = stackPrev.pop()!;
-      // console.log('vNodePrev:', vNodePrev);
       const vNodeNext: VirtualNode | string = stackNext.pop()!;
 
       if (isDiffLength(stackPrev, stackNext)) {

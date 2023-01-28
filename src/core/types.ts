@@ -10,7 +10,7 @@ export type VirtualNode = {
 export type FunctionVirtualNode = (...args: any[]) => VirtualNode;
 export type Attrs = Record<string, string>;
 export type Props = Record<string, string>;
-export type Route = {path: string; component: any};
+export type Route = {path: string; component: Component};
 export type NavOptions = {clickButton?: 'prev' | 'next'};
 export type ClickButton = NavOptions['clickButton'];
 export type State = Record<string, string>;
