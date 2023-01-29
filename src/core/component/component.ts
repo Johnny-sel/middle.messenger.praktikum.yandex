@@ -1,6 +1,6 @@
 import {isStr, isNum, isArr, isDiffLength, random, deepCopy, isObject} from '../utils';
 import {createHTMLElement} from '../vdom/dom';
-import {ComponentStack, IComponent, VirtualNode} from '../types';
+import {RegisteredComponent, IComponent, VirtualNode} from '../types';
 
 export abstract class Component<State, Props> implements IComponent<State, Props> {
   vNodeNext: VirtualNode;
@@ -11,7 +11,7 @@ export abstract class Component<State, Props> implements IComponent<State, Props
   key: string;
   observer: MutationObserver;
   isClearState: boolean;
-  stack: ComponentStack;
+  stack: RegisteredComponent[];
 
   constructor() {
     this.key = random().toString();

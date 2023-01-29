@@ -14,7 +14,7 @@ export type Route = {path: string; component: Component};
 export type NavOptions = {clickButton?: 'prev' | 'next'};
 export type ClickButton = NavOptions['clickButton'];
 export type State = Record<string, string>;
-export type ComponentStack = {key: string; component: IComponent<unknown, unknown>}[];
+export type RegisteredComponent = {key: string; component: IComponent<unknown, unknown>};
 export type Component = IComponentConstructable<unknown, unknown>;
 
 // ROUTER ------------------
@@ -50,7 +50,7 @@ export interface IComponent<State, Props> {
   props?: Props;
   key: string;
   isClearState: boolean;
-  stack: ComponentStack;
+  stack: RegisteredComponent[];
 
   createState(): State;
   create(): VirtualNode;

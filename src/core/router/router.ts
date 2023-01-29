@@ -1,6 +1,6 @@
 import {createHTMLElement} from '../vdom/dom';
 import {isStr, penultimate} from '../utils';
-import {ClickButton, ComponentStack, IRouter, NavOptions, Route} from './../types';
+import {ClickButton, IRouter, NavOptions, RegisteredComponent, Route} from './../types';
 
 export class Router implements IRouter {
   static instance: IRouter;
@@ -10,11 +10,11 @@ export class Router implements IRouter {
   index: number;
   isInit: boolean;
   root: HTMLElement;
-  renderRoutes: ComponentStack;
+  registeredComponents: RegisteredComponent[];
 
   constructor(routes: Route[]) {
     this.routes = routes;
-    this.renderRoutes = [];
+    this.registeredComponents = [];
     this.stack = [];
     this.index = 0;
     this.isInit = true;
@@ -84,13 +84,13 @@ export class Router implements IRouter {
   _renderPage(route: Route): void {
     this.root.innerHTML = '';
 
-    const finded = this.renderRoutes.find((e) => e.key === route.path);
+    const finded = this.registeredComponents.find((e) => e.key === route.path);
     const component = finded ? finded.component : new route.component();
     const vDom = component._init();
     const rootNode = createHTMLElement(vDom);
 
     if (!finded) {
-      this.renderRoutes.push({key: route.path, component});
+      this.registeredComponents.push({key: route.path, component});
     }
 
     this.root.appendChild(rootNode);

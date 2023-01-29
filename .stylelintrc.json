@@ -12,6 +12,7 @@
   "ignoreFiles": [
     "dist/*",
     "node_modules/*",
+    "coverage/*",
     ".parcel-cache/*",
     "src/app/styles/global.sass",
     "src/app/styles/varibales.sass"

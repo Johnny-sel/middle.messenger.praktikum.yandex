@@ -15,7 +15,7 @@ function isFunc(func: unknown): boolean {
 }
 
 function isNull(value: unknown): boolean {
-  return typeof value === null;
+  return value === null;
 }
 
 function isObject(item: any): boolean {
@@ -25,4 +25,4 @@ function isObject(item: any): boolean {
   return false;
 }
 
-export {isArr, isStr, isNum, isFunc, isObject};
+export {isArr, isStr, isNum, isFunc, isObject, isNull};

@@ -1,9 +1,10 @@
 function isEmpty(v: any): boolean {
+
   if (Array.isArray(v) || typeof v === 'string') {
     return v.length === 0;
   }
 
-  if ([null, true, undefined, ''].includes(v)) {
+  if ([null, true, undefined, '', false].includes(v)) {
     return true;
   }
 
@@ -15,11 +16,7 @@ function isEmpty(v: any): boolean {
     return v.size ? v.size === 0 : Object.keys(v).length === 0;
   }
 
-  return true;
+  return false;
 }
 
-function deepCopy(obj: unknown): Record<string, unknown> {
-  return JSON.parse(JSON.stringify(obj));
-}
-
-export {isEmpty, deepCopy};
+export {isEmpty};

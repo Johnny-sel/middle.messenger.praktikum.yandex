@@ -2,7 +2,7 @@ import {lastIndex} from '@core/utils';
 
 const METHODS = {GET: 'GET', POST: 'POST', PUT: 'PUT', DELETE: 'DELETE'};
 
-function queryStringify(inputData object) {
+function queryStringify(data: Record<string, unknown>) {
   if (typeof data !== 'object') {
     throw new Error('Data must be object');
   }
@@ -19,7 +19,7 @@ function queryStringify(inputData object) {
   });
 }
 
-function fetch(url: string, options?: any): Promise<any> {
+function fetch(url: string, options?: any): Promise<unknown> {
   const {method = METHODS.GET, timeout = 10000, headers = {}, data} = options || {};
 
   const isGet = method === METHODS.GET;
