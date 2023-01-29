@@ -3,6 +3,7 @@ import {GetChatsResponse, IWebSocketChat} from '@api/types';
 export type ChatListState = {
   showTooltip: boolean;
   load: boolean;
+  loadCreateChat: boolean;
   error: string;
   selectedChatId: number;
   inputData: {
@@ -15,5 +16,7 @@ export type ChatListState = {
 
 export type ChatListProps = {
   setWebSocketChat: (socket: IWebSocketChat, chatId: number) => void;
+  getChats: () => Promise<void>;
   chats: GetChatsResponse[];
+  loadChats: boolean;
 };

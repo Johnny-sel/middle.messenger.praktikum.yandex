@@ -2,7 +2,8 @@ import {IWebSocketChat, GetChatsResponse} from '@api/types';
 import {Message} from '@app/types';
 
 export type ChatPageState = {
-  load: boolean;
+  loadChats: boolean;
+  loadMessages: boolean;
   error: string;
   messages: Message[];
   chats: GetChatsResponse[];

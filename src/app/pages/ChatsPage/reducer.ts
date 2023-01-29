@@ -6,8 +6,8 @@ import {onChange} from '@app/functions';
 import {CHANGE_INPUT, CLEAR_INPUT, CONNECT_WEBSOCKET, GET_CHATS, SEND_MESSAGE} from '@app/actions';
 import {error} from '@app/constants';
 import {ChatPageState, ConnectWebSoketPayload} from './types';
-import {Chat} from '@api/repositories';
 import {Message} from '@app/types';
+import {Chat} from '@api/repositories';
 
 async function dispatch(type: string, payload: unknown) {
   const {state} = this as Component<ChatPageState, {}>;
@@ -26,9 +26,7 @@ async function dispatch(type: string, payload: unknown) {
       }
 
       case GET_CHATS: {
-        state.load = true;
         state.chats = await Chat.getChats();
-        state.load = false;
         break;
       }
 
@@ -41,8 +39,11 @@ async function dispatch(type: string, payload: unknown) {
 
       case SEND_MESSAGE: {
         state.socket?.sendMessage(state.inputData.message);
-        const chat = state.chats.find((e) => e.id === state.selectedChatId)!;
-        chat.last_message.content = state.inputData.message;
+        // const chat = state.chats.find((e) => e.id === state.selectedChatId)!;
+        // if (!chat.last_message) {
+        //   chat['last_message'] = {content: ''} as LastMessage;
+        // }
+        // chat.last_message.content = state.inputData.message;
         dispatch.call(this, CLEAR_INPUT);
         break;
       }
@@ -50,7 +51,7 @@ async function dispatch(type: string, payload: unknown) {
       case CONNECT_WEBSOCKET: {
         const {chatId, socket} = payload as ConnectWebSoketPayload;
 
-        state.load = true;
+        state.loadMessages = true;
         state.messages = [];
         state.selectedChatId = chatId;
 
@@ -61,7 +62,8 @@ async function dispatch(type: string, payload: unknown) {
           },
           messages: (msg: Message[] | Message) => {
             state.messages = (isArr(msg) ? msg : [...state.messages, msg]) as Message[];
-            state.load = false;
+            state.loadMessages = false;
+            dispatch.call(this, GET_CHATS);
             dispatch.call(this, SCROLL_BOTTOM);
           },
         });
@@ -69,6 +71,7 @@ async function dispatch(type: string, payload: unknown) {
       }
     }
   } catch (error) {
+    console.log('[error] ChatPage reducer:', error);
     handleError.call(this, error);
   }
 }

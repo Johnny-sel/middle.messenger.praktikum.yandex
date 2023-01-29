@@ -20,11 +20,11 @@ export default class MessageList extends Component<{}, MessageListProps> {
   }
 
   create() {
-    const {messages, load, inputData, onChange, onSubmit} = this.props;
+    const {messages, loadMessages, inputData, onChange, onSubmit} = this.props;
 
-    const openHidden = messages.length > 0 || load ? 'hidden' : '';
-    const loadHidden = load ? '' : 'hidden';
-    const center = !openHidden || load ? 'center' : '';
+    const openHidden = messages.length > 0 || loadMessages ? 'hidden' : '';
+    const loadHidden = loadMessages ? '' : 'hidden';
+    const center = !openHidden || loadMessages ? 'center' : '';
 
     // prettier-ignore
     return (

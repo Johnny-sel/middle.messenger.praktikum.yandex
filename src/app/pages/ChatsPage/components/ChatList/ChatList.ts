@@ -43,8 +43,8 @@ export default class ChatList extends Component<ChatListState, ChatListProps> {
   }
 
   create() {
-    const {inputData, showTooltip, selectedChatId, load} = this.state;
-    const {chats} = this.props;
+    const {inputData, showTooltip, selectedChatId, loadCreateChat} = this.state;
+    const {chats, loadChats} = this.props;
 
     const onChange = this.onChange.bind(this);
     const switchTooltip = this.switchTooltip.bind(this);
@@ -52,6 +52,7 @@ export default class ChatList extends Component<ChatListState, ChatListProps> {
     const openChat = this.openChat.bind(this);
 
     // prettier-ignore
+
     return (
       aside('c=chats__list;', [
         // header aside
@@ -74,21 +75,25 @@ export default class ChatList extends Component<ChatListState, ChatListProps> {
           ),
         ]),
         // chats items
-        load? 
-          span('c=;', ['loading...'])
-          :
-          ul('c=chats__list__items;', [
-          ...chats?.map((chat) => {
-            const active = chat.id === selectedChatId;
-            const key = chat.id;
-            return component.call(this, ChatListItem, {chat, active, onClick: openChat, key});
-          }),
+        chats.length === 0 && !loadChats ?
+          span('c=text;', ['Create chat'])
+            :
+            loadChats? 
+              span('c=;',['Loading chats...'])
+              :
+              ul('c=chats__list__items;', [
+              ...chats?.map((chat) => {
+                const active = chat.id === selectedChatId;
+                const key = chat.id;
+                return component.call(this, ChatListItem, {chat, active, onClick: openChat, key});
+              }),
         ]),
         // footer aside
         footer('c=chats__list__footer;', [
           component.call(this, Tooltip, {
             key: '2',
             show: showTooltip, 
+            load: loadCreateChat,
             children: [
               component.call(this, Input, {
                 ...titleInput,

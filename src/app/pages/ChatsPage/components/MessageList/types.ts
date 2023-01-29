@@ -1,7 +1,7 @@
 import {Message} from '@app/types';
 
 export type MessageListProps = {
-  load: boolean;
+  loadMessages: boolean;
   messages: Message[];
   inputData: {
     search_message: string;

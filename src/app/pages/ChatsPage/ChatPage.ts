@@ -48,22 +48,27 @@ export default class ChatsPage extends Component<ChatPageState, {}> {
     dispatch.call(this, SEND_MESSAGE);
   }
 
+  getChats() {
+    dispatch.call(this, GET_CHATS);
+  }
+
   didMount() {
     dispatch.call(this, GET_CHATS);
   }
 
   create() {
-    const {messages, load, inputData, chats} = this.state;
+    const {messages, loadMessages, loadChats, inputData, chats} = this.state;
 
     const setWebSocketChat = this.setWebSocketChat.bind(this);
     const onChange = this.onChange.bind(this);
     const onSubmit = this.onSubmit.bind(this);
+    const getChats = this.getChats.bind(this);
 
     // prettier-ignore
     return (
       div('c=chats;', [
-        component.call(this, ChatList, {setWebSocketChat, chats, key: '1'}),
-        component.call(this, MessageList, {messages, load, onChange, onSubmit, inputData, key: '2'}),
+        component.call(this, ChatList, {setWebSocketChat, getChats, loadChats, chats, key: '1'}),
+        component.call(this, MessageList, {messages, loadMessages, onChange, onSubmit, inputData, key: '2'}),
       ])
     );
   }

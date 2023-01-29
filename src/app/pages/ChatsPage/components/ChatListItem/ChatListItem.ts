@@ -13,10 +13,10 @@ export default class ChatListItem extends Component<{}, ChatListItemProps> {
   create() {
     const {active, chat} = this.props;
     const {id, last_message, title} = chat;
-    const {content} = last_message;
-    const {time} = parseDate(last_message.time);
+    const {time} = parseDate(last_message?.time);
 
     const selected = active ? '--active' : '';
+    const content = last_message?.content;
     const length = content?.length;
 
     const lastMessage = length > 20 ? content?.slice(0, 20) + '...' : content;

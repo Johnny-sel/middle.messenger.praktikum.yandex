@@ -14,14 +14,16 @@ export abstract class Component<State, Props> implements IComponent<State, Props
   stack: ComponentStack;
 
   constructor() {
-    this.stack = [];
-    this.isClearState = false;
     this.key = random().toString();
-    this.state = this._getProxyState(this.createState());
-    this.initState = deepCopy(this.state) as State;
   }
 
   _init(props: Props) {
+    this.stack = [];
+    this.isClearState = false;
+
+    this.state = this._getProxyState(this.createState());
+    this.initState = deepCopy(this.state) as State;
+
     this.props = props;
     this.vNodeCurrent = this.create();
     this.vNodeCurrent.attrs['data-key'] = this.key;
@@ -50,7 +52,6 @@ export abstract class Component<State, Props> implements IComponent<State, Props
     }
 
     this.vNodeNext = this.create();
-
     this._injectHTML();
     return true;
   }
@@ -84,6 +85,12 @@ export abstract class Component<State, Props> implements IComponent<State, Props
         stackNext.push(...(vNodeNext.children as []));
       }
 
+      isDiff = this._compateTags(vNodePrev, vNodeNext);
+
+      if (isDiff) {
+        this._injectTags(vNodePrevLast, vNodeNext);
+      }
+
       isDiff = this._compareInnerText(vNodePrev, vNodeNext);
 
       if (isDiff) {
@@ -98,6 +105,14 @@ export abstract class Component<State, Props> implements IComponent<State, Props
     }
   }
 
+  _injectTags(vPrev: VirtualNode, vNext: VirtualNode) {
+    if (!(vPrev.HTMLElement instanceof HTMLElement)) return;
+    const element = createHTMLElement(vNext);
+    vPrev.HTMLElement.replaceWith(element);
+    vPrev.tag = vNext.tag;
+    vPrev.HTMLElement = element;
+  }
+
   _injectTextNode(vNode: VirtualNode, textNode: VirtualNode | string) {
     if (vNode.HTMLElement instanceof HTMLElement) {
       vNode.HTMLElement.innerHTML = textNode as string;
@@ -106,8 +121,14 @@ export abstract class Component<State, Props> implements IComponent<State, Props
   }
 
   _injectChilds(vNode: VirtualNode) {
+    const isTextNode = vNode.children.length === 1 && isStr(vNode.children[0]);
+
     if (vNode.HTMLElement instanceof HTMLElement) {
-      vNode.HTMLElement.innerHTML = '';
+      vNode.HTMLElement.innerHTML = isTextNode ? (vNode.children[0] as string) : '';
+    }
+
+    if (isTextNode) {
+      return;
     }
 
     vNode.children.forEach((item) => {
@@ -156,12 +177,18 @@ export abstract class Component<State, Props> implements IComponent<State, Props
     return vPrev !== vNext;
   }
 
+  _compateTags(vPrev: VirtualNode, vNext: VirtualNode) {
+    return vPrev.tag !== vNext.tag;
+  }
+
   _compareAttrs(vPrev: VirtualNode, vNext: VirtualNode) {
     if (isStr(vPrev) || isNum(vPrev)) {
       return false;
     }
-    const nextAttrs = Object.entries(vNext.attrs).join();
+
     const prevAttrs = Object.entries(vPrev.attrs).join();
+    const nextAttrs = Object.entries(vNext.attrs).join();
+
     return prevAttrs !== nextAttrs;
   }
 

@@ -1,11 +1,12 @@
 import {VirtualNode} from './../../../core/types';
 import './Tooltip.sass';
 
-import {div} from '@core/tags';
+import {div, span} from '@core/tags';
 import {Component} from '@core/component';
 
 interface TooltipProps {
   show: boolean;
+  load: boolean;
   left?: number;
   right?: number;
   top?: number;
@@ -19,14 +20,14 @@ export default class Tooltip extends Component<{}, TooltipProps> {
   }
 
   create() {
-    const {children, show = false} = this.props;
+    const {children, show = false, load} = this.props;
     const active = show ? 'tooltip--active' : '';
 
     // prettier-ignore
     return (
-      div(`c=tooltip ${active};`, [
-        ...children,
-      ])
+      div(`c=tooltip ${active};`, 
+      load? [span('c=text;', ['Creating...'])] : [...children],
+      )
     );
   }
 }

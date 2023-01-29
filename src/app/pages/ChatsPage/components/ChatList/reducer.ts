@@ -5,6 +5,7 @@ import {error} from '@app/constants';
 import {CHANGE_INPUT, CREATE_CHAT, OPEN_CHAT, SWITCH_TOOLTIP} from '@app/actions';
 import {WebSocketChat} from '@api/websocket/chat';
 import {ChatListProps, ChatListState} from './types';
+import {Chat} from '@api/repositories';
 
 function handleError(err: ReasonResponse) {
   const {state} = this as Component<ChatListState, ChatListProps>;
@@ -29,6 +30,10 @@ async function dispatch(type: string, payload: unknown) {
       }
 
       case CREATE_CHAT: {
+        state.loadCreateChat = true;
+        await Chat.createChat({title: state.inputData['title']});
+        await props.getChats();
+        state.loadCreateChat = false;
         state.showTooltip = false;
         break;
       }
@@ -42,9 +47,10 @@ async function dispatch(type: string, payload: unknown) {
       }
     }
   } catch (error) {
+    console.log('[error] ChatList reducer:', error);
     handleError.call(this, error);
   } finally {
-    // state.load = false;
+    state.load = false;
   }
 }
 
