@@ -1,4 +1,4 @@
-import {deepCopy} from './object';
+import {deepCopy} from '../';
 
 const testObject = {
   numbers: {1: '1', 2: '2', 3: '3'},

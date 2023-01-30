@@ -1,4 +1,4 @@
-import {createHTMLElement} from '../vdom/dom';
+import {createHTMLElement} from '../vdom/dom/dom';
 import {isStr, penultimate} from '../utils';
 import {ClickButton, IRouter, NavOptions, RegisteredComponent, Route} from './../types';
 
@@ -75,7 +75,7 @@ export class Router implements IRouter {
   }
 
   _goBack(): void {
-    const path = penultimate(this.stack);
+    const path = penultimate(this.stack) as string;
     if (path) {
       this._navigateTo(path);
     }

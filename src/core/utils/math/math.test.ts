@@ -1,4 +1,4 @@
-import {random} from './math';
+import {random} from '../';
 
 describe('Math utils', () => {
   test('random function should be return number', () => {

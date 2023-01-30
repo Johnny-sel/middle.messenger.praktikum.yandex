@@ -1,8 +1,8 @@
 import {isStr, isNum, isArr, isDiffLength, random, deepCopy, isObject} from '../utils';
-import {createHTMLElement} from '../vdom/dom';
+import {createHTMLElement} from '../vdom/dom/dom';
 import {RegisteredComponent, IComponent, VirtualNode} from '../types';
 
-export abstract class Component<State, Props> implements IComponent<State, Props> {
+export abstract class Component<State={}, Props={}> implements IComponent<State, Props> {
   vNodeNext: VirtualNode;
   vNodeCurrent: VirtualNode;
   state: State;

@@ -1,4 +1,4 @@
-import {Attrs} from '../types';
+import {Attrs} from '../../types';
 
 function parseAttrs(attrsStr: string): Attrs {
   if (!attrsStr) return {};
@@ -17,7 +17,7 @@ function parseAttrs(attrsStr: string): Attrs {
     ['h=', ' href='],
     ['a=', ' action='],
     ['pt=', ' pattern='],
-    ['req', ' required='],
+    ['req=', ' required='],
   ];
 
   replacements.forEach((item) => {

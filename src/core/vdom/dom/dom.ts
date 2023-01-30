@@ -1,7 +1,5 @@
-import {isStr, isNum} from '../utils';
-import {VirtualNode} from '../types';
-
-type vNode = VirtualNode | string | number;
+import {isStr, isNum} from '../../utils';
+import {VirtualNode, vNode} from '../../types';
 
 function createHTMLElement(vNode: vNode): HTMLElement | Text {
   if (isStr(vNode) || isNum(vNode)) {

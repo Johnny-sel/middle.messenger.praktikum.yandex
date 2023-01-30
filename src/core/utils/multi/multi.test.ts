@@ -1,4 +1,4 @@
-import {isEmpty} from './multi';
+import {isEmpty} from '../';
 
 describe('Common utils', () => {
   const map1 = new Map();

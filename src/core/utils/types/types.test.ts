@@ -1,4 +1,4 @@
-import {isArr, isFunc, isNull, isNum, isObject, isStr} from './types';
+import {isArr, isFunc, isNull, isNum, isObject, isStr} from '../';
 
 describe('Types utils', () => {
   const array = ['1', '2'];

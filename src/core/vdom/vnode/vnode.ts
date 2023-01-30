@@ -1,6 +1,6 @@
-import {isArr, isObject} from '../utils';
-import {parseAttrs} from './parse';
-import {FunctionVirtualNode, RegisteredComponent, VirtualNode, Props, Component} from '../types';
+import {isArr, isObject} from '../../utils';
+import {parseAttrs} from '../parse/parse';
+import {FunctionVirtualNode, RegisteredComponent, VirtualNode, Props, Component} from '../../types';
 
 function createVirtualComponent(Component: Component, props: Props): VirtualNode {
   const key = props.key;
@@ -39,7 +39,7 @@ function createVirtualNode(tag: string): FunctionVirtualNode {
     if (args.length === 2) {
       attrsStr = args[0];
       children = isArr(args[1]) ? args[1] : [];
-      handlers = isObject(args[1]) ? args[1] : [];
+      handlers = isObject(args[1]) ? args[1] : {};
     }
 
     if (args.length === 3) {

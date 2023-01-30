@@ -16,6 +16,8 @@ export type ClickButton = NavOptions['clickButton'];
 export type State = Record<string, string>;
 export type RegisteredComponent = {key: string; component: IComponent<unknown, unknown>};
 export type Component = IComponentConstructable<unknown, unknown>;
+export type vNode = VirtualNode | string | number;
+
 
 // ROUTER ------------------
 export interface IRouter {
