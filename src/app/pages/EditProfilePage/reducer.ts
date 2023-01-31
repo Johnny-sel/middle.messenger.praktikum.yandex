@@ -9,13 +9,13 @@ import {ReasonResponse} from '@api/types';
 import {CHANGE_INPUT, GET_USER, UPDATE_USER} from '@app/actions';
 
 function handleError(err: ReasonResponse) {
-  const {state} = this as Component<EditProfileState, {}>;
+  const {state} = this as Component<EditProfileState>;
   if (err.reason === error.cookie) return;
   state.error = err.reason ?? error.auth;
 }
 
 async function dispatch(type: string) {
-  const {state} = this as Component<EditProfileState, {}>;
+  const {state} = this as Component<EditProfileState>;
   const form = state.target?.form;
 
   try {

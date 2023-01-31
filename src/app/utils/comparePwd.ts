@@ -1,6 +1,6 @@
-import { name } from "@app/constants";
+import {name} from '@app/constants';
 
-function comparePasswords(inputData any): boolean {
+function comparePasswords(inputData: Record<string, unknown>): boolean {
   return inputData[name.confirmPassword] === inputData[name.password];
 }
 

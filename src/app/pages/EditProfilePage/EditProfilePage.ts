@@ -14,7 +14,7 @@ import {EditProfileState} from './types';
 import {editProfileState} from './state';
 import {dispatch} from './reducer';
 
-export default class EditProfilePage extends Component<EditProfileState, {}> {
+export default class EditProfilePage extends Component<EditProfileState> {
   constructor() {
     super();
   }

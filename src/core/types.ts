@@ -14,41 +14,19 @@ export type Route = {path: string; component: Component};
 export type NavOptions = {clickButton?: 'prev' | 'next'};
 export type ClickButton = NavOptions['clickButton'];
 export type State = Record<string, string>;
-export type RegisteredComponent = {key: string; component: IComponent<unknown, unknown>};
-export type Component = IComponentConstructable<unknown, unknown>;
+export type RegisteredComponent = {key: string; component: IComponent<unknown>};
+export type Component = IComponentConstructable<unknown>;
 export type vNode = VirtualNode | string | number;
 
-// COMPONENT -----------------
-
-export interface IComponentConstructable<State, Props> {
-  new (): IComponent<State, Props>;
+export interface IComponentConstructable<Props> {
+  new (): IComponent<Props>;
+  init(props?: Props): VirtualNode;
 }
 
-export interface IComponent<State, Props> {
-  vNodeNext: VirtualNode;
-  vNodeCurrent: VirtualNode;
-  state: State | null;
-  initState: State | null;
-  props?: Props;
+export interface IComponent<Props> {
   key: string;
-  isClearState: boolean;
   stack: RegisteredComponent[];
 
-  createState(): State;
-  create(): VirtualNode;
-  didUpdate(): void;
-  didMount(): void;
-  unMount(): void;
-
-  _init(props?: Props): VirtualNode;
-  _reCreate(props?: Props): VirtualNode;
-  _getProxyState(state: State): State;
-  _interception(state: Record<string, unknown>, prop: string, newValue: any): boolean;
-  _injectHTML(): void;
-  _injectTextNode(vNodePrevLast: VirtualNode, textNode: VirtualNode): void;
-  _injectChilds(vNode: VirtualNode): void;
-  _injectAttr(vNodePrev: VirtualNode, vNodeNext: VirtualNode): void;
-  _compareInnerText(vNodePrev: VirtualNode, vNodeNext: VirtualNode): void;
-  _compareAttrs(vNodePrev: VirtualNode, vNodeNext: VirtualNode): void;
-  _destroy(): void;
+  init(props?: Props): VirtualNode;
+  reCreate(props?: Props): VirtualNode;
 }

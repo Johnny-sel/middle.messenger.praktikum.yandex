@@ -15,7 +15,7 @@ import {registerState} from './state';
 import {dispatch} from './reducer';
 import {RegisterState} from './types';
 
-export default class RegisterPage extends Component<RegisterState, {}> {
+export default class RegisterPage extends Component<RegisterState> {
   constructor() {
     super();
   }

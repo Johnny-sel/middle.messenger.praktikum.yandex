@@ -7,12 +7,12 @@ function validateForm(form: HTMLFormElement): boolean {
   Array.from(inputs).forEach((input: HTMLInputElement) => {
     if (!input.value || !input.validity.valid) {
       input.setCustomValidity('Invalid field');
-      
+
       results.push(false);
     }
   });
 
-  isValid = !(results.some((value) => value === false));
+  isValid = !results.some((value) => value === false);
   return isValid;
 }
 

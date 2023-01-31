@@ -9,13 +9,13 @@ import {CHANGE_INPUT, UPDATE_PASSWORD} from '@app/actions';
 import {EditPasswordState} from './types';
 
 function handleError(err: ReasonResponse) {
-  const {state} = this as Component<EditPasswordState, {}>;
+  const {state} = this as Component<EditPasswordState>;
   if (err.reason === error.cookie) return;
   state.error = err.reason ?? error.auth;
 }
 
 async function dispatch(type: string) {
-  const {state} = this as Component<EditPasswordState, {}>;
+  const {state} = this as Component<EditPasswordState>;
   const form = state.target?.form;
 
   try {

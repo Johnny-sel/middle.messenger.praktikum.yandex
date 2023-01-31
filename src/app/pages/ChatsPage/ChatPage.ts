@@ -8,17 +8,11 @@ import {Component} from '@core/component';
 import {chatPageState} from './state';
 import {ChatList, MessageList} from './components';
 import {ChatPageState} from './types';
-import {
-  CHANGE_INPUT,
-  CLEAR_INPUT,
-  CONNECT_WEBSOCKET,
-  GET_CHATS,
-  SCROLL_BOTTOM,
-  SEND_MESSAGE,
-} from '@app/actions';
+import {CHANGE_INPUT, CLEAR_INPUT, CONNECT_WEBSOCKET} from '@app/actions';
+import {GET_CHATS, SCROLL_BOTTOM, SEND_MESSAGE} from '@app/actions';
 import {dispatch} from './reducer';
 
-export default class ChatsPage extends Component<ChatPageState, {}> {
+export default class ChatsPage extends Component<ChatPageState> {
   constructor() {
     super();
   }

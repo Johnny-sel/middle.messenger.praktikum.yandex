@@ -10,7 +10,7 @@ import {Message} from '@app/types';
 import {Chat} from '@api/repositories';
 
 async function dispatch(type: string, payload: unknown) {
-  const {state} = this as Component<ChatPageState, {}>;
+  const {state} = this as Component<ChatPageState>;
 
   try {
     switch (type) {

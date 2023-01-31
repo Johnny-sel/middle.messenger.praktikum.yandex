@@ -14,13 +14,13 @@ import {comparePasswords} from '@app/utils';
 import {RegisterState} from './types';
 
 function handleError(err: ReasonResponse) {
-  const {state} = this as Component<RegisterState,{}>;
+  const {state} = this as Component<RegisterState>;
   if (err.reason === error.cookie) return;
   state.error = err.reason ?? error.auth;
 }
 
 async function dispatch(type: string) {
-  const {state} = this as Component<RegisterState, {}>;
+  const {state} = this as Component<RegisterState>;
   const form = state.target?.form;
 
   try {

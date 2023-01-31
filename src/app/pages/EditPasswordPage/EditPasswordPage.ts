@@ -13,7 +13,7 @@ import {EditPasswordState} from './types';
 import {dispatch} from './reducer';
 import {editPasswordState} from './state';
 
-export default class EditPasswordPage extends Component<EditPasswordState, {}> {
+export default class EditPasswordPage extends Component<EditPasswordState> {
   constructor() {
     super();
   }

@@ -1,50 +1,52 @@
 import {isStr, isNum, isArr, isDiffLength, random, deepCopy, isObject} from '../utils';
 import {createHTMLElement} from '../vdom/dom/dom';
-import {RegisteredComponent, IComponent, VirtualNode} from '../types';
+import {RegisteredComponent, VirtualNode} from '../types';
 
-export abstract class Component<State = {}, Props = {}> implements IComponent<State, Props> {
-  vNodeNext: VirtualNode;
-  vNodeCurrent: VirtualNode;
-  state: State;
-  initState: State;
-  props: Props;
-  key: string;
-  observer: MutationObserver;
-  isClearState: boolean;
-  stack: RegisteredComponent[];
+export abstract class Component<State = {}, Props = {}> {
+  public state: State;
+  public props: Props;
+
+  private vNodeNext: VirtualNode;
+  private vNodeCurrent: VirtualNode;
+  private initState: State;
+  private observer: MutationObserver;
+  private isClearState: boolean;
+
+  public key: string;
+  public stack: RegisteredComponent[];
 
   constructor() {
     this.key = random().toString();
   }
 
-  _init(props: Props) {
+  public init(props: Props) {
     this.stack = [];
     this.isClearState = false;
 
-    this.state = this._getProxyState(this.createState());
+    this.state = this.getProxyState(this.createState());
     this.initState = deepCopy(this.state) as State;
 
     this.props = props;
     this.vNodeCurrent = this.create();
     this.vNodeCurrent.attrs['data-key'] = this.key;
 
-    this._observer(this.key);
+    this.observe(this.key);
 
     return this.vNodeCurrent;
   }
 
-  _reCreate(props: Props) {
+  public reCreate(props: Props) {
     this.props = props;
     return this.create();
   }
 
-  _getProxyState(state: State) {
+  private getProxyState(state: State) {
     return new Proxy(state as Record<string, unknown>, {
-      set: this._interception.bind(this),
+      set: this.interception.bind(this),
     }) as State;
   }
 
-  _interception(state: Record<string, unknown>, prop: string, newValue: unknown) {
+  private interception(state: Record<string, unknown>, prop: string, newValue: unknown) {
     state[prop] = newValue;
 
     if (this.isClearState) {
@@ -52,11 +54,11 @@ export abstract class Component<State = {}, Props = {}> implements IComponent<St
     }
 
     this.vNodeNext = this.create();
-    this._injectHTML();
+    this.injectHTML();
     return true;
   }
 
-  _injectHTML() {
+  private injectHTML() {
     let isDiff = false;
 
     const stackPrev = [this.vNodeCurrent];
@@ -71,7 +73,7 @@ export abstract class Component<State = {}, Props = {}> implements IComponent<St
 
       if (isDiffLength(stackPrev, stackNext)) {
         vNodePrevLast.children = vNodeNextLast.children;
-        this._injectChilds(vNodePrevLast);
+        this.injectChilds(vNodePrevLast);
         break;
       }
 
@@ -85,27 +87,27 @@ export abstract class Component<State = {}, Props = {}> implements IComponent<St
         stackNext.push(...(vNodeNext.children as []));
       }
 
-      isDiff = this._compateTags(vNodePrev, vNodeNext);
+      isDiff = this.compateTags(vNodePrev, vNodeNext);
 
       if (isDiff) {
-        this._injectTags(vNodePrevLast, vNodeNext);
+        this.injectTags(vNodePrevLast, vNodeNext);
       }
 
-      isDiff = this._compareInnerText(vNodePrev, vNodeNext);
+      isDiff = this.compareInnerText(vNodePrev, vNodeNext);
 
       if (isDiff) {
-        this._injectTextNode(vNodePrevLast, vNodeNext);
+        this.injectTextNode(vNodePrevLast, vNodeNext);
       }
 
-      isDiff = this._compareAttrs(vNodePrev, vNodeNext);
+      isDiff = this.compareAttrs(vNodePrev, vNodeNext);
 
       if (isDiff) {
-        this._injectAttr(vNodePrev, vNodeNext);
+        this.injectAttr(vNodePrev, vNodeNext);
       }
     }
   }
 
-  _injectTags(vPrev: VirtualNode, vNext: VirtualNode) {
+  private injectTags(vPrev: VirtualNode, vNext: VirtualNode) {
     if (!(vPrev.HTMLElement instanceof HTMLElement)) return;
     const element = createHTMLElement(vNext);
     vPrev.HTMLElement.replaceWith(element);
@@ -113,14 +115,14 @@ export abstract class Component<State = {}, Props = {}> implements IComponent<St
     vPrev.HTMLElement = element;
   }
 
-  _injectTextNode(vNode: VirtualNode, textNode: VirtualNode | string) {
+  private injectTextNode(vNode: VirtualNode, textNode: VirtualNode | string) {
     if (vNode.HTMLElement instanceof HTMLElement) {
       vNode.HTMLElement.innerHTML = textNode as string;
       vNode.children = [textNode as string];
     }
   }
 
-  _injectChilds(vNode: VirtualNode) {
+  private injectChilds(vNode: VirtualNode) {
     const isTextNode = vNode.children.length === 1 && isStr(vNode.children[0]);
 
     if (vNode.HTMLElement instanceof HTMLElement) {
@@ -140,7 +142,7 @@ export abstract class Component<State = {}, Props = {}> implements IComponent<St
     });
   }
 
-  _injectAttr(vPrev: VirtualNode, vNext: VirtualNode) {
+  private injectAttr(vPrev: VirtualNode, vNext: VirtualNode) {
     if (!(vPrev.HTMLElement instanceof HTMLElement)) return;
 
     const attrsNext = Object.entries(vNext.attrs);
@@ -170,18 +172,18 @@ export abstract class Component<State = {}, Props = {}> implements IComponent<St
     vPrev.attrs = vNext.attrs;
   }
 
-  _compareInnerText(vPrev: VirtualNode, vNext: VirtualNode) {
+  private compareInnerText(vPrev: VirtualNode, vNext: VirtualNode) {
     if (!(isStr(vPrev) || isNum(vPrev))) {
       return false;
     }
     return vPrev !== vNext;
   }
 
-  _compateTags(vPrev: VirtualNode, vNext: VirtualNode) {
+  private compateTags(vPrev: VirtualNode, vNext: VirtualNode) {
     return vPrev.tag !== vNext.tag;
   }
 
-  _compareAttrs(vPrev: VirtualNode, vNext: VirtualNode) {
+  private compareAttrs(vPrev: VirtualNode, vNext: VirtualNode) {
     if (isStr(vPrev) || isNum(vPrev)) {
       return false;
     }
@@ -192,7 +194,7 @@ export abstract class Component<State = {}, Props = {}> implements IComponent<St
     return prevAttrs !== nextAttrs;
   }
 
-  _observer(key: string) {
+  private observe(key: string) {
     const root = document.querySelector('#root');
 
     this.observer = new MutationObserver(() => {
@@ -200,7 +202,7 @@ export abstract class Component<State = {}, Props = {}> implements IComponent<St
       const component = document.querySelector(selector);
       const inDom = document.body.contains(component);
 
-      inDom ? this.didMount() : this._destroy();
+      inDom ? this.didMount() : this.destroy();
     });
 
     if (!root) return;
@@ -208,13 +210,13 @@ export abstract class Component<State = {}, Props = {}> implements IComponent<St
     this.observer.observe(root, {childList: true});
   }
 
-  _destroy() {
+  private destroy() {
     this.observer.disconnect();
-    this._clearState();
+    this.clearState();
     this.unMount();
   }
 
-  _clearState() {
+  private clearState() {
     this.isClearState = true;
 
     const stack = [this.state];
@@ -245,14 +247,14 @@ export abstract class Component<State = {}, Props = {}> implements IComponent<St
     this.isClearState = false;
   }
 
-  createState(): State {
+  public createState(): State {
     return {} as State;
   }
 
   /* eslint-disable */
-  didMount() {}
-  didUpdate() {}
-  unMount() {}
+  public didMount() {}
+  public didUpdate() {}
+  public unMount() {}
 
   abstract create(): VirtualNode;
 }

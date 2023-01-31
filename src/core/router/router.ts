@@ -87,7 +87,7 @@ export class Router {
 
     const finded = this.registeredComponents.find((e) => e.key === route.path);
     const component = finded ? finded.component : new route.component();
-    const vDom = component._init();
+    const vDom = component.init();
     const rootNode = createHTMLElement(vDom);
 
     if (!finded) {

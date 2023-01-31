@@ -6,11 +6,6 @@ export type TInput = {
   error: string;
 };
 
-export type ActionPayload = {
-  type: string;
-  payload: unknown;
-};
-
 export type Message = {
   id: number;
   user_id: number;
@@ -21,4 +16,3 @@ export type Message = {
   is_read: boolean;
   file: null;
 };
-

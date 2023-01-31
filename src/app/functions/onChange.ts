@@ -1,5 +1,5 @@
 function onChange(event: InputEvent) {
-  (event.target as any).setCustomValidity('');
+  (event.target as HTMLInputElement).setCustomValidity('');
 
   const name = (event.target as any).name;
   const value = (event.target as any).value;

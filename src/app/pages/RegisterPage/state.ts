@@ -7,7 +7,7 @@ const {email, login, displayName, firstName, phone, secondName, password, confir
 const registerState: RegisterState = {
   error: '',
   load: false,
-  inputData :{
+  inputData: {
     [email]: '',
     [login]: '',
     [firstName]: '',

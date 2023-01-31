@@ -35,5 +35,5 @@
       "@api/types": ["./src/api/types"]
     }
   },
-  "include": ["./src/**/*", "image-import.d.ts"]
+  "include": ["./src/**/*", "imports.d.ts"]
 }

@@ -12,7 +12,7 @@ import {Item, ProfileState} from './types';
 import {profileState} from './state';
 import {dispatch} from './reducer';
 
-export default class ProfilePage extends Component<ProfileState, {}> {
+export default class ProfilePage extends Component<ProfileState> {
   constructor() {
     super();
   }
