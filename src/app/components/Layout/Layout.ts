@@ -1,6 +1,6 @@
 import './Layout.sass';
 
-import {div, main, component} from 'src/core/vdom/tags/tags';
+import {div, main, component} from '@core/tags';
 import {Component} from '@core/component';
 import {Header, Footer} from '@app/components';
 import {VirtualNode} from '@core/types';

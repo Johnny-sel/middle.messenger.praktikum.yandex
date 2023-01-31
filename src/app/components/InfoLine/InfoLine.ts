@@ -1,6 +1,6 @@
 import './InfoLine.sass';
 
-import {div, span} from 'src/core/vdom/tags/tags';
+import {div, span} from '@core/tags';
 import {Component} from '@core/component';
 import {capitalizeFirstLetter} from '@core/utils';
 

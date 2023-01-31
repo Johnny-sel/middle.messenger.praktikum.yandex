@@ -1,7 +1,7 @@
 import './ProfilePhoto.sass';
 import preview from '@app/img/avatar-preview.png';
 
-import {div, span, img, input, label} from 'src/core/vdom/tags/tags';
+import {div, span, img, input, label} from '@core/tags';
 import {Component} from '@core/component';
 import {hostResources} from '@app/constants';
 import {ProfilePhotoProps} from './types';

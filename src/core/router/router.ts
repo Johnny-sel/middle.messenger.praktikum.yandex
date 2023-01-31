@@ -1,16 +1,17 @@
 import {createHTMLElement} from '../vdom/dom/dom';
 import {isStr, penultimate} from '../utils';
-import {ClickButton, IRouter, NavOptions, RegisteredComponent, Route} from './../types';
+import {ClickButton, NavOptions, RegisteredComponent, Route} from './../types';
 
-export class Router implements IRouter {
-  static instance: IRouter;
+export class Router {
+  private static instance: Router;
 
-  routes: Route[];
-  stack: string[];
-  index: number;
-  isInit: boolean;
-  root: HTMLElement;
-  registeredComponents: RegisteredComponent[];
+  private registeredComponents: RegisteredComponent[];
+  private routes: Route[];
+  private stack: string[];
+
+  private index: number;
+  private isInit: boolean;
+  private root: HTMLElement;
 
   constructor(routes: Route[]) {
     this.routes = routes;
@@ -20,7 +21,7 @@ export class Router implements IRouter {
     this.isInit = true;
   }
 
-  static init(routes: Route[]): IRouter {
+  public static init(routes: Route[]): Router {
     if (!this.instance) {
       this.instance = new Router(routes);
     }
@@ -28,38 +29,38 @@ export class Router implements IRouter {
     return this.instance;
   }
 
-  static render(root: HTMLElement): void {
+  public static render(root: HTMLElement): void {
     this.instance.root = root;
-    this.instance._subscribe('popstate', this.instance);
-    this.instance._navigateTo(window.location.pathname);
+    this.instance.subscribe('popstate', this.instance);
+    this.instance.navigateTo(window.location.pathname);
     this.instance.isInit = false;
   }
 
-  static to(path: string): void {
-    this.instance._navigateTo(path);
+  public static to(path: string): void {
+    this.instance.navigateTo(path);
   }
 
   static goBack(): void {
-    this.instance._goBack();
+    this.instance.goBack();
   }
 
-  _subscribe(event: string, context: IRouter): void {
+  private subscribe(event: string, context: Router): void {
     return window.addEventListener(event, function () {
       if (event === 'popstate') {
         const path = window.location.pathname;
 
         if (path === context.stack[context.index - 1]) {
-          context._navigateTo(path, {clickButton: 'prev'});
+          context.navigateTo(path, {clickButton: 'prev'});
         } else {
-          context._navigateTo(path, {clickButton: 'next'});
+          context.navigateTo(path, {clickButton: 'next'});
         }
       }
     });
   }
 
-  _navigateTo(path: string, {clickButton}: NavOptions = {}): void {
+  private navigateTo(path: string, {clickButton}: NavOptions = {}): void {
     let route = this.routes.find((route) => route.path === path);
-    const isChecked = this._checkRoute(route);
+    const isChecked = this.checkRoute(route);
 
     if (!isChecked) {
       route = this.routes.find((route) => route.path === '/error');
@@ -69,19 +70,19 @@ export class Router implements IRouter {
       throw new Error('[Roter]: router is undefined');
     }
 
-    this._renderPage(route);
-    this._changeUrl(route, clickButton);
-    this._registRoute(route, clickButton);
+    this.renderPage(route);
+    this.changeUrl(route, clickButton);
+    this.registRoute(route, clickButton);
   }
 
-  _goBack(): void {
+  private goBack(): void {
     const path = penultimate(this.stack) as string;
     if (path) {
-      this._navigateTo(path);
+      this.navigateTo(path);
     }
   }
 
-  _renderPage(route: Route): void {
+  private renderPage(route: Route): void {
     this.root.innerHTML = '';
 
     const finded = this.registeredComponents.find((e) => e.key === route.path);
@@ -96,7 +97,7 @@ export class Router implements IRouter {
     this.root.appendChild(rootNode);
   }
 
-  _changeUrl(route: Route, clickButton: ClickButton): void {
+  private changeUrl(route: Route, clickButton: ClickButton): void {
     if (clickButton) {
       history.replaceState({}, route.path, route.path);
     } else {
@@ -104,7 +105,7 @@ export class Router implements IRouter {
     }
   }
 
-  _registRoute(route: Route, clickButton: ClickButton): void {
+  private registRoute(route: Route, clickButton: ClickButton): void {
     if (clickButton === 'prev') {
       this.index--;
     } else if (clickButton === 'next') {
@@ -115,35 +116,35 @@ export class Router implements IRouter {
     }
   }
 
-  _checkRoute(route?: Route): boolean {
+  private checkRoute(route?: Route): boolean {
     if (!route) {
-      this._printError('define route in index.js');
+      this.printError('define route in index.js');
       return false;
     }
 
     if (!route.path.startsWith('/')) {
-      this._printError("route shoulde be start with '/'");
+      this.printError("route shoulde be start with '/'");
       return false;
     }
 
     if (route.component === undefined) {
-      this._printError('component in route shoudle be define');
+      this.printError('component in route shoudle be define');
       return false;
     }
 
     if (!isStr(route.path)) {
-      this._printError('route shoulde be string');
+      this.printError('route shoulde be string');
       return false;
     }
 
     return true;
   }
 
-  _printError(string: string): void {
+  private printError(string: string): void {
     console.error(`[Router]: ${string}`);
   }
 
-  _printInfo(string: string): void {
-    console.info(`[Router]: ${string}`);
-  }
+  // private printInfo(string: string): void {
+  //   console.info(`[Router]: ${string}`);
+  // }
 }

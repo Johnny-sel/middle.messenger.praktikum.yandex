@@ -1,6 +1,6 @@
 import './MessageList.sass';
 
-import {button, component, footer, header, main, section, span} from 'src/core/vdom/tags/tags';
+import {button, component, footer, header, main, section, span} from '@core/tags';
 import {Component} from '@core/component';
 import {Input} from '@app/components';
 import {Router} from '@core/router';

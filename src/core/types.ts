@@ -18,26 +18,6 @@ export type RegisteredComponent = {key: string; component: IComponent<unknown, u
 export type Component = IComponentConstructable<unknown, unknown>;
 export type vNode = VirtualNode | string | number;
 
-
-// ROUTER ------------------
-export interface IRouter {
-  root: HTMLElement;
-  routes: Route[];
-  stack: string[];
-  index: number;
-  isInit: boolean;
-
-  _subscribe(event: string, instance: IRouter): unknown;
-  _navigateTo(path: string, options?: NavOptions): unknown;
-  _goBack(): void;
-  _renderPage(ComponentInstance: any): void;
-  _changeUrl(route: Route, clickButton: NavOptions['clickButton']): void;
-  _registRoute(route: Route, clickButton: NavOptions['clickButton']): void;
-  _checkRoute(route: Route | undefined): boolean;
-  _printError(string: string): void;
-  _printInfo(string: string): void;
-}
-
 // COMPONENT -----------------
 
 export interface IComponentConstructable<State, Props> {

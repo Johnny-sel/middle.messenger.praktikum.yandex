@@ -1,4 +1,4 @@
-import {div, span, button} from 'src/core/vdom/tags/tags';
+import {div, span, button} from '@core/tags';
 import {Component} from '@core/component';
 import {TestState} from './types';
 

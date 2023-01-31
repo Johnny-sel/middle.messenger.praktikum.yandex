@@ -52,7 +52,7 @@
     "@app/constants": "./src/app/constants",
     "@app/img": "./src/app/static/img",
     "@app/styles": "./src/app/styles",
-    "@core/http": "./src/core/http",
+    "@core/http": "./src/core/http/http.ts",
     "@core/component": "./src/core/component/component.ts",
     "@core/router": "./src/core/router/router.ts",
     "@core/tags": "./src/core/vdom/tags/tags.ts",

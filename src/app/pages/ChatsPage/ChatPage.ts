@@ -2,7 +2,7 @@ import './ChatPage.sass';
 // api
 import {IWebSocketChat} from '@api/types';
 // core
-import {div, component} from 'src/core/vdom/tags/tags';
+import {div, component} from '@core/tags';
 import {Component} from '@core/component';
 //local
 import {chatPageState} from './state';

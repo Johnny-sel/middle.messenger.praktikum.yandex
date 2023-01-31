@@ -1,4 +1,4 @@
-import {main, component, span} from 'src/core/vdom/tags/tags';
+import {main, component, span} from '@core/tags';
 import {Component} from '@core/component';
 import {Layout} from '@app/components';
 import {ErrorProps, ErrorState} from './types';

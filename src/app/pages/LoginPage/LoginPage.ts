@@ -1,5 +1,5 @@
 // core
-import {span, section, form, component, a} from 'src/core/vdom/tags/tags';
+import {span, section, form, component, a} from '@core/tags';
 import {Component} from '@core/component';
 import {Router} from '@core/router';
 // app

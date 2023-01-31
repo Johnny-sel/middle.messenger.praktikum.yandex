@@ -1,6 +1,6 @@
 import './Input.sass';
 
-import {div, input, span} from 'src/core/vdom/tags/tags';
+import {div, input, span} from '@core/tags';
 import {Component} from '@core/component';
 
 export default class Input extends Component<InputState, InputProps> {

@@ -1,6 +1,6 @@
 import './ProfilePage.sass';
 // core
-import {section, div, component, a, span} from 'src/core/vdom/tags/tags';
+import {section, div, component, a, span} from '@core/tags';
 import {Component} from '@core/component';
 import {Router} from '@core/router';
 // app
