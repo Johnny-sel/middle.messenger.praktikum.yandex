@@ -1,4 +1,4 @@
-import {parseAttrs} from './parse';
+import {parseAttrs} from '../';
 
 describe('Parser', () => {
   test('Function parseAttrs should be return object of html attrubite tag', () => {

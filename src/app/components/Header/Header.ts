@@ -1,7 +1,7 @@
 import './Header.sass';
 import headerLogo from '@app/img/header-logo.svg';
 
-import {div, img, h1, button, header, nav} from '@core/tags';
+import {div, img, h1, button, header, nav} from 'src/core/vdom/tags/tags';
 import {Component} from '@core/component';
 import {Router} from '@core/router';
 import {location} from '@app/constants';

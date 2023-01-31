@@ -1,6 +1,6 @@
 import './ChatListItem.sass';
 
-import {div, li, span} from '@core/tags';
+import {div, li, span} from 'src/core/vdom/tags/tags';
 import {Component} from '@core/component';
 import {parseDate} from '@app/utils';
 import {ChatListItemProps} from './types';

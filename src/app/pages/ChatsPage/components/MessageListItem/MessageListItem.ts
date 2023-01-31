@@ -1,6 +1,6 @@
 import './MessageListItem.sass';
 
-import {div, span} from '@core/tags';
+import {div, span} from 'src/core/vdom/tags/tags';
 import {Component} from '@core/component';
 import {parseDate} from '@app/utils';
 import {MessageProps} from './types';

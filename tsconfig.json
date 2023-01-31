@@ -21,7 +21,7 @@
       "@core/types": ["./src/core/types.ts"],
       "@core/component": ["./src/core/component/component.ts"],
       "@core/router": ["./src/core/router/router.ts"],
-      "@core/tags": ["./src/core/vdom/tags.ts"],
+      "@core/tags": ["src/core/vdom/tags/tags.ts"],
       "@core/utils": ["./src/core/utils"],
       "@app/pages": ["./src/app/pages"],
       "@app/components": ["./src/app/components"],

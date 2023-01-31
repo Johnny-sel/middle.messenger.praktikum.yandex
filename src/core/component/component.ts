@@ -2,7 +2,7 @@ import {isStr, isNum, isArr, isDiffLength, random, deepCopy, isObject} from '../
 import {createHTMLElement} from '../vdom/dom/dom';
 import {RegisteredComponent, IComponent, VirtualNode} from '../types';
 
-export abstract class Component<State={}, Props={}> implements IComponent<State, Props> {
+export abstract class Component<State = {}, Props = {}> implements IComponent<State, Props> {
   vNodeNext: VirtualNode;
   vNodeCurrent: VirtualNode;
   state: State;
@@ -193,6 +193,8 @@ export abstract class Component<State={}, Props={}> implements IComponent<State,
   }
 
   _observer(key: string) {
+    const root = document.querySelector('#root');
+
     this.observer = new MutationObserver(() => {
       const selector = `[data-key="${key}"]`;
       const component = document.querySelector(selector);
@@ -201,8 +203,9 @@ export abstract class Component<State={}, Props={}> implements IComponent<State,
       inDom ? this.didMount() : this._destroy();
     });
 
-    const rootElement = document.querySelector('#root')!;
-    this.observer.observe(rootElement, {childList: true});
+    if (!root) return;
+
+    this.observer.observe(root, {childList: true});
   }
 
   _destroy() {

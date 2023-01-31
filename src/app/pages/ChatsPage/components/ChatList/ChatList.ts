@@ -1,6 +1,6 @@
 import './ChatList.sass';
 // core
-import {aside, button, component, footer, header, nav, span, ul} from '@core/tags';
+import {aside, button, component, footer, header, nav, span, ul} from 'src/core/vdom/tags/tags';
 import {Component} from '@core/component';
 import {Router} from '@core/router';
 // app

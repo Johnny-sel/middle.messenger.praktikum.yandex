@@ -1,6 +1,6 @@
 import './Button.sass';
 
-import {button} from '@core/tags';
+import {button} from 'src/core/vdom/tags/tags';
 import {Component} from '@core/component';
 export default class Button extends Component<ButtonState, ButtonProps> {
   constructor() {

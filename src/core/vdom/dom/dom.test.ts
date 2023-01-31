@@ -1,5 +1,5 @@
 import {VirtualNode} from '@core/types';
-import {createHTMLElement} from './dom';
+import {createHTMLElement} from '../';
 
 describe('dom', () => {
   test('createHTMLElement function should be return dom elemnt from object', () => {
