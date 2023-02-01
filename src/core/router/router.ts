@@ -1,5 +1,5 @@
 import {createHTMLElement} from '../vdom/dom/dom';
-import {isStr, penultimate} from '../utils';
+import {penultimate} from '../utils';
 import {ClickButton, NavOptions, RegisteredComponent, Route} from './../types';
 
 export class Router {
@@ -31,7 +31,7 @@ export class Router {
 
   public static render(root: HTMLElement): void {
     this.instance.root = root;
-    this.instance.subscribe('popstate', this.instance);
+    this.instance.subscribe('popstate');
     this.instance.navigateTo(window.location.pathname);
     this.instance.isInit = false;
   }
@@ -44,18 +44,18 @@ export class Router {
     this.instance.goBack();
   }
 
-  private subscribe(event: string, context: Router): void {
-    return window.addEventListener(event, function () {
-      if (event === 'popstate') {
-        const path = window.location.pathname;
+  private listener() {
+    const path = window.location.pathname;
 
-        if (path === context.stack[context.index - 1]) {
-          context.navigateTo(path, {clickButton: 'prev'});
-        } else {
-          context.navigateTo(path, {clickButton: 'next'});
-        }
-      }
-    });
+    if (path === this.stack[this.index - 1]) {
+      this.navigateTo(path, {clickButton: 'prev'});
+    } else {
+      this.navigateTo(path, {clickButton: 'next'});
+    }
+  }
+
+  private subscribe(event: string): void {
+    window.addEventListener(event, this.listener.bind(this));
   }
 
   private navigateTo(path: string, {clickButton}: NavOptions = {}): void {
@@ -63,11 +63,11 @@ export class Router {
     const isChecked = this.checkRoute(route);
 
     if (!isChecked) {
-      route = this.routes.find((route) => route.path === '/error');
+      route = this.routes.find((route) => route.path === '/error')!;
     }
 
     if (route === undefined) {
-      throw new Error('[Roter]: router is undefined');
+      throw new Error(`[Router]: router '/error' is undefined`);
     }
 
     this.renderPage(route);
@@ -124,16 +124,6 @@ export class Router {
 
     if (!route.path.startsWith('/')) {
       this.printError("route shoulde be start with '/'");
-      return false;
-    }
-
-    if (route.component === undefined) {
-      this.printError('component in route shoudle be define');
-      return false;
-    }
-
-    if (!isStr(route.path)) {
-      this.printError('route shoulde be string');
       return false;
     }
 

@@ -13,7 +13,7 @@
     "baseUrl": ".",
     "paths": {
       "@api": ["./src/api"],
-      "@api/websocket/chat": ["src/api/websocket/chat.ts"],
+      "@api/websocket/chat": ["src/api/sockets/chat.ts"],
       "@app/actions": ["./src/app/actions"],
       "@app/functions": ["./src/app/functions"],
       "@app/utils": ["./src/app/utils"],

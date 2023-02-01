@@ -19,14 +19,14 @@ export abstract class Component<State = {}, Props = {}> {
     this.key = random().toString();
   }
 
-  public init(props: Props) {
+  public init(props?: Props) {
     this.stack = [];
     this.isClearState = false;
 
     this.state = this.getProxyState(this.createState());
     this.initState = deepCopy(this.state) as State;
 
-    this.props = props;
+    this.props = props || ({} as Props);
     this.vNodeCurrent = this.create();
     this.vNodeCurrent.attrs['data-key'] = this.key;
 

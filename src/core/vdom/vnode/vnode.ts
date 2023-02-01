@@ -1,8 +1,9 @@
 import {isArr, isObject} from '../../utils';
 import {parseAttrs} from '../parse/parse';
-import {FunctionVirtualNode, RegisteredComponent, VirtualNode, Props, Component} from '../../types';
+import {FunctionVirtualNode, RegisteredComponent, VirtualNode} from '../../types';
+import {Props, IComponentConstructable} from '../../types';
 
-function createVirtualComponent(Component: Component, props: Props): VirtualNode {
+function createVirtualComponent(Component: IComponentConstructable, props: Props): VirtualNode {
   const key = props.key;
   const stack = this.stack as RegisteredComponent[];
   const finded = stack.find((e) => e.key === key);

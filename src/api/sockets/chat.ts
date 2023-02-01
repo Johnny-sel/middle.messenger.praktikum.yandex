@@ -1,4 +1,4 @@
-import {Message} from './../../app/types/index';
+import {Message} from '../../app/types/index';
 import {isArr} from '@core/utils';
 import {Auth} from '../repositories/auth';
 import {Chat} from '../repositories/chat';

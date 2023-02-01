@@ -19,7 +19,7 @@ function queryStringify(data: Record<string, unknown>) {
   });
 }
 
-function fetch(url: string, options?: any): Promise<unknown> {
+function fetch(url: string, options?: any): Promise<any> {
   const {method = METHODS.GET, timeout = 10000, headers = {}, data} = options || {};
 
   const isGet = method === METHODS.GET;

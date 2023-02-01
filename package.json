@@ -10,7 +10,7 @@
   "source": "src/app/index.html",
   "scripts": {
     "clean": "rimraf dist",
-    "dev": "npm run clean && parcel --no-cache",
+    "dev": "npm run test && npm run clean && parcel --no-cache",
     "start": "npm run test && npm run build --no-cache && node ./server.js",
     "build": "npm run clean && parcel build --no-cache",
     "lint": "eslint . --fix",
@@ -24,6 +24,7 @@
     "@types/jest": "29.2.5",
     "@typescript-eslint/eslint-plugin": "5.48.1",
     "@typescript-eslint/parser": "5.48.1",
+    "babel-jest": "^29.4.1",
     "eslint": "8.31.0",
     "eslint-config-google": "0.14.0",
     "express": "4.18.2",
@@ -58,7 +59,7 @@
     "@core/types": "./src/core/types.ts",
     "@core/utils": "./src/core/utils",
     "@api": "./src/api",
-    "@api/websocket/chat": "./src/api/websocket/chat.ts",
+    "@api/websocket/chat": "./src/api/sockets/chat.ts",
     "@api/repositories": "./src/api/repositories",
     "@api/types": "./src/api/types"
   },

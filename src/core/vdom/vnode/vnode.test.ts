@@ -1,6 +1,6 @@
 import {Component} from '../../component/component';
 import {button} from '../tags/tags';
-import {createVirtualComponent, createVirtualNode} from './vnode';
+import {createVirtualComponent, createVirtualNode} from '../';
 
 class Button extends Component {
   constructor() {
@@ -75,7 +75,7 @@ describe('vnode', () => {
 
   test('createVirtualComponent function should be return object with property tag', () => {
     const btn = new Button();
-    btn._init({});
+    btn.init({});
     const vnode = createVirtualComponent.call(btn, Button, {key: '1'});
 
     expect(vnode).toEqual({
@@ -88,7 +88,7 @@ describe('vnode', () => {
 
   test('createVirtualComponent function should be return object with property tag', () => {
     const btn = new Button();
-    btn._init({});
+    btn.init({});
     btn.stack.push({key: '1', component: btn});
     const vnode = createVirtualComponent.call(btn, Button, {key: '1'});
 

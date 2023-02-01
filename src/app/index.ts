@@ -1,19 +1,12 @@
 import {Router} from '@core/router';
 import {location} from '@app/constants';
 
-import {
-  LoginPage,
-  ProfilePage,
-  RegisterPage,
-  EditProfilePage,
-  EditPasswordPage,
-  ErrorPage,
-  ChatsPage,
-  TestPage,
-} from '@app/pages';
+import {LoginPage, ProfilePage, RegisterPage, EditProfilePage} from '@app/pages';
+import {EditPasswordPage, ErrorPage, ChatsPage, TestPage} from '@app/pages';
+import {Route} from '@core/types';
 
 function initApp() {
-  const routes = [
+  const routes: Route[] = [
     {path: '/test', component: TestPage},
     {path: location.root, component: LoginPage},
     {path: location.error, component: ErrorPage},
