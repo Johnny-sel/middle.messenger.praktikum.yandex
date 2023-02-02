@@ -2,11 +2,7 @@ import {lastIndex} from '@core/utils';
 
 const METHODS = {GET: 'GET', POST: 'POST', PUT: 'PUT', DELETE: 'DELETE'};
 
-function queryStringify(data: Record<string, unknown>) {
-  if (typeof data !== 'object') {
-    throw new Error('Data must be object');
-  }
-
+function queryStringify(data: Record<string, unknown>): string {
   let str = '?';
 
   const arr = Object.entries(data);
@@ -17,6 +13,26 @@ function queryStringify(data: Record<string, unknown>) {
       str = str + '&';
     }
   });
+  return str;
+}
+
+function onload(resolve: (value: unknown) => void, reject: (value: unknown) => void) {
+  const startObject = this.responseText.trim().startsWith('{');
+  const startArray = this.responseText.trim().startsWith('[');
+
+  const endObject = this.responseText.trim().endsWith('}');
+  const endArray = this.responseText.trim().endsWith(']');
+
+  const isStartBracket = startObject || startArray;
+  const isEndBracket = endObject || endArray;
+
+  const isJson = isStartBracket && isEndBracket;
+  const badResponse = !this.status.toString().startsWith('2');
+
+  const done = badResponse ? reject : resolve;
+
+  done(isJson ? JSON.parse(this.responseText) : this.responseText);
+  this.abort();
 }
 
 function fetch(url: string, options?: any): Promise<any> {
@@ -38,25 +54,7 @@ function fetch(url: string, options?: any): Promise<any> {
       xhr.setRequestHeader(key, headers[key]);
     });
 
-    xhr.onload = function () {
-      const startObject = xhr.responseText.trim().startsWith('{');
-      const startArray = xhr.responseText.trim().startsWith('[');
-
-      const endObject = xhr.responseText.trim().endsWith('}');
-      const endArray = xhr.responseText.trim().endsWith(']');
-
-      const isStartBracket = startObject || startArray;
-      const isEndBracket = endObject || endArray;
-
-      const isJson = isStartBracket && isEndBracket;
-      const badResponse = !xhr.status.toString().startsWith('2');
-
-      const done = badResponse ? reject : resolve;
-
-      done(isJson ? JSON.parse(xhr.responseText) : xhr.responseText);
-      xhr.abort();
-    };
-
+    xhr.onload = onload.bind(xhr, resolve, reject);
     xhr.onabort = reject;
     xhr.onerror = reject;
 
@@ -73,4 +71,4 @@ function fetch(url: string, options?: any): Promise<any> {
   return promise;
 }
 
-export {fetch};
+export {fetch, queryStringify, onload};

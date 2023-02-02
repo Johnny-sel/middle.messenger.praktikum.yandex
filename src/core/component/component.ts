@@ -1,6 +1,6 @@
 import {isStr, isNum, isArr, isDiffLength, random, deepCopy, isObject} from '../utils';
 import {createHTMLElement} from '../vdom/dom/dom';
-import {RegisteredComponent, VirtualNode} from '../types';
+import {RegisteredComponent, VirtualNode, vNode} from '../types';
 
 export abstract class Component<State = {}, Props = {}> {
   public state: State;
@@ -27,12 +27,32 @@ export abstract class Component<State = {}, Props = {}> {
     this.initState = deepCopy(this.state) as State;
 
     this.props = props || ({} as Props);
+
     this.vNodeCurrent = this.create();
     this.vNodeCurrent.attrs['data-key'] = this.key;
 
-    this.observe(this.key);
+    this.observe();
 
     return this.vNodeCurrent;
+  }
+
+  private mutationCallback() {
+    const component = document.querySelector(`[data-key="${this.key}"]`);
+    const inDom = document.body.contains(component);
+    inDom ? this.didMount() : this.destroy();
+  }
+
+  private observe() {
+    const root = document.querySelector('#root');
+    if (!root) return;
+    this.observer = new MutationObserver(this.mutationCallback.bind(this));
+    this.observer.observe(root, {childList: true});
+  }
+
+  private destroy() {
+    this.observer.disconnect();
+    this.clearState();
+    this.unMount();
   }
 
   public reCreate(props: Props) {
@@ -42,11 +62,11 @@ export abstract class Component<State = {}, Props = {}> {
 
   private getProxyState(state: State) {
     return new Proxy(state as Record<string, unknown>, {
-      set: this.interception.bind(this),
+      set: this.trap.bind(this),
     }) as State;
   }
 
-  private interception(state: Record<string, unknown>, prop: string, newValue: unknown) {
+  private trap(state: Record<string, unknown>, prop: string, newValue: unknown) {
     state[prop] = newValue;
 
     if (this.isClearState) {
@@ -61,48 +81,55 @@ export abstract class Component<State = {}, Props = {}> {
   private injectHTML() {
     let isDiff = false;
 
-    const stackPrev = [this.vNodeCurrent];
+    const stackCurr = [this.vNodeCurrent];
     const stackNext = [this.vNodeNext];
 
-    let vNodePrevLast = this.vNodeCurrent;
+    let vNodeCurrLast = this.vNodeCurrent;
     let vNodeNextLast = this.vNodeNext;
 
-    while (stackPrev.length > 0 || stackNext.length > 0) {
-      const vNodePrev: VirtualNode | string = stackPrev.pop()!;
-      const vNodeNext: VirtualNode | string = stackNext.pop()!;
+    while (stackCurr.length > 0 || stackNext.length > 0) {
+      const vNodeCurr: vNode = stackCurr.pop()!;
+      const vNodeNext: vNode = stackNext.pop()!;
 
-      if (isDiffLength(stackPrev, stackNext)) {
-        vNodePrevLast.children = vNodeNextLast.children;
-        this.injectChilds(vNodePrevLast);
+      if (isDiffLength(stackCurr, stackNext)) {
+        vNodeCurrLast.children = vNodeNextLast.children;
+        this.injectChilds(vNodeCurrLast);
         break;
       }
 
-      if (isArr(vNodePrev.children)) {
-        vNodePrevLast = vNodePrev;
-        stackPrev.push(...(vNodePrev.children as []));
+      if (isArr(vNodeCurr.children)) {
+        vNodeCurrLast = vNodeCurr;
+        stackCurr.push(...(vNodeCurr.children as []));
       }
 
       if (isArr(vNodeNext.children)) {
         vNodeNextLast = vNodeNext;
+        vNodeNext;
         stackNext.push(...(vNodeNext.children as []));
       }
 
-      isDiff = this.compateTags(vNodePrev, vNodeNext);
+      isDiff = this.compareHandlers(vNodeCurr, vNodeNext);
 
       if (isDiff) {
-        this.injectTags(vNodePrevLast, vNodeNext);
+        this.injectHandlers(vNodeCurrLast, vNodeNext);
       }
 
-      isDiff = this.compareInnerText(vNodePrev, vNodeNext);
+      isDiff = this.compareTags(vNodeCurr, vNodeNext);
 
       if (isDiff) {
-        this.injectTextNode(vNodePrevLast, vNodeNext);
+        this.injectTags(vNodeCurrLast, vNodeNext);
       }
 
-      isDiff = this.compareAttrs(vNodePrev, vNodeNext);
+      isDiff = this.compareInnerText(vNodeCurr, vNodeNext);
 
       if (isDiff) {
-        this.injectAttr(vNodePrev, vNodeNext);
+        this.injectTextNode(vNodeCurrLast, vNodeNext);
+      }
+
+      isDiff = this.compareAttrs(vNodeCurr, vNodeNext);
+
+      if (isDiff) {
+        this.injectAttr(vNodeCurr, vNodeNext);
       }
     }
   }
@@ -142,6 +169,27 @@ export abstract class Component<State = {}, Props = {}> {
     });
   }
 
+  private injectHandlers(vPrev: VirtualNode, vNext: VirtualNode) {
+    if (!(vPrev.HTMLElement instanceof HTMLElement)) return;
+
+    const handlersNext = Object.entries(vNext.handlers);
+    const handlersPrev = Object.entries(vPrev.handlers);
+
+    handlersNext.forEach(([nextKey, nextValue]) => {
+      handlersPrev.forEach(([prevKey, prevValue]) => {
+        if (!(vPrev.HTMLElement instanceof HTMLElement)) return;
+
+        if (nextKey !== prevKey) return;
+        if (prevValue === nextValue) return;
+
+        vPrev.HTMLElement.removeEventListener(prevKey, prevValue);
+        vPrev.HTMLElement.addEventListener(nextKey, nextValue);
+      });
+    });
+
+    vPrev.handlers = vNext.handlers;
+  }
+
   private injectAttr(vPrev: VirtualNode, vNext: VirtualNode) {
     if (!(vPrev.HTMLElement instanceof HTMLElement)) return;
 
@@ -179,8 +227,33 @@ export abstract class Component<State = {}, Props = {}> {
     return vPrev !== vNext;
   }
 
-  private compateTags(vPrev: VirtualNode, vNext: VirtualNode) {
+  private compareTags(vPrev: VirtualNode, vNext: VirtualNode) {
     return vPrev.tag !== vNext.tag;
+  }
+
+  private compareHandlers(vPrev: VirtualNode, vNext: VirtualNode) {
+    if (isStr(vPrev) || isNum(vPrev)) {
+      return false;
+    }
+
+    const prevKeys = Object.keys(vPrev.handlers).join();
+    const nextKeys = Object.keys(vNext.handlers).join();
+
+    if (prevKeys !== nextKeys) {
+      return true;
+    }
+
+    const prevHandlers = Object.values(vPrev.handlers);
+    const nextHandlers = Object.values(vNext.handlers);
+
+    for (let i = 0; i < prevHandlers.length; i++) {
+      const prevHandler = prevHandlers[i];
+      const nextHandler = nextHandlers[i];
+      if (prevHandler !== nextHandler) {
+        return true;
+      }
+    }
+    return false;
   }
 
   private compareAttrs(vPrev: VirtualNode, vNext: VirtualNode) {
@@ -192,28 +265,6 @@ export abstract class Component<State = {}, Props = {}> {
     const nextAttrs = Object.entries(vNext.attrs).join();
 
     return prevAttrs !== nextAttrs;
-  }
-
-  private observe(key: string) {
-    const root = document.querySelector('#root');
-
-    this.observer = new MutationObserver(() => {
-      const selector = `[data-key="${key}"]`;
-      const component = document.querySelector(selector);
-      const inDom = document.body.contains(component);
-
-      inDom ? this.didMount() : this.destroy();
-    });
-
-    if (!root) return;
-
-    this.observer.observe(root, {childList: true});
-  }
-
-  private destroy() {
-    this.observer.disconnect();
-    this.clearState();
-    this.unMount();
   }
 
   private clearState() {

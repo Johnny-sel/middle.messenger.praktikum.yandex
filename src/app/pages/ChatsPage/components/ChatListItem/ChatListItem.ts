@@ -11,36 +11,34 @@ export default class ChatListItem extends Component<{}, ChatListItemProps> {
   }
 
   create() {
-    const {active, chat} = this.props;
-    const {id, last_message, title} = chat;
-    const {time} = parseDate(last_message?.time);
+    const {active, chat, onClick} = this.props;
+    const {time} = parseDate(chat.last_message?.time);
 
     const selected = active ? '--active' : '';
-    const content = last_message?.content;
+    const content = chat.last_message?.content;
     const length = content?.length;
 
     const lastMessage = length > 20 ? content?.slice(0, 20) + '...' : content;
 
-    const click = this.props.onClick.bind(this);
     // prettier-ignore
     return (
       li(`c=chat__list__items__item chat__list__items__item${selected}; tabIndex=0;`, [
         div('c=chat__list__items__item__avatar;', ['E']),
         div('c=chat__list__items__item__body;', [
           div('c=chat__list__items__item__body__top;', [
-            span('c=chat__list__items__item__body__top__username;', 
-              [last_message?.user?.login ?? '']
+            span('c=chat__list__items__item__body__top__username;',
+              [chat.last_message?.user?.login ?? '']
             ),
             span('c=chat__list__items__item__body__top__time;',
               [time ?? '']
             ),
           ]),
           div('c=chat__list__items__item__body__bottom;', [
-            span('c=chat__list__items__item__body__bottom__text;', 
-            [lastMessage ? lastMessage : title]),
+            span('c=chat__list__items__item__body__bottom__text;',
+            [lastMessage ? lastMessage : chat.title]),
           ]),
         ]),
-      ], {click: () => click(id)})
+      ], {click: onClick})
     );
   }
 }
