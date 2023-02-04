@@ -11,8 +11,8 @@ import {Item, ProfileState} from './types';
 
 function handleError(err: ReasonResponse) {
   const {state} = this as Component<ProfileState, {}>;
-  state.error = err.reason ?? error.auth;
-  Router.to(location.root);
+  state.error = err.reason ?? error.server;
+  state.error === error.cookie ? Router.to(location.root) : Router.to(location.profile);
 }
 
 async function dispatch(type: string) {

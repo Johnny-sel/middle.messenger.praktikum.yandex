@@ -83,6 +83,7 @@ const error = {
   searchMessage: 'Invalid search string',
   sendMessage: 'Invalid string',
   auth: 'Authenticate error',
+  server: 'Server error',
   cookie: 'Cookie is not valid',
   oldPassword: 'Invalid password',
   newPassword: 'Invalid password',
