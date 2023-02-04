@@ -71,7 +71,7 @@ async function dispatch(type: string, payload: unknown) {
       }
     }
   } catch (error) {
-    console.log('[error] ChatPage reducer:', error);
+    // console.log('[error] ChatPage reducer:', error);
     handleError.call(this, error);
   }
 }

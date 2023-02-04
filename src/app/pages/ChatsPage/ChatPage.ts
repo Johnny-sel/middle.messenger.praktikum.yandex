@@ -51,7 +51,7 @@ export default class ChatsPage extends Component<ChatPageState> {
   }
 
   create() {
-    const {messages, loadMessages, loadChats, inputData, chats} = this.state;
+    const {messages, loadMessages, loadChats, inputData, chats, selectedChatId} = this.state;
 
     const setWebSocketChat = this.setWebSocketChat.bind(this);
     const onChange = this.onChange.bind(this);
@@ -62,7 +62,7 @@ export default class ChatsPage extends Component<ChatPageState> {
     return (
       div('c=chats;', [
         component.call(this, ChatList, {setWebSocketChat, getChats, loadChats, chats, key: '1'}),
-        component.call(this, MessageList, {messages, loadMessages, onChange, onSubmit, inputData, key: '2'}),
+        component.call(this, MessageList, {messages, loadMessages, onChange, selectedChatId, onSubmit, inputData, key: '2'}),
       ])
     );
   }

@@ -1,3 +1,4 @@
+import {button} from './../../../../../core/vdom/tags/tags';
 import './ChatListItem.sass';
 
 import {div, li, span} from '@core/tags';
@@ -23,6 +24,8 @@ export default class ChatListItem extends Component<{}, ChatListItemProps> {
     // prettier-ignore
     return (
       li(`c=chat__list__items__item chat__list__items__item${selected}; tabIndex=0;`, [
+        button(`c=chat__list__items__item__menu button;`),
+        div('c=chat__list__items__item__separator;'),
         div('c=chat__list__items__item__avatar;', ['E']),
         div('c=chat__list__items__item__body;', [
           div('c=chat__list__items__item__body__top;', [

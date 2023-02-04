@@ -13,7 +13,26 @@
 .chat__list__items__item--active
   background-color: #ddddddc8
 
+.chat__list__items__item__menu
+  width: 3.5rem
+  height: 3.5rem
+  background-image: url('../../../../static/img/chat-menu.svg')
+  background-size: cover
+  background-color: transparent
+  transition: all 0.3s ease-out
+
+  &:hover
+    transform: scale(1.1)
+
+.chat__list__items__item__separator
+  margin-left: 1rem
+  margin-right: 0.5rem
+  width: 0.1rem
+  height: 3.5rem
+  background-color: #ddd
+
 .chat__list__items__item__avatar
+  margin-left: 0.5rem
   background-color: $secondary
   border-radius: 50%
   min-width: 3.5rem
@@ -22,6 +41,7 @@
   align-items: center
   justify-content: center
   color: #fff
+  border-left: $border
 
 .chat__list__items__item__body
   display: flex

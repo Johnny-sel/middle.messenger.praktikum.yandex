@@ -3,6 +3,7 @@ import {Message} from '@app/types';
 export type MessageListProps = {
   loadMessages: boolean;
   messages: Message[];
+  selectedChatId: number;
   inputData: {
     search_message: string;
     message: string;

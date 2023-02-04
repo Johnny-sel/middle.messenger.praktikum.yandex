@@ -2,17 +2,15 @@ import './MessageList.sass';
 
 import {button, component, footer, header, main, section, span} from '@core/tags';
 import {Component} from '@core/component';
-import {Input} from '@app/components';
+import {Input, Spinner} from '@app/components';
 import {Router} from '@core/router';
 import {location, name} from '@app/constants';
 import {inputs} from '@app/resources';
 import {MessageListProps} from './types';
 import {Message} from '../index';
 
-const {searchMessage, sendMessage} = name;
-
-const searchMessageInput = inputs.find((e) => e.name === searchMessage);
-const sendMessageInput = inputs.find((e) => e.name === sendMessage);
+const searchMessageInput = inputs.find((e) => e.name === name.searchMessage);
+const sendMessageInput = inputs.find((e) => e.name === name.sendMessage);
 
 export default class MessageList extends Component<{}, MessageListProps> {
   constructor() {
@@ -20,11 +18,13 @@ export default class MessageList extends Component<{}, MessageListProps> {
   }
 
   create() {
-    const {messages, loadMessages, inputData, onChange, onSubmit} = this.props;
+    const {messages: msgs, loadMessages, inputData} = this.props;
+    const {onChange, onSubmit, selectedChatId} = this.props;
 
-    const openHidden = messages.length > 0 || loadMessages ? 'hidden' : '';
-    const loadHidden = loadMessages ? '' : 'hidden';
-    const center = !openHidden || loadMessages ? 'center' : '';
+    const notSelectedChat = selectedChatId === 0;
+    const haveNotMessages = msgs.length === 0;
+    const center = haveNotMessages || notSelectedChat || loadMessages ? 'center' : '';
+    const messages = msgs.map((msg) => component.call(this, Message, {...msg, key: msg.id}));
 
     // prettier-ignore
     return (
@@ -43,14 +43,12 @@ export default class MessageList extends Component<{}, MessageListProps> {
           ),
         ]),
         // middle
-        main(`c=chats__messages__message_items ${center}; id=messages`, [
-          span(`c=chats__messages__message_items__info ${openHidden};`, ['Open any chat']),
-          span(`c=chats__messages__message_items__info ${loadHidden};`, ['Loading messages...']),
-          ...messages.map((message) =>{
-            const key = message.id;
-            return component.call(this, Message, {...message, key });
-          })
-        ]),
+        main(`c=chats__messages__message_items ${center}; id=messages`,
+          notSelectedChat ? [span(`c=chats__messages__message_items__info;`, ['OPEN ANY CHAT'])]
+            : loadMessages ? [component.call(this, Spinner,{key: '2'})]
+                : haveNotMessages ? [span(`c=chats__messages__message_items__info;`, ['SEND MESSAGE'])]
+                  : [...messages]
+        ),
         // bottom
         footer('c=chats__messages__footer;', [
           button(`c=chats__messages__footer__attach button; t=button; n=attach file;`,
@@ -59,7 +57,7 @@ export default class MessageList extends Component<{}, MessageListProps> {
           component.call(this, Input, {
             ...sendMessageInput,
             change: onChange,
-            key: '2',
+            key: '3',
             value: inputData['message'],
             className: 'chats__messages__footer__message',
           }),

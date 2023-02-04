@@ -4,7 +4,7 @@ function validateForm(form: HTMLFormElement): boolean {
 
   let isValid = false;
 
-  Array.from(inputs).forEach((input: HTMLInputElement) => {
+  Array.from(inputs).forEach((input) => {
     if (!input.value || !input.validity.valid) {
       input.setCustomValidity('Invalid field');
 

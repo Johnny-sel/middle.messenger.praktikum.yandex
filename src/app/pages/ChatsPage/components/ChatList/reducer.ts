@@ -47,7 +47,7 @@ async function dispatch(type: string, payload: unknown) {
       }
     }
   } catch (error) {
-    console.log('[error] ChatList reducer:', error);
+    // console.log('[error] ChatList reducer:', error);
     handleError.call(this, error);
   } finally {
     state.load = false;

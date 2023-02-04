@@ -91,6 +91,7 @@ export abstract class Component<State = {}, Props = {}> {
       const vNodeCurr: vNode = stackCurr.pop()!;
       const vNodeNext: vNode = stackNext.pop()!;
 
+      // children
       if (isDiffLength(stackCurr, stackNext)) {
         vNodeCurrLast.children = vNodeNextLast.children;
         this.injectChilds(vNodeCurrLast);
@@ -104,30 +105,29 @@ export abstract class Component<State = {}, Props = {}> {
 
       if (isArr(vNodeNext.children)) {
         vNodeNextLast = vNodeNext;
-        vNodeNext;
         stackNext.push(...(vNodeNext.children as []));
       }
 
+      // handlers
       isDiff = this.compareHandlers(vNodeCurr, vNodeNext);
-
       if (isDiff) {
         this.injectHandlers(vNodeCurrLast, vNodeNext);
       }
 
+      // tags
       isDiff = this.compareTags(vNodeCurr, vNodeNext);
-
       if (isDiff) {
         this.injectTags(vNodeCurrLast, vNodeNext);
       }
 
+      // inner text
       isDiff = this.compareInnerText(vNodeCurr, vNodeNext);
-
       if (isDiff) {
         this.injectTextNode(vNodeCurrLast, vNodeNext);
       }
 
+      // attributes
       isDiff = this.compareAttrs(vNodeCurr, vNodeNext);
-
       if (isDiff) {
         this.injectAttr(vNodeCurr, vNodeNext);
       }
@@ -153,12 +153,11 @@ export abstract class Component<State = {}, Props = {}> {
     const isTextNode = vNode.children.length === 1 && isStr(vNode.children[0]);
 
     if (vNode.HTMLElement instanceof HTMLElement) {
-      vNode.HTMLElement.innerHTML = isTextNode ? (vNode.children[0] as string) : '';
+      const textNode = isTextNode ? (vNode.children[0] as string) : '';
+      vNode.HTMLElement.innerHTML = textNode;
     }
 
-    if (isTextNode) {
-      return;
-    }
+    if (isTextNode) return;
 
     vNode.children.forEach((item) => {
       const child = item as VirtualNode;
@@ -211,19 +210,14 @@ export abstract class Component<State = {}, Props = {}> {
       });
     });
 
-    if (isDisabled) {
-      vPrev.HTMLElement.setAttribute('disabled', '');
-    } else {
-      vPrev.HTMLElement.removeAttribute('disabled');
-    }
+    if (isDisabled) vPrev.HTMLElement.setAttribute('disabled', '');
+    else vPrev.HTMLElement.removeAttribute('disabled');
 
     vPrev.attrs = vNext.attrs;
   }
 
   private compareInnerText(vPrev: VirtualNode, vNext: VirtualNode) {
-    if (!(isStr(vPrev) || isNum(vPrev))) {
-      return false;
-    }
+    if (!(isStr(vPrev) || isNum(vPrev))) return false;
     return vPrev !== vNext;
   }
 
@@ -232,16 +226,12 @@ export abstract class Component<State = {}, Props = {}> {
   }
 
   private compareHandlers(vPrev: VirtualNode, vNext: VirtualNode) {
-    if (isStr(vPrev) || isNum(vPrev)) {
-      return false;
-    }
+    if (isStr(vPrev) || isNum(vPrev)) return false;
 
     const prevKeys = Object.keys(vPrev.handlers).join();
     const nextKeys = Object.keys(vNext.handlers).join();
 
-    if (prevKeys !== nextKeys) {
-      return true;
-    }
+    if (prevKeys !== nextKeys) return true;
 
     const prevHandlers = Object.values(vPrev.handlers);
     const nextHandlers = Object.values(vNext.handlers);
@@ -249,17 +239,14 @@ export abstract class Component<State = {}, Props = {}> {
     for (let i = 0; i < prevHandlers.length; i++) {
       const prevHandler = prevHandlers[i];
       const nextHandler = nextHandlers[i];
-      if (prevHandler !== nextHandler) {
-        return true;
-      }
+      if (prevHandler !== nextHandler) return true;
     }
+
     return false;
   }
 
   private compareAttrs(vPrev: VirtualNode, vNext: VirtualNode) {
-    if (isStr(vPrev) || isNum(vPrev)) {
-      return false;
-    }
+    if (isStr(vPrev) || isNum(vPrev)) return false;
 
     const prevAttrs = Object.entries(vPrev.attrs).join();
     const nextAttrs = Object.entries(vNext.attrs).join();
@@ -278,15 +265,10 @@ export abstract class Component<State = {}, Props = {}> {
       const initState = initStack.pop() as Record<string, unknown>;
 
       for (const key in state) {
-        if (!state.hasOwnProperty(key)) {
-          continue;
-        }
-
         const value = state[key];
         const initValue = initState[key];
-        const isObjects = isObject(value) && isObject(initValue);
 
-        if (isObjects) {
+        if (isObject(value) && isObject(initValue)) {
           stack.push(value as State);
           initStack.push(initValue as State);
         } else {

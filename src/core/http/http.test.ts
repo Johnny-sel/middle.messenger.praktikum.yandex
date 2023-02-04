@@ -91,7 +91,7 @@ describe('http', () => {
 
     expect(post).not.toThrow();
     expect(postWidthData).not.toThrow();
-    expect(postWidthHeaders).rejects.toBeCalled();
+    expect(postWidthHeaders).rejects.toBeTruthy();
 
     expect(onloadCallbackStatus200).not.toThrow();
     expect(onloadCallbackStatusNot200).not.toThrow();

@@ -1,6 +1,7 @@
 export {default as Button} from './Button/Button';
 export {default as Input} from './Input/Input';
 export {default as Tooltip} from './Tooltip/Tooltip';
+export {default as Spinner} from './Spinner/Spinner';
 
 export {default as InfoLine} from './InfoLine/InfoLine';
 export {default as ProfilePhoto} from '../pages/ProfilePage/ProfilePhoto/ProfilePhoto';
