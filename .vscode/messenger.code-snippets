@@ -10,7 +10,7 @@
 		"scope": "javascript,typescript",
 		"prefix": "cc",
 		"body": [
-			"import './Styles.sass';",
+			"import './$1.sass';",
 			"  ",
 			"import {div} from '@core/tags';",
 			"import {Component} from '@core/component';",

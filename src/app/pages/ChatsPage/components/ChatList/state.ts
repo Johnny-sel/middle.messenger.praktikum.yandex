@@ -1,7 +1,8 @@
 import {ChatListState} from './types';
 
 export const chatListState: ChatListState = {
-  showTooltip: false,
+  showPopover: false,
+  isClickChatMenu: false,
   load: false,
   loadCreateChat: false,
   error: '',

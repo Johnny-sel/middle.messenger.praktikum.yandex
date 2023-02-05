@@ -1,7 +1,8 @@
 import {GetChatsResponse, IWebSocketChat} from '@api/types';
 
 export type ChatListState = {
-  showTooltip: boolean;
+  showPopover: boolean;
+  isClickChatMenu: boolean;
   load: boolean;
   loadCreateChat: boolean;
   error: string;

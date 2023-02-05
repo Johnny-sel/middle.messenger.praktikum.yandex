@@ -18,7 +18,6 @@ function createVirtualComponent(Component: IComponentConstructable, props: Props
   const vNode = component.init(props);
 
   this.stack.push({key, component});
-
   return vNode;
 }
 

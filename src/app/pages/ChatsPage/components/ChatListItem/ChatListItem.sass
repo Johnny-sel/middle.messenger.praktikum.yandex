@@ -1,37 +1,38 @@
 @import '@app/styles/varibales'
+@import '@app/styles/mixins'
 
-.chat__list__items__item
+.chat__list__item
   display: flex
   flex-wrap: nowrap
   padding: 1rem
   border-bottom: $border
   transition: all 0.3s ease-out
+  position: relative
 
   &:hover
     background-color: #dddddd72
 
-.chat__list__items__item--active
+.chat__list__item--active
   background-color: #ddddddc8
 
-.chat__list__items__item__menu
-  width: 3.5rem
-  height: 3.5rem
+.chat__list__item__menu
   background-image: url('../../../../static/img/chat-menu.svg')
   background-size: cover
   background-color: transparent
   transition: all 0.3s ease-out
 
   &:hover
-    transform: scale(1.1)
+    transform: rotate(90deg)
 
-.chat__list__items__item__separator
+
+.chat__list__item__separator
   margin-left: 1rem
   margin-right: 0.5rem
   width: 0.1rem
   height: 3.5rem
   background-color: #ddd
 
-.chat__list__items__item__avatar
+.chat__list__item__avatar
   margin-left: 0.5rem
   background-color: $secondary
   border-radius: 50%
@@ -43,14 +44,90 @@
   color: #fff
   border-left: $border
 
-.chat__list__items__item__body
+.chat__list__item__body
   display: flex
   flex-direction: column
   width: 100%
   padding-left: 1rem
 
-.chat__list__items__item__body__top
+.chat__list__item__body__top
   display: flex
   flex-wrap: nowrap
   justify-content: space-between
   margin-bottom: 0.5rem
+
+.chat__list__item__menu__popover
+  background: #fff
+  z-index: 1
+  width: 100%
+  min-height: 35rem
+
+  .popover__tabs
+    display: flex
+    margin-bottom: 1rem
+
+  .popover__tabs .tab
+    flex-basis: 50%
+    margin-right: 1rem
+    margin-left: 1rem
+    justify-content: center
+    border-bottom: $border
+    padding-bottom: 0.5rem
+
+  .popover__tabs .tab--active
+    flex-basis: 50%
+    margin-right: 1rem
+    margin-left: 1rem
+    justify-content: center
+    border-bottom: solid 1px $primary
+
+  .popover__body,.popover__userlist__body,.popover__userlist
+    height: calc( 100% - 3.5rem )
+
+  .popover__userlist__body input
+    margin-bottom: 1rem
+
+  .popover__userlist__body_error
+    text-align: center
+    margin-top: 1rem
+
+  .popover__userlist__body__users
+    margin-top: 1rem
+    width: 100%
+    height: 100%
+    display: flex
+    align-items: center
+    flex-direction: column
+
+  .popover__userlist__body__users--center
+    margin-top: 1rem
+    width: 100%
+    height: 100%
+    display: flex
+    align-items: center
+    flex-direction: column
+    justify-content: center
+
+.tab__text
+  text-align: center
+
+.user_item
+  display: flex
+  align-items: center
+  justify-content: space-between
+  width: 100%
+  border-bottom: 1px solid #ddd
+  padding: 0.3rem
+
+  .user_item__add.button
+    display: block
+    background: transparent
+    background-size: cover
+    background-image: url('./../../../../static/img/add-circle.svg')
+    height: 1.4rem
+    width: 1.4rem
+    border-radius: 50%
+    transition: all 0.3s ease-out
+
+    &:hover
+      transform: scale(1.1)

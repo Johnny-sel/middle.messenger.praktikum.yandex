@@ -26,8 +26,9 @@ export default class Input extends Component<InputState, InputProps> {
           p=${placeholder};
           pt=${pattern};
           ${load ? "di=" :''};
-        `, 
-          {input: change},
+        `,
+          {input: change, click: (e:Event) => e.stopPropagation()
+          },
         ),
         span(`c=input_group__error${hidden};`, [error ?? '']),
       ])

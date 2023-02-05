@@ -2,7 +2,7 @@ import {onChange} from '@app/functions';
 import {Component} from '@core/component';
 import {ReasonResponse} from '@api/types';
 import {error} from '@app/constants';
-import {CHANGE_INPUT, CREATE_CHAT, OPEN_CHAT, SWITCH_TOOLTIP} from '@app/actions';
+import {CHANGE_INPUT, CREATE_CHAT, OPEN_CHAT, OPEN_CHAT_MENU, SWITCH_TOOLTIP} from '@app/actions';
 import {WebSocketChat} from '@api/websocket/chat';
 import {ChatListProps, ChatListState} from './types';
 import {Chat} from '@api/repositories';
@@ -16,6 +16,7 @@ function handleError(err: ReasonResponse) {
 
 async function dispatch(type: string, payload: unknown) {
   const {state, props} = this as Component<ChatListState, ChatListProps>;
+  const chatId = payload as number;
 
   try {
     switch (type) {
@@ -25,7 +26,7 @@ async function dispatch(type: string, payload: unknown) {
       }
 
       case SWITCH_TOOLTIP: {
-        state.showTooltip = !state.showTooltip;
+        state.showPopover = !state.showPopover;
         break;
       }
 
@@ -34,15 +35,21 @@ async function dispatch(type: string, payload: unknown) {
         await Chat.createChat({title: state.inputData['title']});
         await props.getChats();
         state.loadCreateChat = false;
-        state.showTooltip = false;
+        state.showPopover = false;
         break;
       }
 
       case OPEN_CHAT: {
-        const chatId = payload as number;
+        if (state.selectedChatId === chatId) break;
         state.selectedChatId = chatId;
         state.socket = WebSocketChat.instance;
         props.setWebSocketChat(state.socket, chatId); // pass to parent component
+        break;
+      }
+
+      case OPEN_CHAT_MENU: {
+        state.selectedChatId = chatId;
+        state.isClickChatMenu = true;
         break;
       }
     }

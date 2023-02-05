@@ -1,5 +1,6 @@
 import {api} from '..';
-import {GetUserResponse, UpdateProfileRequest, UpdatePasswordRequest} from '@api/types';
+import {GetUserResponse, UpdateProfileRequest} from '@api/types';
+import {UpdatePasswordRequest, SearchUserRequest} from '@api/types';
 
 const User = {
   updateProfile: (body: UpdateProfileRequest): Promise<string> => {
@@ -10,6 +11,9 @@ const User = {
   },
   updatePhoto: (body: FormData): Promise<GetUserResponse> => {
     return api.put('/user/profile/avatar', body);
+  },
+  searchUser: (body: SearchUserRequest): Promise<GetUserResponse[]> => {
+    return api.post('/user/search', body);
   },
 };
 

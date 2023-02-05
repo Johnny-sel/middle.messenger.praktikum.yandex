@@ -25,17 +25,22 @@ function parseAttrs(attrsStr: string): Attrs {
       if (item[0] === 't=') return;
     }
 
-    attrsStr = attrsStr.replace(item[0], item[1]);
+    attrsStr = attrsStr.replace(item[0], item[1]).trim();
   });
 
   const attrsList: string[] = attrsStr.split(';');
 
-  attrsList.forEach((element: string) => {
-    if (element) {
-      const match = element.match('=');
+  attrsList.forEach((attr: string) => {
+    if (attr) {
+      const match = attr.match('=');
       if (match?.index) {
-        const key = element.slice(0, match.index).trim();
-        const value = element.slice(match.index + 1).trim();
+        let key = attr.slice(0, match.index).trim();
+        let value = attr.slice(match.index + 1).trim();
+
+        if (key === 'style') {
+          value = value.replace(/[\,]/g, ';');
+        }
+
         attrs[key] = value;
       }
     }

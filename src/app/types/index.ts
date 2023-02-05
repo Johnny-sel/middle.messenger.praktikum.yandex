@@ -16,3 +16,5 @@ export type Message = {
   is_read: boolean;
   file: null;
 };
+
+export type InputData = Record<string, string>;

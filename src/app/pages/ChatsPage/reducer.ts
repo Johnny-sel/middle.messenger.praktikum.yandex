@@ -39,11 +39,6 @@ async function dispatch(type: string, payload: unknown) {
 
       case SEND_MESSAGE: {
         state.socket?.sendMessage(state.inputData.message);
-        // const chat = state.chats.find((e) => e.id === state.selectedChatId)!;
-        // if (!chat.last_message) {
-        //   chat['last_message'] = {content: ''} as LastMessage;
-        // }
-        // chat.last_message.content = state.inputData.message;
         dispatch.call(this, CLEAR_INPUT);
         break;
       }

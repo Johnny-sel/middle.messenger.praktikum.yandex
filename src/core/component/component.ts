@@ -114,6 +114,12 @@ export abstract class Component<State = {}, Props = {}> {
         this.injectHandlers(vNodeCurrLast, vNodeNext);
       }
 
+      // attributes
+      isDiff = this.compareAttrs(vNodeCurr, vNodeNext);
+      if (isDiff) {
+        this.injectAttr(vNodeCurr, vNodeNext);
+      }
+
       // tags
       isDiff = this.compareTags(vNodeCurr, vNodeNext);
       if (isDiff) {
@@ -124,12 +130,6 @@ export abstract class Component<State = {}, Props = {}> {
       isDiff = this.compareInnerText(vNodeCurr, vNodeNext);
       if (isDiff) {
         this.injectTextNode(vNodeCurrLast, vNodeNext);
-      }
-
-      // attributes
-      isDiff = this.compareAttrs(vNodeCurr, vNodeNext);
-      if (isDiff) {
-        this.injectAttr(vNodeCurr, vNodeNext);
       }
     }
   }
@@ -171,11 +171,11 @@ export abstract class Component<State = {}, Props = {}> {
   private injectHandlers(vPrev: VirtualNode, vNext: VirtualNode) {
     if (!(vPrev.HTMLElement instanceof HTMLElement)) return;
 
-    const handlersNext = Object.entries(vNext.handlers);
     const handlersPrev = Object.entries(vPrev.handlers);
+    const handlersNext = Object.entries(vNext.handlers);
 
-    handlersNext.forEach(([nextKey, nextValue]) => {
-      handlersPrev.forEach(([prevKey, prevValue]) => {
+    handlersPrev.forEach(([prevKey, prevValue]) => {
+      handlersNext.forEach(([nextKey, nextValue]) => {
         if (!(vPrev.HTMLElement instanceof HTMLElement)) return;
 
         if (nextKey !== prevKey) return;
@@ -190,6 +190,10 @@ export abstract class Component<State = {}, Props = {}> {
   }
 
   private injectAttr(vPrev: VirtualNode, vNext: VirtualNode) {
+    // if (vPrev.attrs?.class === 'popover__tabs tab--active') {
+    //   console.log('attrsCurr:', vPrev);
+    //   console.log('attrsNext:', vNext);
+    // }
     if (!(vPrev.HTMLElement instanceof HTMLElement)) return;
 
     const attrsNext = Object.entries(vNext.attrs);
@@ -197,8 +201,8 @@ export abstract class Component<State = {}, Props = {}> {
 
     let isDisabled = false;
 
-    attrsNext.forEach(([nextKey, nextValue]) => {
-      attrsPrev.forEach(([prevKey, prevValue]) => {
+    attrsPrev.forEach(([prevKey, prevValue]) => {
+      attrsNext.forEach(([nextKey, nextValue]) => {
         if (!(vPrev.HTMLElement instanceof HTMLElement)) return;
 
         if (nextKey === 'disabled') isDisabled = true;
@@ -228,8 +232,10 @@ export abstract class Component<State = {}, Props = {}> {
   private compareHandlers(vPrev: VirtualNode, vNext: VirtualNode) {
     if (isStr(vPrev) || isNum(vPrev)) return false;
 
-    const prevKeys = Object.keys(vPrev.handlers).join();
-    const nextKeys = Object.keys(vNext.handlers).join();
+    const prevKeys = Object.keys(vPrev.handlers).join().trim();
+    const nextKeys = Object.keys(vNext.handlers).join().trim();
+
+    if (!prevKeys && !nextKeys) return false;
 
     if (prevKeys !== nextKeys) return true;
 
