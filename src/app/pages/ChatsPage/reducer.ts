@@ -26,7 +26,7 @@ async function dispatch(type: string, payload: unknown) {
       }
 
       case GET_CHATS: {
-        state.chats = await Chat.getChats();
+        state.chats = [...(await Chat.getChats())];
         break;
       }
 

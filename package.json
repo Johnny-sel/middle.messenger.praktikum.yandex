@@ -10,8 +10,8 @@
   "source": "src/app/index.html",
   "scripts": {
     "clean": "rimraf dist",
-    "dev": "npm run test && npm run clean && parcel --no-cache",
-    "start": "npm run test && npm run build --no-cache && node ./server.js",
+    "dev": "npm run clean && parcel --no-cache",
+    "start": "npm run build --no-cache && node ./server.js",
     "build": "npm run clean && parcel build --no-cache",
     "lint": "eslint . --fix",
     "stylelint": "stylelint **/*.sass --fix",

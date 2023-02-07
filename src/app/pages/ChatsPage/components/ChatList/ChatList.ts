@@ -52,7 +52,6 @@ export default class ChatList extends Component<ChatListState, ChatListProps> {
     const {inputData, showPopover, isClickChatMenu, selectedChatId, loadCreateChat} = this.state;
     const {chats, loadChats} = this.props;
 
-
     const onChange = this.onChange.bind(this);
     const switchPopover = this.switchPopover.bind(this);
     const createChat = this.createChat.bind(this);
@@ -98,17 +97,20 @@ export default class ChatList extends Component<ChatListState, ChatListProps> {
                     itemIndex:index,
                     chat: chat,
                     active: chat.id === selectedChatId,
-                    key: chat.id
+                    key: chat.id + 'li'
                   });
               }),
         ]),
+
         // footer aside
         footer('c=chats__list__footer;', [
           component.call(this, Popover, {
             key: '2',
             show: showPopover,
             load: loadCreateChat,
+            className: 'popover__add_chat',
             position: {bottom: '70px'},
+
             children: [
               component.call(this, Input, {
                 ...titleInput,
@@ -116,9 +118,9 @@ export default class ChatList extends Component<ChatListState, ChatListProps> {
                 change: onChange,
                 showError: false,
                 value: inputData['title'],
-                className: 'tooltip__input',
+                className: 'popover__input',
               }),
-              button('c=tooltip__button button; t=button; n=create chat', {click: createChat}),
+              button('c=popover__add_chat__button button; t=button; n=create chat', {click: createChat}),
             ]
           }),
           button(`

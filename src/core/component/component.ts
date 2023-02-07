@@ -131,6 +131,11 @@ export abstract class Component<State = {}, Props = {}> {
       if (isDiff) {
         this.injectTextNode(vNodeCurrLast, vNodeNext);
       }
+
+      if (vNodeCurr.HTMLElement === undefined){
+        console.log('vNodeCurr:', vNodeCurr)
+
+      }
     }
   }
 

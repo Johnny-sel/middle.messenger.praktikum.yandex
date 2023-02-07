@@ -12,6 +12,7 @@ export const CREATE_CHAT = 'CREATE_CHAT';
 export const GET_CHATS = 'GET_CHATS';
 export const OPEN_CHAT = 'OPEN_CHAT';
 export const OPEN_CHAT_MENU = 'OPEN_CHAT_MENU';
+export const CLOSE_OPEN_ADD_USER_MENU = 'CLOSE_OPEN_ADD_USER_MENU';
 export const CONNECT_WEBSOCKET = 'CONNECT_WEBSOCKET';
 export const SEND_MESSAGE = 'SEND_MESSAGE';
 export const SCROLL_BOTTOM = 'SCROLL_BOTTOM';

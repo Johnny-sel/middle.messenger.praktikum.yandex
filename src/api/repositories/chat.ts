@@ -16,7 +16,7 @@ const Chat = {
     return api.post(`/chats/token/${chatId}`);
   },
   addUser: (body?: AddUserRequest): Promise<string> => {
-    return api.post(`/chats/users/`, body);
+    return api.put(`/chats/users`, body);
   },
 };
 

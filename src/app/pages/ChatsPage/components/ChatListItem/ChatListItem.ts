@@ -33,7 +33,6 @@ export default class ChatListItem extends Component<ChatListItemState, ChatListI
   }
 
   switchTabs(event?: Event) {
-    console.log("switchTabs")
     event?.stopPropagation();
     dispatch.call(this, SWITCH_TABS);
   }
@@ -77,7 +76,7 @@ export default class ChatListItem extends Component<ChatListItemState, ChatListI
     const allUserList = allUser.map(user=>
       div('c=popover__userlist__user user_item;', [
         span('c=user_item__name;', [`${user.first_name} ${user.second_name}`  ]),
-        button('c=user_item__add button;',{click: (evt:Event)=> addUserToChat(evt, user.id)}
+        button('c=user_item__add button;',{click: (evt:Event)=> {addUserToChat(evt, user.id)}}
         ),
       ],{click: (evt:Event)=> {evt.stopPropagation()}})
     );
@@ -86,7 +85,7 @@ export default class ChatListItem extends Component<ChatListItemState, ChatListI
     const chatUserList = chatUsers.map((user) =>
       div('c=popover__userlist__user user_item;', [
         span('c=user_item__name;', [user.display_name]),
-        button('c=user_item__add button;', {click: (evt: Event) => addUserToChat(evt, user.id)}),
+        button('c=user_item__add button;', {click: (evt: Event) => {addUserToChat(evt, user.id)}}),
       ], {click: (evt: Event) => {evt.stopPropagation()}})
     );
 
@@ -94,14 +93,14 @@ export default class ChatListItem extends Component<ChatListItemState, ChatListI
     return (
       li(`c=chat__list__item chat__list__item${selectedChat}; tabIndex=0;`, [
         button(`c=chat__list__item__menu button;`, {
-          click: (event:Event) => onClickChatMenu(event, chat.id)
+          click: (event:Event) => {onClickChatMenu(event, chat.id)}
         }),
         component.call(this, Popover, {
           key: chat.id,
           show:  isClickChatMenu && selectedChat ,
           position: {top, bottom, left: '50px'},
           children: [
-            div('c=chat__list__item__menu__popover popover;', [
+            div(`c=chat__list__item__menu__popover popover;`, [
               div('c=popover__tabs;', [
                 div(`c=popover__tabs tab${selectedAddUser};`, [
                   span('c=tab__text;', ['Add user']),
@@ -151,7 +150,7 @@ export default class ChatListItem extends Component<ChatListItemState, ChatListI
             [lastMessage ? lastMessage : chat.title]),
           ]),
         ]),
-      ], {click: (event:Event) => onClickChat(event, chat.id)})
+      ], {click: (event:Event) => {onClickChat(event, chat.id)}})
     );
   }
 }

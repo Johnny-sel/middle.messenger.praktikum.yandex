@@ -1,34 +1,8 @@
 @import '@app/styles/varibales'
 @import '@app/styles/mixins'
 
-.tooltip
-  @include flex-center
-  position: absolute
-  bottom: 75px
-  width: 25rem
-  transition: all 0.3s ease-out
-  border: $border
-  border-radius: 1rem
-  background-color: #fff
-  padding: 1rem
+.popover
   display: none
-  z-index: 1
 
-  @media screen and (min-width: 850px) and (max-width: 1350px)
-    width: 15rem
-
-.tooltip--active
+.popover--active
   display: flex
-
-.tooltip .tooltip__button.button
-  background: transparent
-  background-size: cover
-  background-image: url('./../../static/img/send-button.svg')
-  height: 2.3rem
-  width: 2.3rem
-  transition: all 0.3s ease-out
-  margin-left: 1rem
-
-  &:hover
-    display: block
-    transform: rotate(-25deg) scale(1.1) translateY(-0.5rem) translateX(0.5rem)
