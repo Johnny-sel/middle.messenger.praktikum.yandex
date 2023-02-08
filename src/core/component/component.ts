@@ -131,11 +131,6 @@ export abstract class Component<State = {}, Props = {}> {
       if (isDiff) {
         this.injectTextNode(vNodeCurrLast, vNodeNext);
       }
-
-      if (vNodeCurr.HTMLElement === undefined){
-        console.log('vNodeCurr:', vNodeCurr)
-
-      }
     }
   }
 
@@ -195,10 +190,6 @@ export abstract class Component<State = {}, Props = {}> {
   }
 
   private injectAttr(vPrev: VirtualNode, vNext: VirtualNode) {
-    // if (vPrev.attrs?.class === 'popover__tabs tab--active') {
-    //   console.log('attrsCurr:', vPrev);
-    //   console.log('attrsNext:', vNext);
-    // }
     if (!(vPrev.HTMLElement instanceof HTMLElement)) return;
 
     const attrsNext = Object.entries(vNext.attrs);

@@ -1,13 +1,15 @@
-import {SCROLL_BOTTOM} from './../../actions/index';
 import {ReasonResponse} from '@api/types';
-import {isArr} from '@core/utils';
+import {first, isArr} from '@core/utils';
 import {Component} from '@core/component';
 import {onChange} from '@app/functions';
-import {CHANGE_INPUT, CLEAR_INPUT, CONNECT_WEBSOCKET, GET_CHATS, SEND_MESSAGE} from '@app/actions';
+import {CHANGE_INPUT, CLEAR_INPUT, CLOSE_POPOVER, OPEN_POPOVER} from '@app/actions';
+import {CONNECT_WEBSOCKET, GET_CHATS, SEND_MESSAGE} from '@app/actions';
+import {OPEN_FIRST_CHAT, SCROLL_BOTTOM} from '@app/actions';
 import {error} from '@app/constants';
 import {ChatPageState, ConnectWebSoketPayload} from './types';
 import {Message} from '@app/types';
 import {Chat} from '@api/repositories';
+import {WebSocketChat} from '@api/websocket/chat';
 
 async function dispatch(type: string, payload: unknown) {
   const {state} = this as Component<ChatPageState>;
@@ -27,6 +29,26 @@ async function dispatch(type: string, payload: unknown) {
 
       case GET_CHATS: {
         state.chats = [...(await Chat.getChats())];
+        break;
+      }
+
+      case OPEN_POPOVER: {
+        state.showPopover = true;
+        break;
+      }
+
+      case CLOSE_POPOVER: {
+        state.showPopover = false;
+        break;
+      }
+
+      case OPEN_FIRST_CHAT: {
+        const chat = first(state.chats);
+        if (chat) {
+          const chatId = chat?.id;
+          const socket = WebSocketChat.instance;
+          dispatch.call(this, CONNECT_WEBSOCKET, {socket, chatId});
+        }
         break;
       }
 

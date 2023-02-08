@@ -118,23 +118,13 @@ export class Router {
 
   private checkRoute(route?: Route): boolean {
     if (!route) {
-      // this.printError('define route in index.js');
       return false;
     }
 
     if (!route.path.startsWith('/')) {
-      // this.printError("route shoulde be start with '/'");
       return false;
     }
 
     return true;
   }
-
-  // private printError(string: string): void {
-  //   console.error(`[Router]: ${string}`);
-  // }
-
-  // private printInfo(string: string): void {
-  //   console.info(`[Router]: ${string}`);
-  // }
 }

@@ -1,7 +1,6 @@
 import {name} from '@app/constants';
 
 export const messageListState = {
-  showPopover: false,
   loadAddUser: false,
   statusAddUser: '',
   error: '',

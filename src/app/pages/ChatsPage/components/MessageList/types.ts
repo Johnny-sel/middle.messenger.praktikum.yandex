@@ -3,8 +3,10 @@ import {InputData, Message} from '@app/types';
 
 export type MessageListProps = {
   loadMessages: boolean;
+  showPopover: boolean;
   messages: Message[];
   selectedChatId: number;
+  clickOutPopover: boolean;
   inputData: {
     search_message: string;
     message: string;
@@ -12,10 +14,11 @@ export type MessageListProps = {
   sendMessage: (message: string) => void;
   onChange: (event: InputEvent) => void;
   onSubmit: (event: SubmitEvent) => void;
+  openPopover: () => void;
+  closePopover: () => void;
 };
 
 export type MessageListState = {
-  showPopover: boolean;
   loadAddUser: boolean;
   statusAddUser: string;
   error: string;

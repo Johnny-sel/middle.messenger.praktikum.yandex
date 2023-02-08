@@ -8,7 +8,8 @@ import {Component} from '@core/component';
 import {chatPageState} from './state';
 import {ChatList, MessageList} from './components';
 import {ChatPageState} from './types';
-import {CHANGE_INPUT, CLEAR_INPUT, CONNECT_WEBSOCKET} from '@app/actions';
+import {CHANGE_INPUT, CLEAR_INPUT, CLOSE_POPOVER, OPEN_POPOVER} from '@app/actions';
+import {OPEN_FIRST_CHAT, CONNECT_WEBSOCKET} from '@app/actions';
 import {GET_CHATS, SCROLL_BOTTOM, SEND_MESSAGE} from '@app/actions';
 import {dispatch} from './reducer';
 
@@ -46,24 +47,55 @@ export default class ChatsPage extends Component<ChatPageState> {
     dispatch.call(this, GET_CHATS);
   }
 
-  didMount() {
-    dispatch.call(this, GET_CHATS);
+  openPopover() {
+    dispatch.call(this, OPEN_POPOVER);
+  }
+
+  closePopover() {
+    dispatch.call(this, CLOSE_POPOVER);
+  }
+
+  async didMount() {
+    await dispatch.call(this, GET_CHATS);
+    await dispatch.call(this, OPEN_FIRST_CHAT);
   }
 
   create() {
-    const {messages, loadMessages, loadChats, inputData, chats, selectedChatId} = this.state;
+    const {messages, loadMessages, loadChats} = this.state;
+    const {inputData, chats, selectedChatId, showPopover} = this.state;
 
     const setWebSocketChat = this.setWebSocketChat.bind(this);
     const onChange = this.onChange.bind(this);
     const onSubmit = this.onSubmit.bind(this);
     const getChats = this.getChats.bind(this);
+    const closePopover = this.closePopover.bind(this);
+    const openPopover = this.openPopover.bind(this);
 
     // prettier-ignore
     return (
       div('c=chats;', [
-        component.call(this, ChatList, {setWebSocketChat, getChats, loadChats, chats, key: '1'}),
-        component.call(this, MessageList, {messages, loadMessages, onChange, selectedChatId, onSubmit, inputData, key: '2'}),
-      ])
+        component.call(this, ChatList, {
+          key: '1',
+          setWebSocketChat,
+          getChats,
+          loadChats,
+          selectedChatId,
+          chats,
+        }),
+        component.call(this, MessageList, {
+          key: '2',
+          showPopover,
+          messages,
+          loadMessages,
+          onChange,
+          selectedChatId,
+          onSubmit,
+          inputData,
+          openPopover,
+          closePopover
+        }),
+      ], {click: closePopover}
+      )
     );
   }
 }

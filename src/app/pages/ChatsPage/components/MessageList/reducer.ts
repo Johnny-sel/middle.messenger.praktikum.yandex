@@ -1,7 +1,7 @@
 import {onChange} from '@app/functions';
 import {Component} from '@core/component';
 import {ReasonResponse} from '@api/types';
-import {error} from '@app/constants';
+import {error, name} from '@app/constants';
 import {ADD_USER_TO_CHAT, CHANGE_INPUT, CLOSE_OPEN_ADD_USER_MENU, SWITCH_TABS} from '@app/actions';
 
 import {Chat, User} from '@api/repositories';
@@ -22,9 +22,16 @@ async function dispatch(type: string, payload: unknown) {
   try {
     switch (type) {
       case CLOSE_OPEN_ADD_USER_MENU: {
-        state.showPopover = !state.showPopover;
+        state.inputData[name.login] = '';
+        props.showPopover ? props.closePopover() : props.openPopover();
+        state.loadAddUser = true;
+        state.error = '';
+        state.chatUsers = await Chat.getChatUsers(chatId);
+        state.allUser = await User.searchUser({login: ''});
+        state.loadAddUser = false;
         break;
       }
+
       case CHANGE_INPUT: {
         onChange.call(this, state.event);
         state.error = '';
@@ -33,6 +40,7 @@ async function dispatch(type: string, payload: unknown) {
       }
 
       case SWITCH_TABS: {
+        state.error = '';
         state.addUserTab = !state.addUserTab;
         state.deleteUserTab = !state.deleteUserTab;
         break;

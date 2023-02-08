@@ -17,7 +17,5 @@ export type ChatListItemProps = {
   chat: GetChatsResponse;
   active: boolean;
   itemIndex: number;
-  isClickChatMenu: boolean;
-  onClickChat: (event: Event, chatId: number) => void;
-  onClickChatMenu: (event: Event, chatId: number) => void;
+  onClickChat: (chatId: number) => void;
 };

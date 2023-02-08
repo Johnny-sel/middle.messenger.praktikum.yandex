@@ -4,6 +4,7 @@ import {Message} from '@app/types';
 export type ChatPageState = {
   loadChats: boolean;
   loadMessages: boolean;
+  showPopover: boolean;
   error: string;
   messages: Message[];
   chats: GetChatsResponse[];
@@ -13,7 +14,7 @@ export type ChatPageState = {
     search_message: string;
     message: string;
   };
-  event?: InputEvent;
+  event?: InputEvent | MouseEvent;
 };
 
 export type ConnectWebSoketPayload = {

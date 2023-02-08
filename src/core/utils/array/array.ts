@@ -1,4 +1,4 @@
-function first(list: unknown[]): unknown | undefined {
+function first<T>(list: T[]): T | undefined {
   if (list.length === 0) {
     return undefined;
   }

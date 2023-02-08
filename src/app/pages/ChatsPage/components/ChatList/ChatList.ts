@@ -7,7 +7,7 @@ import {Router} from '@core/router';
 import {Input, ChatListItem, Popover} from '@app/components';
 import {location, name} from '@app/constants';
 import {inputs} from '@app/resources';
-import {CHANGE_INPUT, CREATE_CHAT, OPEN_CHAT, OPEN_CHAT_MENU, SWITCH_TOOLTIP} from '@app/actions';
+import {CHANGE_INPUT, CREATE_CHAT, OPEN_CHAT, SWITCH_TOOLTIP} from '@app/actions';
 // local
 import {chatListState} from './state';
 import {dispatch} from './reducer';
@@ -38,14 +38,8 @@ export default class ChatList extends Component<ChatListState, ChatListProps> {
     dispatch.call(this, CREATE_CHAT);
   }
 
-  openChat(evt: Event, chatId: number) {
-    evt.stopPropagation();
+  openChat(chatId: number) {
     dispatch.call(this, OPEN_CHAT, chatId);
-  }
-
-  openChatMenu(evt: Event, chatId: number) {
-    evt.stopPropagation();
-    dispatch.call(this, OPEN_CHAT_MENU, chatId);
   }
 
   create() {
@@ -56,7 +50,6 @@ export default class ChatList extends Component<ChatListState, ChatListProps> {
     const switchPopover = this.switchPopover.bind(this);
     const createChat = this.createChat.bind(this);
     const openChat = this.openChat.bind(this);
-    const openChatMenu = this.openChatMenu.bind(this);
 
     // prettier-ignore
 
@@ -92,11 +85,10 @@ export default class ChatList extends Component<ChatListState, ChatListProps> {
               ...chats?.map((chat, index) => {
                   return component.call(this, ChatListItem, {
                     onClickChat: openChat,
-                    onClickChatMenu: openChatMenu,
                     isClickChatMenu: isClickChatMenu,
                     itemIndex:index,
                     chat: chat,
-                    active: chat.id === selectedChatId,
+                    active: chat.id === (selectedChatId || this.props.selectedChatId),
                     key: chat.id + 'li'
                   });
               }),

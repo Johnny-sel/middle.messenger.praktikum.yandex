@@ -18,3 +18,6 @@ export const SEND_MESSAGE = 'SEND_MESSAGE';
 export const SCROLL_BOTTOM = 'SCROLL_BOTTOM';
 export const SWITCH_TABS = 'SWITCH_TABS';
 export const ADD_USER_TO_CHAT = 'ADD_USER_TO_CHAT';
+export const OPEN_FIRST_CHAT = 'OPEN_FIRST_CHAT';
+export const CLOSE_POPOVER = 'CLOSE_POPOVER';
+export const OPEN_POPOVER = 'OPEN_POPOVER';

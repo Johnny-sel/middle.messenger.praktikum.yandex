@@ -25,7 +25,8 @@ export default class MessageList extends Component<MessageListState, MessageList
     return messageListState;
   }
 
-  openPopover() {
+  closeOpenPopover(e: Event) {
+    e.stopPropagation();
     dispatch.call(this, CLOSE_OPEN_ADD_USER_MENU);
   }
 
@@ -47,9 +48,9 @@ export default class MessageList extends Component<MessageListState, MessageList
 
   create() {
     const {messages: msgs, loadMessages, inputData} = this.props;
-    const {onChange, onSubmit, selectedChatId} = this.props;
+    const {onChange, onSubmit, selectedChatId, showPopover} = this.props;
 
-    const {showPopover, addUserTab, deleteUserTab} = this.state;
+    const {addUserTab, deleteUserTab} = this.state;
     const {loadAddUser, allUser, chatUsers, error, inputData: inputLogin} = this.state;
 
     const notSelectedChat = selectedChatId === 0;
@@ -63,43 +64,43 @@ export default class MessageList extends Component<MessageListState, MessageList
     const switchTabs = this.switchTabs.bind(this);
     const onChangeLogin = this.onChangeLogin.bind(this);
     const addUserToChat = this.addUserToChat.bind(this);
-    const openPopover = this.openPopover.bind(this);
+    const closeOpenPopover = this.closeOpenPopover.bind(this);
 
     const errorText = 'Something went wrong, we are already fixing. Try again please';
-    const popoverCenter = error || loadAddUser ? 'center' : '';
+    const popoverCenter = error || loadAddUser ? '--center' : '';
 
     // prettier-ignore
     const allUserList = allUser.map(user=>
       div('c=popover__userlist__user user_item;', [
         span('c=user_item__name;', [`${user.first_name} ${user.second_name}`  ]),
-        button('c=user_item__add button;',{click: (evt:Event)=> {addUserToChat(evt, user.id)}}
-        ),
+        button('c=user_item__add button;',{click: (evt:Event)=> {addUserToChat(evt, user.id)}}),
       ],{click: (evt:Event)=> {evt.stopPropagation()}})
     );
 
     // prettier-ignore
-    const chatUserList = chatUsers.map((user) =>
+    const chatUserList = chatUsers.map(user=>
       div('c=popover__userlist__user user_item;', [
-        span('c=user_item__name;', [user.display_name]),
-        button('c=user_item__add button;', {click: (evt: Event) => {addUserToChat(evt, user.id)}}),
-      ], {click: (evt: Event) => {evt.stopPropagation()}})
-    );
+        span('c=user_item__name;', [`${user.first_name} ${user.second_name}`  ]),
+        button('c=user_item__add button;',{click: (evt:Event)=> {addUserToChat(evt, user.id)}}),
+      ],{click: (evt:Event)=> {evt.stopPropagation()}})
+    )
 
     // prettier-ignore
     return (
       section('c=chats__messages;', [
         // top
         header('c=chats__messages__header;', [
-          button('c=chats__messages__header__add_user button; t=button; n=account',
-            {click: openPopover},
+          button(`c=chats__messages__header__add_user button; t=button; n=account;`,
+            {click: closeOpenPopover},
           ),
           component.call(this, Popover, {
             key: '1',
+
             show: showPopover,
             className: 'popover__add_user',
             position: {top: '15px', left: '50px'},
             children: [
-              div(`c=chat__list__item__menu__popover;`, [
+              div(`id=popover; c=chat__list__item__menu__popover;`, [
                 div('c=popover__tabs;', [
                   button(`c=popover__tabs tab${selectedAddUser} button; n=Add user`,
                     ['Add user'],
@@ -110,10 +111,11 @@ export default class MessageList extends Component<MessageListState, MessageList
                 ]),
                 // span('c=;', [selectedChatId]),
                 div('c=popover__body;', [
-                  div('c=popover__userlist;',
+                  div(`c=popover__userlist${popoverCenter};`,
                       selectedAddUser ?
+                        loadAddUser ? [component.call(this, Spinner, {key: '3'})] :
                         [
-                          div('c=popover__userlist__body;', [
+                          div(`c=popover__userlist__body;`, [
                             component.call(this, Input, {
                               ...loginInput,
                               key: '2',
@@ -121,8 +123,7 @@ export default class MessageList extends Component<MessageListState, MessageList
                               value: inputLogin[name.login],
                               showError: false,
                             }),
-                            div(`c=popover__userlist__body__users--${popoverCenter};`,
-                              loadAddUser? [component.call(this, Spinner, {key: '3'})] :
+                            div(`c=popover__userlist__body__users${popoverCenter};`,
                                 error ? [span('c=popover__userlist__body_error error;', [errorText])]:
                                   [...allUserList ]
                             ),

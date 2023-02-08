@@ -20,4 +20,5 @@ export type ChatListProps = {
   getChats: () => Promise<void>;
   chats: GetChatsResponse[];
   loadChats: boolean;
+  selectedChatId: number;
 };
