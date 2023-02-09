@@ -1,9 +1,9 @@
-import {SingupRequest} from '@api/types';
+import { InputData } from '@app/types';
 
 export type RegisterState = {
   load: boolean;
   error?: string;
-  inputData: SingupRequest;
+  inputData: InputData;
   target?: HTMLButtonElement;
   event?: InputEvent;
 };

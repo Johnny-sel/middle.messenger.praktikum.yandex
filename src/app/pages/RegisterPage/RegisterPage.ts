@@ -8,9 +8,7 @@ import {Button, Input, Layout} from '@app/components';
 import {location, title} from '@app/constants';
 import {TInput} from '@app/types';
 import {regInputs} from '@app/resources';
-
 // local
-
 import {registerState} from './state';
 import {dispatch} from './reducer';
 import {RegisterState} from './types';
@@ -50,7 +48,7 @@ export default class RegisterPage extends Component<RegisterState> {
           section('c=section;', [
             form('c=form;', [
               ...regInputs.map((input: TInput,) => {
-                const value = (inputData as any)[input.name]
+                const value = inputData[input.name]
                 const key = input.name;
                 return component.call(this, Input, {...input, change, value, load, key});
               }),

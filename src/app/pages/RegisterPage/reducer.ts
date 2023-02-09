@@ -3,7 +3,7 @@ import {Component} from '@core/component';
 import {Router} from '@core/router';
 // api
 import {Auth} from '@api/repositories';
-import {ReasonResponse} from '@api/types';
+import {ReasonResponse, SingupRequest} from '@api/types';
 // app
 import {location, error} from '@app/constants';
 import {onChange} from '@app/functions';
@@ -21,7 +21,9 @@ function handleError(err: ReasonResponse) {
 
 async function dispatch(type: string) {
   const {state} = this as Component<RegisterState>;
+
   const form = state.target?.form;
+  const inputsValue = state.inputData as  SingupRequest;
 
   try {
     switch (type) {
@@ -34,9 +36,10 @@ async function dispatch(type: string) {
         state.load = true;
 
         if (!validateForm(form!)) return;
-        if (!comparePasswords(state.inputData)) throw 'Passwords not match';
+        if (!comparePasswords(inputsValue)) throw 'Passwords not match';
 
-        await Auth.signup(state.inputData);
+        await Auth.signup(inputsValue);
+
         Router.to(location.chats);
         break;
       }

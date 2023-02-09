@@ -4,7 +4,7 @@ import {div, span} from '@core/tags';
 import {Component} from '@core/component';
 import {capitalizeFirstLetter} from '@core/utils';
 
-export default class InfoLine extends Component<{}, any> {
+export default class InfoLine extends Component<{}, InfoLineProps> {
   constructor() {
     super();
   }
@@ -22,3 +22,8 @@ export default class InfoLine extends Component<{}, any> {
     );
   }
 }
+
+type InfoLineProps = {
+  name: string;
+  value: string;
+};

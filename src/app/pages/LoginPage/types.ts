@@ -1,9 +1,9 @@
-import {SigninRequest} from '@api/types';
+import { InputData } from '@app/types';
 
 export type LoginState = {
   load: boolean;
   error?: string;
-  inputData: SigninRequest;
+  inputData: InputData;
   target?: HTMLButtonElement;
   event?: InputEvent;
 };

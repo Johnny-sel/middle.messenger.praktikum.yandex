@@ -4,7 +4,7 @@ import {onChange} from '@app/functions';
 import {validateForm} from '@app/utils';
 import {Component} from '@core/component';
 import {Router} from '@core/router';
-import {ReasonResponse} from '@api/types';
+import {ReasonResponse, UpdatePasswordRequest} from '@api/types';
 import {CHANGE_INPUT, UPDATE_PASSWORD} from '@app/actions';
 import {EditPasswordState} from './types';
 
@@ -29,7 +29,7 @@ async function dispatch(type: string) {
         state.load = true;
         if (!validateForm(form!)) return;
 
-        await User.updatePassword(state.inputData);
+        await User.updatePassword(state.inputData as UpdatePasswordRequest);
         Router.to(location.profile);
 
         break;

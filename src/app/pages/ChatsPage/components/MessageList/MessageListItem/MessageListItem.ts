@@ -3,7 +3,7 @@ import './MessageListItem.sass';
 import {div, span} from '@core/tags';
 import {Component} from '@core/component';
 import {parseDate} from '@app/utils';
-import {MessageProps} from './types';
+import {Message as MessageProps} from '@app/types'
 
 export default class Message extends Component<{}, MessageProps> {
   constructor() {

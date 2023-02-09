@@ -55,7 +55,7 @@ export default class LoginPage extends Component<LoginState> {
             span('c=text;', ['Welcom to online messeger']),
             form('c=form; a=s;', [
               ...loginInputs.map((input: TInput) => {
-                const value = (inputData as Record<string, string>)[input.name];
+                const value = inputData[input.name];
                 const key = input.name;
                 return component.call(this, Input, {...input, change, load, value, key});
               }),

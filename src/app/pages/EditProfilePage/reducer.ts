@@ -5,7 +5,7 @@ import {onChange} from '@app/functions';
 import {validateForm} from '@app/utils';
 import {Component} from '@core/component';
 import {Router} from '@core/router';
-import {ReasonResponse} from '@api/types';
+import {ReasonResponse, UpdateProfileRequest} from '@api/types';
 import {CHANGE_INPUT, GET_USER, UPDATE_USER} from '@app/actions';
 
 function handleError(err: ReasonResponse) {
@@ -41,7 +41,7 @@ async function dispatch(type: string) {
         state.load = true;
         if (!validateForm(form!)) return;
 
-        await User.updateProfile(state.inputData);
+        await User.updateProfile(state.inputData as UpdateProfileRequest);
         Router.to(location.profile);
 
         break;

@@ -16,6 +16,7 @@ function handleError(err: ReasonResponse) {
 
 async function dispatch(type: string, payload: unknown) {
   const {state, props} = this as Component<MessageListState, MessageListProps>;
+
   const login = (state.event?.target as HTMLInputElement)?.value;
   const chatId = props.selectedChatId;
 
@@ -54,7 +55,6 @@ async function dispatch(type: string, payload: unknown) {
       }
     }
   } catch (error) {
-    // console.log('[error] ChatList reducer:', error);
     handleError.call(this, error);
   } finally {
     state.loadAddUser = false;

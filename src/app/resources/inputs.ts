@@ -1,18 +1,8 @@
 import {name} from '@app/constants';
 import {inputs} from '@app/resources';
 
-const {
-  email,
-  login,
-  confirmPassword,
-  displayName,
-  firstName,
-  password,
-  phone,
-  secondName,
-  newPassword,
-  oldPassword,
-} = name;
+const {phone, secondName, newPassword, oldPassword, password} = name;
+const {email, login, confirmPassword, displayName, firstName} = name;
 
 // login
 const loginNames = [login, password];

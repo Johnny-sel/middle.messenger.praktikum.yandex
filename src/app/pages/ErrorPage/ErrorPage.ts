@@ -1,3 +1,5 @@
+import './ErrorPage.sass';
+
 import {main, component, span} from '@core/tags';
 import {Component} from '@core/component';
 import {Layout} from '@app/components';

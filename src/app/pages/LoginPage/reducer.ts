@@ -5,7 +5,7 @@ import {onChange} from '@app/functions';
 import {validateForm} from '@app/utils';
 import {Component} from '@core/component';
 import {Router} from '@core/router';
-import {ReasonResponse} from '@api/types';
+import {ReasonResponse, SigninRequest} from '@api/types';
 import {CHANGE_INPUT, GET_USER, LOGIN_USER} from '@app/actions';
 
 function handleError(err: ReasonResponse) {
@@ -36,7 +36,7 @@ async function dispatch(type: string) {
         state.load = true;
         if (!validateForm(form!)) return;
 
-        await Auth.signin(state.inputData);
+        await Auth.signin(state.inputData as SigninRequest);
         Router.to(location.chats);
         break;
       }

@@ -108,12 +108,4 @@ const type = {
   title: 'text',
 };
 
-const key = {
-  1: '1',
-  2: '2',
-  3: '3',
-  4: '4',
-  5: '5',
-};
-
-export {location, pattern, name, placeholder, error, type, hostResources, title, key};
+export {location, pattern, name, placeholder, error, type, hostResources, title};

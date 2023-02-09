@@ -2,7 +2,7 @@ import {onChange} from '@app/functions';
 import {Component} from '@core/component';
 import {ReasonResponse} from '@api/types';
 import {error} from '@app/constants';
-import {CHANGE_INPUT, CREATE_CHAT, OPEN_CHAT, OPEN_CHAT_MENU, SWITCH_TOOLTIP} from '@app/actions';
+import {CHANGE_INPUT, CREATE_CHAT, OPEN_CHAT, SWITCH_TOOLTIP} from '@app/actions';
 import {WebSocketChat} from '@api/websocket/chat';
 import {ChatListProps, ChatListState} from './types';
 import {Chat} from '@api/repositories';
@@ -46,15 +46,8 @@ async function dispatch(type: string, payload: unknown) {
         props.setWebSocketChat(state.socket, chatId); // pass to parent component
         break;
       }
-
-      case OPEN_CHAT_MENU: {
-        state.selectedChatId = chatId;
-        state.isClickChatMenu = true;
-        break;
-      }
     }
   } catch (error) {
-    // console.log('[error] ChatList reducer:', error);
     handleError.call(this, error);
   } finally {
     state.load = false;

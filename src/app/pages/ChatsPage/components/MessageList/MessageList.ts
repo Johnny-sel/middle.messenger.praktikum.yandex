@@ -50,21 +50,20 @@ export default class MessageList extends Component<MessageListState, MessageList
     const {messages: msgs, loadMessages, inputData} = this.props;
     const {onChange, onSubmit, selectedChatId, showPopover} = this.props;
 
-    const {addUserTab, deleteUserTab} = this.state;
-    const {loadAddUser, allUser, chatUsers, error, inputData: inputLogin} = this.state;
-
-    const notSelectedChat = selectedChatId === 0;
-    const haveNotMessages = msgs.length === 0;
-    const center = haveNotMessages || notSelectedChat || loadMessages ? 'center' : '';
-    const messages = msgs.map((msg) => component.call(this, Message, {...msg, key: msg.id}));
-
-    const selectedAddUser = addUserTab ? '--active' : '';
-    const selectedDeleteUser = deleteUserTab ? '--active' : '';
+    const {addUserTab, deleteUserTab, inputData: inputLogin} = this.state;
+    const {loadAddUser, allUser, chatUsers, error} = this.state;
 
     const switchTabs = this.switchTabs.bind(this);
     const onChangeLogin = this.onChangeLogin.bind(this);
     const addUserToChat = this.addUserToChat.bind(this);
     const closeOpenPopover = this.closeOpenPopover.bind(this);
+
+    const notSelectedChat = selectedChatId === 0;
+    const haveNotMessages = msgs.length === 0;
+    const center = haveNotMessages || notSelectedChat || loadMessages ? 'center' : '';
+
+    const selectedAddUser = addUserTab ? '--active' : '';
+    const selectedDeleteUser = deleteUserTab ? '--active' : '';
 
     const errorText = 'Something went wrong, we are already fixing. Try again please';
     const popoverCenter = error || loadAddUser ? '--center' : '';
@@ -86,6 +85,9 @@ export default class MessageList extends Component<MessageListState, MessageList
     )
 
     // prettier-ignore
+    const messages = msgs.map((msg) => component.call(this, Message, {...msg, key: msg.id}));
+
+    // prettier-ignore
     return (
       section('c=chats__messages;', [
         // top
@@ -95,7 +97,6 @@ export default class MessageList extends Component<MessageListState, MessageList
           ),
           component.call(this, Popover, {
             key: '1',
-
             show: showPopover,
             className: 'popover__add_user',
             position: {top: '15px', left: '50px'},
@@ -109,26 +110,26 @@ export default class MessageList extends Component<MessageListState, MessageList
                     ['Delete user'],
                     {click: switchTabs}),
                 ]),
-                // span('c=;', [selectedChatId]),
                 div('c=popover__body;', [
                   div(`c=popover__userlist${popoverCenter};`,
-                      selectedAddUser ?
-                        loadAddUser ? [component.call(this, Spinner, {key: '3'})] :
-                        [
-                          div(`c=popover__userlist__body;`, [
-                            component.call(this, Input, {
-                              ...loginInput,
-                              key: '2',
-                              change: onChangeLogin,
-                              value: inputLogin[name.login],
-                              showError: false,
-                            }),
-                            div(`c=popover__userlist__body__users${popoverCenter};`,
-                                error ? [span('c=popover__userlist__body_error error;', [errorText])]:
-                                  [...allUserList ]
-                            ),
-                          ])
-                        ]: [...chatUserList ]
+                    selectedAddUser ?
+                      loadAddUser ? [component.call(this, Spinner, {key: '3'})] :
+                      [
+                        div(`c=popover__userlist__body;`, [
+                          component.call(this, Input, {
+                            ...loginInput,
+                            key: '2',
+                            change: onChangeLogin,
+                            value: inputLogin[name.login],
+                            showError: false,
+                          }),
+                          div(`c=popover__userlist__body__users${popoverCenter};`,
+                              error ? [span('c=popover__userlist__body_error error;', [errorText])]:
+                                [...allUserList ]
+                          ),
+                        ])
+                      ]:
+                    [...chatUserList ]
                   ),
                 ]),
               ]),

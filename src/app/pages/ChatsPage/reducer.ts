@@ -45,7 +45,7 @@ async function dispatch(type: string, payload: unknown) {
       case OPEN_FIRST_CHAT: {
         const chat = first(state.chats);
         if (chat) {
-          const chatId = chat?.id;
+          const chatId = chat.id;
           const socket = WebSocketChat.instance;
           dispatch.call(this, CONNECT_WEBSOCKET, {socket, chatId});
         }
@@ -88,7 +88,6 @@ async function dispatch(type: string, payload: unknown) {
       }
     }
   } catch (error) {
-    // console.log('[error] ChatPage reducer:', error);
     handleError.call(this, error);
   }
 }

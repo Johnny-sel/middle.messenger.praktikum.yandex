@@ -1,9 +1,9 @@
-import {UpdatePasswordRequest} from '@api/types';
+import {InputData} from '@app/types';
 
 export type EditPasswordState = {
   load: boolean;
   error?: string;
-  inputData: UpdatePasswordRequest;
+  inputData: InputData;
   target?: HTMLButtonElement;
   event?: InputEvent;
 };

@@ -43,7 +43,7 @@ export default class ChatList extends Component<ChatListState, ChatListProps> {
   }
 
   create() {
-    const {inputData, showPopover, isClickChatMenu, selectedChatId, loadCreateChat} = this.state;
+    const {inputData, showPopover, selectedChatId, loadCreateChat} = this.state;
     const {chats, loadChats} = this.props;
 
     const onChange = this.onChange.bind(this);
@@ -85,7 +85,6 @@ export default class ChatList extends Component<ChatListState, ChatListProps> {
               ...chats?.map((chat, index) => {
                   return component.call(this, ChatListItem, {
                     onClickChat: openChat,
-                    isClickChatMenu: isClickChatMenu,
                     itemIndex:index,
                     chat: chat,
                     active: chat.id === (selectedChatId || this.props.selectedChatId),

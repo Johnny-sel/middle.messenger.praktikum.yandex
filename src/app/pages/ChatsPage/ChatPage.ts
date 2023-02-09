@@ -4,13 +4,14 @@ import {IWebSocketChat} from '@api/types';
 // core
 import {div, component} from '@core/tags';
 import {Component} from '@core/component';
+//app
+import {CHANGE_INPUT, CLEAR_INPUT, CLOSE_POPOVER, OPEN_POPOVER} from '@app/actions';
+import {OPEN_FIRST_CHAT, CONNECT_WEBSOCKET} from '@app/actions';
+import {GET_CHATS, SCROLL_BOTTOM, SEND_MESSAGE} from '@app/actions';
 //local
 import {chatPageState} from './state';
 import {ChatList, MessageList} from './components';
 import {ChatPageState} from './types';
-import {CHANGE_INPUT, CLEAR_INPUT, CLOSE_POPOVER, OPEN_POPOVER} from '@app/actions';
-import {OPEN_FIRST_CHAT, CONNECT_WEBSOCKET} from '@app/actions';
-import {GET_CHATS, SCROLL_BOTTOM, SEND_MESSAGE} from '@app/actions';
 import {dispatch} from './reducer';
 
 export default class ChatsPage extends Component<ChatPageState> {
@@ -64,10 +65,11 @@ export default class ChatsPage extends Component<ChatPageState> {
     const {messages, loadMessages, loadChats} = this.state;
     const {inputData, chats, selectedChatId, showPopover} = this.state;
 
-    const setWebSocketChat = this.setWebSocketChat.bind(this);
     const onChange = this.onChange.bind(this);
     const onSubmit = this.onSubmit.bind(this);
     const getChats = this.getChats.bind(this);
+
+    const setWebSocketChat = this.setWebSocketChat.bind(this);
     const closePopover = this.closePopover.bind(this);
     const openPopover = this.openPopover.bind(this);
 
@@ -84,13 +86,13 @@ export default class ChatsPage extends Component<ChatPageState> {
         }),
         component.call(this, MessageList, {
           key: '2',
+          loadMessages,
           showPopover,
           messages,
-          loadMessages,
-          onChange,
-          selectedChatId,
-          onSubmit,
           inputData,
+          selectedChatId,
+          onChange,
+          onSubmit,
           openPopover,
           closePopover
         }),

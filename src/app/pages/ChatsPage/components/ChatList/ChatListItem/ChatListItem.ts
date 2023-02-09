@@ -3,7 +3,7 @@ import './ChatListItem.sass';
 import {div, li, span} from '@core/tags';
 import {Component} from '@core/component';
 import {parseDate} from '@app/utils';
-import {ChatListItemProps} from './types';
+import {GetChatsResponse} from '@api/types';
 
 export default class ChatListItem extends Component<{}, ChatListItemProps> {
   constructor() {
@@ -40,3 +40,10 @@ export default class ChatListItem extends Component<{}, ChatListItemProps> {
     );
   }
 }
+
+type ChatListItemProps = {
+  chat: GetChatsResponse;
+  active: boolean;
+  itemIndex: number;
+  onClickChat: (chatId: number) => void;
+};

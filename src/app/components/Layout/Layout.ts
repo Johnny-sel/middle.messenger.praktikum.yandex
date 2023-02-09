@@ -5,11 +5,6 @@ import {Component} from '@core/component';
 import {Header, Footer} from '@app/components';
 import {VirtualNode} from '@core/types';
 
-type LayoutProps = {
-  children: VirtualNode[];
-  title?: string;
-};
-
 export default class Layout extends Component<{}, LayoutProps> {
   constructor() {
     super();
@@ -28,3 +23,8 @@ export default class Layout extends Component<{}, LayoutProps> {
     );
   }
 }
+
+type LayoutProps = {
+  children: VirtualNode[];
+  title?: string;
+};

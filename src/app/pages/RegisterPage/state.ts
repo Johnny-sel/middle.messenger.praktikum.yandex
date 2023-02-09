@@ -1,8 +1,8 @@
 import {name} from '@app/constants';
-import {SingupRequest} from '@api/types';
 import {RegisterState} from './types';
 
-const {email, login, displayName, firstName, phone, secondName, password, confirmPassword} = name;
+const {email, login, displayName, firstName} = name;
+const {phone, secondName, password, confirmPassword} = name;
 
 const registerState: RegisterState = {
   error: '',
@@ -16,7 +16,7 @@ const registerState: RegisterState = {
     [phone]: '',
     [password]: '',
     [confirmPassword]: '',
-  } as SingupRequest,
+  },
 };
 
 export {registerState};

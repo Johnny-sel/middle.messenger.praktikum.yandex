@@ -1,7 +1,10 @@
 import {name} from '@app/constants';
+import {InputData} from '@app/types';
 
-function comparePasswords(inputData: Record<string, unknown>): boolean {
-  return inputData[name.confirmPassword] === inputData[name.password];
+const {confirmPassword, password} = name;
+
+function comparePasswords(inputData: InputData): boolean {
+  return inputData[confirmPassword] === inputData[password];
 }
 
 export {comparePasswords};

@@ -4,19 +4,6 @@ import './Popover.sass';
 import {div, span} from '@core/tags';
 import {Component} from '@core/component';
 
-interface PopoverProps {
-  show: boolean;
-  load: boolean;
-  children: VirtualNode[];
-  className: string;
-  position: {
-    left?: string | 'auto';
-    right?: string | 'auto';
-    top?: string | 'auto';
-    bottom?: string | 'auto';
-  };
-}
-
 export default class Popover extends Component<{}, PopoverProps> {
   constructor() {
     super();
@@ -30,11 +17,22 @@ export default class Popover extends Component<{}, PopoverProps> {
 
     // prettier-ignore
     return (
-      div(`
-        c=${className} popover${active};
-        s=bottom:${bottom}, top:${top}, left:${left}, right:${right}`,
-      load? [span('c=text;', ['Creating...'])] : [...children],
+      div(`c=${className} popover${active}; s=bottom:${bottom}, top:${top}, left:${left}, right:${right}`,
+        load? [span('c=text;', ['Creating...'])] : [...children],
       )
     );
   }
+}
+
+type PopoverProps  = {
+  show: boolean;
+  load: boolean;
+  children: VirtualNode[];
+  className: string;
+  position: {
+    left?: string | 'auto';
+    right?: string | 'auto';
+    top?: string | 'auto';
+    bottom?: string | 'auto';
+  };
 }
