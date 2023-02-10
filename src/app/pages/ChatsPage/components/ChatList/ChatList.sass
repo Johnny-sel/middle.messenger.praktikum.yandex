@@ -22,22 +22,29 @@
   padding: 1.5rem
   border-bottom: $border
   justify-content: space-between
+  height: 6.4rem
+
+  @media screen and (min-width: 850px)
+    justify-content: flex-start
+
+.chats__list__header__username
+  padding-bottom: 0
 
 .chats__list__header__nav
   display: flex
   align-items: center
-  margin-right: 2rem
+  margin-right: 1rem
 
   .chats__list__header__nav__menu
     background: transparent
     background-size: cover
-    background-image: url('./../../../../static/img/menu.svg')
-    height: 2rem
-    width: 2.5rem
+    background-image: url('./../../../../static/img/profile-button.svg')
+    height: 3rem
+    width: 3rem
     transition: all 0.3s ease-out
 
     &:hover
-      transform: scale(1.2)
+      transform: scale(1.1)
 
 .chats__list__header_search
   width: 85%
@@ -45,15 +52,16 @@
 .chats__list__header_search .input
   width: 100%
 
-.chats__list__header_search__account.button
+.chats__list__header_search__home.button
   display: block
   margin-left: 1rem
+
   background: transparent
   background-size: cover
-  background-image: url('./../../../../static/img/profile-button.svg')
-  height: 3.4rem
-  width: 3.4rem
-  border-radius: 50%
+  background-image: url('./../../../../static/img/home.svg')
+  height: 2.9rem
+  width: 2.9rem
+  // border-radius: 50%
   transition: all 0.3s ease-out
 
   @media screen and (min-width: 850px)

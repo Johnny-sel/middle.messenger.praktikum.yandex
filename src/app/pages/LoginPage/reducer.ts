@@ -7,6 +7,7 @@ import {Component} from '@core/component';
 import {Router} from '@core/router';
 import {ReasonResponse, SigninRequest} from '@api/types';
 import {CHANGE_INPUT, GET_USER, LOGIN_USER} from '@app/actions';
+import {userStore} from '@app/store';
 
 function handleError(err: ReasonResponse) {
   const {state} = this as Component<LoginState>;
@@ -27,7 +28,7 @@ async function dispatch(type: string) {
 
       case GET_USER: {
         state.load = true;
-        await Auth.user();
+        userStore.user = await Auth.user();
         Router.to(location.chats);
         break;
       }

@@ -1,11 +1,6 @@
 import {api} from '..';
-import {
-  GetChatsRequest,
-  GetChatsResponse,
-  CreateChatsRequest,
-  AddUserRequest,
-  GetUserResponse,
-} from '../types';
+import {AddUserRequest, GetUserResponse, DeleteUserRequest} from '../types';
+import {GetChatsRequest, GetChatsResponse, CreateChatsRequest} from '../types';
 import {ChatIdResponse, GetChatTokenResponse, GetChatUserRequest} from '../types';
 
 const Chat = {
@@ -23,6 +18,9 @@ const Chat = {
   },
   addUser: (body?: AddUserRequest): Promise<string> => {
     return api.put(`/chats/users`, body);
+  },
+  deleteUser: (body?: DeleteUserRequest): Promise<string> => {
+    return api.delete(`/chats/users`, body);
   },
 };
 

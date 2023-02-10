@@ -12,8 +12,8 @@ import {CHANGE_INPUT, CREATE_CHAT, OPEN_CHAT, SWITCH_TOOLTIP} from '@app/actions
 import {chatListState} from './state';
 import {dispatch} from './reducer';
 import {ChatListProps, ChatListState} from './types';
+import {userStore} from '@app/store';
 
-const searchChatInput = inputs.find((e) => e.name === name.searchChat);
 const titleInput = inputs.find((e) => e.name === name.title);
 
 export default class ChatList extends Component<ChatListState, ChatListProps> {
@@ -58,20 +58,17 @@ export default class ChatList extends Component<ChatListState, ChatListProps> {
         // header aside
         header('c=chats__list__header;', [
           nav('c=chats__list__header__nav;', [
-            button('c=chats__list__header__nav__menu button; t=button; n=menu',
-              {click: () => Router.to(location.root)},
+            button('c=chats__list__header__nav__menu button; t=button; n=account',
+              {click: () => Router.to(location.profile)},
             ),
           ]),
-          component.call(this, Input, {
-            ...searchChatInput,
-            key: '1',
-            showError: false,
-            change: onChange,
-            value: inputData['search_chat'],
-            className: 'chats__list__header_search',
-          }),
-          button('c=chats__list__header_search__account button; t=button; n=account',
-            {click: () => Router.to(location.profile)},
+          span('c=chats__list__header__username text center;',
+            userStore.user ?
+              [`${userStore.user?.first_name} ${userStore.user?.second_name}` ]:
+              ['Loading...']
+          ),
+          button('c=chats__list__header_search__home button; t=button; n=home',
+            {click: () => Router.to(location.root)},
           ),
         ]),
         // chats items

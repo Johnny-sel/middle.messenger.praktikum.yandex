@@ -9,7 +9,7 @@ export default class Input extends Component<InputState, InputProps> {
   }
 
   create() {
-    const {value, name, type, placeholder, change} = this.props;
+    const {value, name, type, placeholder, change, keydown} = this.props;
     const {pattern, error, className, load, showError = true} = this.props;
 
     const hidden = showError ? '' : '--hidden';
@@ -27,8 +27,7 @@ export default class Input extends Component<InputState, InputProps> {
           pt=${pattern};
           ${load ? "di=" :''};
         `,
-          {input: change, click: (e:Event) => e.stopPropagation()
-          },
+          {input: change, click: (e:Event) => e.stopPropagation(), keydown},
         ),
         span(`c=input_group__error${hidden};`, [error ?? '']),
       ])
@@ -47,6 +46,7 @@ type InputProps = {
   load: boolean;
   showError?: boolean;
   change: (e: InputEvent) => void;
+  keydown: (e: InputEvent) => void;
 };
 
 type InputState = {};

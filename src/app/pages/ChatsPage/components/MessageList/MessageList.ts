@@ -1,6 +1,6 @@
 import './MessageList.sass';
 
-import {button, component, div, footer, header, main, section, span} from '@core/tags';
+import {button, component, div, footer, h1, header, main, section, span} from '@core/tags';
 import {Component} from '@core/component';
 import {Input, Popover, Spinner} from '@app/components';
 import {Router} from '@core/router';
@@ -9,10 +9,11 @@ import {inputs} from '@app/resources';
 import {MessageListProps, MessageListState} from './types';
 import {Message} from '../index';
 import {messageListState} from './state';
-import {ADD_USER_TO_CHAT, CHANGE_INPUT, CLOSE_OPEN_ADD_USER_MENU, SWITCH_TABS} from '@app/actions';
+import {DELETE_USER_FROM_CHAT, SWITCH_TABS, CHANGE_INPUT} from '@app/actions';
+import {ADD_USER_TO_CHAT, CLOSE_OPEN_ADD_USER_MENU} from '@app/actions';
 import {dispatch} from './reducer';
+import {userStore} from '@app/store';
 
-const searchMessageInput = inputs.find((e) => e.name === name.searchMessage);
 const sendMessageInput = inputs.find((e) => e.name === name.sendMessage);
 const loginInput = inputs.find((input) => input.name === name.login);
 
@@ -46,6 +47,11 @@ export default class MessageList extends Component<MessageListState, MessageList
     dispatch.call(this, ADD_USER_TO_CHAT, userId);
   }
 
+  deleteUserFromChat(event: Event, userId: number) {
+    event.stopPropagation();
+    dispatch.call(this, DELETE_USER_FROM_CHAT, userId);
+  }
+
   create() {
     const {messages: msgs, loadMessages, inputData} = this.props;
     const {onChange, onSubmit, selectedChatId, showPopover} = this.props;
@@ -56,6 +62,7 @@ export default class MessageList extends Component<MessageListState, MessageList
     const switchTabs = this.switchTabs.bind(this);
     const onChangeLogin = this.onChangeLogin.bind(this);
     const addUserToChat = this.addUserToChat.bind(this);
+    const deleteUserFromChat = this.deleteUserFromChat.bind(this);
     const closeOpenPopover = this.closeOpenPopover.bind(this);
 
     const notSelectedChat = selectedChatId === 0;
@@ -72,7 +79,9 @@ export default class MessageList extends Component<MessageListState, MessageList
     const allUserList = allUser.map(user=>
       div('c=popover__userlist__user user_item;', [
         span('c=user_item__name;', [`${user.first_name} ${user.second_name}`  ]),
-        button('c=user_item__add button;',{click: (evt:Event)=> {addUserToChat(evt, user.id)}}),
+        chatUsers.find(u=> u.id === user.id) ?
+          span('c=user_item__done;'):
+          button('c=user_item__add button;',{click: (evt:Event)=> {addUserToChat(evt, user.id)}}),
       ],{click: (evt:Event)=> {evt.stopPropagation()}})
     );
 
@@ -80,7 +89,9 @@ export default class MessageList extends Component<MessageListState, MessageList
     const chatUserList = chatUsers.map(user=>
       div('c=popover__userlist__user user_item;', [
         span('c=user_item__name;', [`${user.first_name} ${user.second_name}`  ]),
-        button('c=user_item__add button;',{click: (evt:Event)=> {addUserToChat(evt, user.id)}}),
+        userStore.user?.id === user.id ?
+          span('c=user_item__delete button disabled;'):
+          button('c=user_item__delete button;',{click: (evt:Event)=> {deleteUserFromChat(evt, user.id)}}),
       ],{click: (evt:Event)=> {evt.stopPropagation()}})
     )
 
@@ -129,21 +140,17 @@ export default class MessageList extends Component<MessageListState, MessageList
                           ),
                         ])
                       ]:
-                    [...chatUserList ]
+                      loadAddUser ? [component.call(this, Spinner, {key: '3'})] : [...chatUserList ]
                   ),
                 ]),
               ]),
             ],
           }),
-          component.call(this, Input, {
-            ...searchMessageInput,
-            change: onChange,
-            key: '4',
-            value: inputData['search_message'],
-            className: 'chats__messages__header__search',
-          }),
-          button('c=chats__messages__header__account button; t=button; n=account',
-            {click: () => Router.to(location.profile)},
+          div('c=chats__messages__header__greet;', [
+            h1('c=chats__messages__header__greet__title title;', ['Chat Messages']),
+          ]),
+          button('c=chats__messages__header__home button; t=button; n=home',
+            {click: () => Router.to(location.root)},
           ),
         ]),
         // middle
@@ -155,12 +162,14 @@ export default class MessageList extends Component<MessageListState, MessageList
         ),
         // bottom
         footer('c=chats__messages__footer;', [
-          button(`c=chats__messages__footer__attach button; t=button; n=attach file;`,
-            {click: onSubmit}
-          ),
           component.call(this, Input, {
             ...sendMessageInput,
             change: onChange,
+            keydown: (e: SubmitEvent) => {
+              if ((e as Record<string, any>).key === 'Enter') {
+                onSubmit(e);
+              }
+            },
             key: '6',
             value: inputData['message'],
             className: 'chats__messages__footer__message',

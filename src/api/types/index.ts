@@ -14,6 +14,7 @@ export type {UpdateProfileRequest} from './repositires/request/UpdateProfileRequ
 export type {GetChatUserRequest} from './repositires/request/GetChatUserRequest';
 export type {SearchUserRequest} from './repositires/request/SearchUserRequest';
 export type {AddUserRequest} from './repositires/request/AddUserRequest';
+export type {DeleteUserRequest} from './repositires/request/DeleteUserRequest';
 
 // websocket
 export type {IWebSocketChat} from './websocket';

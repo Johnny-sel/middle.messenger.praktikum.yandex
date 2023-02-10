@@ -2,7 +2,8 @@ import {onChange} from '@app/functions';
 import {Component} from '@core/component';
 import {ReasonResponse} from '@api/types';
 import {error, name} from '@app/constants';
-import {ADD_USER_TO_CHAT, CHANGE_INPUT, CLOSE_OPEN_ADD_USER_MENU, SWITCH_TABS} from '@app/actions';
+import {DELETE_USER_FROM_CHAT, SWITCH_TABS} from '@app/actions';
+import {ADD_USER_TO_CHAT, CHANGE_INPUT, CLOSE_OPEN_ADD_USER_MENU} from '@app/actions';
 
 import {Chat, User} from '@api/repositories';
 import {MessageListState, MessageListProps} from './types';
@@ -23,7 +24,6 @@ async function dispatch(type: string, payload: unknown) {
   try {
     switch (type) {
       case CLOSE_OPEN_ADD_USER_MENU: {
-        state.inputData[name.login] = '';
         props.showPopover ? props.closePopover() : props.openPopover();
         state.loadAddUser = true;
         state.error = '';
@@ -51,6 +51,17 @@ async function dispatch(type: string, payload: unknown) {
         const userId = payload as number;
         state.loadAddUser = true;
         await Chat.addUser({chatId, users: [userId]});
+        state.chatUsers = await Chat.getChatUsers(chatId);
+        state.allUser = await User.searchUser({login: state.inputData[name.login]});
+        break;
+      }
+
+      case DELETE_USER_FROM_CHAT: {
+        const userId = payload as number;
+        state.loadAddUser = true;
+        await Chat.deleteUser({chatId, users: [userId]});
+        state.chatUsers = await Chat.getChatUsers(chatId);
+        state.allUser = await User.searchUser({login: state.inputData[name.login]});
         break;
       }
     }

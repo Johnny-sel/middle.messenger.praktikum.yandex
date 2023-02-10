@@ -12,6 +12,7 @@ module.exports = {
     '@api/repositories': '<rootDir>/src/api/repositories',
     '@api/types': '<rootDir>/src/api/types',
     '@api/websocket/chat': '<rootDir>/src/api/sockets/chat.ts',
+    '@app/store': '<rootDir>/src/app/store',
     '@app/actions': '<rootDir>/src/app/actions',
     '@app/functions': '<rootDir>/src/app/functions',
     '@app/utils': '<rootDir>/src/app/utils',

@@ -29,32 +29,32 @@
 .chats__messages__header
   position: relative
   display: flex
-  justify-content: end
+  justify-content: space-between
   padding: 1.5rem
   border-bottom: $border
+  height: 6.4rem
 
-  .chats__messages__header__account
+  .chats__messages__header__greet
+    @include flex-center
+
+  .chats__messages__header__home
     margin-left: 1.5rem
-
     background: transparent
     background-size: cover
-    background-image: url('./../../../../static/img/profile-button.svg')
-    height: 3.4rem
-    width: 3.4rem
-    border-radius: 50%
+    background-image: url('./../../../../static/img/home.svg')
+    height: 3rem
+    width: 3rem
     transition: all 0.3s ease-out
 
     &:hover
       transform: scale(1.1)
 
   .chats__messages__header__add_user
-    margin-right: 1.5rem
-    margin-top: 0.5rem
     background: transparent
     background-size: cover
     background-image: url('./../../../../static/img/user-add.svg')
-    height: 2.5rem
-    width: 2.5rem
+    height: 2.8rem
+    width: 2.8rem
     transition: all 0.3s ease-out
 
     &:hover
@@ -102,7 +102,7 @@
       transform: rotate(-25deg) scale(1.1) translateY(-0.5rem) translateX(0.5rem)
 
 .popover__add_user
-  width: 25rem
+  width: 27rem
   min-height: 35rem
   position: absolute
   transition: all 0.3s ease-out
@@ -197,3 +197,26 @@
 
     &:hover
       transform: scale(1.1)
+
+  .user_item__delete.button
+    display: block
+    background: transparent
+    background-size: cover
+    background-image: url('./../../../../static/img/delete-circle.svg')
+    height: 1.4rem
+    width: 1.4rem
+    border-radius: 50%
+    transition: all 0.3s ease-out
+
+    &:hover
+      transform: scale(1.1)
+
+  .user_item__done
+    display: block
+    background: transparent
+    background-size: cover
+    background-image: url('./../../../../static/img/done-circle.svg')
+    height: 2rem
+    width: 2rem
+    border-radius: 50%
+    transition: all 0.3s ease-out
