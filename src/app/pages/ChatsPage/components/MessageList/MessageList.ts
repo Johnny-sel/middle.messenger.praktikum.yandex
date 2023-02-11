@@ -12,7 +12,8 @@ import {messageListState} from './state';
 import {DELETE_USER_FROM_CHAT, SWITCH_TABS, CHANGE_INPUT} from '@app/actions';
 import {ADD_USER_TO_CHAT, CLOSE_OPEN_ADD_USER_MENU} from '@app/actions';
 import {dispatch} from './reducer';
-import {userStore} from '@app/store';
+import {GetUserResponse} from '@api/types';
+import {debounce} from '@app/utils';
 
 const sendMessageInput = inputs.find((e) => e.name === name.sendMessage);
 const loginInput = inputs.find((input) => input.name === name.login);
@@ -39,7 +40,7 @@ export default class MessageList extends Component<MessageListState, MessageList
   onChangeLogin(event: InputEvent) {
     event.stopPropagation();
     this.state.event = event;
-    dispatch.call(this, CHANGE_INPUT);
+    debounce(dispatch.bind(this), 500)(CHANGE_INPUT);
   }
 
   addUserToChat(event: Event, userId: number) {
@@ -75,6 +76,8 @@ export default class MessageList extends Component<MessageListState, MessageList
     const errorText = 'Something went wrong, we are already fixing. Try again please';
     const popoverCenter = error || loadAddUser ? '--center' : '';
 
+    const currentUser = JSON.parse(localStorage.getItem('user') || '{}') as GetUserResponse;
+
     // prettier-ignore
     const allUserList = allUser.map(user=>
       div('c=popover__userlist__user user_item;', [
@@ -89,7 +92,7 @@ export default class MessageList extends Component<MessageListState, MessageList
     const chatUserList = chatUsers.map(user=>
       div('c=popover__userlist__user user_item;', [
         span('c=user_item__name;', [`${user.first_name} ${user.second_name}`  ]),
-        userStore.user?.id === user.id ?
+        currentUser.id == user.id ?
           span('c=user_item__delete button disabled;'):
           button('c=user_item__delete button;',{click: (evt:Event)=> {deleteUserFromChat(evt, user.id)}}),
       ],{click: (evt:Event)=> {evt.stopPropagation()}})

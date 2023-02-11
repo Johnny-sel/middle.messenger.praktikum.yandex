@@ -44,9 +44,13 @@ export default class Header extends Component<HeaderState, HeaderProps> {
           h1('c=header__greet__title title;', [this.props?.title ?? this.state.title]),
         ]),
         nav('c=header__links;', [
-          button(`c=header__links__profile_button; n=profile; t=button`, {
-            click: goToProfilePage,
-          }),
+          this.props?.title === 'Account' ?
+            button(`c=header__links__home_button; n=profile; t=button`, {
+              click: goToMainPage,
+            }):
+            button(`c=header__links__profile_button; n=home; t=button`, {
+              click: goToProfilePage,
+            })
         ]),
       ])
     );

@@ -3,10 +3,10 @@ const hostResources = 'https://ya-praktikum.tech/api/v2/resources';
 const location = {
   root: '/',
   error: '/error',
-  chats: '/chats',
-  registration: '/registration',
-  profile: '/profile',
-  profileEdit: '/profile/edit',
+  chats: '/messenger',
+  registration: '/sign-up',
+  profile: '/settings',
+  profileEdit: '/settings/edit',
   passwordEdit: '/password/edit',
 };
 

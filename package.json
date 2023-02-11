@@ -41,7 +41,6 @@
     "typescript": "4.9.4"
   },
   "alias": {
-    "@app/store": "./src/app/store",
     "@app/actions": "./src/app/actions",
     "@app/utils": "./src/app/utils",
     "@app/functions": "./src/app/functions",

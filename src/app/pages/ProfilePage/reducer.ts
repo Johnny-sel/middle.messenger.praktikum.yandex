@@ -26,6 +26,7 @@ async function dispatch(type: string) {
     switch (type) {
       case LOGOUT_USER: {
         await Auth.logout();
+        localStorage.removeItem('user')
         Router.to(location.root);
         break;
       }

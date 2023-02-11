@@ -20,6 +20,7 @@ export type MessageListProps = {
 
 export type MessageListState = {
   loadAddUser: boolean;
+  timeoutId: number | undefined;
   statusAddUser: string;
   error: string;
   chatUsers: GetUserResponse[];

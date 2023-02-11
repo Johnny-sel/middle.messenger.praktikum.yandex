@@ -4,7 +4,6 @@ import {ReasonResponse} from '@api/types';
 import {error, name} from '@app/constants';
 import {DELETE_USER_FROM_CHAT, SWITCH_TABS} from '@app/actions';
 import {ADD_USER_TO_CHAT, CHANGE_INPUT, CLOSE_OPEN_ADD_USER_MENU} from '@app/actions';
-
 import {Chat, User} from '@api/repositories';
 import {MessageListState, MessageListProps} from './types';
 
@@ -34,9 +33,11 @@ async function dispatch(type: string, payload: unknown) {
       }
 
       case CHANGE_INPUT: {
+        console.log('CHANGE_INPUT:', CHANGE_INPUT)
         onChange.call(this, state.event);
         state.error = '';
         state.allUser = await User.searchUser({login});
+
         break;
       }
 

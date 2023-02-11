@@ -1,16 +1,11 @@
-import {userStore} from './store/user';
 import {Router} from '@core/router';
 import {location} from '@app/constants';
 import {LoginPage, ProfilePage, RegisterPage, EditProfilePage} from '@app/pages';
-import {EditPasswordPage, ErrorPage, ChatsPage, TestPage} from '@app/pages';
+import {EditPasswordPage, ErrorPage, ChatsPage} from '@app/pages';
 import {Route} from '@core/types';
-import {Auth} from '@api/repositories';
 
 function initApp() {
-  Auth.user().then((user) => (userStore.user = user));
-
   const routes: Route[] = [
-    {path: '/test', component: TestPage},
     {path: location.root, component: LoginPage},
     {path: location.error, component: ErrorPage},
     {path: location.chats, component: ChatsPage},

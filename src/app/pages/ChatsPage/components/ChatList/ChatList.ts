@@ -12,7 +12,7 @@ import {CHANGE_INPUT, CREATE_CHAT, OPEN_CHAT, SWITCH_TOOLTIP} from '@app/actions
 import {chatListState} from './state';
 import {dispatch} from './reducer';
 import {ChatListProps, ChatListState} from './types';
-import {userStore} from '@app/store';
+import {GetUserResponse} from '@api/types';
 
 const titleInput = inputs.find((e) => e.name === name.title);
 
@@ -51,6 +51,8 @@ export default class ChatList extends Component<ChatListState, ChatListProps> {
     const createChat = this.createChat.bind(this);
     const openChat = this.openChat.bind(this);
 
+    const currentUser = JSON.parse(localStorage.getItem('user') || '{}') as GetUserResponse;
+
     // prettier-ignore
 
     return (
@@ -63,8 +65,8 @@ export default class ChatList extends Component<ChatListState, ChatListProps> {
             ),
           ]),
           span('c=chats__list__header__username text center;',
-            userStore.user ?
-              [`${userStore.user?.first_name} ${userStore.user?.second_name}` ]:
+          currentUser ?
+              [`${currentUser?.first_name} ${currentUser?.second_name}` ]:
               ['Loading...']
           ),
           button('c=chats__list__header_search__home button; t=button; n=home',

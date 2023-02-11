@@ -7,7 +7,6 @@ import {Component} from '@core/component';
 import {Router} from '@core/router';
 import {ReasonResponse, SigninRequest} from '@api/types';
 import {CHANGE_INPUT, GET_USER, LOGIN_USER} from '@app/actions';
-import {userStore} from '@app/store';
 
 function handleError(err: ReasonResponse) {
   const {state} = this as Component<LoginState>;
@@ -28,7 +27,8 @@ async function dispatch(type: string) {
 
       case GET_USER: {
         state.load = true;
-        userStore.user = await Auth.user();
+        const user = await Auth.user();
+        localStorage.setItem('user', JSON.stringify(user));
         Router.to(location.chats);
         break;
       }
@@ -38,6 +38,8 @@ async function dispatch(type: string) {
         if (!validateForm(form!)) return;
 
         await Auth.signin(state.inputData as SigninRequest);
+        const user = await Auth.user();
+        localStorage.setItem('user', JSON.stringify(user));
         Router.to(location.chats);
         break;
       }
