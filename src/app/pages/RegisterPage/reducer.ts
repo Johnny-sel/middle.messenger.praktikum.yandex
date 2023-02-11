@@ -39,6 +39,8 @@ async function dispatch(type: string) {
         if (!comparePasswords(inputsValue)) throw 'Passwords not match';
 
         await Auth.signup(inputsValue);
+        const user = await Auth.user();
+        localStorage.setItem('user', JSON.stringify(user));
 
         Router.to(location.chats);
         break;

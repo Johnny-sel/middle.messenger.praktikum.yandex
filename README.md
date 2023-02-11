@@ -1,11 +1,23 @@
 ![NodeVerstion](https://badgen.net/badge/node/>=18.12.1/green?icon)![NpmVersion](https://badgen.net/badge/npm/8.19.2/red)[![Netlify Status](https://api.netlify.com/api/v1/badges/5aa48dac-27dc-4e3d-8033-46921a2eeff3/deploy-status)](https://app.netlify.com/sites/visionary-taiyaki-b68147/deploys)
 
-# Yandex practicum sprint_2
+# Yandex practicum sprint_3
 [Pull request #1](https://github.com/Johnny-sel/middle.messenger.praktikum.yandex/pull/2)
+[Pull request #2](https://github.com/Johnny-sel/middle.messenger.praktikum.yandex/pull/3)
+[Pull request #3](https://github.com/Johnny-sel/middle.messenger.praktikum.yandex/pull/4)
 
 [UI prototype in figma](https://www.figma.com/file/nJe5jORwqJie23I0MasHvb/Yandex-practicum-messenger?node-id=0%3A1&t=LNudhR1BQmAkxQ6N-1)
 
 [Netlify deploy](https://visionary-taiyaki-b68147.netlify.app/)
+
+[Check list sprint 3](https://visionary-taiyaki-b68147.netlify.app/)
+
+### Note for sprint 3
+    1. Using local state of component
+    2. Not using event bus, because component implement on virtual dom
+    3. Implemented lifecycle unMount
+    4. Fixed memory leaks
+    5. Fixed removing handler listeners
+    5. Added mixins
 
 ### Running development (localhost:1234)
 
@@ -24,6 +36,7 @@
         --app               - application source
         --core              - custom framework
             -- component    - service of create component and manage state
+            -- http         - service http requets
             -- router       - service of manage navigation
             -- vdom         - service that create virtual dom
             -- utils        - utils for core and application
@@ -91,9 +104,9 @@ export default class MainPage extends Component {
         }
 
     2. When Component will be initialize, it remember current snapshot of object, that method create() return.
-    
+
     3. The Router determines the current url path and creates a DOM element based on the object that return method create().
-    
+
     4. When Router will be created DOM element, it set DOM element into object (virtual node).
 
     5. As a result, the object will look like this (add property "element"):
@@ -120,7 +133,7 @@ export default class MainPage extends Component {
                 }
             ]
         }
-    
+
     6. When state will be changed. The div function return new object.
 
     7. Interception of Component catch this, and compares previos object (prev virtual node) with new object (next virtual node)
@@ -142,7 +155,7 @@ export default class MainPage extends Component {
 
 ### Examples
 
-    
+
 #### Component in component
 
 ```js
@@ -478,11 +491,3 @@ export default class CustomComponent extends Component {
   }
 }
 ```
-
-### TODO
-    1. To do comparison and replace children in virtual dom when state change
-    2. To do Life cycle didUnmount()
-    3. Fix parse attributes 
-    4. Add more tags
-    5. Add accessabilty
-    6. Fix router goBack()

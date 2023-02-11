@@ -1,6 +1,6 @@
 import './ChatList.sass';
 // core
-import {aside, button, component, footer, header, nav, span, ul} from '@core/tags';
+import {aside, button, component, div, footer, header, nav, span, ul} from '@core/tags';
 import {Component} from '@core/component';
 import {Router} from '@core/router';
 // app
@@ -75,7 +75,9 @@ export default class ChatList extends Component<ChatListState, ChatListProps> {
         ]),
         // chats items
         chats.length === 0 && !loadChats ?
-          span('c=text;', ['Create chat'])
+          div('c=chats__list__create_chat;', [
+            span('c=text;', ['Create chat'])
+          ])
             :
             loadChats?
               span('c=;',['Loading chats...'])
