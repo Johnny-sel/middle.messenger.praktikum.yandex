@@ -18,12 +18,11 @@ export default class ProfilePhoto extends Component<{}, ProfilePhotoProps> {
     return (
       div('c=large_avatar;', [
         div('c=large_avatar__preview;', [
-          photoUrl? 
-            img(`c=large_avatar__img; src=${hostResources + photoUrl}; alt=insert profile photo;`, [])
-              :
+          photoUrl?
+            img(`c=large_avatar__img; src=${hostResources + photoUrl}; alt=insert profile photo;`, []) :
             img(`c=large_avatar__preview_img; src=${preview}; alt=insert profile photo;`),
           input(`c=large_avatar__preview_button; t=file; id=file; v=Change avatar; `, {input: upload}),
-          label(`c=large_avatar__preview_label; for=file;`,['Change avatar'])
+          label(`c=large_avatar__preview_label; for=file;`, ['Change avatar']),
         ]),
         span('c=large_avatar__profile_name text;', [name]),
       ])

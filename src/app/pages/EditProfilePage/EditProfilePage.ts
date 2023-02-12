@@ -52,16 +52,16 @@ export default class EditProfilePage extends Component<EditProfileState> {
           section('c=section;', [
             form('c=form;', [
               ...editProfileInputs.map((input: TInput) => {
-                const value = (inputData as any)[input.name];
+                const value = inputData[input.name];
                 const key = input.name;
-                return component.call(this,Input, {...input, change, load, value, key});
+                return component.call(this, Input, {...input, change, load, value, key});
               }),
               component.call(this, Button, {text: 'Change account', onSubmit, load, type: 'submit', key: '2'}),
             ]),
             span(`c=${error? 'error':'hidden'};`, [error ?? '']),
             a('c=link;', ['Go to account'], {click: () => Router.to(location.profile)}),
           ]),
-      ]})
+        ]})
     );
   }
 }

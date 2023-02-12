@@ -30,8 +30,10 @@ async function dispatch(type: string) {
         state.user = await Auth.user();
 
         for (const prop in state.inputData) {
-          if (!state.inputData.hasOwnProperty(prop)) continue;
-          (state.inputData as any)[prop] = (state.user as any)[prop] ?? '';
+          if (!Object.prototype.hasOwnProperty.call(state.inputData, prop)) {
+            continue;
+          }
+          state.inputData[prop] = (state.user as any)[prop] ?? '';
         }
 
         break;

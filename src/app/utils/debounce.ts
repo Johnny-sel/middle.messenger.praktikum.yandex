@@ -1,6 +1,6 @@
 let timeoutId: number;
 
-function debounce(cb: Function, ms: number) {
+function debounce(cb: (arg: unknown) => void, ms: number) {
   return function (args: unknown) {
     if (timeoutId) clearTimeout(timeoutId);
     timeoutId = window.setTimeout(() => {

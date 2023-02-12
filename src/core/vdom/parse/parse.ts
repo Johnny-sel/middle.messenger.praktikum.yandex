@@ -17,7 +17,7 @@ function parseAttrs(attrsStr: string): Attrs {
     ['h=', ' href='],
     ['a=', ' action='],
     ['pt=', ' pattern='],
-    ['req=', ' required='],
+    ['req=', ' required=']
   ];
 
   replacements.forEach((item) => {
@@ -34,11 +34,11 @@ function parseAttrs(attrsStr: string): Attrs {
     if (attr) {
       const match = attr.match('=');
       if (match?.index) {
-        let key = attr.slice(0, match.index).trim();
+        const key = attr.slice(0, match.index).trim();
         let value = attr.slice(match.index + 1).trim();
 
         if (key === 'style') {
-          value = value.replace(/[\,]/g, ';');
+          value = value.replace(/[,]/g, ';');
         }
 
         attrs[key] = value;

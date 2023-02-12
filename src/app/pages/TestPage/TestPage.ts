@@ -13,9 +13,9 @@ export default class TestPage extends Component<TestState, {}> {
 
   didMount() {
     fetch('https://jsonplaceholder.typicode.com/users')
-      .then((response) => response.json())
-      .then((users) => (this.state.users = users))
-      .finally(() => (this.state.load = false));
+        .then((response) => response.json())
+        .then((users) => (this.state.users = users))
+        .finally(() => (this.state.load = false));
 
     setInterval(() => {
       this.state.count++;

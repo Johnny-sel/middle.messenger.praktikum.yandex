@@ -7,7 +7,9 @@ describe('Types utils', () => {
   const number = 5;
   const nullable = null;
   const undef = undefined;
-  const func = () => {};
+  const func = () => {
+    return true;
+  };
 
   test('isArr function should be check type on array', () => {
     expect(isArr(array)).toBe(true);

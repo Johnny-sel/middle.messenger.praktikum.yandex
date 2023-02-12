@@ -49,30 +49,30 @@ export default class ProfilePage extends Component<ProfileState> {
           section('c=profile__info section;', [
             component.call(this, ProfilePhoto, {
               key: '2',
-              name: load? 'Loading...' :  `${user?.first_name} ${user?.second_name}` ,
+              name: load? 'Loading...' : `${user?.first_name} ${user?.second_name}`,
               photoUrl: user?.avatar,
-              upload
+              upload,
             }),
             ...items.map((item: Item, index) => component.call(this, InfoLine, {
-                key: `key-${index}`,
-                name: item.name,
-                value: item.value,
-              })
+              key: `key-${index}`,
+              name: item.name,
+              value: item.value,
+            }),
             ),
             div('c=profile__info__group_link;', [
               a('c=profile__info__group_link__link link;', ['Change account'],
-                {click: ()=> Router.to(location.profileEdit)},
+                  {click: ()=> Router.to(location.profileEdit)},
               ),
               a('c=profile__info__group_link__link link;', ['Change password'],
-                {click: ()=> Router.to(location.passwordEdit)},
+                  {click: ()=> Router.to(location.passwordEdit)},
               ),
               a('c=profile__info__group_link__link link;', [load? 'Wait...' : 'Logout'],
-                {click: logout},
+                  {click: logout},
               ),
               span(`c=${error? 'error':'hidden'};`, [error ?? '']),
             ]),
-          ])
-      ]})
+          ]),
+        ]})
     );
   }
 }

@@ -41,13 +41,16 @@ export class WebSocketChat implements IWebSocketChat {
     this.socket = new WebSocket(WEB_socket_URL);
 
     this.socket.addEventListener('message', (ev) => {
-      const data = JSON.parse(ev.data);
-      const message: Message[] = isArr(data) ? (data as []).reverse() : data;
-      messages(message);
+      try {
+        const data = JSON.parse(ev.data);
+        const message: Message[] = isArr(data) ? (data as []).reverse() : data;
+        messages(message);
+      } catch (error) {
+        messages([]);
+      }
     });
 
     this.socket?.addEventListener('open', () => {
-      // this.ping();
       opened();
     });
 
@@ -70,13 +73,5 @@ export class WebSocketChat implements IWebSocketChat {
   disconnect() {
     this.socket?.close();
     this.socket = null;
-  }
-
-  private ping() {
-    if (this.interval) this.clearInterval();
-
-    this.interval = window.setInterval(() => {
-      this.socket?.send(JSON.stringify({type: 'ping'}));
-    }, 10000);
   }
 }

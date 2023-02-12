@@ -1,3 +1,5 @@
+import {Message} from '@app/types';
+
 export interface IWebSocketChat {
   connect: (args: IConnectFunction) => Promise<IWebSocketChat>;
   sendMessage: (message: string) => void;
@@ -6,8 +8,8 @@ export interface IWebSocketChat {
 
 export interface IConnectFunction {
   chatId: number;
-  messages: Function;
-  opened: Function;
-  closed?: Function;
-  failed?: Function;
+  messages: (msg: Message[] | Message) => void;
+  opened: () => void;
+  closed?: () => void;
+  failed?: () => void;
 }

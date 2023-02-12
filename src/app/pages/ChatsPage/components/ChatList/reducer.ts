@@ -2,10 +2,18 @@ import {onChange} from '@app/functions';
 import {Component} from '@core/component';
 import {ReasonResponse} from '@api/types';
 import {error} from '@app/constants';
-import {CHANGE_INPUT, CREATE_CHAT, OPEN_CHAT, SWITCH_TOOLTIP} from '@app/actions';
+import {
+  CHANGE_INPUT,
+  CREATE_CHAT,
+  DELETE_CHAT,
+  OPEN_CHAT,
+  OPEN_FIRST_CHAT,
+  SWITCH_TOOLTIP,
+} from '@app/actions';
 import {WebSocketChat} from '@api/websocket/chat';
 import {ChatListProps, ChatListState} from './types';
 import {Chat} from '@api/repositories';
+import {first} from '@core/utils';
 
 function handleError(err: ReasonResponse) {
   const {state} = this as Component<ChatListState, ChatListProps>;
@@ -36,6 +44,27 @@ async function dispatch(type: string, payload: unknown) {
         await props.getChats();
         state.loadCreateChat = false;
         state.showPopover = false;
+        break;
+      }
+
+      case DELETE_CHAT: {
+        state.deletedChatId = chatId;
+        state.loadDeleteChat = true;
+        await Chat.deleteChat({chatId});
+        await props.getChats();
+        dispatch.call(this, OPEN_FIRST_CHAT);
+        state.loadDeleteChat = false;
+        break;
+      }
+
+      case OPEN_FIRST_CHAT: {
+        const chat = first(props.chats);
+        if (chat) {
+          const chatId = chat.id;
+          state.selectedChatId = chatId;
+          state.socket = WebSocketChat.instance;
+          props.setWebSocketChat(state.socket, chatId);
+        }
         break;
       }
 

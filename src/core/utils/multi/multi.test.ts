@@ -14,6 +14,6 @@ describe('Common utils', () => {
     expect(isEmpty([1, 2, 3])).toBe(false);
     expect(isEmpty(new Map())).toBe(true);
     expect(isEmpty(map1)).toBe(false);
-    expect(isEmpty(() => {})).toBe(false);
+    expect(isEmpty(() => {true})).toBe(false);
   });
 });

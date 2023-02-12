@@ -1,8 +1,9 @@
 function onChange(event: InputEvent) {
-  (event.target as HTMLInputElement).setCustomValidity('');
+  const target = event.target as HTMLInputElement;
+  target.setCustomValidity('');
 
-  const name = (event.target as any).name;
-  const value = (event.target as any).value;
+  const name = target.name;
+  const value = target.value;
 
   this.state.inputData = {...this.state.inputData, [name]: value};
 }

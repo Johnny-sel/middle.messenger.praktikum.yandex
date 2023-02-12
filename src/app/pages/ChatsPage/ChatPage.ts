@@ -4,11 +4,11 @@ import {IWebSocketChat} from '@api/types';
 // core
 import {div, component} from '@core/tags';
 import {Component} from '@core/component';
-//app
+// app
 import {CHANGE_INPUT, CLEAR_INPUT, CLOSE_POPOVER, OPEN_POPOVER} from '@app/actions';
 import {OPEN_FIRST_CHAT, CONNECT_WEBSOCKET} from '@app/actions';
 import {GET_CHATS, SCROLL_BOTTOM, SEND_MESSAGE} from '@app/actions';
-//local
+// local
 import {chatPageState} from './state';
 import {ChatList, MessageList} from './components';
 import {ChatPageState} from './types';
@@ -44,8 +44,8 @@ export default class ChatsPage extends Component<ChatPageState> {
     dispatch.call(this, SEND_MESSAGE);
   }
 
-  getChats() {
-    dispatch.call(this, GET_CHATS);
+  async getChats() {
+    await dispatch.call(this, GET_CHATS);
   }
 
   openPopover() {
@@ -94,9 +94,9 @@ export default class ChatsPage extends Component<ChatPageState> {
           onChange,
           onSubmit,
           openPopover,
-          closePopover
+          closePopover,
         }),
-      ], {click: closePopover}
+      ], {click: closePopover},
       )
     );
   }

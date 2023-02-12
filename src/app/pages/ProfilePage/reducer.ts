@@ -26,7 +26,7 @@ async function dispatch(type: string) {
     switch (type) {
       case LOGOUT_USER: {
         await Auth.logout();
-        localStorage.removeItem('user')
+        localStorage.removeItem('user');
         Router.to(location.root);
         break;
       }
@@ -34,8 +34,8 @@ async function dispatch(type: string) {
       case GET_USER: {
         state.user = await Auth.user();
         state.items = Object.entries(state.user!)
-          .map(([name, value]) => ({name, value} as Item))
-          .filter((e) => e.value !== null && e.name !== 'avatar');
+            .map(([name, value]) => ({name, value} as Item))
+            .filter((e) => e.value !== null && e.name !== 'avatar');
         break;
       }
 
@@ -49,8 +49,8 @@ async function dispatch(type: string) {
 
         state.user = await User.updatePhoto(formData);
         state.items = Object.entries(state.user!)
-          .map(([name, value]) => ({name, value} as Item))
-          .filter((e) => e.value !== null && e.name !== 'avatar');
+            .map(([name, value]) => ({name, value} as Item))
+            .filter((e) => e.value !== null && e.name !== 'avatar');
         break;
       }
     }

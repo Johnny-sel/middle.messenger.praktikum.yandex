@@ -118,7 +118,9 @@ describe('dom', () => {
           },
           children: ['Go to account'],
           handlers: {
-            click: () => {},
+            click: () => {
+              true;
+            },
           },
           HTMLElement: undefined,
         },

@@ -1,7 +1,8 @@
 import {api} from '..';
-import {AddUserRequest, GetUserResponse, DeleteUserRequest} from '../types';
+import {DeleteUserRequest, DeleteChatRequest, DeleteChatResponse} from '../types';
 import {GetChatsRequest, GetChatsResponse, CreateChatsRequest} from '../types';
 import {ChatIdResponse, GetChatTokenResponse, GetChatUserRequest} from '../types';
+import {AddUserRequest, GetUserResponse} from '../types';
 
 const Chat = {
   getChats: (body?: GetChatsRequest): Promise<GetChatsResponse[]> => {
@@ -12,6 +13,9 @@ const Chat = {
   },
   createChat: (body?: CreateChatsRequest): Promise<ChatIdResponse> => {
     return api.post('/chats', body);
+  },
+  deleteChat: (body?: DeleteChatRequest): Promise<DeleteChatResponse> => {
+    return api.delete('/chats', body);
   },
   getToken: (chatId?: number): Promise<GetChatTokenResponse> => {
     return api.post(`/chats/token/${chatId}`);

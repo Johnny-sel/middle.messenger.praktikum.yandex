@@ -12,9 +12,9 @@ export default class Button extends Component<ButtonState, ButtonProps> {
 
     // prettier-ignore
     return (
-      button(`c=form__button button; t=${type ?? 'button'}; ${load ? "di=" :''}; `, 
-        [load? 'Loading...': text],
-        {click: onSubmit}
+      button(`c=form__button button; t=${type ?? 'button'}; ${load ? 'di=' :''}; `,
+          [load? 'Loading...': text],
+          {click: onSubmit},
       )
     );
   }

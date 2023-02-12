@@ -6,6 +6,7 @@ export const UPDATE_USER = 'UPDATE_USER';
 export const UPDATE_PASSWORD = 'UPDATE_PASSWORD';
 export const UPLOAD_PHOTO = 'UPLOAD_PHOTO';
 export const CREATE_CHAT = 'CREATE_CHAT';
+export const DELETE_CHAT = 'DELETE_CHAT';
 export const GET_CHATS = 'GET_CHATS';
 export const ADD_USER_TO_CHAT = 'ADD_USER_TO_CHAT';
 export const DELETE_USER_FROM_CHAT = 'DELETE_USER_FROM_CHAT';

@@ -2,7 +2,7 @@ import {parseAttrs} from '../';
 
 describe('Parser', () => {
   test('Function parseAttrs should be return object of html attrubite tag', () => {
-    let rawString1 = `
+    const rawString1 = `
       s=font-size:20;
       c=title;
       v=mail@google.com;
@@ -17,7 +17,7 @@ describe('Parser', () => {
       req=;
     `;
 
-    let result1 = {
+    const result1 = {
       style: 'font-size:20',
       class: 'title',
       value: 'mail@google.com',

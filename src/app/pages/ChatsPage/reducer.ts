@@ -60,6 +60,7 @@ async function dispatch(type: string, payload: unknown) {
       }
 
       case SEND_MESSAGE: {
+        if (!state.inputData.message) break;
         state.socket?.sendMessage(state.inputData.message);
         dispatch.call(this, CLEAR_INPUT);
         break;

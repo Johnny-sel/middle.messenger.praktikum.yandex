@@ -56,8 +56,8 @@ export default class EditPasswordPage extends Component<EditPasswordState> {
             ]),
             span(`c=${error? 'error':'hidden'};`, [error ?? '']),
             a('c=link;', ['Go to account'], {click: () => Router.to(location.profile)}),
-          ])
-      ]})
+          ]),
+        ]})
     );
   }
 }

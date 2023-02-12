@@ -80,7 +80,7 @@ describe('vnode', () => {
 
     expect(vnode).toEqual({
       tag: 'button',
-      attrs: {type: 'button', class: 'button', 'data-key': vnode.attrs['data-key']},
+      attrs: {'type': 'button', 'class': 'button', 'data-key': vnode.attrs['data-key']},
       children: ['Button name'],
       handlers: {},
     });
@@ -94,7 +94,7 @@ describe('vnode', () => {
 
     expect(vnode).toEqual({
       tag: 'button',
-      attrs: {type: 'button', class: 'button', 'data-key': vnode.attrs['data-key']},
+      attrs: {'type': 'button', 'class': 'button', 'data-key': vnode.attrs['data-key']},
       children: ['Button name'],
       handlers: {},
     });

@@ -33,7 +33,6 @@ async function dispatch(type: string, payload: unknown) {
       }
 
       case CHANGE_INPUT: {
-        console.log('CHANGE_INPUT:', CHANGE_INPUT)
         onChange.call(this, state.event);
         state.error = '';
         state.allUser = await User.searchUser({login});

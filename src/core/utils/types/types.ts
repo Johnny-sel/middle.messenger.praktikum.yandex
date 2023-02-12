@@ -18,7 +18,7 @@ function isNull(value: unknown): boolean {
   return value === null;
 }
 
-function isObject(item: any): boolean {
+function isObject(item: unknown): boolean {
   if (!isArr(item) && !isNull(item)) {
     return typeof item === 'object';
   }

@@ -50,7 +50,7 @@ export default class Header extends Component<HeaderState, HeaderProps> {
             }):
             button(`c=header__links__profile_button; n=home; t=button`, {
               click: goToProfilePage,
-            })
+            }),
         ]),
       ])
     );

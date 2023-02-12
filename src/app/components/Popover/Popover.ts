@@ -24,7 +24,7 @@ export default class Popover extends Component<{}, PopoverProps> {
   }
 }
 
-type PopoverProps  = {
+type PopoverProps = {
   show: boolean;
   load: boolean;
   children: VirtualNode[];

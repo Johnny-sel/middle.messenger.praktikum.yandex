@@ -7,7 +7,7 @@ import {Router} from '@core/router';
 import {Input, ChatListItem, Popover} from '@app/components';
 import {location, name} from '@app/constants';
 import {inputs} from '@app/resources';
-import {CHANGE_INPUT, CREATE_CHAT, OPEN_CHAT, SWITCH_TOOLTIP} from '@app/actions';
+import {CHANGE_INPUT, CREATE_CHAT, DELETE_CHAT, OPEN_CHAT, SWITCH_TOOLTIP} from '@app/actions';
 // local
 import {chatListState} from './state';
 import {dispatch} from './reducer';
@@ -42,14 +42,21 @@ export default class ChatList extends Component<ChatListState, ChatListProps> {
     dispatch.call(this, OPEN_CHAT, chatId);
   }
 
+  deleteChat(event: Event, chatId: number) {
+    event.stopPropagation();
+    dispatch.call(this, DELETE_CHAT, chatId);
+  }
+
   create() {
-    const {inputData, showPopover, selectedChatId, loadCreateChat} = this.state;
+    const {inputData, showPopover,  loadCreateChat, loadDeleteChat} = this.state;
+    const {deletedChatId, selectedChatId} = this.state;
     const {chats, loadChats} = this.props;
 
     const onChange = this.onChange.bind(this);
     const switchPopover = this.switchPopover.bind(this);
     const createChat = this.createChat.bind(this);
     const openChat = this.openChat.bind(this);
+    const deleteChat = this.deleteChat.bind(this);
 
     const currentUser = JSON.parse(localStorage.getItem('user') || '{}') as GetUserResponse;
 
@@ -61,38 +68,38 @@ export default class ChatList extends Component<ChatListState, ChatListProps> {
         header('c=chats__list__header;', [
           nav('c=chats__list__header__nav;', [
             button('c=chats__list__header__nav__menu button; t=button; n=account',
-              {click: () => Router.to(location.profile)},
+                {click: () => Router.to(location.profile)},
             ),
           ]),
           span('c=chats__list__header__username text center;',
           currentUser ?
-              [`${currentUser?.first_name} ${currentUser?.second_name}` ]:
-              ['Loading...']
+              [`${currentUser?.first_name} ${currentUser?.second_name}`]:
+              ['Loading...'],
           ),
           button('c=chats__list__header_search__home button; t=button; n=home',
-            {click: () => Router.to(location.root)},
+              {click: () => Router.to(location.root)},
           ),
         ]),
         // chats items
         chats.length === 0 && !loadChats ?
           div('c=chats__list__create_chat;', [
-            span('c=text;', ['Create chat'])
-          ])
-            :
+            span('c=text;', ['Create chat']),
+          ]) :
             loadChats?
-              span('c=;',['Loading chats...'])
-              :
+              span('c=;', ['Loading chats...']) :
               ul('c=chats__list__items;', [
-              ...chats?.map((chat, index) => {
+                ...chats.map((chat) => {
                   return component.call(this, ChatListItem, {
                     onClickChat: openChat,
-                    itemIndex:index,
+                    onDeleteChat: deleteChat,
+                    loadDeleteChat: loadDeleteChat,
+                    deletedChatId: deletedChatId,
                     chat: chat,
                     active: chat.id === (selectedChatId || this.props.selectedChatId),
-                    key: chat.id + 'li'
+                    key: chat.id + 'li',
                   });
-              }),
-        ]),
+                }),
+              ]),
 
         // footer aside
         footer('c=chats__list__footer;', [
@@ -113,14 +120,14 @@ export default class ChatList extends Component<ChatListState, ChatListProps> {
                 className: 'popover__input',
               }),
               button('c=popover__add_chat__button button; t=button; n=create chat', {click: createChat}),
-            ]
+            ],
           }),
           button(`
               c=chats__list__footer__add_chat${showPopover ? '--cancel' : ''} button;
               t=button;
               n=add chat;
             `,
-            {click: switchPopover},
+          {click: switchPopover},
           ),
         ]),
       ])

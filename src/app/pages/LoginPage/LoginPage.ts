@@ -63,8 +63,8 @@ export default class LoginPage extends Component<LoginState> {
             ]),
             span(`c=${error? 'error':'hidden'};`, [error ?? '']),
             a(`c=link ${disabled};`, ['Create account'], {click: () => Router.to(location.registration)}),
-          ])
-      ]})
+          ]),
+        ]})
     );
   }
 }

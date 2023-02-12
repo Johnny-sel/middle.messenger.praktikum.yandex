@@ -1,4 +1,4 @@
-import { InputData } from '@app/types';
+import {InputData} from '@app/types';
 
 export type LoginState = {
   load: boolean;

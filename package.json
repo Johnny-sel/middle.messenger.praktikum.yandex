@@ -14,7 +14,7 @@
     "start": "npm run build --no-cache && node ./server.js",
     "build": "npm run clean && parcel build --no-cache",
     "lint": "eslint . --fix",
-    "stylelint": "stylelint **/*.sass --fix",
+    "stylelint": "stylelint **/*.sass",
     "test": "jest --coverage"
   },
   "browserslist": "> 0.25%, last 2 versions, not dead",

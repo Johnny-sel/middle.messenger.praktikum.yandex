@@ -1,5 +1,5 @@
-import { GetUserResponse} from '@api/types';
-import { InputData } from '@app/types';
+import {GetUserResponse} from '@api/types';
+import {InputData} from '@app/types';
 
 export type EditProfileState = {
   load: boolean;

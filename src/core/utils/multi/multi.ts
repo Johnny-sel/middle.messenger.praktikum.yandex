@@ -1,5 +1,4 @@
 function isEmpty(v: any): boolean {
-
   if (Array.isArray(v) || typeof v === 'string') {
     return v.length === 0;
   }

@@ -31,7 +31,7 @@ export class Router {
 
   public static render(root: HTMLElement): void {
     this.instance.root = root;
-    this.instance.subscribe('popstate');
+    this.instance.subscribe();
     this.instance.navigateTo(window.location.pathname);
     this.instance.isInit = false;
   }
@@ -54,8 +54,11 @@ export class Router {
     }
   }
 
-  private subscribe(event: string): void {
-    window.addEventListener(event, this.listener.bind(this));
+  // ! https://developer.mozilla.org/en-US/docs/Web/API/Window/popstate_event
+  // ! не понял про какой click Вы имели ввиду, тут подписка на событие 'popstate',
+  // ! которая срабатывает один раз при Router.render
+  private subscribe(): void {
+    window.addEventListener('popstate', this.listener.bind(this));
   }
 
   private navigateTo(path: string, {clickButton}: NavOptions = {}): void {

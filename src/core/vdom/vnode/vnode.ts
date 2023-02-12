@@ -22,7 +22,7 @@ function createVirtualComponent(Component: IComponentConstructable, props: Props
 }
 
 function createVirtualNode(tag: string): FunctionVirtualNode {
-  return function (...args: any[]) {
+  return function(...args: any[]) {
     let attrsStr = '';
     let children = [];
     let handlers = {};

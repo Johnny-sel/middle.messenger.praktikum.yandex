@@ -4,9 +4,11 @@ export type ChatListState = {
   showPopover: boolean;
   isClickChatMenu: boolean;
   load: boolean;
-  loadCreateChat: boolean;
   error: string;
+  loadCreateChat: boolean;
+  loadDeleteChat: boolean;
   selectedChatId: number;
+  deletedChatId: number;
   inputData: {
     title: string;
     search_chat: string;

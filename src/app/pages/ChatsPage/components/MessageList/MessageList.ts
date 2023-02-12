@@ -79,24 +79,32 @@ export default class MessageList extends Component<MessageListState, MessageList
     const currentUser = JSON.parse(localStorage.getItem('user') || '{}') as GetUserResponse;
 
     // prettier-ignore
-    const allUserList = allUser.map(user=>
+    const allUserList = allUser.map((user)=>
       div('c=popover__userlist__user user_item;', [
-        span('c=user_item__name;', [`${user.first_name} ${user.second_name}`  ]),
-        chatUsers.find(u=> u.id === user.id) ?
+        span('c=user_item__name;', [`${user.first_name} ${user.second_name}`]),
+        chatUsers.find((u)=> u.id === user.id) ?
           span('c=user_item__done;'):
-          button('c=user_item__add button;',{click: (evt:Event)=> {addUserToChat(evt, user.id)}}),
-      ],{click: (evt:Event)=> {evt.stopPropagation()}})
+          button('c=user_item__add button;', {click: (evt:Event)=> {
+            addUserToChat(evt, user.id);
+          }}),
+      ], {click: (evt:Event)=> {
+        evt.stopPropagation();
+      }}),
     );
 
     // prettier-ignore
-    const chatUserList = chatUsers.map(user=>
+    const chatUserList = chatUsers.map((user)=>
       div('c=popover__userlist__user user_item;', [
-        span('c=user_item__name;', [`${user.first_name} ${user.second_name}`  ]),
+        span('c=user_item__name;', [`${user.first_name} ${user.second_name}`]),
         currentUser.id == user.id ?
           span('c=user_item__delete button disabled;'):
-          button('c=user_item__delete button;',{click: (evt:Event)=> {deleteUserFromChat(evt, user.id)}}),
-      ],{click: (evt:Event)=> {evt.stopPropagation()}})
-    )
+          button('c=user_item__delete button;', {click: (evt:Event)=> {
+            deleteUserFromChat(evt, user.id);
+          }}),
+      ], {click: (evt:Event)=> {
+        evt.stopPropagation();
+      }}),
+    );
 
     // prettier-ignore
     const messages = msgs.map((msg) => component.call(this, Message, {...msg, key: msg.id}));
@@ -107,7 +115,7 @@ export default class MessageList extends Component<MessageListState, MessageList
         // top
         header('c=chats__messages__header;', [
           button(`c=chats__messages__header__add_user button; t=button; n=account;`,
-            {click: closeOpenPopover},
+              {click: closeOpenPopover},
           ),
           component.call(this, Popover, {
             key: '1',
@@ -118,11 +126,11 @@ export default class MessageList extends Component<MessageListState, MessageList
               div(`id=popover; c=chat__list__item__menu__popover;`, [
                 div('c=popover__tabs;', [
                   button(`c=popover__tabs tab${selectedAddUser} button; n=Add user`,
-                    ['Add user'],
-                    {click: switchTabs}),
+                      ['Add user'],
+                      {click: switchTabs}),
                   button(`c=popover__tabs tab${selectedDeleteUser} button; n=Delete user`,
-                    ['Delete user'],
-                    {click: switchTabs}),
+                      ['Delete user'],
+                      {click: switchTabs}),
                 ]),
                 div('c=popover__body;', [
                   div(`c=popover__userlist${popoverCenter};`,
@@ -139,11 +147,11 @@ export default class MessageList extends Component<MessageListState, MessageList
                           }),
                           div(`c=popover__userlist__body__users${popoverCenter};`,
                               error ? [span('c=popover__userlist__body_error error;', [errorText])]:
-                                [...allUserList ]
+                                [...allUserList],
                           ),
-                        ])
+                        ]),
                       ]:
-                      loadAddUser ? [component.call(this, Spinner, {key: '3'})] : [...chatUserList ]
+                      loadAddUser ? [component.call(this, Spinner, {key: '3'})] : [...chatUserList],
                   ),
                 ]),
               ]),
@@ -153,15 +161,15 @@ export default class MessageList extends Component<MessageListState, MessageList
             h1('c=chats__messages__header__greet__title title;', ['Chat Messages']),
           ]),
           button('c=chats__messages__header__home button; t=button; n=home',
-            {click: () => Router.to(location.root)},
+              {click: () => Router.to(location.root)},
           ),
         ]),
         // middle
         main(`c=chats__messages__message_items ${center}; id=messages`,
-          notSelectedChat ? [span(`c=chats__messages__message_items__info;`, ['OPEN ANY CHAT'])]
-            : loadMessages ? [component.call(this, Spinner,{key: '5'})]
-                : haveNotMessages ? [span(`c=chats__messages__message_items__info;`, ['SEND MESSAGE'])]
-                  : [...messages]
+          notSelectedChat ? [span(`c=chats__messages__message_items__info;`, ['OPEN ANY CHAT'])] :
+            loadMessages ? [component.call(this, Spinner, {key: '5'})] :
+                haveNotMessages ? [span(`c=chats__messages__message_items__info;`, ['SEND MESSAGE'])] :
+                  [...messages],
         ),
         // bottom
         footer('c=chats__messages__footer;', [
@@ -178,7 +186,7 @@ export default class MessageList extends Component<MessageListState, MessageList
             className: 'chats__messages__footer__message',
           }),
           button(`c=chats__messages__footer__send button; t=button; n=send message;`,
-            {click: onSubmit}
+              {click: onSubmit},
           ),
         ]),
       ])

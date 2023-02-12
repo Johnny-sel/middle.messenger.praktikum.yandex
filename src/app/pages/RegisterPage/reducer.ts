@@ -23,7 +23,7 @@ async function dispatch(type: string) {
   const {state} = this as Component<RegisterState>;
 
   const form = state.target?.form;
-  const inputsValue = state.inputData as  SingupRequest;
+  const inputsValue = state.inputData as SingupRequest;
 
   try {
     switch (type) {

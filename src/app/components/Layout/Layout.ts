@@ -16,9 +16,9 @@ export default class Layout extends Component<{}, LayoutProps> {
     // prettier-ignore
     return (
       div('c=layout;', [
-        component.call(this, Header, {title, key:1}),
+        component.call(this, Header, {title, key: 1}),
         main('c=main;', [...children]),
-        component.call(this, Footer, {key:2}),
+        component.call(this, Footer, {key: 2}),
       ])
     );
   }

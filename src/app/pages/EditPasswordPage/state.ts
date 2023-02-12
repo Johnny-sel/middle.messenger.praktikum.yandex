@@ -6,7 +6,7 @@ const {oldPassword, newPassword} = name;
 const editPasswordState: EditPasswordState = {
   load: false,
   error: '',
-  inputData :{
+  inputData: {
     [oldPassword]: '',
     [newPassword]: '',
   },

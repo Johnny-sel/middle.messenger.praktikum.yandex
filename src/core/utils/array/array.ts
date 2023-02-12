@@ -31,4 +31,4 @@ function isDiffLength(arr1: unknown[], arr2: unknown[]): boolean {
 }
 
 
-export {first, last, penultimate, lastIndex, isDiffLength,};
+export {first, last, penultimate, lastIndex, isDiffLength};

@@ -47,17 +47,17 @@ export default class RegisterPage extends Component<RegisterState> {
         children: [
           section('c=section;', [
             form('c=form;', [
-              ...regInputs.map((input: TInput,) => {
-                const value = inputData[input.name]
+              ...regInputs.map((input: TInput) => {
+                const value = inputData[input.name];
                 const key = input.name;
                 return component.call(this, Input, {...input, change, value, load, key});
               }),
-              component.call(this, Button, {key: '2', text: 'Create account', type: 'submit', onSubmit, load }),
+              component.call(this, Button, {key: '2', text: 'Create account', type: 'submit', onSubmit, load}),
             ]),
             span(`c=${error? 'error':'hidden'};`, [error ?? '']),
             a('c=link;', ['Go to login'], {click: () => Router.to(location.root)}),
-          ])
-      ]})
+          ]),
+        ]})
     );
   }
 }
