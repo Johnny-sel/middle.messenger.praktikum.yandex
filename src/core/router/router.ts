@@ -1,24 +1,27 @@
-import {createHTMLElement} from '../vdom/dom';
-import {isStr, penultimate} from '../utils';
-import {IComponentConstructable, IRouter, NavOptions, Route} from './../types';
+import {createHTMLElement} from '../vdom/dom/dom';
+import {penultimate} from '../utils';
+import {ClickButton, NavOptions, RegisteredComponent, Route} from './../types';
 
-export class Router implements IRouter {
-  static instance: IRouter;
+export class Router {
+  private static instance: Router;
 
-  routes: Route[];
-  stack: string[];
-  index: number;
-  isInit: boolean;
-  root: HTMLElement;
+  private registeredComponents: RegisteredComponent[];
+  private routes: Route[];
+  private stack: string[];
+
+  private index: number;
+  private isInit: boolean;
+  private root: HTMLElement;
 
   constructor(routes: Route[]) {
     this.routes = routes;
+    this.registeredComponents = [];
     this.stack = [];
     this.index = 0;
     this.isInit = true;
   }
 
-  static init(routes: Route[]): IRouter {
+  public static init(routes: Route[]): Router {
     if (!this.instance) {
       this.instance = new Router(routes);
     }
@@ -26,68 +29,78 @@ export class Router implements IRouter {
     return this.instance;
   }
 
-  static render(root: HTMLElement): void {
+  public static render(root: HTMLElement): void {
     this.instance.root = root;
-    this.instance._subscribe('popstate', this.instance);
-    this.instance._navigateTo(window.location.pathname);
+    this.instance.subscribe();
+    this.instance.navigateTo(window.location.pathname);
     this.instance.isInit = false;
   }
 
-  static to(path: string): void {
-    this.instance._navigateTo(path);
+  public static to(path: string): void {
+    this.instance.navigateTo(path);
   }
 
   static goBack(): void {
-    this.instance._goBack();
+    this.instance.goBack();
   }
 
-  _subscribe(event: string, context: IRouter): void {
-    return window.addEventListener(event, function() {
-      if (event === 'popstate') {
-        const path = window.location.pathname;
+  private listener() {
+    const path = window.location.pathname;
 
-        if (path === context.stack[context.index - 1]) {
-          context._navigateTo(path, {clickButton: 'prev'});
-        } else {
-          context._navigateTo(path, {clickButton: 'next'});
-        }
-      }
-    });
+    if (path === this.stack[this.index - 1]) {
+      this.navigateTo(path, {clickButton: 'prev'});
+    } else {
+      this.navigateTo(path, {clickButton: 'next'});
+    }
   }
 
-  _navigateTo(path: string, {clickButton}: NavOptions = {}): void {
+  // ! https://developer.mozilla.org/en-US/docs/Web/API/Window/popstate_event
+  // ! не понял про какой click Вы имели ввиду, тут подписка на событие 'popstate',
+  // ! которая срабатывает один раз при Router.render
+  private subscribe(): void {
+    window.addEventListener('popstate', this.listener.bind(this));
+  }
+
+  private navigateTo(path: string, {clickButton}: NavOptions = {}): void {
     let route = this.routes.find((route) => route.path === path);
-    const isChecked = this._checkRoute(route);
+    const isChecked = this.checkRoute(route);
 
     if (!isChecked) {
-      route = this.routes.find((route) => route.path === '/error');
+      route = this.routes.find((route) => route.path === '/error')!;
     }
 
     if (route === undefined) {
-      throw new Error('[Roter]: router is undefined');
+      throw new Error(`[Router]: router '/error' is undefined`);
     }
 
-    this._renderPage(route.component);
-    this._changeUrl(route, clickButton);
-    this._registRoute(route, clickButton);
+    this.renderPage(route);
+    this.changeUrl(route, clickButton);
+    this.registRoute(route, clickButton);
   }
 
-  _goBack(): void {
-    const path = penultimate(this.stack);
+  private goBack(): void {
+    const path = penultimate(this.stack) as string;
     if (path) {
-      this._navigateTo(path);
+      this.navigateTo(path);
     }
   }
 
-  _renderPage(ComponentInstance: IComponentConstructable): void {
+  private renderPage(route: Route): void {
     this.root.innerHTML = '';
-    const componentInstance = new ComponentInstance();
-    const vDom = componentInstance._init();
+
+    const finded = this.registeredComponents.find((e) => e.key === route.path);
+    const component = finded ? finded.component : new route.component();
+    const vDom = component.init();
     const rootNode = createHTMLElement(vDom);
+
+    if (!finded) {
+      this.registeredComponents.push({key: route.path, component});
+    }
+
     this.root.appendChild(rootNode);
   }
 
-  _changeUrl(route: Route, clickButton: NavOptions['clickButton']): void {
+  private changeUrl(route: Route, clickButton: ClickButton): void {
     if (clickButton) {
       history.replaceState({}, route.path, route.path);
     } else {
@@ -95,7 +108,7 @@ export class Router implements IRouter {
     }
   }
 
-  _registRoute(route: Route, clickButton: NavOptions['clickButton']): void {
+  private registRoute(route: Route, clickButton: ClickButton): void {
     if (clickButton === 'prev') {
       this.index--;
     } else if (clickButton === 'next') {
@@ -106,35 +119,15 @@ export class Router implements IRouter {
     }
   }
 
-  _checkRoute(route: Route | undefined): boolean {
+  private checkRoute(route?: Route): boolean {
     if (!route) {
-      this._printError('define route in index.js');
       return false;
     }
 
     if (!route.path.startsWith('/')) {
-      this._printError('route shoulde be start with \'/\'');
-      return false;
-    }
-
-    if (route.component === undefined) {
-      this._printError('component in route shoudle be define');
-      return false;
-    }
-
-    if (!isStr(route.path)) {
-      this._printError('route shoulde be string');
       return false;
     }
 
     return true;
-  }
-
-  _printError(string: string): void {
-    console.error(`[Router]: ${string}`);
-  }
-
-  _printInfo(string: string): void {
-    console.info(`[Router]: ${string}`);
   }
 }

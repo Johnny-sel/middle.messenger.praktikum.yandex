@@ -1,19 +1,11 @@
 import {Router} from '@core/router';
-import {location} from '@app/const';
-import {testApi} from '@api';
-
-import {
-  LoginPage,
-  ProfilePage,
-  RegisterPage,
-  EditProfilePage,
-  EditPasswordPage,
-  ErrorPage,
-  ChatsPage,
-} from '@app/pages';
+import {location} from '@app/constants';
+import {LoginPage, ProfilePage, RegisterPage, EditProfilePage} from '@app/pages';
+import {EditPasswordPage, ErrorPage, ChatsPage} from '@app/pages';
+import {Route} from '@core/types';
 
 function initApp() {
-  const routes = [
+  const routes: Route[] = [
     {path: location.root, component: LoginPage},
     {path: location.error, component: ErrorPage},
     {path: location.chats, component: ChatsPage},
@@ -34,4 +26,3 @@ function initApp() {
 }
 
 initApp();
-testApi();

@@ -1,0 +1,89 @@
+@import '@app/styles/varibales'
+@import '@app/styles/mixins'
+
+.chat__list__item
+  display: flex
+  flex-wrap: nowrap
+  padding: 1rem
+  border-bottom: $border
+  transition: all 0.3s ease-out
+  position: relative
+
+  &:hover
+    background-color: #dddddd72
+
+.chat__list__item--active
+  background-color: #ddddddc8
+
+.chat__list__item__menu
+  background-image: url('../../../../../static/img/chat-menu.svg')
+  background-size: cover
+  background-color: transparent
+  transition: all 0.3s ease-out
+
+  &:hover
+    transform: rotate(90deg)
+
+.chat__list__item__separator
+  margin-left: 1rem
+  margin-right: 0.5rem
+  width: 0.1rem
+  height: 3.5rem
+  background-color: #ddd
+
+.chat__list__item__avatar_preview
+  margin-left: 0.5rem
+  background-color: $secondary
+  border-radius: 50%
+  min-width: 3.5rem
+  height: 3.5rem
+  display: flex
+  align-items: center
+  justify-content: center
+  color: #fff
+  border-left: $border
+
+.chat__list__item__avatar
+  margin-left: 0.5rem
+  border-radius: 50%
+  min-width: 3.5rem
+  height: 3.5rem
+  display: flex
+  justify-content: center
+  color: #fff
+
+.chat__list__item__avatar__img
+  border-radius: 50%
+  object-fit: cover
+
+.chat__list__item__body
+  display: flex
+  flex-direction: column
+  width: 100%
+  padding-left: 1rem
+
+.chat__list__item__body__top
+  display: flex
+  flex-wrap: nowrap
+  justify-content: space-between
+  margin-bottom: 0.5rem
+
+.chat__list__item__body__bottom
+  display: flex
+  flex-wrap: nowrap
+  justify-content: space-between
+  align-items: flex-end
+  margin-bottom: 0.5rem
+
+  .chat__list__item__body__bottom__trash.button
+    display: block
+    background: transparent
+    background-size: cover
+    background-image: url('./../../../../../static/img/trash.svg')
+    height: 0.4rem
+    width: 0.4rem
+    transition: all 0.3s ease-out
+    margin-left: 1rem
+
+    &:hover
+      transform: scale(1.1)

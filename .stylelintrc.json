@@ -7,11 +7,14 @@
     "color-hex-case": "lower",
     "string-quotes": "single",
     "import-notation": null,
-    "indentation": null
+    "indentation": null,
+    "scss/selector-no-redundant-nesting-selector": null,
+    "scss/at-mixin-pattern": null
   },
   "ignoreFiles": [
     "dist/*",
     "node_modules/*",
+    "coverage/*",
     ".parcel-cache/*",
     "src/app/styles/global.sass",
     "src/app/styles/varibales.sass"

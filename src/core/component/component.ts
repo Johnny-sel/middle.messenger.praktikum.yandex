@@ -1,136 +1,295 @@
-import {isStr, isNum, isArr, isDiffLength} from '../utils';
-import {createHTMLElement} from '../vdom/dom';
-import {Props, IComponent, VirtualNode, State} from '../types';
+import {isStr, isNum, isArr, isDiffLength, random, deepCopy, isObject} from '../utils';
+import {createHTMLElement} from '../vdom/dom/dom';
+import {RegisteredComponent, VirtualNode, vNode} from '../types';
 
-export abstract class Component implements IComponent {
-  vNodeNext: VirtualNode;
-  vNodeCurrent: VirtualNode;
-  state: State;
-  props: Props;
+export abstract class Component<State = {}, Props = {}> {
+  public state: State;
+  public props: Props;
+
+  private vNodeNext: VirtualNode;
+  private vNodeCurrent: VirtualNode;
+  private initState: State;
+  private observer: MutationObserver;
+  private isClearState: boolean;
+
+  public key: string;
+  public stack: RegisteredComponent[];
 
   constructor() {
-    this.state = this._setState(this.createState());
-    setTimeout(() => this.didMount(this.state, this.props), 0);
+    this.key = random().toString();
   }
 
-  _init(props: Props) {
-    this.props = props;
-    this.vNodeCurrent = this.create(this.state, this.props);
+  public init(props?: Props) {
+    this.stack = [];
+    this.isClearState = false;
+
+    this.state = this.getProxyState(this.createState());
+    this.initState = deepCopy(this.state) as State;
+
+    this.props = props || ({} as Props);
+
+    this.vNodeCurrent = this.create();
+    this.vNodeCurrent.attrs['data-key'] = this.key;
+
+    this.observe();
+
     return this.vNodeCurrent;
   }
 
-  _setState(initialState: State) {
-    return new Proxy(initialState, {
-      set: this._interception.bind(this),
-    });
+  private mutationCallback() {
+    const component = document.querySelector(`[data-key="${this.key}"]`);
+    const inDom = document.body.contains(component);
+    inDom ? this.didMount() : this.destroy();
   }
 
-  _interception(state: State, prop: string, newValue: any) {
+  private observe() {
+    const root = document.querySelector('#root');
+    if (!root) return;
+    this.observer = new MutationObserver(this.mutationCallback.bind(this));
+    this.observer.observe(root, {childList: true});
+  }
+
+  private destroy() {
+    this.observer.disconnect();
+    this.clearState();
+    this.unMount();
+  }
+
+  public reCreate(props: Props) {
+    this.props = props;
+    return this.create();
+  }
+
+  private getProxyState(state: State) {
+    return new Proxy(state as Record<string, unknown>, {
+      set: this.trap.bind(this),
+    }) as State;
+  }
+
+  private trap(state: Record<string, unknown>, prop: string, newValue: unknown) {
     state[prop] = newValue;
-    this.vNodeNext = this.create(state);
-    this._injectHTML();
+
+    if (this.isClearState) {
+      return true;
+    }
+
+    this.vNodeNext = this.create();
+    this.injectHTML();
     return true;
   }
 
-  _injectHTML() {
+  private injectHTML() {
     let isDiff = false;
 
-    const stackPrev = [this.vNodeCurrent];
+    const stackCurr = [this.vNodeCurrent];
     const stackNext = [this.vNodeNext];
 
-    let vNodePrevLast = this.vNodeCurrent;
+    let vNodeCurrLast = this.vNodeCurrent;
     let vNodeNextLast = this.vNodeNext;
 
-    while (stackPrev.length > 0 || stackNext.length > 0) {
-      const vNodePrev: VirtualNode | string = stackPrev.pop()!;
-      const vNodeNext: VirtualNode | string = stackNext.pop()!;
+    while (stackCurr.length > 0 || stackNext.length > 0) {
+      const vNodeCurr: vNode = stackCurr.pop()!;
+      const vNodeNext: vNode = stackNext.pop()!;
 
-      if (isDiffLength(stackPrev, stackNext)) {
-        vNodePrevLast.children = vNodeNextLast.children;
-        this._injectChilds(vNodePrevLast);
+      // children
+      if (isDiffLength(stackCurr, stackNext)) {
+        vNodeCurrLast.children = vNodeNextLast.children;
+        this.injectChilds(vNodeCurrLast);
         break;
       }
 
-      if (isArr<unknown>(vNodePrev.children)) {
-        vNodePrevLast = vNodePrev;
-        stackPrev.push(...vNodePrev.children as []);
+      if (isArr(vNodeCurr.children)) {
+        vNodeCurrLast = vNodeCurr;
+        stackCurr.push(...(vNodeCurr.children as []));
       }
 
-      if (isArr<unknown>(vNodeNext.children)) {
+      if (isArr(vNodeNext.children)) {
         vNodeNextLast = vNodeNext;
-        stackNext.push(...vNodeNext.children as []);
+        stackNext.push(...(vNodeNext.children as []));
       }
 
-      isDiff = this._compareInnerText(vNodePrev, vNodeNext);
-
+      // handlers
+      isDiff = this.compareHandlers(vNodeCurr, vNodeNext);
       if (isDiff) {
-        this._injectTextNode(vNodePrevLast, vNodeNext);
+        this.injectHandlers(vNodeCurrLast, vNodeNext);
       }
 
-      isDiff = this._compareAttrs(vNodePrev, vNodeNext);
-
+      // attributes
+      isDiff = this.compareAttrs(vNodeCurr, vNodeNext);
       if (isDiff) {
-        this._injectAttr(vNodePrev, vNodeNext);
+        this.injectAttr(vNodeCurr, vNodeNext);
+      }
+
+      // tags
+      isDiff = this.compareTags(vNodeCurr, vNodeNext);
+      if (isDiff) {
+        this.injectTags(vNodeCurrLast, vNodeNext);
+      }
+
+      // inner text
+      isDiff = this.compareInnerText(vNodeCurr, vNodeNext);
+      if (isDiff) {
+        this.injectTextNode(vNodeCurrLast, vNodeNext);
       }
     }
   }
 
-  _injectTextNode(vNode: VirtualNode, textNode: VirtualNode | string) {
+  private injectTags(vPrev: VirtualNode, vNext: VirtualNode) {
+    if (!(vPrev.HTMLElement instanceof HTMLElement)) return;
+    const element = createHTMLElement(vNext);
+    vPrev.HTMLElement.replaceWith(element);
+    vPrev.tag = vNext.tag;
+    vPrev.HTMLElement = element;
+  }
+
+  private injectTextNode(vNode: VirtualNode, textNode: VirtualNode | string) {
     if (vNode.HTMLElement instanceof HTMLElement) {
       vNode.HTMLElement.innerHTML = textNode as string;
       vNode.children = [textNode as string];
     }
   }
 
-  _injectChilds(vNode: VirtualNode) {
+  private injectChilds(vNode: VirtualNode) {
+    const isTextNode = vNode.children.length === 1 && isStr(vNode.children[0]);
+
     if (vNode.HTMLElement instanceof HTMLElement) {
-      vNode.HTMLElement.innerHTML = '';
+      const textNode = isTextNode ? (vNode.children[0] as string) : '';
+      vNode.HTMLElement.innerHTML = textNode;
     }
+
+    if (isTextNode) return;
 
     vNode.children.forEach((item) => {
       const child = item as VirtualNode;
       const element = createHTMLElement(child);
 
       child.HTMLElement = element;
-      vNode.HTMLElement!.appendChild(element);
+      vNode.HTMLElement?.appendChild(element);
     });
   }
 
-  _injectAttr(vPrev: VirtualNode, vNext: VirtualNode) {
-    const attributes = Object.entries(vNext.attrs);
+  private injectHandlers(vPrev: VirtualNode, vNext: VirtualNode) {
+    if (!(vPrev.HTMLElement instanceof HTMLElement)) return;
 
-    attributes.forEach(([key, value]) => {
-      if (vPrev.HTMLElement instanceof HTMLElement) {
-        vPrev.HTMLElement.setAttribute(key, value);
-        vPrev.attrs = vNext.attrs;
-      }
+    const handlersPrev = Object.entries(vPrev.handlers);
+    const handlersNext = Object.entries(vNext.handlers);
+
+    handlersPrev.forEach(([prevKey, prevValue]) => {
+      handlersNext.forEach(([nextKey, nextValue]) => {
+        if (!(vPrev.HTMLElement instanceof HTMLElement)) return;
+
+        if (nextKey !== prevKey) return;
+        if (prevValue === nextValue) return;
+
+        vPrev.HTMLElement.removeEventListener(prevKey, prevValue);
+        vPrev.HTMLElement.addEventListener(nextKey, nextValue);
+      });
     });
+
+    vPrev.handlers = vNext.handlers;
   }
 
-  _compareInnerText(vPrev: VirtualNode, vNext: VirtualNode) {
-    if (!(isStr(vPrev) || isNum(vPrev))) {
-      return false;
-    }
+  private injectAttr(vPrev: VirtualNode, vNext: VirtualNode) {
+    if (!(vPrev.HTMLElement instanceof HTMLElement)) return;
+
+    const attrsNext = Object.entries(vNext.attrs);
+    const attrsPrev = Object.entries(vPrev.attrs);
+
+    let isDisabled = false;
+
+    attrsPrev.forEach(([prevKey, prevValue]) => {
+      attrsNext.forEach(([nextKey, nextValue]) => {
+        if (!(vPrev.HTMLElement instanceof HTMLElement)) return;
+
+        if (nextKey === 'disabled') isDisabled = true;
+        if (nextKey !== prevKey) return;
+        if (prevValue === nextValue) return;
+
+        vPrev.HTMLElement.removeAttribute(prevKey);
+        vPrev.HTMLElement.setAttribute(nextKey, nextValue);
+      });
+    });
+
+    if (isDisabled) vPrev.HTMLElement.setAttribute('disabled', '');
+    else vPrev.HTMLElement.removeAttribute('disabled');
+
+    vPrev.attrs = vNext.attrs;
+  }
+
+  private compareInnerText(vPrev: VirtualNode, vNext: VirtualNode) {
+    if (!(isStr(vPrev) || isNum(vPrev))) return false;
     return vPrev !== vNext;
   }
 
-  _compareAttrs(vPrev: VirtualNode, vNext: VirtualNode) {
-    if (isStr(vPrev) || isNum(vPrev)) {
-      return false;
+  private compareTags(vPrev: VirtualNode, vNext: VirtualNode) {
+    return vPrev.tag !== vNext.tag;
+  }
+
+  private compareHandlers(vPrev: VirtualNode, vNext: VirtualNode) {
+    if (isStr(vPrev) || isNum(vPrev)) return false;
+
+    const prevKeys = Object.keys(vPrev.handlers).join().trim();
+    const nextKeys = Object.keys(vNext.handlers).join().trim();
+
+    if (!prevKeys && !nextKeys) return false;
+
+    if (prevKeys !== nextKeys) return true;
+
+    const prevHandlers = Object.values(vPrev.handlers);
+    const nextHandlers = Object.values(vNext.handlers);
+
+    for (let i = 0; i < prevHandlers.length; i++) {
+      const prevHandler = prevHandlers[i];
+      const nextHandler = nextHandlers[i];
+      if (prevHandler !== nextHandler) return true;
     }
-    const nextAttrs = Object.entries(vNext.attrs).join();
+
+    return false;
+  }
+
+  private compareAttrs(vPrev: VirtualNode, vNext: VirtualNode) {
+    if (isStr(vPrev) || isNum(vPrev)) return false;
+
     const prevAttrs = Object.entries(vPrev.attrs).join();
+    const nextAttrs = Object.entries(vNext.attrs).join();
+
     return prevAttrs !== nextAttrs;
   }
 
-  createState() {
-    return {};
+  private clearState() {
+    this.isClearState = true;
+
+    const stack = [this.state];
+    const initStack = [this.initState];
+
+    while (stack.length > 0) {
+      const state = stack.pop() as Record<string, unknown>;
+      const initState = initStack.pop() as Record<string, unknown>;
+
+      for (const key in state) {
+        const value = state[key];
+        const initValue = initState[key];
+
+        if (isObject(value) && isObject(initValue)) {
+          stack.push(value as State);
+          initStack.push(initValue as State);
+        } else {
+          state[key] = initValue;
+        }
+      }
+    }
+
+    this.isClearState = false;
+  }
+
+  public createState(): State {
+    return {} as State;
   }
 
   /* eslint-disable */
-  didMount(_: State, __: Props) {
+  public didMount() {}
+  public didUpdate() {}
+  public unMount() {}
 
-  }
-
-  abstract create(state: State, props?: Props): VirtualNode;
+  abstract create(): VirtualNode;
 }

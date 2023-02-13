@@ -1,0 +1,143 @@
+@import '@app/styles/varibales'
+@import '@app/styles/mixins'
+
+.chats__list .button,
+.chats__list .input
+  margin: 0
+  height: 3.5rem
+
+.chats__list
+  position: relative
+  display: flex
+  flex-direction: column
+  flex-basis: 100%
+  border-right: $border
+
+  @media screen and (min-width: 850px)
+    flex-basis: 20%
+
+.chats__list__create_chat
+  @include flex-center
+  height: 100%
+
+.chats__list__header
+  display: flex
+  flex-wrap: nowrap
+  padding: 1.5rem
+  border-bottom: $border
+  justify-content: space-between
+  height: 6.4rem
+
+  @media screen and (min-width: 850px)
+    justify-content: flex-start
+
+.chats__list__header__username
+  padding-bottom: 0
+
+.chats__list__header__nav
+  display: flex
+  align-items: center
+  margin-right: 1rem
+
+  .chats__list__header__nav__menu
+    background: transparent
+    background-size: cover
+    background-image: url('./../../../../static/img/profile-button.svg')
+    height: 3rem
+    width: 3rem
+    transition: all 0.3s ease-out
+
+    &:hover
+      transform: scale(1.1)
+
+.chats__list__header_search
+  width: 85%
+
+.chats__list__header_search .input
+  width: 100%
+
+.chats__list__header_search__home.button
+  display: block
+  margin-left: 1rem
+
+  background: transparent
+  background-size: cover
+  background-image: url('./../../../../static/img/home.svg')
+  height: 2.9rem
+  width: 2.9rem
+  // border-radius: 50%
+  transition: all 0.3s ease-out
+
+  @media screen and (min-width: 850px)
+    display: none
+
+  &:hover
+    transform: scale(1.2)
+
+.chats__list__footer
+  position: absolute
+  bottom: 0
+  border-top: $border
+  width: 100%
+  padding: 1.5rem
+  z-index: 1
+  background-color: #fff
+  height: 6.5rem
+  @include flex-center
+
+.chats__list__footer__add_chat.button
+  display: block
+  background: transparent
+  background-size: cover
+  background-image: url('./../../../../static/img/add-circle.svg')
+  height: 3.4rem
+  width: 3.4rem
+  border-radius: 50%
+  transition: all 0.3s ease-out
+
+  &:hover
+    transform: scale(1.1)
+
+.chats__list__footer__add_chat--cancel.button
+  display: block
+  background: transparent
+  background-size: cover
+  background-image: url('./../../../../static/img/close-circle.svg')
+  height: 3.4rem
+  width: 3.4rem
+  border-radius: 50%
+  transition: all 0.3s ease-out
+
+  &:hover
+    transform: scale(1.1)
+
+.popover__add_chat
+  @include flex-center
+  position: absolute
+  width: 25rem
+  transition: all 0.3s ease-out
+  border: $border
+  border-radius: 1rem
+  background-color: #fff
+  padding: 1rem
+  display: none
+  z-index: 1
+
+  @media screen and (min-width: 850px) and (max-width: 1350px)
+    width: 15rem
+
+  .popover__add_chat__button
+    background: transparent
+    background-size: cover
+    background-image: url('./../../../../static/img/send-button.svg')
+    height: 2.3rem
+    width: 2.3rem
+    transition: all 0.3s ease-out
+    margin-left: 1rem
+
+    &:hover
+      display: block
+      transform: rotate(-25deg) scale(1.1) translateY(-0.5rem) translateX(0.5rem)
+
+.popover__add_chat.popover--active
+  display: flex

@@ -13,20 +13,27 @@
     "baseUrl": ".",
     "paths": {
       "@api": ["./src/api"],
+      "@api/websocket/chat": ["src/api/sockets/chat.ts"],
+      "@app/actions": ["./src/app/actions"],
+      "@app/functions": ["./src/app/functions"],
+      "@app/utils": ["./src/app/utils"],
+      "@core/http": ["./src/core/http/http.ts"],
       "@core/types": ["./src/core/types.ts"],
       "@core/component": ["./src/core/component/component.ts"],
       "@core/router": ["./src/core/router/router.ts"],
-      "@core/tags": ["./src/core/vdom/tags.ts"],
+      "@core/tags": ["src/core/vdom/tags/tags.ts"],
       "@core/utils": ["./src/core/utils"],
       "@app/pages": ["./src/app/pages"],
       "@app/components": ["./src/app/components"],
       "@app/types": ["src/app/types"],
       "@app/resources": ["src/app/resources"],
       "@app/modules": ["./src/app/modules"],
-      "@app/const": ["./src/app/const"],
+      "@app/constants": ["./src/app/constants"],
       "@app/img": ["./src/app/static/img"],
-      "@app/styles/varibales": ["./src/app/styles/varibales.sass"]
+      "@app/styles": ["./src/app/styles"],
+      "@api/repositories": ["./src/api/repositories"],
+      "@api/types": ["./src/api/types"]
     }
   },
-  "include": ["./src/**/*", "image-import.d.ts"]
+  "include": ["./src/**/*", "imports.d.ts"]
 }

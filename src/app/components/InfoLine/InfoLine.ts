@@ -2,22 +2,28 @@ import './InfoLine.sass';
 
 import {div, span} from '@core/tags';
 import {Component} from '@core/component';
-import {Props, State} from '@core/types';
+import {capitalizeFirstLetter} from '@core/utils';
 
-export default class InfoLine extends Component {
+export default class InfoLine extends Component<{}, InfoLineProps> {
   constructor() {
     super();
   }
 
-  create(_: State, props: Props) {
-    const {name, value} = props;
+  create() {
+    const name = (this.props.name as string).replace('_', ' ');
+    const value = this.props.value as string;
 
     // prettier-ignore
     return (
       div('c=info_line;', [
-        span('c=info_line__name text;', [name]),
-        span('c=info_line__value text;', [value]),
+        span('c=info_line__name text;', [capitalizeFirstLetter(name) || 'Loading...']),
+        span('c=info_line__value text;', [value || 'Loading...']),
       ])
     );
   }
 }
+
+type InfoLineProps = {
+  name: string;
+  value: string;
+};

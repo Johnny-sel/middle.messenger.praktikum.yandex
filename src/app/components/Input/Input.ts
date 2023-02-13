@@ -2,17 +2,18 @@ import './Input.sass';
 
 import {div, input, span} from '@core/tags';
 import {Component} from '@core/component';
-import {Props, State} from '@core/types';
-import {name as names} from '@app/const';
 
-export default class Input extends Component {
+export default class Input extends Component<InputState, InputProps> {
   constructor() {
     super();
   }
 
-  create(_: State, props: Props) {
-    const {value, name, placeholder, change: onChange, pattern, error, className} = props;
-    const type = name === names.confirmPassword ? names.password : name;
+  create() {
+    const {value, name, type, placeholder, change, keydown} = this.props;
+    const {pattern, error, className, load, showError = true} = this.props;
+
+    const hidden = showError ? '' : '--hidden';
+
     // prettier-ignore
     return (
       div(`c=${className ?? 'form__input'} input_group;`, [
@@ -24,12 +25,28 @@ export default class Input extends Component {
           n=${name};
           p=${placeholder};
           pt=${pattern};
-        `, [],
-        {input: onChange},
+          ${load ? 'di=' :''};
+        `,
+        {input: change, click: (e:Event) => e.stopPropagation(), keydown},
         ),
-        span('c=input_group__error;', [error]),
+        span(`c=input_group__error${hidden};`, [error ?? '']),
       ])
-
     );
   }
 }
+
+type InputProps = {
+  value: string;
+  name: string;
+  type: string;
+  placeholder: string;
+  pattern: string;
+  error: string;
+  className: string;
+  load: boolean;
+  showError?: boolean;
+  change: (e: InputEvent) => void;
+  keydown: (e: InputEvent) => void;
+};
+
+type InputState = {};
