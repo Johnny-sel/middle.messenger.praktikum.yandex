@@ -48,7 +48,7 @@ describe('Router', () => {
   });
   test('subscribe', () => {
     const func1 = () => {
-      Router['instance']['subscribe']('popstate');
+      Router['instance']['subscribe']();
     };
 
     const func2 = () => {

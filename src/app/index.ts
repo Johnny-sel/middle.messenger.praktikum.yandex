@@ -1,3 +1,4 @@
+import './index.sass';
 import {Router} from '@core/router';
 import {location} from '@app/constants';
 import {LoginPage, ProfilePage, RegisterPage, EditProfilePage} from '@app/pages';
