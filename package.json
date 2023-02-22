@@ -12,6 +12,7 @@
   "scripts": {
     "start": "npm run build:prod --no-cache && node ./server.js",
     "dev": "webpack serve --mode=development --progress",
+    "start:render": "node ./server.js",
     "build": "webpack",
     "build:prod": "webpack --config webpack.config.prod.js",
     "lint": "eslint . --fix",
