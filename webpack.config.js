@@ -6,7 +6,7 @@ const MiniCssExtractPlugin = require('mini-css-extract-plugin');
 
 module.exports = {
   mode: 'development',
-  entry: './src/app/index.ts',
+  entry: path.resolve(__dirname, 'src', 'app', 'index.ts'),
   output: {
     path: path.resolve(__dirname, 'dist'),
     filename: 'bundle-[hash].js',
@@ -93,7 +93,7 @@ module.exports = {
       ],
     }),
     new HtmlWebpackPlugin({
-      template: 'src/app/index.html',
+      template: path.resolve(__dirname, 'src', 'app', 'index.html'),
       filename: 'index.html',
       minify: {
         collapseWhitespace: true,
