@@ -19,7 +19,7 @@ function initApp() {
   const rootElement = document.getElementById('root');
 
   if (!rootElement) {
-    throw new Error('id #root is not exit in index.html');
+    throw new Error('id #root is not exit in index.html')
   }
 
   Router.init(routes);
