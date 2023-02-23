@@ -67,7 +67,6 @@ module.exports = {
             options: {},
           },
           'css-loader',
-          'postcss-loader',
           'sass-loader',
         ],
       },
