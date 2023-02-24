@@ -2,13 +2,17 @@
 
 # Yandex practicum sprint_4
 [Pull request #1](https://github.com/Johnny-sel/middle.messenger.praktikum.yandex/pull/2)
+
 [Pull request #2](https://github.com/Johnny-sel/middle.messenger.praktikum.yandex/pull/3)
+
 [Pull request #3](https://github.com/Johnny-sel/middle.messenger.praktikum.yandex/pull/4)
+
 [Pull request #4](https://github.com/Johnny-sel/middle.messenger.praktikum.yandex/pull/5)
 
 [UI prototype in figma](https://www.figma.com/file/nJe5jORwqJie23I0MasHvb/Yandex-practicum-messenger?node-id=0%3A1&t=LNudhR1BQmAkxQ6N-1)
 
 [Netlify deploy](https://visionary-taiyaki-b68147.netlify.app/)
+
 [Render deploy](https://yandex-messenger-hdit.onrender.com/)
 
 [Check list sprint 4](https://code.s3.yandex.net/frontend-developer/middle_frontend/checklist_pdf/checklist_4.pdf)
