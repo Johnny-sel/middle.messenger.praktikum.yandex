@@ -13,8 +13,13 @@
   flex-basis: 100%
   border-right: $border
 
+
   @media screen and (min-width: 850px)
     flex-basis: 20%
+
+.chats__list__items
+  overflow-y: scroll
+  height: calc( 100vh - 13rem )
 
 .chats__list__create_chat
   @include flex-center

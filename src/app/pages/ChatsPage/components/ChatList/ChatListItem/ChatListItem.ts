@@ -32,7 +32,7 @@ export default class ChatListItem extends Component<{}, ChatListItemProps> {
               src=${hostResources + userAvatar};
               alt=profile photo;`, ['E']
           ):
-          div('c=chat__list__item__avatar_preview;', [chat.title[0]]),
+          div('c=chat__list__item__avatar_preview;', [chat.title[0].toUpperCase()]),
         ]),
 
         div('c=chat__list__item__body;', [

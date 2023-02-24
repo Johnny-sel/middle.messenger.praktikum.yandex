@@ -1,23 +1,29 @@
 ![NodeVerstion](https://badgen.net/badge/node/>=18.12.1/green?icon)![NpmVersion](https://badgen.net/badge/npm/8.19.2/red)[![Netlify Status](https://api.netlify.com/api/v1/badges/5aa48dac-27dc-4e3d-8033-46921a2eeff3/deploy-status)](https://app.netlify.com/sites/visionary-taiyaki-b68147/deploys)
 
-# Yandex practicum sprint_3
+# Yandex practicum sprint_4
 [Pull request #1](https://github.com/Johnny-sel/middle.messenger.praktikum.yandex/pull/2)
 [Pull request #2](https://github.com/Johnny-sel/middle.messenger.praktikum.yandex/pull/3)
 [Pull request #3](https://github.com/Johnny-sel/middle.messenger.praktikum.yandex/pull/4)
+[Pull request #3](https://github.com/Johnny-sel/middle.messenger.praktikum.yandex/pull/5)
 
 [UI prototype in figma](https://www.figma.com/file/nJe5jORwqJie23I0MasHvb/Yandex-practicum-messenger?node-id=0%3A1&t=LNudhR1BQmAkxQ6N-1)
 
-[Netlify deploy](https://visionary-taiyaki-b68147.netlify.app/)
+[Netlify deploy](https://visionary-taiyaki-b68147.netlify.app)
+[Render deploy](https://yandex-messenger-hdit.onrender.com)
 
-[Check list sprint 3](https://visionary-taiyaki-b68147.netlify.app/)
+[Check list sprint 4](https://code.s3.yandex.net/frontend-developer/middle_frontend/checklist_pdf/checklist_4.pdf)
 
-### Note for sprint 3
-    1. Using local state of component
-    2. Not using event bus, because component implement on virtual dom
-    3. Implemented lifecycle unMount
-    4. Fixed memory leaks
-    5. Fixed removing handler listeners
-    5. Added mixins
+### Note for sprint 4
+    1. Add tests for router, component, http, utils, vdom
+    2. Add webpack
+    3. Add dockerfile
+    4. Add precommit (husky)
+    5. Deploy to render.com (analog heroku)
+
+### Running via docker (localhost:3000)
+
+    docker build -t app .
+    docker run -p 3000:3000 -d app
 
 ### Running development (localhost:1234)
 

@@ -31,20 +31,26 @@ describe('Router', () => {
     };
 
     expect(func).not.toThrow();
+    expect(Router['instance']['root']).toBe(htmlElement);
   });
   test('to', () => {
     const func = () => {
-      Router.to('/');
+      Router.to(location.root);
     };
 
     expect(func).not.toThrow();
+    expect(window.location.pathname).toBe(location.root);
   });
   test('goBack', () => {
     const func = () => {
+      Router.to(location.root);
+      Router.to(location.chats);
+      Router.to(location.profile);
       Router.goBack();
     };
 
     expect(func).not.toThrow();
+    expect(window.location.pathname).toBe(location.chats);
   });
   test('subscribe', () => {
     const func1 = () => {
@@ -89,6 +95,8 @@ describe('Router', () => {
     expect(func1).not.toThrow();
     expect(func2).not.toThrow();
     expect(func3).not.toThrow();
+    expect(Router['instance']["stack"].length).toBe(7)
+    expect(window.location.pathname).toBe('/test');
     expect(func4).toThrowError(`[Router]: router '/error' is undefined`);
     expect(func5).toThrowError(`[Router]: router '/error' is undefined`);
   });
