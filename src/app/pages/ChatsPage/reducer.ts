@@ -9,7 +9,7 @@ import {error} from '@app/constants';
 import {ChatPageState, ConnectWebSoketPayload} from './types';
 import {Message} from '@app/types';
 import {Chat} from '@api/repositories';
-import {WebSocketChat} from '@api/websocket/chat';
+import {WebSocketChat} from '@api/sockets/chat';
 
 async function dispatch(type: string, payload: unknown) {
   const {state} = this as Component<ChatPageState>;

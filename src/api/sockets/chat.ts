@@ -9,7 +9,6 @@ export class WebSocketChat implements IWebSocketChat {
 
   private baseUrl = 'wss://ya-praktikum.tech/ws/chats';
   private socket: WebSocket | null;
-  private interval: number | null;
 
   static get instance() {
     if (this._instance) {
@@ -29,16 +28,15 @@ export class WebSocketChat implements IWebSocketChat {
 
   async connect({chatId, messages, opened, closed, failed}: IConnectFunction) {
     if (this.socket?.readyState === WebSocket.OPEN) {
-      this.clearInterval();
       this.disconnect();
     }
 
     const data = await Chat.getToken(chatId);
     const user = await Auth.user();
 
-    const WEB_socket_URL = this.baseUrl + `/${user.id}/${chatId}/${data.token}`;
+    const WEB_SOCKET_URL = this.baseUrl + `/${user.id}/${chatId}/${data.token}`;
 
-    this.socket = new WebSocket(WEB_socket_URL);
+    this.socket = new WebSocket(WEB_SOCKET_URL);
 
     this.socket.addEventListener('message', (ev) => {
       try {
@@ -63,11 +61,6 @@ export class WebSocketChat implements IWebSocketChat {
     });
 
     return this;
-  }
-
-  clearInterval() {
-    clearInterval(this.interval!);
-    this.interval = null;
   }
 
   disconnect() {

@@ -26,8 +26,13 @@ export default class ChatListItem extends Component<{}, ChatListItemProps> {
       li(`c=chat__list__item chat__list__item${selectedChat}; tabIndex=0;`, [
 
         div('c=chat__list__item__avatar;', [
-          userAvatar? img(`c=chat__list__item__avatar__img; src=${hostResources + userAvatar}; alt=profile photo;`,['E']):
-          div('c=chat__list__item__avatar_preview;', ['E']),
+          userAvatar?
+            img(`
+              c=chat__list__item__avatar__img;
+              src=${hostResources + userAvatar};
+              alt=profile photo;`, ['E']
+          ):
+          div('c=chat__list__item__avatar_preview;', [chat.title[0].toUpperCase()]),
         ]),
 
         div('c=chat__list__item__body;', [

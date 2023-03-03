@@ -1,3 +1,4 @@
+import './index.sass';
 import {Router} from '@core/router';
 import {location} from '@app/constants';
 import {LoginPage, ProfilePage, RegisterPage, EditProfilePage} from '@app/pages';
@@ -18,7 +19,7 @@ function initApp() {
   const rootElement = document.getElementById('root');
 
   if (!rootElement) {
-    throw new Error('id #root is not exit in index.html');
+    throw new Error('id #root is not exit in index.html')
   }
 
   Router.init(routes);

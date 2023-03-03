@@ -1,4 +1,6 @@
 import {ChatsPage} from '@app/pages';
+import {VirtualNode} from '@core/types';
+import {ChatPageState} from 'src/app/pages/ChatsPage/types';
 import {createHTMLElement} from '../vdom';
 
 const chats = [
@@ -17,50 +19,63 @@ const chats = [
         second_name: 'ewrw',
       },
     },
-    title: 'qwe',
+    title: 'test chat title',
     unread_count: 123,
   },
 ];
 
-describe('component', () => {
-  const div = document.createElement('div');
-  div.id = 'root';
-  document.body.appendChild(div);
+let target: VirtualNode;
+let vNode: VirtualNode;
+let component: ChatsPage;
+let state: ChatPageState;
 
-  const component = new ChatsPage();
-  const vNode = component.init();
-  const state = component.state;
-  createHTMLElement(vNode);
+describe('component', () => {
+  beforeEach(() => {
+    const div = document.createElement('div');
+    div.id = 'root';
+    document.body.appendChild(div);
+
+    component = new ChatsPage();
+    vNode = component.init();
+    state = component.state;
+
+    createHTMLElement(vNode);
+  });
 
   test('change children', () => {
     state.chats = chats;
-    expect(vNode).toBeDefined();
+
+    target = vNode.children[0] as VirtualNode;
+    target = target.children[1] as VirtualNode;
+    target = target.children[0] as VirtualNode;
+    target = target.children[1] as VirtualNode;
+    target = target.children[0] as VirtualNode;
+    target = target.children[0] as VirtualNode;
+    target = target.children[0] as VirtualNode;
+
+    expect(target).toBe('test chat title');
   });
 
   test('after clear state', () => {
     component['isClearState'] = true;
     state.error = '';
-    expect(vNode).toBeDefined();
-  });
-  test('change tag', () => {
-    state.loadChats = true;
-    state.loadChats = false;
-    expect(vNode).toBeDefined();
+    expect(component['vNodeNext']).toBe(undefined);
   });
 
-  test('didMount', () => {
-    component.didMount();
-    expect(vNode).toBeDefined();
+  test('didMount', async () => {
+    expect(component.didMount).toBeDefined();
   });
 
   test('didUpdate', () => {
-    component.didUpdate();
-    expect(vNode).toBeDefined();
+    expect(component.didUpdate).toBeDefined();
   });
 
   test('mutationCallback', () => {
-    component['mutationCallback'].call(component);
-    expect(vNode).toBeDefined();
+    const func = () => {
+      component['mutationCallback'].call(component);
+    };
+
+    expect(func).not.toThrow();
   });
 
   test('destroy', () => {

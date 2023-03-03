@@ -2,15 +2,9 @@ import {onChange} from '@app/functions';
 import {Component} from '@core/component';
 import {ReasonResponse} from '@api/types';
 import {error} from '@app/constants';
-import {
-  CHANGE_INPUT,
-  CREATE_CHAT,
-  DELETE_CHAT,
-  OPEN_CHAT,
-  OPEN_FIRST_CHAT,
-  SWITCH_TOOLTIP,
-} from '@app/actions';
-import {WebSocketChat} from '@api/websocket/chat';
+import {CHANGE_INPUT, CREATE_CHAT, DELETE_CHAT} from '@app/actions';
+import {OPEN_CHAT, OPEN_FIRST_CHAT, SWITCH_TOOLTIP} from '@app/actions';
+import {WebSocketChat} from '@api/sockets/chat';
 import {ChatListProps, ChatListState} from './types';
 import {Chat} from '@api/repositories';
 import {first} from '@core/utils';
